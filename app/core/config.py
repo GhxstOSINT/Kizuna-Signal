@@ -25,9 +25,9 @@ class Settings(BaseSettings):
     ]
     demo_mode: bool = True
     log_level: str = "INFO"
-    model_version: str = "kizuna-baseline-0.1.0"
+    model_version: str = "kizuna-census-ridge-1.0.0"
     feature_version: str = "public-signals-0.1.0"
-    scoring_version: str = "market-potential-0.1.0"
+    scoring_version: str = "market-potential-0.2.0"
 
     @field_validator("cors_origins", mode="before")
     @classmethod

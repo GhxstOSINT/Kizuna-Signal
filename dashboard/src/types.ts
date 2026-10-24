@@ -47,3 +47,16 @@ export type Scenario = {
   created_at: string
 }
 export type PortfolioItem = { project: Project; title: Title; analysis: Analysis }
+export type ModelCard = {
+  active: boolean; model_version: string | null; model?: string; target?: string
+  conformal?: { q80: number; q90: number }
+  dataset?: {
+    rows: number; train_rows: number; holdout_rows: number; synthetic: boolean; generator: string
+    state_sampling: string; top_states: string[]; top_state_affinity_inflation: number; census_note: string
+    state_genre_profile: Record<string, Record<string, { rows: number; mean_demand: number }>>
+  }
+  metrics?: {
+    evaluation: string; holdout_r2: number; holdout_mae: number; r2_ceiling: number
+    real_data_check: { titles: number; pearson: number; spearman: number; note: string }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "method": "normalized Levenshtein similarity, 0-100; absent fields excluded and weights renormalised",
+  "titles": [
+    {
+      "title": "Hollow Tide",
+      "genre_confidence": 100.0,
+      "platform_confidence": 100.0,
+      "budget_confidence": 100.0,
+      "nearest_existing_title": {
+        "against": "Kitsune Circuit",
+        "fields": {
+          "title": 13.33,
+          "description": 32.08,
+          "genre": 18.52,
+          "platform": 10.0,
+          "budget": 0.0
+        },
+        "composite": 17.92,
+        "fields_used": [
+          "budget",
+          "description",
+          "genre",
+          "platform",
+          "title"
+        ]
+      },
+      "nearest_released_title": {
+        "against": "Your Name",
+        "fields": {
+          "title": 27.27,
+          "description": 27.54,
+          "genre": 37.93,
+          "platform": null,
+          "budget": null
+        },
+        "composite": 30.93,
+        "fields_used": [
+          "description",
+          "genre",
+          "title"
+        ]
+      }
+    },
+    {
+      "title": "Kitsune Circuit",
+      "genre_confidence": 100.0,
+      "platform_confidence": 100.0,
+      "budget_confidence": 100.0,
+      "nearest_existing_title": {
+        "against": "Shadow Bloom",
+        "fields": {
+          "title": 6.67,
+          "description": 26.42,
+          "genre": 17.86,
+          "platform": 100.0,
+          "budget": 0.0
+        },
+        "composite": 23.73,
+        "fields_used": [
+          "budget",
+          "description",
+          "genre",
+          "platform",
+          "title"
+        ]
+      },
+      "nearest_released_title": {
+        "against": "Haikyu",
+        "fields": {
+          "title": 13.33,
+          "description": 11.32,
+          "genre": 70.0,
+          "platform": null,
+          "budget": null
+        },
+        "composite": 31.42,
+        "fields_used": [
+          "description",
+          "genre",
+          "title"
+        ]
+      }
+    },
+    {
+      "title": "Shadow Bloom",
+      "genre_confidence": 100.0,
+      "platform_confidence": 100.0,
+      "budget_confidence": 100.0,
+      "nearest_existing_title": {
+        "against": "Kitsune Circuit",
+        "fields": {
+          "title": 6.67,
+          "description": 26.42,
+          "genre": 17.86,
+          "platform": 100.0,
+          "budget": 0.0
+        },
+        "composite": 23.73,
+        "fields_used": [
+          "budget",
+          "description",
+          "genre",
+          "platform",
+          "title"
+        ]
+      },
+      "nearest_released_title": {
+        "against": "Naruto",
+        "fields": {
+          "title": 16.67,
+          "description": 25.5,
+          "genre": 57.14,
+          "platform": null,
+          "budget": null
+        },
+        "composite": 33.69,
+        "fields_used": [
+          "description",
+          "genre",
+          "title"
+        ]
+      }
+    }
+  ]
+}

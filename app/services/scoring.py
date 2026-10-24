@@ -3,6 +3,7 @@ from __future__ import annotations
 import statistics
 
 from app.db.models import Title
+from app.ml import regional
 from app.schemas.analysis import ComparableTitle, PredictionDriver, RegionalScore
 from app.services.sources.base import SourceEvidence
 
@@ -125,25 +126,41 @@ def calculate_regional_scores(
     selected_languages = {item.lower() for item in title.target_languages}
     selected_states = set(title.target_states)
     rows: list[RegionalScore] = []
+    modelled = regional.predict_states(
+        [title.primary_genre, *title.genres],
+        title.content_format,
+        title.target_platform,
+        title.marketing_budget,
+        title.target_languages,
+        state_languages={s: p["language"] for s, p in STATE_PROFILES.items()},
+    )
     for state, profile in STATE_PROFILES.items():
+        demand = modelled[state]["demand"] if modelled else profile["base"]
         language_match = 5 if profile["language"].lower() in selected_languages else 0
         target_match = 4 if state in selected_states else 0
         platform_match = 2 if title.target_platform.lower() in {"ott", "undecided"} else 0
         score = clamp(
             0.58 * market_score
-            + 0.42 * profile["base"]
-            + language_match
+            + 0.42 * demand
             + target_match
-            + platform_match
+            + (0 if modelled else language_match + platform_match)
         )
         state_confidence = clamp(
             confidence
             - (3 if state not in {"Maharashtra", "Karnataka", "Delhi NCR", "Tamil Nadu"} else 0)
         )
-        reasons = [
-            f"Regional baseline indicates {profile['language']} audience opportunity.",
-            f"Title-level potential contributes {market_score:.1f}/100 to this region.",
-        ]
+        if modelled:
+            low, high = modelled[state]["interval_80"]
+            reasons = [
+                f"Census-weighted demand model estimates {demand:.0f}/100 for this genre, format, "
+                f"platform and budget (80% range {low:.0f} to {high:.0f}).",
+                f"Title-level potential contributes {market_score:.1f}/100 to this region.",
+            ]
+        else:
+            reasons = [
+                f"Regional baseline indicates {profile['language']} audience opportunity.",
+                f"Title-level potential contributes {market_score:.1f}/100 to this region.",
+            ]
         if language_match:
             reasons.append(f"The proposed localization includes {profile['language']}.")
         rows.append(
@@ -179,7 +196,7 @@ def build_drivers(
             name=labels[key],
             contribution=abs(contribution),
             direction="positive" if contribution >= 0 else "negative",
-            evidence=f"Component score {value:.1f}/100 under scoring version market-potential-0.1.0.",
+            evidence=f"Component score {value:.1f}/100 under scoring version market-potential-0.2.0.",
         )
         (positives if contribution >= 0 else negatives).append(driver)
 

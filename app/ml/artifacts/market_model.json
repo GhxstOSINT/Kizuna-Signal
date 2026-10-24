@@ -1,0 +1,181 @@
+{
+  "model": "weighted-ridge-regression",
+  "target": "india_performance (0-100)",
+  "seed": 7,
+  "feature_names": [
+    "genre_action",
+    "genre_adventure",
+    "genre_comedy",
+    "genre_drama",
+    "genre_fantasy",
+    "genre_mystery",
+    "genre_romance",
+    "genre_scifi",
+    "genre_sports",
+    "genre_supernatural",
+    "is_film",
+    "age"
+  ],
+  "intercept": 69.64956916083365,
+  "coefficients": [
+    2.912866362422483,
+    2.5922557180831003,
+    -2.8821870165952106,
+    1.292340457488826,
+    2.0925800799292955,
+    0.3301013701996334,
+    -0.6114038216724432,
+    0.2681211666660358,
+    1.0416640950158191,
+    1.6581344106556395,
+    -0.9168598257614763,
+    -0.5742441286141685
+  ],
+  "hyperparameters": {
+    "lambda": 10.0,
+    "synthetic_weight": 0.3,
+    "synthetic_rows": 400
+  },
+  "label_range": 50.0,
+  "conformal": {
+    "q80": 20.994,
+    "q90": 22.997
+  },
+  "metrics": {
+    "real_rows": 27,
+    "evaluation": "leave-one-out on real rows only; synthetic regenerated per fold",
+    "baseline_mean_mae": 12.701,
+    "loo_mae": 12.128,
+    "loo_r2": 0.024,
+    "mae_improvement_vs_baseline_pct": 4.5,
+    "best_without_synthetic": {
+      "lambda": 10.0,
+      "synthetic_weight": 0.0,
+      "loo_mae": 12.326,
+      "loo_r2": -0.017
+    },
+    "synthetic_helped": true,
+    "grid": [
+      {
+        "lambda": 1.0,
+        "synthetic_weight": 0.0,
+        "loo_mae": 13.387,
+        "loo_r2": -0.239
+      },
+      {
+        "lambda": 1.0,
+        "synthetic_weight": 0.05,
+        "loo_mae": 13.293,
+        "loo_r2": -0.214
+      },
+      {
+        "lambda": 1.0,
+        "synthetic_weight": 0.15,
+        "loo_mae": 13.232,
+        "loo_r2": -0.202
+      },
+      {
+        "lambda": 1.0,
+        "synthetic_weight": 0.3,
+        "loo_mae": 13.202,
+        "loo_r2": -0.198
+      },
+      {
+        "lambda": 3.0,
+        "synthetic_weight": 0.0,
+        "loo_mae": 12.744,
+        "loo_r2": -0.076
+      },
+      {
+        "lambda": 3.0,
+        "synthetic_weight": 0.05,
+        "loo_mae": 12.643,
+        "loo_r2": -0.058
+      },
+      {
+        "lambda": 3.0,
+        "synthetic_weight": 0.15,
+        "loo_mae": 12.543,
+        "loo_r2": -0.044
+      },
+      {
+        "lambda": 3.0,
+        "synthetic_weight": 0.3,
+        "loo_mae": 12.482,
+        "loo_r2": -0.035
+      },
+      {
+        "lambda": 10.0,
+        "synthetic_weight": 0.0,
+        "loo_mae": 12.326,
+        "loo_r2": -0.017
+      },
+      {
+        "lambda": 10.0,
+        "synthetic_weight": 0.05,
+        "loo_mae": 12.266,
+        "loo_r2": -0.004
+      },
+      {
+        "lambda": 10.0,
+        "synthetic_weight": 0.15,
+        "loo_mae": 12.19,
+        "loo_r2": 0.012
+      },
+      {
+        "lambda": 10.0,
+        "synthetic_weight": 0.3,
+        "loo_mae": 12.128,
+        "loo_r2": 0.024
+      },
+      {
+        "lambda": 30.0,
+        "synthetic_weight": 0.0,
+        "loo_mae": 12.467,
+        "loo_r2": -0.033
+      },
+      {
+        "lambda": 30.0,
+        "synthetic_weight": 0.05,
+        "loo_mae": 12.421,
+        "loo_r2": -0.025
+      },
+      {
+        "lambda": 30.0,
+        "synthetic_weight": 0.15,
+        "loo_mae": 12.355,
+        "loo_r2": -0.013
+      },
+      {
+        "lambda": 30.0,
+        "synthetic_weight": 0.3,
+        "loo_mae": 12.282,
+        "loo_r2": -0.002
+      },
+      {
+        "lambda": 100.0,
+        "synthetic_weight": 0.0,
+        "loo_mae": 12.613,
+        "loo_r2": -0.059
+      },
+      {
+        "lambda": 100.0,
+        "synthetic_weight": 0.05,
+        "loo_mae": 12.592,
+        "loo_r2": -0.055
+      },
+      {
+        "lambda": 100.0,
+        "synthetic_weight": 0.15,
+        "loo_mae": 12.563,
+        "loo_r2": -0.049
+      },
+      {
+        "lambda": 100.0,
+        "synthetic_weight": 0.3,
+        "loo_mae": 12.526,
+        "loo_r2": -0.042
+      }
+    ]
+  }
+}
