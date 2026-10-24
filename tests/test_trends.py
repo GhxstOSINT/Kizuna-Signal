@@ -3,8 +3,8 @@ from datetime import date, timedelta
 import pandas as pd
 import pytest
 
-from app.core.config import settings
 from app.adapters.google_trends import QuotaExceeded, RateLimited, TrendsClient, TrendsError
+from app.core.config import settings
 from app.ml.demand import MIN_VALID_STATES, collect_title, is_eligible, search_term, summarize_state
 from app.ml.features import build_rows
 from app.ml.schema import TitleRecord
@@ -174,6 +174,7 @@ def test_circuit_breaker_stops_run_after_consecutive_429s(tmp_path):
 
 def test_anilist_sort_is_passed_through(tmp_path):
     import httpx
+
     from app.adapters.anilist import AniListClient
     seen = {}
 

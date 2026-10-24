@@ -64,9 +64,9 @@ def main() -> int:
     stopped = False
     try:
         for title in mine:
-            d, l, rep = collect_title(client, title, states)
+            d, lab, rep = collect_title(client, title, states)
             demand += d
-            labels += l
+            labels += lab
             reports.append(rep)
             print(rep["title_id"], rep["states_ok"], rep["error"] or "ok", flush=True)
             save(args.data, args.shard, demand, labels, reports, client, len(mine), False)

@@ -17,9 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.ml import csv_data  # noqa: E402
 from app.ml.embeddings import get_embedder  # noqa: E402
 from app.ml.state_model import StateModel  # noqa: E402
+from app.ml.states import STATES  # noqa: E402
 from app.ml.success import SuccessModel  # noqa: E402
 from app.ml.synthetic import SyntheticConfig  # noqa: E402
-from app.ml.states import STATES  # noqa: E402
 
 
 def main() -> int:

@@ -13,8 +13,8 @@ from app.ml.features import titles_frame
 from app.ml.intervals import ConformalInterval
 from app.ml.split import franchise_time_split
 from app.ml.states import PILOT_STATES
-from app.ml.train import save
 from app.ml.train import run as train_run
+from app.ml.train import save
 from tests.test_ml_pipeline import synthetic
 
 

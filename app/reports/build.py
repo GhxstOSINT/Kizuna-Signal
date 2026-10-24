@@ -1,5 +1,5 @@
 """Assembles one report dict from a prediction. Every renderer (json, csv, xml, pdf) reads this dict only."""
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from app.ml.scoring_config import ConfidenceConfig
 from app.ml.state_model import StateModel
@@ -124,7 +124,7 @@ def assemble(title: dict, out: dict, success: dict | None, model: StateModel) ->
     ens = rep.get("metrics_oof", {}).get("ensemble", {})
     report = {
         "report_version": REPORT_VERSION,
-        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "title": title,
         "success": success,
         "india": out["india"],

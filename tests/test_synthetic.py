@@ -26,7 +26,7 @@ def _fixture():
 def test_fills_only_missing_cells_and_never_real_ones():
     titles, emb, labels, ctx = _fixture()
     syn = synthesize(labels, titles, emb, STATES, ctx, state_effect(labels))
-    assert set(zip(syn["title_id"], syn["state"])) == {("t0", "IN-D")}
+    assert set(zip(syn["title_id"], syn["state"], strict=True)) == {("t0", "IN-D")}
 
 
 def test_uses_only_the_given_titles():

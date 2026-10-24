@@ -15,7 +15,7 @@ Training uses every labelled title:
 """
 import json
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import joblib
@@ -30,10 +30,10 @@ from app.ml.intervals import ConformalInterval
 from app.ml.models import EnsembleModel, RidgeModel, StateMeanBaseline, XGBModel
 from app.ml.scoring_config import ConfidenceConfig, as_dict
 from app.ml.split import grouped_time_folds
-from app.ml.synthetic import SyntheticConfig, synthesize
-from app.ml.synthetic import as_dict as synthetic_as_dict
 from app.ml.state_features import add_lift, history_features, state_effect, title_extras, with_dlog
 from app.ml.states import STATES
+from app.ml.synthetic import SyntheticConfig, synthesize
+from app.ml.synthetic import as_dict as synthetic_as_dict
 
 TASK = "state"
 TARGET = "y"
@@ -173,7 +173,7 @@ class StateModel:
             syn_fit = add_lift(synthetic_rows(train_ids, eff), eff)
             for v in variants:
                 fit = pd.concat([real_fit, syn_fit], ignore_index=True) if v == "augmented" else real_fit
-                for name, factory in zip(names, factories):
+                for name, factory in zip(names, factories, strict=True):
                     oof[v][name].append(factory().fit(fit, cols).predict(val, cols))
             parts.append(val)
         if not parts:
@@ -238,7 +238,7 @@ class StateModel:
                         "and only change the training set."},
             "confidence_config": as_dict(ConfidenceConfig()),
             "exploratory": len(labelled) < SMALL_TRAINING_SET,
-            "trained_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "trained_at": datetime.now(UTC).isoformat(timespec="seconds"),
         }
         return cls(encoder, final | {ensemble.name: ensemble}, ensemble, conformal, cols, states, labelled, emb,
                    labels, effect, state_ctx, float(np.std(y)),
@@ -319,7 +319,7 @@ class StateModel:
     # -------------------------------------------------------------- persistence
     def save(self, root: Path = Path("models")) -> Path:
         """models/state/<version>/{model.joblib,report.json} and models/state/LATEST.json."""
-        self.version = f"state-lift-{FEATURE_VERSION}-{datetime.now(timezone.utc):%Y%m%dT%H%M%S}"
+        self.version = f"state-lift-{FEATURE_VERSION}-{datetime.now(UTC):%Y%m%dT%H%M%S}"
         self.report["model_version"] = self.version
         folder = root / TASK / self.version
         folder.mkdir(parents=True, exist_ok=True)

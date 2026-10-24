@@ -110,7 +110,7 @@ def state_baseline(labels: pd.DataFrame, path: Path):
     ax.axvline(1, color=MUTED, lw=0.8, ls="--")
     ax.set_xlabel("average interest index (1.0 = a title's average state)")
     ax.set_title("Where anime search interest concentrates", loc="left", fontsize=12, fontweight="bold")
-    for y, (i, n) in enumerate(zip(g["index"], g["n"])):
+    for y, (i, n) in enumerate(zip(g["index"], g["n"], strict=True)):
         ax.text(i + 0.02, y, f"{i:.2f}  (n={n})", va="center", fontsize=7.5, color=MUTED)
     ax.grid(axis="x", color=GRID, lw=0.6)
     ax.set_axisbelow(True)
@@ -126,7 +126,7 @@ def top_states_per_genre(lift: pd.DataFrame, path: Path, n_genres: int = 6, k: i
     cols = 3
     rows = int(np.ceil(len(genres) / cols))
     fig, axes = plt.subplots(rows, cols, figsize=(12, 2.6 * rows), squeeze=False)
-    for ax, g in zip(axes.ravel(), genres):
+    for ax, g in zip(axes.ravel(), genres, strict=False):  # the grid can have spare axes
         d = lift[lift["group"] == g].nlargest(k, "lift").iloc[::-1]
         ax.barh(d["state"], d["lift"], color=BLUE, height=0.6)
         ax.axvline(1, color=MUTED, lw=0.8, ls="--")

@@ -47,7 +47,8 @@ def effect_chart(card: dict, path: Path) -> None:
         return
     fig, axes = plt.subplots(1, 3, figsize=(10, 3.4))
     for ax, key, title in zip(axes, ("spearman", "rmse_sparse_states", "rmse_dense_states"),
-                              ("Held-out Spearman (higher better)", "Lift RMSE, sparse states", "Lift RMSE, dense states")):
+                              ("Held-out Spearman (higher better)", "Lift RMSE, sparse states", "Lift RMSE, dense states"),
+                              strict=True):
         ax.bar(["real only", "+ synthetic"], [c["real_only"][key], c["augmented"][key]], color=[REAL, SYN])
         ax.set_title(title, fontsize=9, loc="left", color=INK)
         for side in ("top", "right"):
@@ -65,7 +66,7 @@ def _f(v, digits: int = 3) -> str:
 def markdown(card: dict, model: StateModel, success: SuccessModel | None) -> str:
     td, ev = card["training_data"], card["evaluation"]
     cfg = MarketPotentialConfig()
-    lines = [f"# Kizuna Signal: India model report", "",
+    lines = ["# Kizuna Signal: India model report", "",
              f"Model `{card['model_version']}`, trained {card['trained_at']}. {card['n_labelled_titles']} labelled titles, "
              f"{card['n_states']} states and UTs.", "",
              "## Training data", "",

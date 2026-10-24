@@ -94,4 +94,4 @@ class EnsembleModel:
         return self
 
     def predict(self, rows, cols):
-        return sum(w * m.predict(rows, cols) for w, m in zip(self.weights, self.members))
+        return sum(w * m.predict(rows, cols) for w, m in zip(self.weights, self.members, strict=True))

@@ -5,7 +5,7 @@ with conformal intervals and a separate confidence output. Evaluated once on a
 time-based, franchise-grouped held-out set.
 """
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import joblib
@@ -17,7 +17,13 @@ from app.ml import explain
 from app.ml.comparables import ComparableIndex, comparable_features
 from app.ml.confidence import title_confidence
 from app.ml.evaluate import per_title_metrics, summarize
-from app.ml.features import FEATURE_VERSION, ContentEncoder, build_rows, feature_columns, group_columns
+from app.ml.features import (
+    FEATURE_VERSION,
+    ContentEncoder,
+    build_rows,
+    feature_columns,
+    group_columns,
+)
 from app.ml.intervals import ConformalInterval
 from app.ml.models import EnsembleModel, RidgeModel, StateMeanBaseline, XGBModel
 from app.ml.scoring_config import ConfidenceConfig, MarketPotentialConfig, as_dict
@@ -82,7 +88,7 @@ def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
     # Confidence is a separate output, then checked against actual per-title accuracy.
     pool_titles = titles[pool_mask]
     same_franchise = titles["franchise_id"].to_numpy()[:, None] == pool_titles["franchise_id"].to_numpy()[None, :]
-    max_sim = dict(zip(titles["title_id"], np.where(same_franchise, -np.inf, emb @ emb[pool_mask].T).max(axis=1)))
+    max_sim = dict(zip(titles["title_id"], np.where(same_franchise, -np.inf, emb @ emb[pool_mask].T).max(axis=1), strict=True))
     conf = title_confidence(test, ens_test, hi - lo, len(states), cmp_stats, max_sim)
     per_title = per_title_metrics(test, ens_test).merge(conf, on="title_id")
     conf_corr = (spearmanr(per_title["confidence"], per_title["top3_hit"]).statistic
@@ -120,7 +126,7 @@ def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
 
 def save(report: dict, out: Path, objects: dict | None = None) -> Path:
     """Write a versioned model directory plus the latest report."""
-    version = f"{report['feature_version']}-{datetime.now(timezone.utc):%Y%m%dT%H%M%S}"
+    version = f"{report['feature_version']}-{datetime.now(UTC):%Y%m%dT%H%M%S}"
     folder = out / version
     folder.mkdir(parents=True, exist_ok=True)
     report = {**report, "model_version": version}

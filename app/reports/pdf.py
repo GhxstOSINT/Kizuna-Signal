@@ -76,7 +76,7 @@ def _summary(r: dict, n: int):
         ax = fig.add_axes([0.28, 0.33, 0.62, 0.24])
         comps = s["components"]
         y = np.arange(len(comps))[::-1]
-        for yi, c in zip(y, comps):
+        for yi, c in zip(y, comps, strict=True):
             if c["status"] == "ok":
                 ax.barh(yi, c["value"], color=UP, height=0.55)
                 ax.plot([c["low"], c["high"]], [yi, yi], color=INK, lw=1.6)
@@ -148,7 +148,7 @@ def _ranking(r: dict, n: int):
     sts = r["states"][::-1]
     y = np.arange(len(sts))
     ax.barh(y, [s["lift"] for s in sts], color=[UP if s["lift"] >= 0 else DOWN for s in sts], height=0.62)
-    for yi, s in zip(y, sts):
+    for yi, s in zip(y, sts, strict=True):
         ax.plot([s["low"], s["high"]], [yi, yi], color=INK, lw=0.9)
     ax.axvline(0, color=INK, lw=0.8)
     ax.set_yticks(y, [f"{s['rank']:>2}  {s['name'][:26]}" for s in sts], fontsize=7)
@@ -210,7 +210,7 @@ def _evaluation(r: dict, n: int):
                                           f"{ev['oof_titles']} held-out titles", n)
     ax = fig.add_axes([0.30, 0.64, 0.6, 0.20])
     rows = [("Rank correlation (Spearman)", ev["spearman"], 0.0), ("Top-3 state hit rate", ev["top3_hit"], ev["top3_hit_chance"])]
-    for i, (label, met, chance) in enumerate(rows[::-1]):
+    for i, (_label, met, chance) in enumerate(rows[::-1]):
         ax.barh(i, met["mean"], color=UP, height=0.45)
         ax.plot(met["ci95"], [i, i], color=INK, lw=1.6)
         ax.plot([chance, chance], [i - 0.35, i + 0.35], color=DOWN, lw=2)

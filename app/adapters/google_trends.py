@@ -8,7 +8,7 @@ import hashlib
 import json
 import random
 import time
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 from app.core.config import settings
@@ -95,7 +95,7 @@ class TrendsClient:
         envelope = {
             "source": "google_trends", "terms": terms, "geo": geo,
             "start": str(start), "end": str(end),
-            "collected_at": datetime.now(timezone.utc).isoformat(),
+            "collected_at": datetime.now(UTC).isoformat(),
             "checksum": hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest(),
             "scale": "relative 0-100 within request; anchor-normalised downstream",
             "rows": rows,

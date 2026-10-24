@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from app.ml.features import assert_no_leakage, feature_columns, titles_frame
+from app.ml.features import assert_no_leakage, titles_frame
 from app.ml.schema import TitleRecord
 from app.ml.states import PILOT_STATES
 from app.ml.titles import to_title_records
@@ -27,7 +27,7 @@ def synthetic(n=60, seed=0):
         # genre decides which states over-index, plus noise
         boost = {s: (3.0 if PILOT_STATES.index(s) % 4 == i % 4 else 1.0) for s in PILOT_STATES}
         raw = np.array([boost[s] for s in PILOT_STATES]) * rng.uniform(0.8, 1.2, len(PILOT_STATES))
-        for s, v in zip(PILOT_STATES, raw / raw.sum()):
+        for s, v in zip(PILOT_STATES, raw / raw.sum(), strict=True):
             labels.append({"title_id": f"t{i}", "state": s, "share": v})
     return records, pd.DataFrame(labels)
 

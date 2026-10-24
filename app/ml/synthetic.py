@@ -79,13 +79,13 @@ def synthesize(labels: pd.DataFrame, titles: pd.DataFrame, emb: np.ndarray, stat
     eff = effect.reindex(states).fillna(0.0).to_numpy()
 
     lift = np.full((len(ids), len(states)), np.nan)  # observed lift = dlog - state effect
-    for t, s, d in zip(labels["title_id"], labels["state"], labels["dlog"]):
+    for t, s, d in zip(labels["title_id"], labels["state"], labels["dlog"], strict=True):
         if t in pos and s in sidx:
             lift[pos[t], sidx[s]] = d - eff[sidx[s]]
     seen = ~np.isnan(lift)
     log_mean = labels.groupby("title_id")["log_share"].mean()
 
-    tags = [set(g) | set(t) for g, t in zip(titles["genres"], titles["themes"])]
+    tags = [set(g) | set(t) for g, t in zip(titles["genres"], titles["themes"], strict=True)]
     sim = cfg.cosine_share * np.clip(emb @ emb.T, 0, None) + (1 - cfg.cosine_share) * _jaccard_matrix(tags)
     np.fill_diagonal(sim, -1.0)  # a title never informs itself
     region = _region_weights(state_ctx, states, cfg)

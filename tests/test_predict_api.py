@@ -58,6 +58,7 @@ def test_one_request_returns_ranked_states_and_summary(client, model):
 
 def test_tags_and_genres_reach_the_model_features(model):
     from datetime import date
+
     from app.services.state_frame import make_frame
     frame = make_frame("p", "p", "X", None, ["Action"], ["action"], "anime_series", date(2030, 1, 1), "s " * 30)
     encoded = model.encoder.transform(frame).iloc[0]

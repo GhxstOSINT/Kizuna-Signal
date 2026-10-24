@@ -1,10 +1,10 @@
 import csv
 import io
 import warnings
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
-from pathlib import Path
 
 from app.main import app
 
@@ -132,6 +132,7 @@ def test_no_confidence_factor_is_constant_across_inputs(client):
 
 def test_confidence_weights_sum_to_one():
     from dataclasses import asdict
+
     from app.ml.scoring_config import ConfidenceConfig
     weights = {k: v for k, v in asdict(ConfidenceConfig()).items() if k != "version"}
     assert sum(weights.values()) == pytest.approx(1.0)

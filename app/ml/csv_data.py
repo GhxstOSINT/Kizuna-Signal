@@ -47,9 +47,9 @@ def load(folder: Path = Path("csv")) -> CsvData:
     labels = table[["title_id", "state", "share"]]
 
     # The file's lift must equal the documented formula; a mismatch means the table is not what we think.
-    l = with_dlog(labels)
-    mine = (l["log_share"] - l.groupby("title_id")["log_share"].transform("mean")
-            - l.groupby("state")["log_share"].transform("mean") + l["log_share"].mean())
+    logged = with_dlog(labels)
+    mine = (logged["log_share"] - logged.groupby("title_id")["log_share"].transform("mean")
+            - logged.groupby("state")["log_share"].transform("mean") + logged["log_share"].mean())
     check = {"rows": len(table), "titles": int(table["title_id"].nunique()),
              "max_abs_lift_diff": float(np.abs(mine.to_numpy() - table["lift"].to_numpy()).max()),
              "demand_columns_all_pre": all(c.startswith("pre_") for c in demand.columns
