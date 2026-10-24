@@ -1,0 +1,33 @@
+"""Kizuna Signal: Streamlit prototype entry point."""
+import streamlit as st
+
+from kizuna import state, theme
+from kizuna.config import APP_NAME
+from views import portfolio
+
+st.set_page_config(page_title=APP_NAME, page_icon=":material/radar:", layout="wide")
+theme.inject_css()
+
+PAGES = {
+    "portfolio": st.Page(portfolio.render, title="Portfolio", icon=":material/dashboard:",
+                         url_path="portfolio", default=True),
+}
+state.register_pages(PAGES)
+
+with st.sidebar:
+    st.markdown(f"### {APP_NAME}")
+    st.caption("Pre-release intelligence for Japanese media in India")
+    projects = state.get_api().list_projects()
+    ids = [p["title_id"] for p in projects]
+    names = {p["title_id"]: p["title"] for p in projects}
+    active = state.active_title()
+    if st.session_state.get("sidebar_title") != active:
+        st.session_state["sidebar_title"] = active
+    st.selectbox("Active title", ids, format_func=lambda i: names.get(i, i), key="sidebar_title",
+                 on_change=lambda: state.set_active_title(st.session_state["sidebar_title"]))
+    st.toggle("Show optional components", key="show_optional",
+              help="Adds Localization Readiness. It carries no weight in the market-potential score.")
+    st.text_input("Analyst name", key="analyst_name", value="Analyst",
+                  help="Recorded in the audit log for overrides and approvals.")
+
+st.navigation(list(PAGES.values())).run()
