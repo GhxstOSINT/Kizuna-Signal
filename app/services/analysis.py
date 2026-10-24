@@ -11,6 +11,7 @@ from app.db.session import SessionLocal
 from app.schemas.analysis import AnalysisResult, SourceStatus
 from app.services.comparables import find_comparables
 from app.services.confidence import calculate_confidence, confidence_interval
+from app.services.model_analysis import score_title
 from app.services.recommendations import build_recommendation
 from app.services.regional import calculate_regional_scores_live, has_regional_evidence
 from app.services.scoring import (
@@ -78,21 +79,61 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
         update_job(db, job, 35, "building content profile and comparable titles")
         comparables = find_comparables(title, evidence=evidence, allow_catalog=settings.demo_mode)
 
-        update_job(db, job, 55, "calculating market and regional potential")
+        update_job(db, job, 55, "running trained market and regional model")
         component_scores = calculate_component_scores(title, evidence, comparables)
         unmeasured = unmeasured_components(title, evidence, comparables)
         market_score = calculate_market_score(component_scores, unmeasured)
         confidence, confidence_level, warnings = calculate_confidence(
             title, evidence, comparables, unmeasured
         )
-        if has_regional_evidence(evidence):
-            regions = calculate_regional_scores_live(title, market_score, confidence, evidence)
+        score_origin = "deterministic_fallback"
+        score_meaning = "A bounded relative market-opportunity index, not a revenue forecast."
+        model_warnings: list[str] = []
+        component_details: list[dict] = []
+        model_evaluation: dict = {}
+        regions = []
+
+        try:
+            model_result = score_title(title, confidence)
+        except (FileNotFoundError, ValueError, OSError) as exc:
+            logger.warning("trained_model_unavailable", extra={"reason": str(exc)})
+            model_warnings.append(
+                "The trained model was unavailable, so this snapshot uses the deterministic fallback."
+            )
+            if has_regional_evidence(evidence):
+                regions = calculate_regional_scores_live(title, market_score, confidence, evidence)
+            else:
+                regions = calculate_regional_scores(title, market_score, confidence)
+            interval = confidence_interval(market_score, confidence)
+            positive, negative = build_drivers(component_scores, title, evidence, unmeasured)
         else:
-            regions = calculate_regional_scores(title, market_score, confidence)
+            market_score = model_result.score
+            confidence = model_result.confidence
+            if {"demand_momentum", "engagement_quality"}.issubset(unmeasured):
+                confidence = min(confidence, 44.0)
+                regions = [
+                    region.model_copy(update={"confidence": confidence})
+                    for region in model_result.regions
+                ]
+            confidence_level = (
+                "high" if confidence >= 75 else "medium" if confidence >= 50 else "low"
+            )
+            component_scores = model_result.components
+            if not regions:
+                regions = model_result.regions
+            interval = model_result.interval
+            positive = model_result.positive_drivers
+            negative = model_result.negative_drivers
+            model_warnings = model_result.warnings
+            component_details = model_result.component_details
+            model_evaluation = model_result.evaluation
+            score_meaning = model_result.score_meaning
+            score_origin = "trained_model"
+            analysis.model_version = model_result.model_version
+            analysis.scoring_version = "market-potential-trained-1.0.0"
 
         update_job(db, job, 75, "generating explanations and confidence interval")
-        positive, negative = build_drivers(component_scores, title, evidence, unmeasured)
-        interval = confidence_interval(market_score, confidence)
+        warnings = list(dict.fromkeys([*warnings, *model_warnings]))
         classification = decision_classification(market_score, confidence)
 
         update_job(db, job, 90, "building launch playbook")
@@ -130,6 +171,11 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
             model_version=analysis.model_version,
             feature_version=analysis.feature_version,
             scoring_version=analysis.scoring_version,
+            score_origin=score_origin,
+            score_meaning=score_meaning,
+            model_warnings=model_warnings,
+            component_details=component_details,
+            model_evaluation=model_evaluation,
         )
 
         analysis.result = result.model_dump(mode="json")

@@ -1050,6 +1050,63 @@ legend {
   font: 400 31px "Instrument Serif";
   margin: 7px 0 0;
 }
+.score-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.score-meaning {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.model-proof {
+  margin-top: 34px;
+  padding: 22px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: #f8f8f6;
+}
+.model-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.model-proof-grid article,
+.component-detail-list article {
+  padding: 14px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #fff;
+}
+.model-proof-grid strong {
+  display: block;
+  font: 34px/1 "Instrument Serif";
+}
+.model-proof-grid span,
+.model-proof-note,
+.component-detail-list p {
+  display: block;
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.component-detail-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+.component-detail-list article > span {
+  float: right;
+  color: var(--muted);
+  font: 9px "IBM Plex Mono";
+  text-transform: uppercase;
+}
 .warning-band {
   margin: 14px 0;
   border: 1px solid #e0c69d;

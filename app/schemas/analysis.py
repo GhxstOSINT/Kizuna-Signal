@@ -81,6 +81,11 @@ class AnalysisResult(BaseModel):
     model_version: str
     feature_version: str
     scoring_version: str
+    score_origin: Literal["trained_model", "deterministic_fallback"] = "deterministic_fallback"
+    score_meaning: str = "A bounded relative market-opportunity index, not a revenue forecast."
+    model_warnings: list[str] = Field(default_factory=list)
+    component_details: list[dict] = Field(default_factory=list)
+    model_evaluation: dict = Field(default_factory=dict)
 
 
 class AnalysisRead(BaseModel):

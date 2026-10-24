@@ -33,6 +33,14 @@ export type AnalysisResult = {
   positive_drivers: Driver[]; negative_drivers: Driver[]; source_status: SourceStatus[]
   data_quality_warnings: string[]; recommendation: Recommendation; model_version: string
   feature_version: string; scoring_version: string
+  score_origin: 'trained_model' | 'deterministic_fallback'; score_meaning: string
+  model_warnings: string[]; component_details: Record<string, unknown>[]
+  model_evaluation: Record<string, string | number | null>
+}
+export type ModelCard = {
+  model_version: string; task: string; trained_at?: string; n_labelled_titles: number; n_states: number
+  training_data: Record<string, unknown>; evaluation: Record<string, unknown>
+  success_model: Record<string, unknown> | null; limitations: string[]
 }
 export type Analysis = {
   id: string; title_id: string; status: AnalysisStatus; result: AnalysisResult | null

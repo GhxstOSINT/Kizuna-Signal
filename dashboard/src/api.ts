@@ -1,4 +1,4 @@
-import type { Analysis, Job, PortfolioItem, Project, Scenario, Title } from './types'
+import type { Analysis, Job, ModelCard, PortfolioItem, Project, Scenario, Title } from './types'
 
 const API = import.meta.env.VITE_API_URL || '/api/v1'
 
@@ -21,7 +21,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  readiness: () => request<{ status: string; database: string; demo_mode: boolean; model_version: string; feature_version: string; scoring_version: string }>('/health/ready'),
+  readiness: () => request<{ status: string; database: string; demo_mode: boolean; model_status: 'ready' | 'fallback'; model_version: string; feature_version: string; scoring_version: string }>('/health/ready'),
+  modelCard: () => request<ModelCard>('/model'),
   sourceHealth: () => request<{ mode: string; sources: { source: string; status: string; required: boolean }[]; policy: string }>('/sources/health'),
   listProjects: () => request<Project[]>('/projects'),
   listTitles: (projectId: string) => request<Title[]>(`/projects/${projectId}/titles`),

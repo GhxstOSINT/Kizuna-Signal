@@ -7,6 +7,8 @@ WORKDIR /app
 
 COPY pyproject.toml README.md ./
 COPY app ./app
+COPY csv ./csv
+COPY models ./models
 COPY data/synthetic/synthetic_viewing_affinity.csv ./data/synthetic/synthetic_viewing_affinity.csv
 
 RUN pip install --no-cache-dir ".[postgres,ml]"

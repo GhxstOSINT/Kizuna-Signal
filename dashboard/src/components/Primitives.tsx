@@ -26,15 +26,16 @@ export function SectionHeading({ title, note }: { title: string; note?: string }
   return <div className="section-heading"><h2>{title}</h2>{note && <p>{note}</p>}</div>
 }
 
-export function ScoreField({ score, confidence, interval, classification }: { score: number; confidence: number; interval: [number, number]; classification: string }) {
+export function ScoreField({ score, confidence, interval, classification, origin, meaning }: { score: number; confidence: number; interval: [number, number]; classification: string; origin?: 'trained_model' | 'deterministic_fallback'; meaning?: string }) {
   return <section className="score-field">
     <div className="score-main"><span>Market potential</span><strong>{Math.round(score)}</strong><em>/ 100</em></div>
     <div className="score-support">
-      <StatusBadge status={classification} />
+      <div className="score-badges"><StatusBadge status={classification} />{origin&&<StatusBadge status={origin}/>}</div>
       <dl>
         <div><dt>Evidence confidence</dt><dd>{Math.round(confidence)}%</dd></div>
         <div><dt>Expected range</dt><dd>{Math.round(interval[0])} to {Math.round(interval[1])}</dd></div>
       </dl>
+      {meaning&&<p className="score-meaning">{meaning}</p>}
     </div>
   </section>
 }

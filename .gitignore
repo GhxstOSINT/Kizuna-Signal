@@ -25,6 +25,8 @@ build/
 
 models/*
 !models/.gitkeep
+!models/state/
+!models/state/**
 data/raw/
 data/cache/
 data/processed/

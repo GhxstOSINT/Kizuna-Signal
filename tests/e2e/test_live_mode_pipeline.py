@@ -80,12 +80,17 @@ def test_live_analysis_has_no_demo_evidence_and_uses_real_comparables_and_states
     assert analysis["status"] == "partially_completed"
 
     assert [c["title"] for c in result["comparable_titles"]] == [c["title"] for c in COMPARABLES]
-    assert len(result["regional_scores"]) == 36
+    assert result["score_origin"] == "trained_model"
+    assert len(result["regional_scores"]) == 35
     reasons = {r["state"]: r["reasons"] for r in result["regional_scores"]}
-    assert any("Google Trends interest 70/100" in r for r in reasons["Maharashtra"])
+    assert any("predicted relative demand lift" in r for r in reasons["Maharashtra"])
     assert any("Analysis completed without: youtube" in w for w in result["data_quality_warnings"])
     assert result["recommendation"]["priority_markets"]
-    assert result["component_scores"]["engagement_quality"] == 75.0  # AniList alone; no YouTube
+    engagement = next(
+        item for item in result["component_details"] if item["key"] == "engagement_quality"
+    )
+    assert engagement["status"] == "unavailable"
+    assert "engagement_quality" not in result["component_scores"]
 
 
 def test_live_mode_without_any_demand_evidence_is_flagged_insufficient(

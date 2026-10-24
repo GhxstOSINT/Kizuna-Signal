@@ -144,6 +144,14 @@
             "title": "Comparable Titles",
             "type": "array"
           },
+          "component_details": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Component Details",
+            "type": "array"
+          },
           "component_scores": {
             "additionalProperties": {
               "type": "number"
@@ -208,9 +216,21 @@
             "title": "Market Potential Score",
             "type": "number"
           },
+          "model_evaluation": {
+            "additionalProperties": true,
+            "title": "Model Evaluation",
+            "type": "object"
+          },
           "model_version": {
             "title": "Model Version",
             "type": "string"
+          },
+          "model_warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Model Warnings",
+            "type": "array"
           },
           "negative_drivers": {
             "items": {
@@ -235,6 +255,20 @@
             },
             "title": "Regional Scores",
             "type": "array"
+          },
+          "score_meaning": {
+            "default": "A bounded relative market-opportunity index, not a revenue forecast.",
+            "title": "Score Meaning",
+            "type": "string"
+          },
+          "score_origin": {
+            "default": "deterministic_fallback",
+            "enum": [
+              "trained_model",
+              "deterministic_fallback"
+            ],
+            "title": "Score Origin",
+            "type": "string"
           },
           "scoring_version": {
             "title": "Scoring Version",

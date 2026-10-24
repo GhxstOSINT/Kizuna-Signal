@@ -23,6 +23,21 @@ def test_complete_analysis_returns_frontend_contract(client, created_title):
     assert result["model_version"]
     assert result["feature_version"]
     assert result["scoring_version"]
+    assert result["score_origin"] == "trained_model"
+    assert result["model_version"].startswith("state-lift-")
+    assert result["component_details"]
+    assert result["model_evaluation"]["oof_titles"]
+
+
+def test_analysis_discloses_deterministic_fallback(client, created_title, monkeypatch):
+    def missing_model(title, evidence_confidence):
+        raise FileNotFoundError("model intentionally unavailable")
+
+    monkeypatch.setattr("app.services.analysis.score_title", missing_model)
+    analysis = start_and_read_analysis(client, created_title["id"])
+    result = analysis["result"]
+    assert result["score_origin"] == "deterministic_fallback"
+    assert any("fallback" in warning.lower() for warning in result["model_warnings"])
 
 
 def test_missing_source_produces_partial_result_and_confidence_penalty(client, created_title):
