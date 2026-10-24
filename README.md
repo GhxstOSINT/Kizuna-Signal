@@ -61,6 +61,10 @@ pytest
 
 See `docs/TEST_STATUS.md` for backend coverage and verified behavior. Build the dashboard with `npm run build` from `dashboard`.
 
+The model-training scripts in `scripts/` are optional and not needed to run the API or the tests. They need the extra dependencies: `python -m pip install -e ".[ml]"`.
+
+The survey source defaults to simulated data in `data/synthetic/` (rows labelled `PROXY synthetic`); see `data/synthetic/README.md` and set `KIZUNA_SURVEY_DIR=data/survey` to use only real rows.
+
 Refresh the committed API contract after an intentional schema change:
 
 ```powershell

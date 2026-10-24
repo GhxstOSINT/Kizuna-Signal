@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 import statistics
 
 from app.db.models import Title
@@ -30,19 +31,28 @@ def clamp(value: float, low: float = 0, high: float = 100) -> float:
     return round(max(low, min(high, value)), 2)
 
 
-def metric(evidence: list[SourceEvidence], source: str, key: str, default: float = 50) -> float:
+def metric(evidence: list[SourceEvidence], source: str, key: str) -> float | None:
+    """A source's metric, or None when the source is unavailable or did not report it."""
     item = next(
         (entry for entry in evidence if entry.source == source and entry.status != "unavailable"),
         None,
     )
-    return float(item.metrics.get(key, default)) if item else default
+    if item is None or key not in item.metrics:
+        return None
+    return float(item.metrics[key])
 
 
-def calculate_component_scores(
+def _mean(values: list[float | None]) -> float | None:
+    present = [value for value in values if value is not None]
+    return statistics.mean(present) if present else None
+
+
+def _components(
     title: Title,
     evidence: list[SourceEvidence],
     comparables: list[ComparableTitle],
-) -> dict[str, float]:
+) -> dict[str, float | None]:
+    """Component scores, with None for a component that has no evidence at all."""
     completeness = (
         sum(
             bool(value)
@@ -63,46 +73,84 @@ def calculate_component_scores(
         content_fit += 7
     if title.target_languages:
         content_fit += min(6, len(title.target_languages) * 1.5)
+    survey_genre = metric(evidence, "regional_context", "genre_affinity")
+    if survey_genre is not None:  # measured viewer preference outweighs the genre heuristic
+        content_fit = 0.65 * content_fit + 0.35 * survey_genre
 
-    demand_momentum = statistics.mean(
-        [
-            metric(evidence, "google_trends", "relative_interest"),
-            metric(evidence, "google_trends", "momentum"),
-            metric(evidence, "wikimedia", "curiosity"),
-        ]
-    )
-    engagement_quality = statistics.mean(
-        [
-            metric(evidence, "youtube", "attention"),
-            metric(evidence, "youtube", "engagement_quality"),
-            metric(evidence, "youtube", "velocity"),
-        ]
-    )
-    regional_opportunity = statistics.mean(
-        [
-            metric(evidence, "regional_context", "language_fit"),
-            metric(evidence, "regional_context", "addressable_market"),
-        ]
-    )
     comparable_performance = (
         statistics.mean(
             [item.market_signal * (0.65 + 0.35 * item.similarity) for item in comparables]
         )
         if comparables
-        else 50
+        else None
     )
-
     return {
         "content_fit": clamp(content_fit),
-        "demand_momentum": clamp(demand_momentum),
-        "regional_opportunity": clamp(regional_opportunity),
-        "engagement_quality": clamp(engagement_quality),
-        "comparable_performance": clamp(comparable_performance),
+        "demand_momentum": _mean(
+            [
+                metric(evidence, "google_trends", "relative_interest"),
+                metric(evidence, "google_trends", "momentum"),
+                metric(evidence, "wikimedia", "curiosity"),
+            ]
+        ),
+        "regional_opportunity": _mean(
+            [
+                metric(evidence, "regional_context", "language_fit"),
+                metric(evidence, "regional_context", "addressable_market"),
+                survey_genre,
+            ]
+        ),
+        "engagement_quality": _mean(
+            [
+                metric(evidence, "youtube", "attention"),
+                metric(evidence, "youtube", "engagement_quality"),
+                metric(evidence, "youtube", "velocity"),
+                metric(evidence, "anilist", "community_strength"),
+            ]
+        ),
+        "comparable_performance": comparable_performance,
     }
 
 
-def calculate_market_score(components: dict[str, float]) -> float:
-    return clamp(sum(components[key] * weight for key, weight in WEIGHTS.items()))
+def calculate_component_scores(
+    title: Title,
+    evidence: list[SourceEvidence],
+    comparables: list[ComparableTitle],
+) -> dict[str, float]:
+    """All five components; an unmeasured one is reported as a neutral 50 (see unmeasured_*)."""
+    return {
+        key: clamp(value if value is not None else 50)
+        for key, value in _components(title, evidence, comparables).items()
+    }
+
+
+def unmeasured_components(
+    title: Title,
+    evidence: list[SourceEvidence],
+    comparables: list[ComparableTitle],
+) -> set[str]:
+    return {
+        key for key, value in _components(title, evidence, comparables).items() if value is None
+    }
+
+
+def calculate_market_score(
+    components: dict[str, float], unmeasured: set[str] | None = None
+) -> float:
+    """Weighted score over measured components, regressed toward neutral when evidence is thin.
+
+    Weights are renormalised over the measured components so a missing source is not scored as
+    a neutral 50. The result is then shrunk toward 50 by sqrt(measured weight share): with only
+    the "prior" components (content fit, localization plan, comparables) the estimate must not
+    look as certain as one backed by demand and engagement evidence.
+    """
+    measured = {key: weight for key, weight in WEIGHTS.items() if key not in (unmeasured or set())}
+    total = sum(measured.values())
+    if not total:
+        return 50.0
+    renormalised = sum(components[key] * weight for key, weight in measured.items()) / total
+    shrink = math.sqrt(total / sum(WEIGHTS.values()))
+    return clamp(50 + (renormalised - 50) * shrink)
 
 
 def decision_classification(score: float, confidence: float) -> str:
@@ -163,6 +211,7 @@ def build_drivers(
     components: dict[str, float],
     title: Title,
     evidence: list[SourceEvidence],
+    unmeasured: set[str] | None = None,
 ) -> tuple[list[PredictionDriver], list[PredictionDriver]]:
     positives: list[PredictionDriver] = []
     negatives: list[PredictionDriver] = []
@@ -174,6 +223,8 @@ def build_drivers(
         "comparable_performance": "Comparable performance",
     }
     for key, value in sorted(components.items(), key=lambda item: item[1], reverse=True):
+        if key in (unmeasured or set()):
+            continue
         contribution = round((value - 60) * WEIGHTS[key] / 2, 2)
         driver = PredictionDriver(
             name=labels[key],

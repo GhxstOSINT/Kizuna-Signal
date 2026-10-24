@@ -1,0 +1,8 @@
+# TEST FIXTURE ONLY - invented numbers used to exercise the loader; not real survey data.
+state,genre,content_type,index,sample_size,year,source
+Maharashtra,fantasy,anime,140,400,2025,test-fixture
+Maharashtra,action,anime,120,100,2025,test-fixture
+Tamil Nadu,fantasy,anime,60,300,2025,test-fixture
+India,fantasy,,110,2000,2025,test-fixture
+Atlantis,fantasy,anime,100,10,2025,test-fixture
+Kerala,fantasy,anime,abc,10,2025,test-fixture
