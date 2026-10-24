@@ -9,7 +9,7 @@ from collections.abc import Callable
 import httpx
 
 from app.db.models import Title
-from app.services.sources.base import SourceAdapter, SourceEvidence
+from app.services.sources.base import MALFORMED_RESPONSE_ERRORS, SourceAdapter, SourceEvidence
 from app.services.textmatch import match_score, normalise
 
 logger = logging.getLogger(__name__)
@@ -119,9 +119,12 @@ class AniListAdapter(SourceAdapter):
         except AniListRateLimited as exc:
             AniListAdapter._blocked_until = now + max(exc.retry_after, self.cooldown_seconds)
             return self._unavailable(title, "AniList rate limit reached; metadata not collected.")
-        except (httpx.HTTPError, AniListError, KeyError, ValueError) as exc:
+        except (httpx.HTTPError, AniListError, ValueError) as exc:
             logger.warning("anilist_unavailable", extra={"title": title.name, "error": str(exc)})
             return self._unavailable(title, f"AniList request failed: {exc}")
+        except MALFORMED_RESPONSE_ERRORS as exc:
+            logger.warning("anilist_malformed", extra={"title": title.name, "error": repr(exc)})
+            return self._unavailable(title, "AniList returned a response in an unexpected format.")
         if evidence.status == "available":
             self._cache[key] = (now, evidence)
         return evidence

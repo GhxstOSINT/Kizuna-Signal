@@ -6,6 +6,10 @@ from typing import Literal
 
 from app.db.models import Title
 
+# What parsing raises when a provider answers 200 with JSON that lacks the expected shape
+# (a list instead of an object, a missing key, a string where a list belongs).
+MALFORMED_RESPONSE_ERRORS = (KeyError, IndexError, TypeError, AttributeError)
+
 
 @dataclass(slots=True)
 class SourceEvidence:

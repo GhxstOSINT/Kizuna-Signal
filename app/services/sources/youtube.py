@@ -10,7 +10,7 @@ from datetime import UTC, datetime
 import httpx
 
 from app.db.models import Title
-from app.services.sources.base import SourceAdapter, SourceEvidence
+from app.services.sources.base import MALFORMED_RESPONSE_ERRORS, SourceAdapter, SourceEvidence
 from app.services.textmatch import normalise as _normalise
 
 logger = logging.getLogger(__name__)
@@ -62,9 +62,12 @@ class YouTubeAdapter(SourceAdapter):
             return self._as_cached(cached[1])
         try:
             evidence = self._collect(title, query_name)
-        except (httpx.HTTPError, YouTubeError, KeyError, ValueError) as exc:
+        except (httpx.HTTPError, YouTubeError, ValueError) as exc:
             logger.warning("youtube_unavailable", extra={"title": title.name, "error": str(exc)})
             return self._unavailable(title, f"YouTube request failed: {exc}")
+        except MALFORMED_RESPONSE_ERRORS as exc:
+            logger.warning("youtube_malformed", extra={"title": title.name, "error": repr(exc)})
+            return self._unavailable(title, "YouTube returned a response in an unexpected format.")
         if evidence.status == "available":
             self._cache[_normalise(query_name)] = (self.clock(), evidence)
         return evidence

@@ -52,4 +52,5 @@ def test_a_crashing_adapter_degrades_instead_of_failing_the_analysis(monkeypatch
     )
 
     assert evidence.status == "unavailable"
-    assert "kaboom" in evidence.warnings[0]
+    assert "failed unexpectedly" in evidence.warnings[0]
+    assert "kaboom" not in evidence.warnings[0]  # exception text stays in the server log

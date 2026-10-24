@@ -111,9 +111,9 @@ class SourceRegistry:
             return self._unavailable(name, title, f"{name} is not configured; no data was used.")
         try:
             return LIVE_ADAPTERS[name](client, self.settings).collect(title)
-        except Exception as exc:  # one broken source must not fail the whole analysis
+        except Exception:  # one broken source must not fail the whole analysis
             logger.exception("source_failed", extra={"source": name})
-            return self._unavailable(name, title, f"{name} failed unexpectedly: {exc}")
+            return self._unavailable(name, title, f"{name} failed unexpectedly; no data was used.")
 
     @staticmethod
     def _unavailable(name: str, title: Title, warning: str) -> SourceEvidence:

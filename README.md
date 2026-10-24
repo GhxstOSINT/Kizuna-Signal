@@ -45,7 +45,7 @@ docker compose up --build
 pytest
 ```
 
-The integration gate currently contains 99 automated tests with 94% application line coverage. See `docs/TEST_STATUS.md` for the verified behaviors and the production-only gaps that are intentionally not claimed as passing.
+The integration gate currently contains 140 automated tests with 95% application line coverage. See `docs/TEST_STATUS.md` for the verified behaviors and the production-only gaps that are intentionally not claimed as passing.
 
 The model-training scripts in `scripts/` are optional and not needed to run the API or the tests. They need the extra dependencies: `python -m pip install -e ".[ml]"`. The trained models are not used by the app yet (see `docs/DATA_SOURCES.md`).
 

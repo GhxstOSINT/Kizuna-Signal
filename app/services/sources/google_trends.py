@@ -9,13 +9,20 @@ from typing import Any
 
 from app.db.models import Title
 from app.services.census import resolve_state
-from app.services.sources.base import SourceAdapter, SourceEvidence
+from app.services.sources.base import MALFORMED_RESPONSE_ERRORS, SourceAdapter, SourceEvidence
 
 logger = logging.getLogger(__name__)
 
 TIMEFRAME = "today 3-m"
 RECENT_DAYS = 30
 MOMENTUM_WINDOW = 14
+
+
+def _reason(exc: Exception) -> str:
+    """Text safe to show in warnings: parse failures are described, not echoed."""
+    if isinstance(exc, MALFORMED_RESPONSE_ERRORS):
+        return "unexpected response format"
+    return str(exc)
 
 
 class TrendsError(Exception):
@@ -85,7 +92,7 @@ class GoogleTrendsAdapter(SourceAdapter):
             logger.warning(
                 "google_trends_unavailable", extra={"title": title.name, "error": str(exc)}
             )
-            return self._unavailable(title, f"Google Trends request failed: {exc}")
+            return self._unavailable(title, f"Google Trends request failed: {_reason(exc)}")
         if evidence.status == "available" and evidence.regional:
             self._cache[key] = (now, evidence)  # skip caching when the state split failed
         return evidence
@@ -132,7 +139,7 @@ class GoogleTrendsAdapter(SourceAdapter):
             warnings.append("State-level Google Trends interest skipped: rate limit reached.")
         except Exception as exc:  # the national signal is still valid without the state split
             logger.warning("google_trends_regions_failed", extra={"error": str(exc)})
-            warnings.append(f"State-level Google Trends interest unavailable: {exc}")
+            warnings.append(f"State-level Google Trends interest unavailable: {_reason(exc)}")
         else:
             if not regional:
                 warnings.append("Google Trends returned no state-level interest for this title.")

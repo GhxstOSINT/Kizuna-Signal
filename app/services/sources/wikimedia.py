@@ -10,7 +10,7 @@ from urllib.parse import quote
 import httpx
 
 from app.db.models import Title
-from app.services.sources.base import SourceAdapter, SourceEvidence
+from app.services.sources.base import MALFORMED_RESPONSE_ERRORS, SourceAdapter, SourceEvidence
 from app.services.textmatch import match_score
 
 logger = logging.getLogger(__name__)
@@ -57,6 +57,11 @@ class WikimediaAdapter(SourceAdapter):
         except (httpx.HTTPError, WikimediaError, ValueError) as exc:
             logger.warning("wikimedia_unavailable", extra={"title": title.name, "error": str(exc)})
             return self._unavailable(title, f"Wikimedia request failed: {exc}")
+        except MALFORMED_RESPONSE_ERRORS as exc:
+            logger.warning("wikimedia_malformed", extra={"title": title.name, "error": repr(exc)})
+            return self._unavailable(
+                title, "Wikimedia returned a response in an unexpected format."
+            )
 
     def _collect(self, title: Title) -> SourceEvidence:
         end = self.today() - timedelta(days=1)

@@ -27,10 +27,11 @@ This document maps the comprehensive test library to what is executable in the c
 - Scenario creation, persistence and base-analysis immutability
 - Deterministic repeated analysis with the same fixture and versions
 - Offline golden demo and partial-source demo
+- Live-source failure modes (Wikimedia, YouTube, AniList, Google Trends): timeouts, non-JSON bodies, JSON of the wrong shape and missing fields each yield an unavailable source with no metrics and no internal exception text in the warnings
+- A crashing analysis or adapter exposes only a fixed public message; details stay in the server log
 
 ## P0 blocked by components not implemented yet
 
-- Malformed live-source response and timeout tests: require real provider adapters plus a common retry/timeout wrapper.
 - Post-release leakage enforcement: requires timestamped raw evidence and a feature cutoff model.
 - PostgreSQL integration tests: Docker configuration exists, but CI/service provisioning is not yet wired.
 - Frontend polling, refresh recovery and generated-TypeScript compilation: require the frontend repository.
@@ -54,8 +55,8 @@ ruff format --check app tests scripts
 
 ## Current verified baseline
 
-- Tests: 99 passing
-- Application line coverage: 94%
+- Tests: 140 passing
+- Application line coverage: 95%
 - Static quality check: passing
 - OpenAPI snapshot: committed at `docs/openapi.json`
 - Golden mode: deterministic and independent of live credentials
