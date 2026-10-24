@@ -1,112 +1,124 @@
-from typing import Annotated
+from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.db.models import Analysis
+from app.db.models import Analysis, Job, Scenario, Title
 from app.db.session import get_db
-from app.schemas.enums import RegionType
-from app.schemas.pipeline import (
-    AnalysisOut,
-    RecommendationDecision,
-    RecommendationOut,
-    RegionalScoreOut,
-    ScenarioCreate,
-    ScenarioOut,
+from app.schemas.analysis import (
+    AnalysisCreated,
+    AnalysisRead,
+    AnalysisResult,
+    JobRead,
+    SourceToggleRequest,
 )
-from app.services import analyses as analysis_service
-from app.services import completeness as completeness_service
-from app.services import recommendations as recommendation_service
-from app.services import scenarios as scenario_service
-from app.services import titles as title_service
+from app.schemas.scenario import ScenarioCreate, ScenarioRead
+from app.services.analysis import create_analysis, run_analysis_pipeline
+from app.services.scenarios import run_scenario
 
-router = APIRouter(tags=["analyses"])
-
-IdempotencyKey = Annotated[
-    str | None,
-    Header(alias="Idempotency-Key", min_length=1, max_length=128),
-]
+router = APIRouter()
 
 
-def _analysis_or_404(db: Session, analysis_id: int) -> Analysis:
-    analysis = analysis_service.get(db, analysis_id)
-    if analysis is None:
-        raise HTTPException(404, "Analysis not found")
-    return analysis
-
-
-def _completed(db: Session, analysis_id: int) -> Analysis:
-    """Results exist only once the analysis job has succeeded."""
-    analysis = _analysis_or_404(db, analysis_id)
-    if analysis.status != "succeeded":
-        raise HTTPException(409, f"Analysis is {analysis.status}, not complete")
-    return analysis
-
-
-@router.post("/titles/{title_id}/analyse", response_model=AnalysisOut, status_code=202)
-def analyse_title(
-    title_id: int,
-    response: Response,
-    idempotency_key: IdempotencyKey = None,
+@router.post(
+    "/titles/{title_id}/analyses",
+    response_model=AnalysisCreated,
+    status_code=status.HTTP_202_ACCEPTED,
+)
+def start_analysis(
+    title_id: str,
+    background_tasks: BackgroundTasks,
+    payload: SourceToggleRequest | None = None,
     db: Session = Depends(get_db),
-):
-    title = title_service.get(db, title_id)
+) -> AnalysisCreated:
+    title = db.get(Title, title_id)
     if title is None:
-        raise HTTPException(404, "Title not found")
-    report = completeness_service.for_title(db, title)
-    if not report.ready_for_analysis:
-        raise HTTPException(
-            422,
-            {
-                "code": "incomplete_title",
-                "message": "Title intake is incomplete",
-                "missing_required": [m.model_dump() for m in report.missing_required],
-            },
+        raise HTTPException(status_code=404, detail="Title not found")
+    analysis, job = create_analysis(db, title)
+    disabled_sources = payload.disabled_sources if payload else []
+    background_tasks.add_task(run_analysis_pipeline, analysis.id, disabled_sources)
+    return AnalysisCreated(analysis_id=analysis.id, job_id=job.id, status=analysis.status)
+
+
+@router.get("/titles/{title_id}/analyses", response_model=list[AnalysisRead])
+def list_analyses(title_id: str, db: Session = Depends(get_db)) -> list[Analysis]:
+    if db.get(Title, title_id) is None:
+        raise HTTPException(status_code=404, detail="Title not found")
+    return list(
+        db.scalars(
+            select(Analysis)
+            .where(Analysis.title_id == title_id)
+            .order_by(Analysis.created_at.desc())
         )
-    analysis, created = analysis_service.request(db, title_id, idempotency_key)
-    if not created:
-        response.status_code = 200  # replayed request: original analysis returned
+    )
+
+
+@router.get("/analyses/{analysis_id}", response_model=AnalysisRead)
+def get_analysis(analysis_id: str, db: Session = Depends(get_db)) -> Analysis:
+    analysis = db.get(Analysis, analysis_id)
+    if analysis is None:
+        raise HTTPException(status_code=404, detail="Analysis not found")
     return analysis
 
 
-@router.get("/analyses/{analysis_id}", response_model=AnalysisOut)
-def get_analysis(analysis_id: int, db: Session = Depends(get_db)):
-    return _analysis_or_404(db, analysis_id)
+@router.get("/analyses/{analysis_id}/result", response_model=AnalysisResult)
+def get_analysis_result(analysis_id: str, db: Session = Depends(get_db)) -> AnalysisResult:
+    analysis = db.get(Analysis, analysis_id)
+    if analysis is None:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    if analysis.result is None:
+        raise HTTPException(status_code=409, detail=f"Analysis is {analysis.status}")
+    return AnalysisResult.model_validate(analysis.result)
 
 
-@router.get("/analyses/{analysis_id}/regions", response_model=list[RegionalScoreOut])
-def get_regions(
-    analysis_id: int, region_type: RegionType | None = None, db: Session = Depends(get_db)
-):
-    _completed(db, analysis_id)
-    return analysis_service.regions(db, analysis_id, region_type.value if region_type else None)
+@router.get("/jobs/{job_id}", response_model=JobRead)
+def get_job(job_id: str, db: Session = Depends(get_db)) -> Job:
+    job = db.get(Job, job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="Job not found")
+    return job
 
 
-@router.post("/analyses/{analysis_id}/scenarios", response_model=ScenarioOut, status_code=202)
-def create_scenario(analysis_id: int, body: ScenarioCreate, db: Session = Depends(get_db)):
-    _completed(db, analysis_id)
-    return scenario_service.create(db, analysis_id, body)
+@router.post(
+    "/analyses/{analysis_id}/scenarios",
+    response_model=ScenarioRead,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_scenario(
+    analysis_id: str,
+    payload: ScenarioCreate,
+    db: Session = Depends(get_db),
+) -> Scenario:
+    analysis = db.get(Analysis, analysis_id)
+    if analysis is None:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    if analysis.result is None:
+        raise HTTPException(status_code=409, detail="Analysis has not completed")
+    title = db.get(Title, analysis.title_id)
+    if title is None:
+        raise HTTPException(status_code=404, detail="Title not found")
+    base = AnalysisResult.model_validate(analysis.result)
+    result = run_scenario(title, base, payload)
+    scenario = Scenario(
+        analysis_id=analysis.id,
+        name=payload.name,
+        overrides=payload.model_dump(exclude_none=True, mode="json"),
+        result=result.model_dump(mode="json"),
+    )
+    db.add(scenario)
+    db.commit()
+    db.refresh(scenario)
+    return scenario
 
 
-@router.get("/analyses/{analysis_id}/scenarios", response_model=list[ScenarioOut])
-def list_scenarios(analysis_id: int, db: Session = Depends(get_db)):
-    _analysis_or_404(db, analysis_id)
-    return scenario_service.list_for_analysis(db, analysis_id)
-
-
-@router.get("/analyses/{analysis_id}/recommendation", response_model=list[RecommendationOut])
-def get_recommendation(analysis_id: int, db: Session = Depends(get_db)):
-    _completed(db, analysis_id)
-    return recommendation_service.list_for_analysis(db, analysis_id)
-
-
-@router.post("/recommendations/{recommendation_id}/decision", response_model=RecommendationOut)
-def decide_recommendation(
-    recommendation_id: int, body: RecommendationDecision, db: Session = Depends(get_db)
-):
-    rec = recommendation_service.get(db, recommendation_id)
-    if rec is None:
-        raise HTTPException(404, "Recommendation not found")
-    if rec.status != "draft":
-        raise HTTPException(409, f"Recommendation already {rec.status}")
-    return recommendation_service.decide(db, rec, body.status, body.decided_by)
+@router.get("/analyses/{analysis_id}/scenarios", response_model=list[ScenarioRead])
+def list_scenarios(analysis_id: str, db: Session = Depends(get_db)) -> list[Scenario]:
+    if db.get(Analysis, analysis_id) is None:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    return list(
+        db.scalars(
+            select(Scenario)
+            .where(Scenario.analysis_id == analysis_id)
+            .order_by(Scenario.created_at.desc())
+        )
+    )
