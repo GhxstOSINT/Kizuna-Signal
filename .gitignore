@@ -23,3 +23,8 @@ build/
 .idea/
 .vscode/
 
+models/*
+!models/.gitkeep
+data/raw/
+data/cache/
+data/processed/

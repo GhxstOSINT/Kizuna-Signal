@@ -1,0 +1,23 @@
+﻿file,column,type,role,note
+titles_features.csv,title_id,id,key,AniList-based id 'anilist:<id>'
+titles_features.csv,franchise_id,id,group key,Use for GroupKFold so sequels never straddle train/test
+titles_features.csv,synopsis,text,FEATURE,Embed (MiniLM 384-d) -> Content DNA / comparables. Strip '(Source: ...)' footer first
+titles_features.csv,genres,list (|),FEATURE,Multi-hot
+titles_features.csv,tags,list (|),FEATURE,Multi-hot; AniList tag rank not stored yet (add rank>=50 filter + weights)
+titles_features.csv,studio,category,FEATURE,Target-encode using ONLY earlier titles
+titles_features.csv,format,category,FEATURE,TV / MOVIE / OVA / ONA ...
+titles_features.csv,"season, release_year",category/int,FEATURE,Season of release; also the time-split key
+titles_features.csv,original_release_date,date,anchor,Anchors Trends windows; time split
+titles_features.csv,has_prequel,bool,FEATURE,Sequel flag; add parent's India lift as a feature (strongest likely signal)
+titles_features.csv,"episodes, minutes_per_episode",int,FEATURE,Length
+titles_features.csv,platforms,list (|),CAUTION,Global distributors; include only if known before launch
+titles_outcomes_global_POST_RELEASE.csv,"popularity, log_popularity, favourites, average_score",numeric,LEAKY - never a feature,"Global outcomes. Use only as a label/proxy for comparables, never as input for the title being scored"
+title_state_demand_PRE_RELEASE.csv,"pre_has_data, pre_level, pre_growth, pre_volatility",numeric,FEATURE,"Trends in the 12 weeks BEFORE release, per title x state (anchor-normalised)"
+state_labels_lift.csv,share,float,old label,Title's share of relative interest across states (sums to 1). Dominated by state baseline - do not train on it
+state_labels_lift.csv,log_share,float,helper,log(share)
+state_labels_lift.csv,lift,float,LABEL (recommended),log_share minus title mean minus state mean plus grand mean. >0 = this title over-performs in that state vs a typical anime there; removes the 'state with highest search' effect
+state_labels_lift.csv,lift_rank_in_title,int,derived,1 = state where the title over-performs most; use for top-3 hit rate
+state_labels_lift.csv,"n_states_in_title, n_titles_in_state",int,reliability,Support counts; down-weight or drop low-support rows
+state_reference.csv,"region_zone, dominant_language_APPROX",category,FEATURE,My approximation - verify against Census 2011 C-16
+state_reference.csv,"population_census2011, smartphone_or_internet_penetration",numeric,TO FILL,Empty: fetch from Census / TRAI / NFHS. Used for market-size weighting
+training_table_title_x_state.csv,(all),mixed,model-ready,One row per title x state: lift label + state ctx + pre-release demand + genre_*/tag_* multi-hot (tags with >=10 titles)

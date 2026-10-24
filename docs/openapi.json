@@ -310,6 +310,18 @@
         "title": "ComparableTitle",
         "type": "object"
       },
+      "ContentFormat": {
+        "enum": [
+          "anime_series",
+          "anime_film",
+          "live_action_series",
+          "live_action_film",
+          "game",
+          "other"
+        ],
+        "title": "ContentFormat",
+        "type": "string"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -321,6 +333,58 @@
           }
         },
         "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "IndiaSummary": {
+        "properties": {
+          "bottom_states": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Bottom States",
+            "type": "array"
+          },
+          "confidence": {
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "type": "number"
+          },
+          "confidence_factors": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Confidence Factors",
+            "type": "object"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "top_states": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Top States",
+            "type": "array"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "confidence",
+          "confidence_factors",
+          "warnings",
+          "top_states",
+          "bottom_states",
+          "note"
+        ],
+        "title": "IndiaSummary",
         "type": "object"
       },
       "JobRead": {
@@ -451,6 +515,305 @@
           "risks"
         ],
         "title": "LaunchRecommendation",
+        "type": "object"
+      },
+      "LocalizationMode": {
+        "enum": [
+          "subtitled",
+          "dubbed",
+          "subtitled_and_dubbed"
+        ],
+        "title": "LocalizationMode",
+        "type": "string"
+      },
+      "ModelCard": {
+        "properties": {
+          "evaluation": {
+            "additionalProperties": true,
+            "title": "Evaluation",
+            "type": "object"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "n_labelled_titles": {
+            "title": "N Labelled Titles",
+            "type": "integer"
+          },
+          "n_states": {
+            "title": "N States",
+            "type": "integer"
+          },
+          "states": {
+            "items": {
+              "$ref": "#/components/schemas/StateCoverage"
+            },
+            "title": "States",
+            "type": "array"
+          },
+          "success_model": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "content-fit model behind the India success score",
+            "title": "Success Model"
+          },
+          "task": {
+            "title": "Task",
+            "type": "string"
+          },
+          "trained_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trained At"
+          },
+          "training_data": {
+            "additionalProperties": true,
+            "title": "Training Data",
+            "type": "object"
+          }
+        },
+        "required": [
+          "model_version",
+          "task",
+          "trained_at",
+          "n_labelled_titles",
+          "n_states",
+          "training_data",
+          "evaluation",
+          "success_model",
+          "states",
+          "limitations"
+        ],
+        "title": "ModelCard",
+        "type": "object"
+      },
+      "PredictIn": {
+        "description": "Everything needed for a one-shot prediction. No project, title row or job is created.",
+        "properties": {
+          "episodes": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Episodes"
+          },
+          "format": {
+            "$ref": "#/components/schemas/ContentFormat",
+            "default": "anime_series"
+          },
+          "genres": {
+            "examples": [
+              [
+                "Action",
+                "Fantasy"
+              ]
+            ],
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Genres",
+            "type": "array"
+          },
+          "include_seo": {
+            "default": false,
+            "description": "Also measure search terms on Google Trends (slow, live)",
+            "title": "Include Seo",
+            "type": "boolean"
+          },
+          "languages": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Languages",
+            "type": "array"
+          },
+          "localization_mode": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LocalizationMode"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "minutes_per_episode": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Minutes Per Episode"
+          },
+          "name_en": {
+            "examples": [
+              "Blade of Dawn"
+            ],
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name En",
+            "type": "string"
+          },
+          "name_jp": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name Jp"
+          },
+          "release_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Planned launch; defaults to today",
+            "title": "Release Date"
+          },
+          "studio": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Studio"
+          },
+          "synopsis": {
+            "description": "Used to find similar past titles",
+            "minLength": 50,
+            "title": "Synopsis",
+            "type": "string"
+          },
+          "tags": {
+            "default": [],
+            "description": "AniList-style tags, e.g. 'Male Protagonist'",
+            "items": {
+              "type": "string"
+            },
+            "title": "Tags",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name_en",
+          "genres",
+          "synopsis"
+        ],
+        "title": "PredictIn",
+        "type": "object"
+      },
+      "PredictOut": {
+        "properties": {
+          "comparables": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Comparables",
+            "type": "array"
+          },
+          "india": {
+            "$ref": "#/components/schemas/IndiaSummary"
+          },
+          "model_version": {
+            "title": "Model Version",
+            "type": "string"
+          },
+          "seo": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seo"
+          },
+          "states": {
+            "items": {
+              "$ref": "#/components/schemas/StateResult"
+            },
+            "title": "States",
+            "type": "array"
+          },
+          "success": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "India success score and its components; null if csv/ outcomes are missing",
+            "title": "Success"
+          },
+          "task": {
+            "title": "Task",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "model_version",
+          "task",
+          "title",
+          "india",
+          "states",
+          "comparables"
+        ],
+        "title": "PredictOut",
         "type": "object"
       },
       "PredictionDriver": {
@@ -868,6 +1231,130 @@
           }
         },
         "title": "SourceToggleRequest",
+        "type": "object"
+      },
+      "StateCoverage": {
+        "properties": {
+          "heldout_bias": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "mean(predicted - observed) lift on real held-out rows",
+            "title": "Heldout Bias"
+          },
+          "heldout_rmse": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heldout Rmse"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "real_titles": {
+            "description": "labelled titles with Trends data in this state",
+            "title": "Real Titles",
+            "type": "integer"
+          },
+          "sparse": {
+            "description": "under 20 real titles: the least reliable states",
+            "title": "Sparse",
+            "type": "boolean"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          },
+          "synthetic_rows": {
+            "description": "weighted-average rows added for titles with no data here",
+            "title": "Synthetic Rows",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "state",
+          "name",
+          "real_titles",
+          "synthetic_rows",
+          "sparse"
+        ],
+        "title": "StateCoverage",
+        "type": "object"
+      },
+      "StateResult": {
+        "properties": {
+          "drivers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Drivers",
+            "type": "array"
+          },
+          "expected_share": {
+            "description": "predicted share of India demand; sums to 1 across states",
+            "title": "Expected Share",
+            "type": "number"
+          },
+          "high": {
+            "title": "High",
+            "type": "number"
+          },
+          "lift": {
+            "description": "log scale; >0 means expected to over-perform vs a typical anime there",
+            "title": "Lift",
+            "type": "number"
+          },
+          "low": {
+            "title": "Low",
+            "type": "number"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          },
+          "synthetic_rows": {
+            "default": 0,
+            "description": "synthetic weighted-average training rows for this state",
+            "title": "Synthetic Rows",
+            "type": "integer"
+          },
+          "train_titles": {
+            "title": "Train Titles",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "rank",
+          "state",
+          "name",
+          "lift",
+          "low",
+          "high",
+          "expected_share",
+          "train_titles",
+          "drivers"
+        ],
+        "title": "StateResult",
         "type": "object"
       },
       "TitleCreate": {
@@ -1492,6 +1979,128 @@
         "summary": "Get Job",
         "tags": [
           "analysis"
+        ]
+      }
+    },
+    "/api/v1/model": {
+      "get": {
+        "description": "What the loaded model is: version, data, held-out accuracy, synthetic-data effect, per-state coverage.",
+        "operationId": "model_card_api_v1_model_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelCard"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Model Card",
+        "tags": [
+          "model"
+        ]
+      }
+    },
+    "/api/v1/predict": {
+      "post": {
+        "description": "One request in, state-by-state prediction and India success score out (synchronous).",
+        "operationId": "predict_api_v1_predict_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PredictIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PredictOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Predict",
+        "tags": [
+          "predict"
+        ]
+      }
+    },
+    "/api/v1/predict/report": {
+      "post": {
+        "description": "The same prediction as a downloadable report: pdf (charts and maths), json, csv (one row per state) or xml.",
+        "operationId": "predict_report_api_v1_predict_report_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "default": "pdf",
+              "enum": [
+                "json",
+                "csv",
+                "xml",
+                "pdf"
+              ],
+              "title": "Format",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PredictIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Predict Report",
+        "tags": [
+          "predict"
         ]
       }
     },

@@ -1,0 +1,2851 @@
+group,state,n_titles,lift,ci_lo,ci_hi,significant,kind
+Action,Andaman and Nicobar Islands,14,6.133,4.718,7.344,True,genre
+Action,Andhra Pradesh,37,0.101,0.017,0.217,True,genre
+Action,Arunachal Pradesh,17,4.225,1.779,7.155,True,genre
+Action,Assam,39,0.077,0.029,0.146,True,genre
+Action,Bihar,30,0.094,0.014,0.212,True,genre
+Action,Chandigarh,19,1.086,0.273,2.022,False,genre
+Action,Chhattisgarh,28,0.223,0.016,0.552,True,genre
+Action,Dadra and Nagar Haveli and Daman and Diu,10,2.478,0.979,4.406,False,genre
+Action,Delhi,54,0.066,0.012,0.158,True,genre
+Action,Goa,18,1.287,0.078,2.507,False,genre
+Action,Gujarat,41,0.031,0.01,0.072,True,genre
+Action,Haryana,36,0.015,0.009,0.023,True,genre
+Action,Himachal Pradesh,22,1.044,0.319,2.025,False,genre
+Action,Jammu and Kashmir,21,0.043,0.008,0.091,True,genre
+Action,Jharkhand,28,0.306,0.012,0.848,True,genre
+Action,Karnataka,52,0.035,0.012,0.07,True,genre
+Action,Kerala,43,0.02,0.013,0.028,True,genre
+Action,Lakshadweep,7,7.353,5.423,9.412,True,genre
+Action,Madhya Pradesh,46,0.02,0.008,0.038,True,genre
+Action,Maharashtra,57,0.079,0.015,0.172,True,genre
+Action,Manipur,26,4.534,2.525,6.741,True,genre
+Action,Meghalaya,31,5.061,3.546,6.652,True,genre
+Action,Mizoram,19,5.747,4.681,6.905,True,genre
+Action,Nagaland,17,8.763,6.234,11.227,True,genre
+Action,Odisha,33,0.065,0.018,0.151,True,genre
+Action,Puducherry,9,5.705,2.792,9.49,True,genre
+Action,Punjab,34,0.147,0.015,0.304,True,genre
+Action,Rajasthan,41,0.031,0.009,0.07,True,genre
+Action,Sikkim,19,3.234,2.24,4.254,True,genre
+Action,Tamil Nadu,50,0.044,0.018,0.077,True,genre
+Action,Telangana,42,0.034,0.013,0.069,True,genre
+Action,Tripura,20,2.884,1.807,4.043,True,genre
+Action,Uttar Pradesh,51,0.052,0.012,0.108,True,genre
+Action,Uttarakhand,30,0.95,0.222,1.835,False,genre
+Action,West Bengal,49,0.08,0.018,0.155,True,genre
+Adventure,Andaman and Nicobar Islands,12,6.318,5.005,7.578,True,genre
+Adventure,Andhra Pradesh,17,0.021,0.007,0.039,True,genre
+Adventure,Arunachal Pradesh,11,2.026,0.451,3.909,False,genre
+Adventure,Assam,17,0.016,0.008,0.024,True,genre
+Adventure,Bihar,15,0.009,0.004,0.014,True,genre
+Adventure,Chandigarh,9,1.022,0.03,2.023,False,genre
+Adventure,Chhattisgarh,16,0.243,0.011,0.696,True,genre
+Adventure,Dadra and Nagar Haveli and Daman and Diu,8,2.922,1.561,4.281,True,genre
+Adventure,Delhi,33,0.009,0.005,0.015,True,genre
+Adventure,Goa,14,1.801,0.4,3.509,False,genre
+Adventure,Gujarat,25,0.008,0.003,0.013,True,genre
+Adventure,Haryana,20,0.01,0.004,0.017,True,genre
+Adventure,Himachal Pradesh,11,0.974,0.008,2.464,False,genre
+Adventure,Jammu and Kashmir,9,0.009,0.003,0.017,True,genre
+Adventure,Jharkhand,14,0.509,0.006,1.77,False,genre
+Adventure,Karnataka,27,0.011,0.005,0.016,True,genre
+Adventure,Kerala,27,0.013,0.007,0.022,True,genre
+Adventure,Lakshadweep,5,6.071,3.582,9.795,True,genre
+Adventure,Madhya Pradesh,23,0.008,0.003,0.013,True,genre
+Adventure,Maharashtra,31,0.011,0.006,0.016,True,genre
+Adventure,Manipur,10,4.319,0.773,7.972,False,genre
+Adventure,Meghalaya,17,5.075,2.917,7.342,True,genre
+Adventure,Mizoram,14,5.886,4.446,7.259,True,genre
+Adventure,Nagaland,7,6.698,4.057,10.195,True,genre
+Adventure,Odisha,15,0.015,0.007,0.024,True,genre
+Adventure,Puducherry,7,4.963,1.864,9.641,True,genre
+Adventure,Punjab,18,0.011,0.005,0.019,True,genre
+Adventure,Rajasthan,20,0.01,0.004,0.017,True,genre
+Adventure,Sikkim,11,3.811,2.376,5.142,True,genre
+Adventure,Tamil Nadu,25,0.013,0.006,0.021,True,genre
+Adventure,Telangana,23,0.013,0.007,0.021,True,genre
+Adventure,Tripura,9,3.819,2.588,4.991,True,genre
+Adventure,Uttar Pradesh,30,0.009,0.004,0.014,True,genre
+Adventure,Uttarakhand,14,0.552,0.014,1.151,False,genre
+Adventure,West Bengal,26,0.012,0.006,0.018,True,genre
+Comedy,Andaman and Nicobar Islands,8,4.649,2.991,6.758,True,genre
+Comedy,Andhra Pradesh,18,0.092,0.012,0.24,True,genre
+Comedy,Arunachal Pradesh,7,4.604,0.928,7.93,False,genre
+Comedy,Assam,19,0.08,0.01,0.212,True,genre
+Comedy,Bihar,14,0.049,0.006,0.12,True,genre
+Comedy,Chandigarh,11,0.926,0.029,1.891,False,genre
+Comedy,Chhattisgarh,10,0.39,0.015,1.106,False,genre
+Comedy,Dadra and Nagar Haveli and Daman and Diu,6,2.882,0.723,5.214,False,genre
+Comedy,Delhi,26,0.019,0.007,0.036,True,genre
+Comedy,Goa,10,1.684,0.069,3.839,False,genre
+Comedy,Gujarat,19,0.027,0.006,0.061,True,genre
+Comedy,Haryana,18,0.01,0.004,0.018,True,genre
+Comedy,Himachal Pradesh,13,1.598,0.393,2.935,False,genre
+Comedy,Jammu and Kashmir,11,0.268,0.006,0.782,True,genre
+Comedy,Jharkhand,12,0.133,0.005,0.372,True,genre
+Comedy,Karnataka,23,0.011,0.005,0.018,True,genre
+Comedy,Kerala,21,0.014,0.006,0.023,True,genre
+Comedy,Madhya Pradesh,19,0.017,0.005,0.032,True,genre
+Comedy,Maharashtra,27,0.015,0.007,0.028,True,genre
+Comedy,Manipur,13,3.788,1.598,6.483,True,genre
+Comedy,Meghalaya,14,4.063,2.47,5.592,True,genre
+Comedy,Mizoram,14,6.461,5.146,7.918,True,genre
+Comedy,Nagaland,5,10.655,7.283,13.57,True,genre
+Comedy,Odisha,15,0.019,0.008,0.033,True,genre
+Comedy,Punjab,18,0.132,0.007,0.373,True,genre
+Comedy,Rajasthan,12,0.016,0.006,0.029,True,genre
+Comedy,Sikkim,7,4.965,2.579,7.461,True,genre
+Comedy,Tamil Nadu,26,0.032,0.008,0.07,True,genre
+Comedy,Telangana,17,0.016,0.008,0.025,True,genre
+Comedy,Tripura,12,1.889,0.835,2.914,False,genre
+Comedy,Uttar Pradesh,19,0.013,0.005,0.023,True,genre
+Comedy,Uttarakhand,15,1.22,0.248,2.433,False,genre
+Comedy,West Bengal,23,0.013,0.006,0.023,True,genre
+Drama,Andaman and Nicobar Islands,12,6.421,5.205,7.84,True,genre
+Drama,Andhra Pradesh,30,0.086,0.017,0.189,True,genre
+Drama,Arunachal Pradesh,11,3.421,0.646,7.626,False,genre
+Drama,Assam,31,0.088,0.026,0.173,True,genre
+Drama,Bihar,23,0.081,0.009,0.213,True,genre
+Drama,Chandigarh,14,1.451,0.494,2.704,False,genre
+Drama,Chhattisgarh,22,0.111,0.011,0.302,True,genre
+Drama,Dadra and Nagar Haveli and Daman and Diu,13,2.048,1.025,3.249,True,genre
+Drama,Delhi,44,0.038,0.011,0.076,True,genre
+Drama,Goa,13,1.672,0.242,3.73,False,genre
+Drama,Gujarat,30,0.024,0.009,0.048,True,genre
+Drama,Haryana,25,0.017,0.009,0.028,True,genre
+Drama,Himachal Pradesh,21,1.553,0.677,2.52,False,genre
+Drama,Jammu and Kashmir,18,0.376,0.009,0.967,True,genre
+Drama,Jharkhand,24,0.246,0.012,0.548,True,genre
+Drama,Karnataka,41,0.028,0.009,0.058,True,genre
+Drama,Kerala,35,0.019,0.01,0.029,True,genre
+Drama,Lakshadweep,12,5.426,3.742,7.172,True,genre
+Drama,Madhya Pradesh,34,0.023,0.008,0.048,True,genre
+Drama,Maharashtra,44,0.06,0.015,0.138,True,genre
+Drama,Manipur,19,4.743,1.988,7.499,True,genre
+Drama,Meghalaya,23,5.282,3.026,7.672,True,genre
+Drama,Mizoram,10,4.607,3.561,5.666,True,genre
+Drama,Nagaland,15,8.036,5.566,10.94,True,genre
+Drama,Odisha,24,0.024,0.014,0.037,True,genre
+Drama,Puducherry,9,4.781,3.525,6.224,True,genre
+Drama,Punjab,25,0.142,0.013,0.358,True,genre
+Drama,Rajasthan,33,0.034,0.008,0.077,True,genre
+Drama,Sikkim,12,3.482,2.261,4.745,True,genre
+Drama,Tamil Nadu,41,0.049,0.018,0.09,True,genre
+Drama,Telangana,32,0.018,0.01,0.027,True,genre
+Drama,Tripura,13,2.549,1.267,3.796,True,genre
+Drama,Uttar Pradesh,36,0.046,0.01,0.111,True,genre
+Drama,Uttarakhand,24,1.195,0.311,2.464,False,genre
+Drama,West Bengal,36,0.091,0.015,0.196,True,genre
+Fantasy,Andaman and Nicobar Islands,8,6.542,4.901,8.1,True,genre
+Fantasy,Andhra Pradesh,19,0.236,0.035,0.477,True,genre
+Fantasy,Arunachal Pradesh,5,2.927,0.433,5.532,False,genre
+Fantasy,Assam,20,0.143,0.025,0.309,True,genre
+Fantasy,Bihar,18,0.17,0.039,0.371,True,genre
+Fantasy,Chandigarh,8,1.732,0.375,3.337,False,genre
+Fantasy,Chhattisgarh,11,0.009,0.004,0.013,True,genre
+Fantasy,Dadra and Nagar Haveli and Daman and Diu,7,3.899,2.132,5.727,True,genre
+Fantasy,Delhi,32,0.071,0.006,0.244,True,genre
+Fantasy,Goa,9,1.536,0.295,3.128,False,genre
+Fantasy,Gujarat,23,0.041,0.005,0.104,True,genre
+Fantasy,Haryana,22,0.012,0.004,0.024,True,genre
+Fantasy,Himachal Pradesh,10,0.694,0.008,1.573,False,genre
+Fantasy,Jammu and Kashmir,9,0.872,0.005,1.869,False,genre
+Fantasy,Jharkhand,15,0.55,0.006,1.48,False,genre
+Fantasy,Karnataka,28,0.032,0.006,0.07,True,genre
+Fantasy,Kerala,26,0.016,0.007,0.029,True,genre
+Fantasy,Lakshadweep,8,5.423,4.21,7.112,True,genre
+Fantasy,Madhya Pradesh,26,0.014,0.004,0.027,True,genre
+Fantasy,Maharashtra,33,0.074,0.008,0.188,True,genre
+Fantasy,Manipur,12,3.723,0.803,7.16,False,genre
+Fantasy,Meghalaya,17,4.059,2.242,6.443,True,genre
+Fantasy,Mizoram,9,5.419,4.32,6.736,True,genre
+Fantasy,Nagaland,11,7.116,4.092,10.608,True,genre
+Fantasy,Odisha,14,0.12,0.01,0.323,True,genre
+Fantasy,Puducherry,8,6.174,3.844,9.818,True,genre
+Fantasy,Punjab,18,0.085,0.006,0.232,True,genre
+Fantasy,Rajasthan,19,0.011,0.004,0.022,True,genre
+Fantasy,Sikkim,10,3.334,2.168,4.594,True,genre
+Fantasy,Tamil Nadu,29,0.043,0.015,0.083,True,genre
+Fantasy,Telangana,23,0.043,0.007,0.106,True,genre
+Fantasy,Tripura,9,3.968,2.376,5.496,True,genre
+Fantasy,Uttar Pradesh,29,0.04,0.006,0.102,True,genre
+Fantasy,Uttarakhand,11,1.044,0.014,3.084,False,genre
+Fantasy,West Bengal,30,0.07,0.01,0.168,True,genre
+Horror,Assam,6,0.031,0.008,0.07,True,genre
+Horror,Delhi,8,0.002,0.001,0.004,True,genre
+Horror,Karnataka,7,0.002,0.0,0.005,True,genre
+Horror,Madhya Pradesh,5,0.002,0.001,0.003,True,genre
+Horror,Maharashtra,7,0.004,0.001,0.008,True,genre
+Horror,Tamil Nadu,6,0.003,0.001,0.006,True,genre
+Mystery,Andaman and Nicobar Islands,5,7.509,6.116,9.043,True,genre
+Mystery,Andhra Pradesh,10,0.209,0.012,0.524,True,genre
+Mystery,Assam,17,0.152,0.047,0.304,True,genre
+Mystery,Bihar,11,0.156,0.011,0.431,True,genre
+Mystery,Chandigarh,6,1.112,0.029,3.256,False,genre
+Mystery,Chhattisgarh,9,0.246,0.008,0.713,True,genre
+Mystery,Delhi,17,0.068,0.009,0.174,True,genre
+Mystery,Gujarat,9,0.024,0.01,0.039,True,genre
+Mystery,Haryana,11,0.023,0.007,0.043,True,genre
+Mystery,Himachal Pradesh,6,0.511,0.011,1.5,False,genre
+Mystery,Jammu and Kashmir,7,0.748,0.032,2.016,False,genre
+Mystery,Jharkhand,10,0.131,0.008,0.363,True,genre
+Mystery,Karnataka,16,0.055,0.009,0.124,True,genre
+Mystery,Kerala,13,0.026,0.01,0.048,True,genre
+Mystery,Madhya Pradesh,14,0.042,0.009,0.098,True,genre
+Mystery,Maharashtra,18,0.12,0.011,0.309,True,genre
+Mystery,Manipur,8,3.306,0.444,7.834,False,genre
+Mystery,Meghalaya,9,3.422,1.22,5.659,True,genre
+Mystery,Nagaland,6,9.868,4.381,14.941,True,genre
+Mystery,Odisha,10,0.04,0.016,0.067,True,genre
+Mystery,Punjab,11,0.111,0.011,0.301,True,genre
+Mystery,Rajasthan,13,0.072,0.007,0.183,True,genre
+Mystery,Sikkim,6,3.343,1.451,5.239,True,genre
+Mystery,Tamil Nadu,16,0.076,0.019,0.145,True,genre
+Mystery,Telangana,11,0.028,0.01,0.05,True,genre
+Mystery,Tripura,6,2.714,0.795,4.822,False,genre
+Mystery,Uttar Pradesh,13,0.107,0.014,0.279,True,genre
+Mystery,Uttarakhand,9,1.544,0.017,4.037,False,genre
+Mystery,West Bengal,14,0.211,0.017,0.475,True,genre
+Psychological,Andhra Pradesh,7,0.011,0.006,0.019,True,genre
+Psychological,Assam,10,0.024,0.008,0.049,True,genre
+Psychological,Bihar,5,0.008,0.002,0.017,True,genre
+Psychological,Delhi,17,0.005,0.001,0.011,True,genre
+Psychological,Gujarat,7,0.009,0.001,0.02,True,genre
+Psychological,Haryana,10,0.008,0.003,0.015,True,genre
+Psychological,Jammu and Kashmir,8,0.595,0.011,1.717,False,genre
+Psychological,Jharkhand,7,0.016,0.003,0.032,True,genre
+Psychological,Karnataka,13,0.006,0.001,0.013,True,genre
+Psychological,Kerala,9,0.009,0.002,0.017,True,genre
+Psychological,Madhya Pradesh,15,0.005,0.001,0.011,True,genre
+Psychological,Maharashtra,15,0.006,0.002,0.012,True,genre
+Psychological,Manipur,6,4.666,1.026,9.729,True,genre
+Psychological,Meghalaya,9,2.733,0.877,4.828,False,genre
+Psychological,Mizoram,5,5.145,2.865,7.467,True,genre
+Psychological,Nagaland,6,10.382,6.498,14.319,True,genre
+Psychological,Odisha,5,0.023,0.01,0.039,True,genre
+Psychological,Puducherry,5,3.456,2.243,4.861,True,genre
+Psychological,Punjab,6,0.366,0.004,1.079,False,genre
+Psychological,Rajasthan,8,0.007,0.001,0.018,True,genre
+Psychological,Sikkim,6,2.653,1.089,4.058,True,genre
+Psychological,Tamil Nadu,15,0.005,0.001,0.01,True,genre
+Psychological,Telangana,7,0.011,0.001,0.025,True,genre
+Psychological,Tripura,7,1.34,0.088,3.173,False,genre
+Psychological,Uttar Pradesh,12,0.007,0.001,0.016,True,genre
+Psychological,West Bengal,11,0.009,0.002,0.018,True,genre
+Romance,Andaman and Nicobar Islands,5,5.289,3.155,7.288,True,genre
+Romance,Andhra Pradesh,9,0.017,0.003,0.035,True,genre
+Romance,Assam,7,0.013,0.002,0.029,True,genre
+Romance,Dadra and Nagar Haveli and Daman and Diu,5,2.234,0.884,3.857,False,genre
+Romance,Delhi,12,0.02,0.001,0.054,True,genre
+Romance,Gujarat,5,0.065,0.001,0.191,True,genre
+Romance,Himachal Pradesh,8,2.454,0.911,4.179,False,genre
+Romance,Jharkhand,8,0.568,0.004,1.323,False,genre
+Romance,Karnataka,8,0.005,0.001,0.01,True,genre
+Romance,Kerala,9,0.004,0.001,0.008,True,genre
+Romance,Madhya Pradesh,8,0.002,0.001,0.005,True,genre
+Romance,Maharashtra,10,0.018,0.002,0.044,True,genre
+Romance,Odisha,7,0.007,0.001,0.015,True,genre
+Romance,Punjab,5,0.003,0.001,0.005,True,genre
+Romance,Rajasthan,5,0.003,0.001,0.005,True,genre
+Romance,Tamil Nadu,11,0.047,0.001,0.136,True,genre
+Romance,Telangana,6,0.004,0.001,0.006,True,genre
+Romance,Uttar Pradesh,8,0.003,0.001,0.007,True,genre
+Romance,Uttarakhand,6,0.517,0.006,1.057,False,genre
+Romance,West Bengal,8,0.006,0.001,0.015,True,genre
+Sci-Fi,Andhra Pradesh,6,0.024,0.011,0.035,True,genre
+Sci-Fi,Assam,6,0.013,0.005,0.023,True,genre
+Sci-Fi,Bihar,5,0.008,0.002,0.013,True,genre
+Sci-Fi,Chhattisgarh,6,0.011,0.004,0.018,True,genre
+Sci-Fi,Delhi,8,0.011,0.003,0.02,True,genre
+Sci-Fi,Goa,5,3.354,0.08,7.607,False,genre
+Sci-Fi,Gujarat,5,0.012,0.005,0.02,True,genre
+Sci-Fi,Haryana,5,0.011,0.004,0.019,True,genre
+Sci-Fi,Himachal Pradesh,5,1.825,0.007,3.643,False,genre
+Sci-Fi,Karnataka,9,0.01,0.004,0.017,True,genre
+Sci-Fi,Kerala,7,0.013,0.004,0.022,True,genre
+Sci-Fi,Madhya Pradesh,8,0.007,0.002,0.013,True,genre
+Sci-Fi,Maharashtra,9,0.011,0.004,0.019,True,genre
+Sci-Fi,Odisha,5,0.016,0.007,0.026,True,genre
+Sci-Fi,Punjab,5,0.014,0.006,0.022,True,genre
+Sci-Fi,Rajasthan,8,0.007,0.002,0.013,True,genre
+Sci-Fi,Tamil Nadu,8,0.012,0.005,0.021,True,genre
+Sci-Fi,Telangana,7,0.014,0.005,0.024,True,genre
+Sci-Fi,Tripura,6,3.786,1.866,5.726,True,genre
+Sci-Fi,Uttar Pradesh,6,0.013,0.005,0.019,True,genre
+Sci-Fi,West Bengal,6,0.014,0.007,0.021,True,genre
+Slice of Life,Andaman and Nicobar Islands,5,3.341,2.429,4.514,True,genre
+Slice of Life,Andhra Pradesh,9,0.017,0.006,0.032,True,genre
+Slice of Life,Assam,10,0.023,0.006,0.046,True,genre
+Slice of Life,Bihar,6,0.018,0.003,0.046,True,genre
+Slice of Life,Chandigarh,5,0.528,0.017,1.538,False,genre
+Slice of Life,Dadra and Nagar Haveli and Daman and Diu,6,1.865,0.509,3.445,False,genre
+Slice of Life,Delhi,12,0.028,0.003,0.062,True,genre
+Slice of Life,Gujarat,8,0.052,0.003,0.131,True,genre
+Slice of Life,Haryana,8,0.012,0.003,0.026,True,genre
+Slice of Life,Himachal Pradesh,8,1.714,0.448,3.254,False,genre
+Slice of Life,Jammu and Kashmir,5,0.008,0.002,0.018,True,genre
+Slice of Life,Jharkhand,8,0.197,0.005,0.567,True,genre
+Slice of Life,Karnataka,10,0.011,0.002,0.027,True,genre
+Slice of Life,Kerala,8,0.014,0.003,0.031,True,genre
+Slice of Life,Madhya Pradesh,8,0.015,0.002,0.036,True,genre
+Slice of Life,Maharashtra,12,0.022,0.005,0.046,True,genre
+Slice of Life,Manipur,6,2.447,0.152,6.217,False,genre
+Slice of Life,Meghalaya,6,8.265,3.996,13.715,True,genre
+Slice of Life,Mizoram,6,5.691,3.197,8.451,True,genre
+Slice of Life,Odisha,8,0.018,0.003,0.041,True,genre
+Slice of Life,Punjab,9,0.249,0.004,0.727,True,genre
+Slice of Life,Rajasthan,5,0.02,0.004,0.048,True,genre
+Slice of Life,Tamil Nadu,12,0.051,0.003,0.137,True,genre
+Slice of Life,Telangana,7,0.015,0.004,0.034,True,genre
+Slice of Life,Tripura,6,0.66,0.129,1.513,False,genre
+Slice of Life,Uttar Pradesh,8,0.015,0.003,0.035,True,genre
+Slice of Life,Uttarakhand,7,0.22,0.007,0.627,True,genre
+Slice of Life,West Bengal,11,0.016,0.004,0.034,True,genre
+Supernatural,Andaman and Nicobar Islands,11,6.236,4.581,7.597,True,genre
+Supernatural,Andhra Pradesh,19,0.097,0.01,0.264,True,genre
+Supernatural,Arunachal Pradesh,12,5.03,1.749,8.589,True,genre
+Supernatural,Assam,20,0.113,0.023,0.242,True,genre
+Supernatural,Bihar,15,0.114,0.006,0.316,True,genre
+Supernatural,Chandigarh,7,0.651,0.019,1.908,False,genre
+Supernatural,Chhattisgarh,17,0.142,0.011,0.39,True,genre
+Supernatural,Delhi,25,0.047,0.009,0.118,True,genre
+Supernatural,Goa,6,0.071,0.046,0.1,True,genre
+Supernatural,Gujarat,20,0.013,0.005,0.022,True,genre
+Supernatural,Haryana,16,0.012,0.006,0.021,True,genre
+Supernatural,Himachal Pradesh,12,0.013,0.006,0.025,True,genre
+Supernatural,Jammu and Kashmir,12,0.025,0.006,0.059,True,genre
+Supernatural,Jharkhand,20,0.073,0.01,0.194,True,genre
+Supernatural,Karnataka,25,0.035,0.009,0.099,True,genre
+Supernatural,Kerala,20,0.017,0.011,0.026,True,genre
+Supernatural,Madhya Pradesh,22,0.028,0.007,0.067,True,genre
+Supernatural,Maharashtra,27,0.082,0.01,0.209,True,genre
+Supernatural,Manipur,13,4.692,1.452,8.428,True,genre
+Supernatural,Meghalaya,17,6.837,4.39,9.228,True,genre
+Supernatural,Mizoram,9,6.524,5.089,7.941,True,genre
+Supernatural,Nagaland,6,11.255,8.553,13.81,True,genre
+Supernatural,Odisha,19,0.019,0.009,0.031,True,genre
+Supernatural,Punjab,18,0.186,0.007,0.426,True,genre
+Supernatural,Rajasthan,20,0.048,0.007,0.122,True,genre
+Supernatural,Sikkim,5,3.101,1.078,4.867,True,genre
+Supernatural,Tamil Nadu,26,0.047,0.011,0.097,True,genre
+Supernatural,Telangana,21,0.014,0.008,0.021,True,genre
+Supernatural,Tripura,8,1.389,0.116,3.253,False,genre
+Supernatural,Uttar Pradesh,22,0.065,0.008,0.174,True,genre
+Supernatural,Uttarakhand,18,0.158,0.011,0.44,True,genre
+Supernatural,West Bengal,21,0.143,0.015,0.327,True,genre
+Thriller,Delhi,7,0.12,0.0,0.357,True,genre
+Thriller,Madhya Pradesh,6,0.06,0.0,0.177,True,genre
+Thriller,Maharashtra,5,0.328,0.0,0.98,True,genre
+Thriller,Tamil Nadu,5,0.111,0.0,0.33,True,genre
+Thriller,Uttar Pradesh,5,0.221,0.0,0.662,True,genre
+Thriller,West Bengal,5,0.268,0.0,0.801,True,genre
+Adoption,Andhra Pradesh,6,0.464,0.014,0.979,True,theme
+Adoption,Arunachal Pradesh,5,5.223,1.976,8.867,True,theme
+Adoption,Assam,6,0.314,0.028,0.67,True,theme
+Adoption,Bihar,7,0.348,0.014,0.792,True,theme
+Adoption,Chhattisgarh,6,0.372,0.003,1.089,False,theme
+Adoption,Delhi,10,0.286,0.005,0.709,True,theme
+Adoption,Gujarat,7,0.116,0.002,0.31,True,theme
+Adoption,Haryana,6,0.013,0.001,0.033,True,theme
+Adoption,Himachal Pradesh,5,0.791,0.003,2.326,False,theme
+Adoption,Jharkhand,5,0.255,0.006,0.715,True,theme
+Adoption,Karnataka,10,0.118,0.01,0.239,True,theme
+Adoption,Kerala,7,0.014,0.002,0.032,True,theme
+Adoption,Madhya Pradesh,7,0.066,0.003,0.166,True,theme
+Adoption,Maharashtra,11,0.345,0.016,0.788,True,theme
+Adoption,Odisha,5,0.294,0.008,0.813,True,theme
+Adoption,Punjab,6,0.401,0.013,0.892,True,theme
+Adoption,Rajasthan,6,0.135,0.004,0.372,True,theme
+Adoption,Tamil Nadu,9,0.159,0.041,0.308,True,theme
+Adoption,Telangana,6,0.128,0.007,0.348,True,theme
+Adoption,Uttar Pradesh,10,0.204,0.01,0.479,True,theme
+Adoption,West Bengal,10,0.322,0.061,0.654,True,theme
+Afterlife,Delhi,5,0.003,0.001,0.006,True,theme
+Afterlife,Haryana,5,0.002,0.001,0.003,True,theme
+Afterlife,Maharashtra,5,0.005,0.001,0.009,True,theme
+Afterlife,West Bengal,5,0.004,0.001,0.007,True,theme
+Age Gap,Delhi,7,0.002,0.0,0.004,True,theme
+Age Gap,Karnataka,5,0.003,0.0,0.007,True,theme
+Age Gap,Kerala,5,0.003,0.0,0.009,True,theme
+Age Gap,Madhya Pradesh,6,0.001,0.0,0.002,True,theme
+Age Gap,Maharashtra,5,0.003,0.0,0.007,True,theme
+Age Gap,Tamil Nadu,5,0.003,0.0,0.007,True,theme
+Age Gap,West Bengal,5,0.003,0.0,0.007,True,theme
+Age Regression,Assam,6,0.143,0.005,0.411,True,theme
+Age Regression,Delhi,5,0.171,0.004,0.501,True,theme
+Age Regression,Gujarat,5,0.002,0.001,0.003,True,theme
+Age Regression,Himachal Pradesh,5,1.18,0.002,3.529,False,theme
+Age Regression,Karnataka,5,0.117,0.006,0.337,True,theme
+Age Regression,Madhya Pradesh,5,0.073,0.002,0.213,True,theme
+Age Regression,Maharashtra,6,0.278,0.004,0.82,True,theme
+Age Regression,Rajasthan,5,0.145,0.001,0.431,True,theme
+Age Regression,Tamil Nadu,7,0.082,0.003,0.238,True,theme
+Age Regression,Telangana,6,0.004,0.002,0.007,True,theme
+Age Regression,Uttar Pradesh,5,0.225,0.004,0.664,True,theme
+Age Regression,West Bengal,5,0.274,0.008,0.803,True,theme
+Alternate Universe,Assam,5,0.163,0.001,0.486,True,theme
+Alternate Universe,Delhi,9,0.093,0.0,0.278,True,theme
+Alternate Universe,Karnataka,6,0.095,0.0,0.28,True,theme
+Alternate Universe,Kerala,6,0.003,0.0,0.006,True,theme
+Alternate Universe,Madhya Pradesh,8,0.045,0.001,0.133,True,theme
+Alternate Universe,Maharashtra,6,0.275,0.001,0.818,True,theme
+Alternate Universe,Rajasthan,5,0.145,0.001,0.43,True,theme
+Alternate Universe,Tamil Nadu,6,0.093,0.001,0.277,True,theme
+Alternate Universe,Uttar Pradesh,7,0.159,0.001,0.473,True,theme
+Alternate Universe,West Bengal,7,0.192,0.0,0.573,True,theme
+Amnesia,Andhra Pradesh,5,0.018,0.004,0.037,True,theme
+Amnesia,Assam,7,0.146,0.016,0.356,True,theme
+Amnesia,Delhi,8,0.12,0.006,0.325,True,theme
+Amnesia,Jharkhand,6,0.029,0.008,0.059,True,theme
+Amnesia,Karnataka,7,0.095,0.008,0.251,True,theme
+Amnesia,Kerala,5,0.027,0.004,0.051,True,theme
+Amnesia,Madhya Pradesh,6,0.078,0.005,0.195,True,theme
+Amnesia,Maharashtra,8,0.22,0.005,0.625,True,theme
+Amnesia,Punjab,6,0.183,0.006,0.52,True,theme
+Amnesia,Tamil Nadu,6,0.114,0.009,0.29,True,theme
+Amnesia,Uttar Pradesh,6,0.204,0.008,0.567,True,theme
+Amnesia,West Bengal,5,0.298,0.016,0.815,True,theme
+Animals,Delhi,5,0.021,0.002,0.054,True,theme
+Animals,Jharkhand,5,0.026,0.005,0.063,True,theme
+Animals,Kerala,6,0.015,0.002,0.037,True,theme
+Animals,Maharashtra,7,0.015,0.001,0.037,True,theme
+Animals,Rajasthan,5,0.018,0.002,0.047,True,theme
+Animals,Tamil Nadu,5,0.02,0.001,0.051,True,theme
+Animals,Telangana,5,0.018,0.002,0.044,True,theme
+Animals,Uttar Pradesh,6,0.017,0.001,0.043,True,theme
+Anthropomorphism,Andhra Pradesh,5,0.014,0.004,0.023,True,theme
+Anthropomorphism,Assam,6,0.149,0.007,0.414,True,theme
+Anthropomorphism,Delhi,6,0.157,0.006,0.429,True,theme
+Anthropomorphism,Karnataka,6,0.108,0.007,0.291,True,theme
+Anthropomorphism,Kerala,5,0.018,0.005,0.036,True,theme
+Anthropomorphism,Madhya Pradesh,5,0.087,0.006,0.219,True,theme
+Anthropomorphism,Maharashtra,5,0.348,0.012,0.994,True,theme
+Anthropomorphism,Rajasthan,5,0.161,0.008,0.433,True,theme
+Anthropomorphism,Tamil Nadu,5,0.133,0.009,0.341,True,theme
+Anthropomorphism,Uttar Pradesh,5,0.242,0.009,0.677,True,theme
+Anthropomorphism,West Bengal,5,0.29,0.012,0.811,True,theme
+Anti-Hero,Andhra Pradesh,15,0.228,0.031,0.466,True,theme
+Anti-Hero,Arunachal Pradesh,7,1.228,0.595,1.938,False,theme
+Anti-Hero,Assam,17,0.171,0.039,0.37,True,theme
+Anti-Hero,Bihar,14,0.163,0.018,0.428,True,theme
+Anti-Hero,Chandigarh,11,0.785,0.029,1.954,False,theme
+Anti-Hero,Chhattisgarh,8,0.016,0.008,0.025,True,theme
+Anti-Hero,Dadra and Nagar Haveli and Daman and Diu,5,0.82,0.144,1.5,False,theme
+Anti-Hero,Delhi,19,0.021,0.009,0.037,True,theme
+Anti-Hero,Goa,9,0.96,0.104,2.2,False,theme
+Anti-Hero,Gujarat,15,0.02,0.009,0.032,True,theme
+Anti-Hero,Haryana,14,0.023,0.01,0.039,True,theme
+Anti-Hero,Himachal Pradesh,8,0.388,0.013,1.13,False,theme
+Anti-Hero,Jammu and Kashmir,9,0.375,0.005,1.114,False,theme
+Anti-Hero,Jharkhand,12,0.694,0.015,1.855,False,theme
+Anti-Hero,Karnataka,17,0.024,0.01,0.04,True,theme
+Anti-Hero,Kerala,15,0.029,0.015,0.048,True,theme
+Anti-Hero,Madhya Pradesh,17,0.026,0.01,0.045,True,theme
+Anti-Hero,Maharashtra,19,0.033,0.014,0.06,True,theme
+Anti-Hero,Manipur,13,3.803,1.207,7.348,True,theme
+Anti-Hero,Meghalaya,12,4.753,1.937,8.392,True,theme
+Anti-Hero,Mizoram,9,6.427,4.656,7.935,True,theme
+Anti-Hero,Nagaland,9,10.41,6.619,13.871,True,theme
+Anti-Hero,Odisha,10,0.042,0.02,0.069,True,theme
+Anti-Hero,Punjab,13,0.021,0.01,0.032,True,theme
+Anti-Hero,Rajasthan,17,0.017,0.008,0.027,True,theme
+Anti-Hero,Sikkim,6,2.526,0.665,4.395,False,theme
+Anti-Hero,Tamil Nadu,18,0.047,0.018,0.087,True,theme
+Anti-Hero,Telangana,16,0.025,0.011,0.042,True,theme
+Anti-Hero,Tripura,10,1.258,0.264,2.671,False,theme
+Anti-Hero,Uttar Pradesh,18,0.021,0.01,0.035,True,theme
+Anti-Hero,Uttarakhand,10,1.143,0.016,3.385,False,theme
+Anti-Hero,West Bengal,17,0.1,0.016,0.254,True,theme
+Aromantic,Delhi,5,0.002,0.0,0.004,True,theme
+Artificial Intelligence,Maharashtra,5,0.006,0.001,0.011,True,theme
+Asexual,Delhi,5,0.01,0.001,0.027,True,theme
+Asexual,Karnataka,5,0.01,0.001,0.026,True,theme
+Asexual,Kerala,5,0.01,0.002,0.025,True,theme
+Asexual,Maharashtra,5,0.011,0.001,0.028,True,theme
+Assassins,Andhra Pradesh,7,0.245,0.012,0.693,True,theme
+Assassins,Arunachal Pradesh,5,2.704,0.077,7.265,False,theme
+Assassins,Assam,7,0.164,0.017,0.423,True,theme
+Assassins,Bihar,8,0.206,0.005,0.582,True,theme
+Assassins,Chhattisgarh,6,0.028,0.004,0.064,True,theme
+Assassins,Delhi,10,0.017,0.003,0.035,True,theme
+Assassins,Goa,6,0.09,0.027,0.176,True,theme
+Assassins,Gujarat,7,0.022,0.005,0.043,True,theme
+Assassins,Haryana,8,0.018,0.005,0.033,True,theme
+Assassins,Himachal Pradesh,5,0.02,0.002,0.044,True,theme
+Assassins,Jammu and Kashmir,5,0.004,0.002,0.007,True,theme
+Assassins,Jharkhand,8,0.165,0.005,0.45,True,theme
+Assassins,Karnataka,8,0.02,0.006,0.039,True,theme
+Assassins,Kerala,8,0.022,0.007,0.038,True,theme
+Assassins,Madhya Pradesh,10,0.016,0.003,0.033,True,theme
+Assassins,Maharashtra,9,0.044,0.01,0.095,True,theme
+Assassins,Manipur,6,2.079,0.129,5.873,False,theme
+Assassins,Meghalaya,6,7.103,6.088,8.19,True,theme
+Assassins,Mizoram,6,5.463,3.501,7.261,True,theme
+Assassins,Nagaland,8,9.391,6.332,12.164,True,theme
+Assassins,Odisha,6,0.032,0.007,0.062,True,theme
+Assassins,Punjab,7,0.018,0.004,0.033,True,theme
+Assassins,Rajasthan,6,0.025,0.006,0.048,True,theme
+Assassins,Tamil Nadu,9,0.058,0.01,0.129,True,theme
+Assassins,Telangana,7,0.025,0.007,0.048,True,theme
+Assassins,Tripura,7,0.886,0.082,2.216,False,theme
+Assassins,Uttar Pradesh,10,0.016,0.004,0.034,True,theme
+Assassins,Uttarakhand,5,0.026,0.006,0.046,True,theme
+Assassins,West Bengal,10,0.149,0.01,0.409,True,theme
+Battle Royale,Andhra Pradesh,7,0.193,0.012,0.512,True,theme
+Battle Royale,Assam,6,0.024,0.009,0.041,True,theme
+Battle Royale,Bihar,7,0.133,0.009,0.368,True,theme
+Battle Royale,Delhi,10,0.211,0.012,0.592,True,theme
+Battle Royale,Gujarat,8,0.109,0.01,0.284,True,theme
+Battle Royale,Haryana,7,0.017,0.006,0.029,True,theme
+Battle Royale,Karnataka,9,0.076,0.011,0.19,True,theme
+Battle Royale,Kerala,7,0.028,0.008,0.047,True,theme
+Battle Royale,Madhya Pradesh,8,0.018,0.005,0.032,True,theme
+Battle Royale,Maharashtra,9,0.227,0.014,0.637,True,theme
+Battle Royale,Odisha,6,0.248,0.014,0.688,True,theme
+Battle Royale,Punjab,6,0.24,0.012,0.673,True,theme
+Battle Royale,Rajasthan,5,0.028,0.008,0.049,True,theme
+Battle Royale,Tamil Nadu,9,0.072,0.012,0.175,True,theme
+Battle Royale,Telangana,7,0.122,0.018,0.31,True,theme
+Battle Royale,Uttar Pradesh,9,0.113,0.012,0.305,True,theme
+Battle Royale,Uttarakhand,5,0.715,0.008,2.12,False,theme
+Battle Royale,West Bengal,9,0.074,0.01,0.173,True,theme
+Boarding School,Andhra Pradesh,7,0.097,0.021,0.217,True,theme
+Boarding School,Arunachal Pradesh,5,2.122,0.467,4.077,False,theme
+Boarding School,Assam,8,0.06,0.014,0.138,True,theme
+Boarding School,Bihar,6,0.029,0.012,0.049,True,theme
+Boarding School,Chhattisgarh,5,0.031,0.007,0.06,True,theme
+Boarding School,Delhi,8,0.039,0.012,0.073,True,theme
+Boarding School,Goa,5,2.729,0.164,6.957,False,theme
+Boarding School,Gujarat,7,0.03,0.012,0.05,True,theme
+Boarding School,Haryana,6,0.042,0.017,0.075,True,theme
+Boarding School,Himachal Pradesh,5,1.362,0.006,4.063,False,theme
+Boarding School,Jammu and Kashmir,5,0.114,0.008,0.308,True,theme
+Boarding School,Jharkhand,5,0.016,0.004,0.032,True,theme
+Boarding School,Karnataka,7,0.044,0.017,0.078,True,theme
+Boarding School,Kerala,7,0.048,0.017,0.08,True,theme
+Boarding School,Madhya Pradesh,8,0.029,0.011,0.053,True,theme
+Boarding School,Maharashtra,7,0.043,0.018,0.075,True,theme
+Boarding School,Manipur,7,4.329,1.246,8.035,True,theme
+Boarding School,Odisha,7,0.043,0.016,0.084,True,theme
+Boarding School,Punjab,6,0.032,0.017,0.046,True,theme
+Boarding School,Rajasthan,7,0.03,0.013,0.049,True,theme
+Boarding School,Tamil Nadu,8,0.042,0.016,0.081,True,theme
+Boarding School,Telangana,7,0.046,0.019,0.078,True,theme
+Boarding School,Uttar Pradesh,7,0.037,0.014,0.066,True,theme
+Boarding School,Uttarakhand,5,0.728,0.022,2.122,False,theme
+Boarding School,West Bengal,7,0.043,0.014,0.08,True,theme
+Body Horror,Andaman and Nicobar Islands,8,6.945,5.141,8.525,True,theme
+Body Horror,Andhra Pradesh,13,0.021,0.008,0.043,True,theme
+Body Horror,Arunachal Pradesh,9,5.192,1.287,10.196,True,theme
+Body Horror,Assam,16,0.074,0.014,0.183,True,theme
+Body Horror,Bihar,11,0.011,0.004,0.02,True,theme
+Body Horror,Chandigarh,7,0.656,0.025,1.913,False,theme
+Body Horror,Chhattisgarh,12,0.195,0.012,0.548,True,theme
+Body Horror,Delhi,23,0.047,0.006,0.123,True,theme
+Body Horror,Gujarat,13,0.015,0.006,0.025,True,theme
+Body Horror,Haryana,13,0.012,0.005,0.019,True,theme
+Body Horror,Himachal Pradesh,8,1.6,0.009,3.288,False,theme
+Body Horror,Jammu and Kashmir,9,0.033,0.007,0.076,True,theme
+Body Horror,Jharkhand,14,0.012,0.007,0.021,True,theme
+Body Horror,Karnataka,20,0.039,0.006,0.1,True,theme
+Body Horror,Kerala,19,0.016,0.008,0.026,True,theme
+Body Horror,Lakshadweep,5,7.045,4.643,10.066,True,theme
+Body Horror,Madhya Pradesh,21,0.025,0.004,0.061,True,theme
+Body Horror,Maharashtra,23,0.083,0.007,0.227,True,theme
+Body Horror,Manipur,8,3.594,0.819,7.671,False,theme
+Body Horror,Meghalaya,14,4.928,2.608,7.44,True,theme
+Body Horror,Nagaland,7,8.524,5.598,11.694,True,theme
+Body Horror,Odisha,12,0.019,0.009,0.031,True,theme
+Body Horror,Punjab,12,0.097,0.005,0.264,True,theme
+Body Horror,Rajasthan,18,0.05,0.006,0.129,True,theme
+Body Horror,Sikkim,9,3.441,2.116,4.661,True,theme
+Body Horror,Tamil Nadu,21,0.04,0.008,0.1,True,theme
+Body Horror,Telangana,16,0.015,0.007,0.023,True,theme
+Body Horror,Tripura,5,3.653,0.95,6.357,False,theme
+Body Horror,Uttar Pradesh,23,0.058,0.006,0.157,True,theme
+Body Horror,Uttarakhand,11,0.559,0.01,1.245,False,theme
+Body Horror,West Bengal,18,0.089,0.009,0.272,True,theme
+Bullying,Andhra Pradesh,7,0.021,0.008,0.038,True,theme
+Bullying,Arunachal Pradesh,5,3.448,0.461,6.424,False,theme
+Bullying,Assam,6,0.015,0.005,0.026,True,theme
+Bullying,Bihar,7,0.007,0.002,0.013,True,theme
+Bullying,Chandigarh,5,0.024,0.018,0.031,True,theme
+Bullying,Chhattisgarh,6,0.015,0.007,0.023,True,theme
+Bullying,Delhi,13,0.007,0.002,0.015,True,theme
+Bullying,Gujarat,9,0.008,0.002,0.019,True,theme
+Bullying,Haryana,9,0.008,0.003,0.017,True,theme
+Bullying,Himachal Pradesh,6,0.008,0.004,0.013,True,theme
+Bullying,Jammu and Kashmir,6,0.009,0.003,0.018,True,theme
+Bullying,Jharkhand,7,1.012,0.007,3.007,False,theme
+Bullying,Karnataka,12,0.008,0.003,0.015,True,theme
+Bullying,Kerala,9,0.01,0.004,0.019,True,theme
+Bullying,Madhya Pradesh,9,0.008,0.001,0.018,True,theme
+Bullying,Maharashtra,13,0.008,0.003,0.016,True,theme
+Bullying,Manipur,6,4.578,0.557,9.789,False,theme
+Bullying,Meghalaya,7,3.297,0.724,5.609,False,theme
+Bullying,Mizoram,5,5.462,3.863,6.853,True,theme
+Bullying,Nagaland,7,9.531,6.587,12.66,True,theme
+Bullying,Odisha,9,0.015,0.008,0.024,True,theme
+Bullying,Punjab,7,0.315,0.004,0.928,True,theme
+Bullying,Rajasthan,9,0.009,0.002,0.017,True,theme
+Bullying,Tamil Nadu,10,0.009,0.003,0.016,True,theme
+Bullying,Telangana,8,0.013,0.004,0.027,True,theme
+Bullying,Tripura,8,3.248,1.383,5.034,True,theme
+Bullying,Uttar Pradesh,10,0.008,0.002,0.018,True,theme
+Bullying,Uttarakhand,7,0.576,0.005,1.706,False,theme
+Bullying,West Bengal,11,0.01,0.003,0.02,True,theme
+CGI,Andaman and Nicobar Islands,6,8.215,7.057,9.338,True,theme
+CGI,Andhra Pradesh,15,0.128,0.022,0.304,True,theme
+CGI,Arunachal Pradesh,6,2.15,0.094,5.0,False,theme
+CGI,Assam,17,0.055,0.023,0.102,True,theme
+CGI,Bihar,18,0.062,0.011,0.155,True,theme
+CGI,Chandigarh,12,1.709,0.575,3.116,False,theme
+CGI,Chhattisgarh,12,0.021,0.011,0.034,True,theme
+CGI,Delhi,26,0.092,0.011,0.24,True,theme
+CGI,Goa,7,0.092,0.05,0.159,True,theme
+CGI,Gujarat,19,0.055,0.012,0.135,True,theme
+CGI,Haryana,18,0.021,0.01,0.034,True,theme
+CGI,Himachal Pradesh,12,1.082,0.017,2.425,False,theme
+CGI,Jammu and Kashmir,11,0.073,0.009,0.181,True,theme
+CGI,Jharkhand,12,0.596,0.01,1.762,False,theme
+CGI,Karnataka,23,0.044,0.014,0.09,True,theme
+CGI,Kerala,23,0.025,0.014,0.038,True,theme
+CGI,Lakshadweep,6,7.817,5.814,10.09,True,theme
+CGI,Madhya Pradesh,20,0.017,0.008,0.03,True,theme
+CGI,Maharashtra,27,0.087,0.012,0.23,True,theme
+CGI,Manipur,11,4.197,1.022,7.968,True,theme
+CGI,Meghalaya,14,6.146,3.268,9.34,True,theme
+CGI,Mizoram,6,5.774,4.19,7.364,True,theme
+CGI,Nagaland,7,8.154,4.248,12.494,True,theme
+CGI,Odisha,16,0.116,0.022,0.282,True,theme
+CGI,Punjab,18,0.093,0.014,0.275,True,theme
+CGI,Rajasthan,20,0.016,0.008,0.025,True,theme
+CGI,Sikkim,8,2.957,1.259,4.624,True,theme
+CGI,Tamil Nadu,23,0.043,0.016,0.082,True,theme
+CGI,Telangana,18,0.064,0.017,0.145,True,theme
+CGI,Tripura,8,3.618,1.67,5.465,True,theme
+CGI,Uttar Pradesh,25,0.051,0.012,0.118,True,theme
+CGI,Uttarakhand,16,1.598,0.254,3.335,False,theme
+CGI,West Bengal,22,0.043,0.016,0.089,True,theme
+Cannibalism,Assam,5,0.077,0.007,0.197,True,theme
+Cannibalism,Delhi,7,0.034,0.004,0.081,True,theme
+Cannibalism,Gujarat,6,0.028,0.003,0.053,True,theme
+Cannibalism,Karnataka,5,0.044,0.007,0.095,True,theme
+Cannibalism,Kerala,7,0.031,0.006,0.07,True,theme
+Cannibalism,Madhya Pradesh,5,0.035,0.003,0.076,True,theme
+Cannibalism,Maharashtra,6,0.037,0.006,0.077,True,theme
+Cannibalism,Rajasthan,5,0.031,0.004,0.059,True,theme
+Cannibalism,Tamil Nadu,6,0.043,0.006,0.09,True,theme
+Cannibalism,Telangana,6,0.034,0.006,0.077,True,theme
+Cannibalism,Uttar Pradesh,6,0.036,0.006,0.079,True,theme
+Cannibalism,West Bengal,5,0.048,0.008,0.098,True,theme
+Chibi,Assam,5,0.193,0.003,0.564,True,theme
+Chibi,Maharashtra,6,0.038,0.0,0.111,True,theme
+Chibi,Tamil Nadu,6,0.056,0.0,0.165,True,theme
+Clone,Andhra Pradesh,5,0.01,0.003,0.018,True,theme
+Clone,Assam,5,0.173,0.002,0.487,True,theme
+Clone,Delhi,6,0.147,0.004,0.423,True,theme
+Clone,Gujarat,5,0.006,0.001,0.014,True,theme
+Clone,Karnataka,5,0.123,0.007,0.34,True,theme
+Clone,Kerala,6,0.014,0.003,0.029,True,theme
+Clone,Madhya Pradesh,6,0.064,0.003,0.181,True,theme
+Clone,Maharashtra,7,0.242,0.005,0.706,True,theme
+Clone,Punjab,5,0.209,0.002,0.614,True,theme
+Clone,Rajasthan,6,0.125,0.003,0.362,True,theme
+Clone,Tamil Nadu,7,0.088,0.004,0.245,True,theme
+Clone,Uttar Pradesh,7,0.165,0.004,0.48,True,theme
+Clone,West Bengal,6,0.232,0.004,0.675,True,theme
+Cohabitation,Andhra Pradesh,5,0.263,0.009,0.747,True,theme
+Cohabitation,Delhi,6,0.018,0.001,0.045,True,theme
+Cohabitation,Goa,5,0.526,0.031,1.463,False,theme
+Cohabitation,Haryana,5,0.018,0.005,0.039,True,theme
+Cohabitation,Himachal Pradesh,6,1.258,0.014,3.24,False,theme
+Cohabitation,Jammu and Kashmir,5,0.895,0.003,2.025,False,theme
+Cohabitation,Jharkhand,7,1.455,0.018,3.173,False,theme
+Cohabitation,Karnataka,5,0.018,0.002,0.042,True,theme
+Cohabitation,Madhya Pradesh,6,0.039,0.004,0.073,True,theme
+Cohabitation,Maharashtra,7,0.015,0.001,0.036,True,theme
+Cohabitation,Rajasthan,5,0.019,0.003,0.046,True,theme
+Cohabitation,Tamil Nadu,6,0.03,0.004,0.057,True,theme
+Cohabitation,Uttar Pradesh,7,0.015,0.001,0.039,True,theme
+Cohabitation,West Bengal,5,0.026,0.003,0.065,True,theme
+Coming of Age,Andaman and Nicobar Islands,8,4.794,3.413,6.065,True,theme
+Coming of Age,Andhra Pradesh,15,0.145,0.011,0.355,True,theme
+Coming of Age,Assam,17,0.084,0.008,0.215,True,theme
+Coming of Age,Bihar,13,0.126,0.003,0.36,True,theme
+Coming of Age,Chandigarh,10,0.466,0.027,1.085,False,theme
+Coming of Age,Chhattisgarh,5,0.011,0.003,0.02,True,theme
+Coming of Age,Dadra and Nagar Haveli and Daman and Diu,10,1.629,0.683,2.702,False,theme
+Coming of Age,Delhi,25,0.018,0.003,0.036,True,theme
+Coming of Age,Goa,6,0.828,0.044,1.957,False,theme
+Coming of Age,Gujarat,15,0.031,0.003,0.078,True,theme
+Coming of Age,Haryana,15,0.013,0.003,0.032,True,theme
+Coming of Age,Himachal Pradesh,9,2.182,0.798,3.641,False,theme
+Coming of Age,Jammu and Kashmir,10,0.504,0.004,1.401,False,theme
+Coming of Age,Jharkhand,12,0.224,0.005,0.47,True,theme
+Coming of Age,Karnataka,20,0.012,0.002,0.026,True,theme
+Coming of Age,Kerala,15,0.015,0.004,0.033,True,theme
+Coming of Age,Lakshadweep,8,5.049,3.109,7.134,True,theme
+Coming of Age,Madhya Pradesh,17,0.01,0.001,0.025,True,theme
+Coming of Age,Maharashtra,25,0.023,0.007,0.045,True,theme
+Coming of Age,Manipur,8,1.476,0.359,3.363,False,theme
+Coming of Age,Meghalaya,12,5.644,3.054,9.13,True,theme
+Coming of Age,Mizoram,8,5.486,3.503,7.568,True,theme
+Coming of Age,Nagaland,9,9.325,5.291,13.182,True,theme
+Coming of Age,Odisha,13,0.019,0.004,0.043,True,theme
+Coming of Age,Puducherry,8,4.861,3.077,7.758,True,theme
+Coming of Age,Punjab,14,0.162,0.004,0.471,True,theme
+Coming of Age,Rajasthan,12,0.012,0.002,0.027,True,theme
+Coming of Age,Tamil Nadu,24,0.044,0.004,0.092,True,theme
+Coming of Age,Telangana,14,0.015,0.003,0.035,True,theme
+Coming of Age,Tripura,11,1.984,0.516,3.405,False,theme
+Coming of Age,Uttar Pradesh,16,0.013,0.002,0.028,True,theme
+Coming of Age,Uttarakhand,11,0.488,0.007,1.186,False,theme
+Coming of Age,West Bengal,20,0.077,0.005,0.207,True,theme
+Conspiracy,Andhra Pradesh,12,0.148,0.011,0.412,True,theme
+Conspiracy,Assam,11,0.121,0.019,0.289,True,theme
+Conspiracy,Bihar,11,0.152,0.008,0.426,True,theme
+Conspiracy,Chandigarh,7,1.214,0.029,3.043,False,theme
+Conspiracy,Chhattisgarh,10,0.011,0.004,0.018,True,theme
+Conspiracy,Dadra and Nagar Haveli and Daman and Diu,5,3.056,0.447,5.69,False,theme
+Conspiracy,Delhi,14,0.016,0.007,0.027,True,theme
+Conspiracy,Goa,7,0.905,0.051,2.521,False,theme
+Conspiracy,Gujarat,13,0.014,0.005,0.024,True,theme
+Conspiracy,Haryana,13,0.013,0.004,0.023,True,theme
+Conspiracy,Himachal Pradesh,8,1.131,0.01,2.624,False,theme
+Conspiracy,Jammu and Kashmir,6,0.01,0.004,0.017,True,theme
+Conspiracy,Jharkhand,10,0.828,0.014,2.223,False,theme
+Conspiracy,Karnataka,17,0.013,0.005,0.022,True,theme
+Conspiracy,Kerala,12,0.02,0.008,0.034,True,theme
+Conspiracy,Madhya Pradesh,13,0.013,0.005,0.024,True,theme
+Conspiracy,Maharashtra,18,0.026,0.008,0.05,True,theme
+Conspiracy,Manipur,9,1.115,0.37,2.106,False,theme
+Conspiracy,Meghalaya,8,4.872,2.826,6.705,True,theme
+Conspiracy,Mizoram,9,5.49,4.235,6.725,True,theme
+Conspiracy,Nagaland,9,8.211,5.535,11.544,True,theme
+Conspiracy,Odisha,9,0.027,0.011,0.043,True,theme
+Conspiracy,Punjab,12,0.196,0.009,0.556,True,theme
+Conspiracy,Rajasthan,13,0.014,0.004,0.024,True,theme
+Conspiracy,Tamil Nadu,16,0.036,0.01,0.079,True,theme
+Conspiracy,Telangana,13,0.018,0.007,0.031,True,theme
+Conspiracy,Tripura,9,2.78,1.339,4.535,True,theme
+Conspiracy,Uttar Pradesh,16,0.013,0.005,0.022,True,theme
+Conspiracy,Uttarakhand,8,1.42,0.01,4.224,False,theme
+Conspiracy,West Bengal,16,0.096,0.009,0.258,True,theme
+Crime,Andhra Pradesh,9,0.017,0.007,0.028,True,theme
+Crime,Arunachal Pradesh,5,0.798,0.041,1.557,False,theme
+Crime,Assam,8,0.033,0.008,0.074,True,theme
+Crime,Bihar,6,0.014,0.006,0.023,True,theme
+Crime,Chandigarh,6,0.809,0.018,2.356,False,theme
+Crime,Chhattisgarh,8,0.017,0.009,0.026,True,theme
+Crime,Delhi,14,0.01,0.004,0.016,True,theme
+Crime,Goa,6,1.848,0.035,5.419,False,theme
+Crime,Gujarat,8,0.012,0.006,0.018,True,theme
+Crime,Haryana,9,0.011,0.005,0.017,True,theme
+Crime,Himachal Pradesh,6,1.022,0.007,2.306,False,theme
+Crime,Jammu and Kashmir,6,0.007,0.003,0.012,True,theme
+Crime,Jharkhand,7,1.006,0.005,3.0,False,theme
+Crime,Karnataka,11,0.012,0.006,0.019,True,theme
+Crime,Kerala,10,0.016,0.008,0.025,True,theme
+Crime,Madhya Pradesh,10,0.009,0.004,0.015,True,theme
+Crime,Maharashtra,14,0.011,0.006,0.017,True,theme
+Crime,Manipur,8,5.425,1.394,10.388,True,theme
+Crime,Meghalaya,6,4.338,1.776,7.262,True,theme
+Crime,Mizoram,5,5.541,2.946,7.746,True,theme
+Crime,Nagaland,5,11.007,7.096,14.766,True,theme
+Crime,Odisha,8,0.022,0.012,0.035,True,theme
+Crime,Punjab,6,0.022,0.009,0.037,True,theme
+Crime,Rajasthan,11,0.008,0.004,0.013,True,theme
+Crime,Tamil Nadu,9,0.016,0.009,0.023,True,theme
+Crime,Telangana,11,0.013,0.006,0.02,True,theme
+Crime,Tripura,7,2.048,0.885,3.108,False,theme
+Crime,Uttar Pradesh,11,0.011,0.005,0.017,True,theme
+Crime,Uttarakhand,9,2.446,0.01,5.25,False,theme
+Crime,West Bengal,10,0.014,0.008,0.021,True,theme
+Crossdressing,Andhra Pradesh,6,0.011,0.006,0.018,True,theme
+Crossdressing,Assam,7,0.043,0.011,0.086,True,theme
+Crossdressing,Delhi,9,0.01,0.003,0.017,True,theme
+Crossdressing,Gujarat,6,0.01,0.004,0.016,True,theme
+Crossdressing,Haryana,6,0.011,0.006,0.019,True,theme
+Crossdressing,Jharkhand,6,0.013,0.005,0.025,True,theme
+Crossdressing,Karnataka,7,0.013,0.005,0.021,True,theme
+Crossdressing,Kerala,7,0.016,0.006,0.027,True,theme
+Crossdressing,Madhya Pradesh,7,0.008,0.003,0.015,True,theme
+Crossdressing,Maharashtra,7,0.014,0.005,0.022,True,theme
+Crossdressing,Meghalaya,7,9.363,5.33,14.071,True,theme
+Crossdressing,Odisha,5,0.02,0.009,0.038,True,theme
+Crossdressing,Punjab,6,0.014,0.004,0.031,True,theme
+Crossdressing,Tamil Nadu,7,0.013,0.005,0.022,True,theme
+Crossdressing,Telangana,6,0.013,0.005,0.021,True,theme
+Crossdressing,Uttar Pradesh,8,0.01,0.004,0.017,True,theme
+Crossdressing,Uttarakhand,5,2.759,0.014,7.242,False,theme
+Crossdressing,West Bengal,5,0.022,0.013,0.032,True,theme
+Cult,Delhi,8,0.257,0.001,0.735,True,theme
+Cult,Gujarat,5,0.16,0.001,0.446,True,theme
+Cult,Haryana,6,0.024,0.003,0.062,True,theme
+Cult,Karnataka,8,0.084,0.001,0.214,True,theme
+Cult,Madhya Pradesh,7,0.016,0.001,0.046,True,theme
+Cult,Maharashtra,7,0.281,0.002,0.805,True,theme
+Cult,Nagaland,5,9.071,4.683,13.982,True,theme
+Cult,Odisha,5,0.299,0.002,0.808,True,theme
+Cult,Tamil Nadu,7,0.086,0.001,0.212,True,theme
+Cult,Telangana,5,0.161,0.002,0.428,True,theme
+Cult,Uttar Pradesh,8,0.119,0.001,0.325,True,theme
+Cult,West Bengal,8,0.075,0.001,0.189,True,theme
+Cultivation,Andhra Pradesh,8,0.036,0.012,0.069,True,theme
+Cultivation,Arunachal Pradesh,5,4.139,0.506,8.053,False,theme
+Cultivation,Assam,9,0.017,0.009,0.027,True,theme
+Cultivation,Bihar,8,0.01,0.005,0.018,True,theme
+Cultivation,Chandigarh,6,0.802,0.016,2.356,False,theme
+Cultivation,Chhattisgarh,9,0.421,0.014,1.219,False,theme
+Cultivation,Delhi,12,0.016,0.007,0.028,True,theme
+Cultivation,Goa,5,2.225,0.061,6.494,False,theme
+Cultivation,Gujarat,10,0.012,0.006,0.019,True,theme
+Cultivation,Haryana,10,0.012,0.005,0.02,True,theme
+Cultivation,Himachal Pradesh,6,1.652,0.009,3.903,False,theme
+Cultivation,Jammu and Kashmir,6,0.014,0.007,0.024,True,theme
+Cultivation,Jharkhand,7,1.006,0.005,3.003,False,theme
+Cultivation,Karnataka,11,0.016,0.008,0.025,True,theme
+Cultivation,Kerala,9,0.023,0.01,0.039,True,theme
+Cultivation,Madhya Pradesh,9,0.012,0.006,0.02,True,theme
+Cultivation,Maharashtra,12,0.016,0.008,0.026,True,theme
+Cultivation,Manipur,6,4.272,0.664,8.613,False,theme
+Cultivation,Meghalaya,7,4.135,1.805,6.213,True,theme
+Cultivation,Mizoram,5,7.271,4.885,9.786,True,theme
+Cultivation,Odisha,9,0.02,0.011,0.029,True,theme
+Cultivation,Punjab,9,0.017,0.008,0.03,True,theme
+Cultivation,Rajasthan,9,0.012,0.006,0.02,True,theme
+Cultivation,Sikkim,7,3.944,1.785,5.896,True,theme
+Cultivation,Tamil Nadu,10,0.019,0.009,0.03,True,theme
+Cultivation,Telangana,9,0.021,0.01,0.034,True,theme
+Cultivation,Tripura,6,4.261,3.102,5.471,True,theme
+Cultivation,Uttar Pradesh,11,0.014,0.007,0.023,True,theme
+Cultivation,Uttarakhand,10,1.441,0.041,2.833,False,theme
+Cultivation,West Bengal,11,0.016,0.008,0.026,True,theme
+Curses,Andaman and Nicobar Islands,5,5.764,2.961,8.119,True,theme
+Curses,Andhra Pradesh,9,0.151,0.01,0.425,True,theme
+Curses,Arunachal Pradesh,6,5.93,1.064,13.84,True,theme
+Curses,Assam,8,0.17,0.011,0.473,True,theme
+Curses,Bihar,6,0.098,0.005,0.267,True,theme
+Curses,Chhattisgarh,6,0.017,0.009,0.025,True,theme
+Curses,Dadra and Nagar Haveli and Daman and Diu,5,3.12,1.653,4.979,True,theme
+Curses,Delhi,11,0.015,0.004,0.031,True,theme
+Curses,Gujarat,9,0.016,0.004,0.03,True,theme
+Curses,Haryana,7,0.015,0.01,0.024,True,theme
+Curses,Himachal Pradesh,5,0.01,0.007,0.014,True,theme
+Curses,Jammu and Kashmir,6,0.481,0.007,1.42,False,theme
+Curses,Jharkhand,9,0.013,0.006,0.023,True,theme
+Curses,Karnataka,8,0.019,0.008,0.031,True,theme
+Curses,Kerala,9,0.02,0.008,0.033,True,theme
+Curses,Madhya Pradesh,8,0.03,0.008,0.066,True,theme
+Curses,Maharashtra,10,0.017,0.006,0.033,True,theme
+Curses,Manipur,6,4.05,0.543,9.127,False,theme
+Curses,Meghalaya,7,7.295,3.714,11.01,True,theme
+Curses,Odisha,7,0.015,0.004,0.031,True,theme
+Curses,Punjab,8,0.278,0.006,0.815,True,theme
+Curses,Rajasthan,7,0.018,0.006,0.034,True,theme
+Curses,Tamil Nadu,10,0.026,0.011,0.044,True,theme
+Curses,Telangana,9,0.017,0.007,0.029,True,theme
+Curses,Uttar Pradesh,10,0.016,0.005,0.029,True,theme
+Curses,Uttarakhand,6,0.017,0.012,0.023,True,theme
+Curses,West Bengal,8,0.022,0.008,0.043,True,theme
+Delinquents,Maharashtra,5,0.019,0.004,0.033,True,theme
+Demons,Andaman and Nicobar Islands,6,6.994,4.744,8.815,True,theme
+Demons,Andhra Pradesh,14,0.098,0.007,0.279,True,theme
+Demons,Arunachal Pradesh,7,5.795,1.126,11.438,True,theme
+Demons,Assam,12,0.116,0.008,0.319,True,theme
+Demons,Bihar,10,0.059,0.003,0.161,True,theme
+Demons,Chandigarh,6,1.216,0.025,2.68,False,theme
+Demons,Chhattisgarh,11,0.011,0.005,0.018,True,theme
+Demons,Delhi,22,0.009,0.003,0.018,True,theme
+Demons,Goa,8,1.019,0.037,2.39,False,theme
+Demons,Gujarat,18,0.009,0.002,0.018,True,theme
+Demons,Haryana,15,0.008,0.003,0.013,True,theme
+Demons,Himachal Pradesh,9,0.672,0.006,2.001,False,theme
+Demons,Jammu and Kashmir,12,0.616,0.005,1.6,False,theme
+Demons,Jharkhand,12,0.01,0.004,0.019,True,theme
+Demons,Karnataka,20,0.009,0.004,0.015,True,theme
+Demons,Kerala,18,0.012,0.005,0.019,True,theme
+Demons,Lakshadweep,5,4.588,3.235,6.097,True,theme
+Demons,Madhya Pradesh,19,0.014,0.003,0.027,True,theme
+Demons,Maharashtra,23,0.009,0.004,0.016,True,theme
+Demons,Manipur,10,3.372,1.072,6.826,True,theme
+Demons,Meghalaya,13,5.437,3.262,7.891,True,theme
+Demons,Mizoram,8,5.104,3.86,6.473,True,theme
+Demons,Nagaland,8,7.129,4.289,10.421,True,theme
+Demons,Odisha,9,0.013,0.004,0.026,True,theme
+Demons,Puducherry,6,4.3,2.862,6.273,True,theme
+Demons,Punjab,12,0.186,0.004,0.543,True,theme
+Demons,Rajasthan,14,0.01,0.004,0.02,True,theme
+Demons,Sikkim,6,3.479,2.075,4.465,True,theme
+Demons,Tamil Nadu,23,0.012,0.004,0.023,True,theme
+Demons,Telangana,17,0.01,0.004,0.017,True,theme
+Demons,Tripura,6,3.72,1.745,5.418,True,theme
+Demons,Uttar Pradesh,20,0.009,0.003,0.018,True,theme
+Demons,Uttarakhand,10,0.021,0.008,0.037,True,theme
+Demons,West Bengal,18,0.012,0.004,0.023,True,theme
+Denpa,Maharashtra,5,0.326,0.0,0.978,True,theme
+Detective,Assam,6,0.029,0.004,0.066,True,theme
+Detective,Delhi,7,0.004,0.001,0.006,True,theme
+Detective,Jharkhand,5,0.012,0.003,0.027,True,theme
+Detective,Karnataka,6,0.005,0.002,0.008,True,theme
+Detective,Kerala,5,0.006,0.003,0.01,True,theme
+Detective,Madhya Pradesh,6,0.002,0.001,0.004,True,theme
+Detective,Maharashtra,7,0.006,0.002,0.011,True,theme
+Detective,Tamil Nadu,6,0.004,0.002,0.008,True,theme
+Detective,Telangana,5,0.005,0.002,0.007,True,theme
+Detective,Uttar Pradesh,5,0.005,0.003,0.007,True,theme
+Dissociative Identities,Andhra Pradesh,7,0.07,0.01,0.178,True,theme
+Dissociative Identities,Assam,8,0.178,0.041,0.391,True,theme
+Dissociative Identities,Delhi,12,0.093,0.008,0.245,True,theme
+Dissociative Identities,Gujarat,6,0.033,0.005,0.059,True,theme
+Dissociative Identities,Jammu and Kashmir,5,0.154,0.02,0.348,True,theme
+Dissociative Identities,Karnataka,12,0.067,0.005,0.16,True,theme
+Dissociative Identities,Kerala,6,0.041,0.01,0.076,True,theme
+Dissociative Identities,Madhya Pradesh,8,0.071,0.01,0.166,True,theme
+Dissociative Identities,Maharashtra,12,0.158,0.009,0.43,True,theme
+Dissociative Identities,Odisha,6,0.055,0.023,0.1,True,theme
+Dissociative Identities,Punjab,5,0.659,0.037,1.501,False,theme
+Dissociative Identities,Rajasthan,6,0.151,0.017,0.381,True,theme
+Dissociative Identities,Sikkim,5,4.322,3.173,5.563,True,theme
+Dissociative Identities,Tamil Nadu,9,0.093,0.016,0.213,True,theme
+Dissociative Identities,Telangana,5,0.047,0.012,0.088,True,theme
+Dissociative Identities,Uttar Pradesh,8,0.169,0.011,0.44,True,theme
+Dissociative Identities,Uttarakhand,5,0.547,0.037,1.537,False,theme
+Dissociative Identities,West Bengal,9,0.178,0.01,0.473,True,theme
+Dragons,Delhi,9,0.003,0.001,0.005,True,theme
+Dragons,Goa,5,2.262,0.035,4.528,False,theme
+Dragons,Gujarat,6,0.001,0.001,0.002,True,theme
+Dragons,Karnataka,6,0.005,0.002,0.007,True,theme
+Dragons,Kerala,7,0.004,0.001,0.006,True,theme
+Dragons,Madhya Pradesh,7,0.002,0.001,0.003,True,theme
+Dragons,Maharashtra,8,0.006,0.002,0.01,True,theme
+Dragons,Tamil Nadu,6,0.005,0.002,0.008,True,theme
+Dragons,Telangana,5,0.004,0.002,0.006,True,theme
+Dragons,Uttar Pradesh,8,0.004,0.001,0.006,True,theme
+Dragons,West Bengal,6,0.004,0.002,0.007,True,theme
+Drugs,Delhi,5,0.019,0.002,0.04,True,theme
+Drugs,Maharashtra,6,0.052,0.005,0.12,True,theme
+Drugs,Rajasthan,5,0.015,0.001,0.034,True,theme
+Drugs,Telangana,5,0.018,0.002,0.037,True,theme
+Dystopian,Andhra Pradesh,6,0.08,0.011,0.208,True,theme
+Dystopian,Assam,5,0.123,0.032,0.228,True,theme
+Dystopian,Chandigarh,5,1.33,0.031,3.896,False,theme
+Dystopian,Chhattisgarh,5,0.009,0.003,0.014,True,theme
+Dystopian,Delhi,7,0.035,0.008,0.072,True,theme
+Dystopian,Gujarat,5,0.033,0.011,0.058,True,theme
+Dystopian,Haryana,6,0.033,0.008,0.067,True,theme
+Dystopian,Himachal Pradesh,5,1.805,0.019,4.188,False,theme
+Dystopian,Karnataka,10,0.025,0.003,0.054,True,theme
+Dystopian,Kerala,5,0.052,0.018,0.09,True,theme
+Dystopian,Madhya Pradesh,7,0.026,0.005,0.054,True,theme
+Dystopian,Maharashtra,10,0.024,0.006,0.049,True,theme
+Dystopian,Nagaland,5,9.322,3.189,15.472,True,theme
+Dystopian,Odisha,5,0.057,0.017,0.109,True,theme
+Dystopian,Punjab,5,0.033,0.013,0.053,True,theme
+Dystopian,Rajasthan,8,0.02,0.005,0.039,True,theme
+Dystopian,Tamil Nadu,8,0.033,0.005,0.069,True,theme
+Dystopian,Telangana,7,0.032,0.007,0.069,True,theme
+Dystopian,Uttar Pradesh,7,0.031,0.007,0.063,True,theme
+Dystopian,Uttarakhand,5,2.265,0.014,6.744,False,theme
+Dystopian,West Bengal,6,0.04,0.01,0.082,True,theme
+Elf,Delhi,6,0.001,0.0,0.002,True,theme
+Elf,Madhya Pradesh,5,0.026,0.001,0.077,True,theme
+Elf,Maharashtra,5,0.001,0.0,0.004,True,theme
+Elf,Uttar Pradesh,5,0.001,0.0,0.003,True,theme
+Ensemble Cast,Andaman and Nicobar Islands,10,5.065,3.607,6.427,True,theme
+Ensemble Cast,Andhra Pradesh,25,0.084,0.023,0.195,True,theme
+Ensemble Cast,Arunachal Pradesh,11,4.205,1.004,8.901,True,theme
+Ensemble Cast,Assam,28,0.066,0.021,0.129,True,theme
+Ensemble Cast,Bihar,23,0.056,0.014,0.13,True,theme
+Ensemble Cast,Chandigarh,16,0.76,0.035,1.712,False,theme
+Ensemble Cast,Chhattisgarh,21,0.294,0.019,0.709,True,theme
+Ensemble Cast,Dadra and Nagar Haveli and Daman and Diu,6,1.737,0.371,3.401,False,theme
+Ensemble Cast,Delhi,40,0.091,0.018,0.198,True,theme
+Ensemble Cast,Goa,14,1.808,0.457,3.791,False,theme
+Ensemble Cast,Gujarat,31,0.05,0.014,0.099,True,theme
+Ensemble Cast,Haryana,25,0.02,0.01,0.03,True,theme
+Ensemble Cast,Himachal Pradesh,18,0.827,0.177,1.686,False,theme
+Ensemble Cast,Jammu and Kashmir,16,0.319,0.006,0.881,True,theme
+Ensemble Cast,Jharkhand,19,0.094,0.011,0.247,True,theme
+Ensemble Cast,Karnataka,40,0.043,0.013,0.084,True,theme
+Ensemble Cast,Kerala,31,0.023,0.013,0.034,True,theme
+Ensemble Cast,Lakshadweep,7,6.579,4.405,8.857,True,theme
+Ensemble Cast,Madhya Pradesh,34,0.026,0.009,0.051,True,theme
+Ensemble Cast,Maharashtra,41,0.105,0.018,0.236,True,theme
+Ensemble Cast,Manipur,20,5.053,2.396,7.63,True,theme
+Ensemble Cast,Meghalaya,21,4.0,2.255,6.87,True,theme
+Ensemble Cast,Mizoram,14,6.159,5.144,7.265,True,theme
+Ensemble Cast,Nagaland,15,9.131,6.494,11.829,True,theme
+Ensemble Cast,Odisha,23,0.09,0.024,0.205,True,theme
+Ensemble Cast,Puducherry,7,4.852,2.877,6.453,True,theme
+Ensemble Cast,Punjab,25,0.112,0.016,0.275,True,theme
+Ensemble Cast,Rajasthan,30,0.041,0.011,0.09,True,theme
+Ensemble Cast,Sikkim,12,3.588,2.199,5.075,True,theme
+Ensemble Cast,Tamil Nadu,36,0.061,0.025,0.112,True,theme
+Ensemble Cast,Telangana,30,0.045,0.015,0.093,True,theme
+Ensemble Cast,Tripura,16,2.343,1.2,3.578,True,theme
+Ensemble Cast,Uttar Pradesh,33,0.078,0.016,0.159,True,theme
+Ensemble Cast,Uttarakhand,20,0.957,0.031,2.167,False,theme
+Ensemble Cast,West Bengal,36,0.07,0.019,0.165,True,theme
+Episodic,Andaman and Nicobar Islands,5,4.035,2.212,6.865,True,theme
+Episodic,Andhra Pradesh,5,0.015,0.004,0.033,True,theme
+Episodic,Arunachal Pradesh,6,3.125,0.394,6.934,False,theme
+Episodic,Assam,6,0.024,0.003,0.06,True,theme
+Episodic,Bihar,7,0.015,0.002,0.039,True,theme
+Episodic,Chhattisgarh,5,0.025,0.003,0.069,True,theme
+Episodic,Delhi,10,0.012,0.002,0.029,True,theme
+Episodic,Goa,5,0.071,0.039,0.109,True,theme
+Episodic,Gujarat,6,0.015,0.001,0.039,True,theme
+Episodic,Haryana,6,0.013,0.002,0.032,True,theme
+Episodic,Himachal Pradesh,6,0.659,0.003,1.949,False,theme
+Episodic,Jharkhand,6,0.022,0.005,0.052,True,theme
+Episodic,Karnataka,8,0.012,0.002,0.027,True,theme
+Episodic,Kerala,9,0.011,0.002,0.027,True,theme
+Episodic,Madhya Pradesh,6,0.018,0.002,0.046,True,theme
+Episodic,Maharashtra,10,0.012,0.002,0.029,True,theme
+Episodic,Odisha,5,0.025,0.002,0.062,True,theme
+Episodic,Punjab,6,0.013,0.002,0.03,True,theme
+Episodic,Rajasthan,7,0.013,0.001,0.034,True,theme
+Episodic,Tamil Nadu,8,0.015,0.003,0.036,True,theme
+Episodic,Telangana,6,0.017,0.003,0.037,True,theme
+Episodic,Uttar Pradesh,9,0.013,0.002,0.031,True,theme
+Episodic,West Bengal,8,0.018,0.003,0.042,True,theme
+Espionage,Andhra Pradesh,8,0.076,0.02,0.173,True,theme
+Espionage,Assam,9,0.072,0.025,0.142,True,theme
+Espionage,Bihar,8,0.036,0.018,0.056,True,theme
+Espionage,Chandigarh,5,1.314,0.019,3.888,False,theme
+Espionage,Chhattisgarh,7,0.027,0.006,0.058,True,theme
+Espionage,Delhi,9,0.043,0.017,0.074,True,theme
+Espionage,Goa,5,2.252,0.059,6.53,False,theme
+Espionage,Gujarat,8,0.037,0.018,0.055,True,theme
+Espionage,Haryana,8,0.039,0.015,0.064,True,theme
+Espionage,Himachal Pradesh,7,0.019,0.005,0.04,True,theme
+Espionage,Jammu and Kashmir,5,0.107,0.005,0.308,True,theme
+Espionage,Jharkhand,8,0.025,0.007,0.048,True,theme
+Espionage,Karnataka,10,0.037,0.014,0.065,True,theme
+Espionage,Kerala,9,0.043,0.018,0.071,True,theme
+Espionage,Madhya Pradesh,9,0.036,0.017,0.061,True,theme
+Espionage,Maharashtra,10,0.037,0.017,0.063,True,theme
+Espionage,Manipur,8,1.578,0.101,4.447,False,theme
+Espionage,Meghalaya,7,6.261,4.027,7.942,True,theme
+Espionage,Mizoram,6,6.401,5.022,7.725,True,theme
+Espionage,Nagaland,6,11.206,5.954,15.476,True,theme
+Espionage,Odisha,8,0.054,0.024,0.086,True,theme
+Espionage,Punjab,8,0.03,0.016,0.044,True,theme
+Espionage,Rajasthan,9,0.033,0.013,0.052,True,theme
+Espionage,Tamil Nadu,9,0.046,0.021,0.081,True,theme
+Espionage,Telangana,9,0.042,0.02,0.063,True,theme
+Espionage,Tripura,7,1.327,0.12,2.569,False,theme
+Espionage,Uttar Pradesh,10,0.035,0.014,0.06,True,theme
+Espionage,Uttarakhand,7,0.034,0.018,0.049,True,theme
+Espionage,West Bengal,10,0.041,0.017,0.072,True,theme
+Fake Relationship,Andhra Pradesh,5,0.021,0.007,0.035,True,theme
+Fake Relationship,Assam,5,0.039,0.013,0.075,True,theme
+Fake Relationship,Bihar,5,0.026,0.007,0.056,True,theme
+Fake Relationship,Chhattisgarh,5,0.03,0.005,0.073,True,theme
+Fake Relationship,Delhi,5,0.032,0.009,0.061,True,theme
+Fake Relationship,Gujarat,5,0.027,0.007,0.054,True,theme
+Fake Relationship,Haryana,5,0.024,0.007,0.044,True,theme
+Fake Relationship,Himachal Pradesh,5,0.019,0.003,0.045,True,theme
+Fake Relationship,Jharkhand,5,0.033,0.007,0.062,True,theme
+Fake Relationship,Karnataka,5,0.027,0.012,0.048,True,theme
+Fake Relationship,Kerala,5,0.029,0.011,0.047,True,theme
+Fake Relationship,Madhya Pradesh,5,0.03,0.007,0.057,True,theme
+Fake Relationship,Maharashtra,5,0.031,0.01,0.058,True,theme
+Fake Relationship,Manipur,5,3.75,0.202,8.249,False,theme
+Fake Relationship,Odisha,5,0.033,0.01,0.063,True,theme
+Fake Relationship,Punjab,5,0.021,0.006,0.04,True,theme
+Fake Relationship,Rajasthan,5,0.027,0.006,0.053,True,theme
+Fake Relationship,Tamil Nadu,5,0.031,0.011,0.054,True,theme
+Fake Relationship,Telangana,5,0.03,0.011,0.052,True,theme
+Fake Relationship,Tripura,5,0.278,0.063,0.643,True,theme
+Fake Relationship,Uttar Pradesh,5,0.031,0.009,0.06,True,theme
+Fake Relationship,Uttarakhand,5,0.022,0.007,0.041,True,theme
+Fake Relationship,West Bengal,5,0.039,0.012,0.067,True,theme
+Family Life,Andhra Pradesh,6,0.016,0.007,0.03,True,theme
+Family Life,Assam,5,0.042,0.014,0.079,True,theme
+Family Life,Bihar,6,0.019,0.004,0.046,True,theme
+Family Life,Chhattisgarh,5,0.03,0.005,0.073,True,theme
+Family Life,Delhi,8,0.017,0.004,0.037,True,theme
+Family Life,Goa,5,0.526,0.031,1.475,False,theme
+Family Life,Gujarat,8,0.013,0.002,0.031,True,theme
+Family Life,Haryana,6,0.016,0.006,0.032,True,theme
+Family Life,Himachal Pradesh,6,0.014,0.002,0.037,True,theme
+Family Life,Jammu and Kashmir,7,0.239,0.002,0.706,True,theme
+Family Life,Jharkhand,8,0.402,0.006,1.168,False,theme
+Family Life,Karnataka,8,0.015,0.004,0.029,True,theme
+Family Life,Kerala,7,0.017,0.005,0.036,True,theme
+Family Life,Madhya Pradesh,5,0.024,0.007,0.054,True,theme
+Family Life,Maharashtra,9,0.015,0.004,0.031,True,theme
+Family Life,Manipur,6,3.53,0.574,7.301,False,theme
+Family Life,Meghalaya,5,7.846,1.965,14.813,True,theme
+Family Life,Nagaland,5,9.905,5.22,13.929,True,theme
+Family Life,Odisha,6,0.024,0.007,0.054,True,theme
+Family Life,Punjab,7,0.32,0.005,0.94,True,theme
+Family Life,Rajasthan,5,0.02,0.005,0.046,True,theme
+Family Life,Tamil Nadu,8,0.016,0.003,0.037,True,theme
+Family Life,Telangana,6,0.018,0.006,0.038,True,theme
+Family Life,Tripura,6,1.018,0.125,1.819,False,theme
+Family Life,Uttar Pradesh,6,0.021,0.005,0.046,True,theme
+Family Life,Uttarakhand,6,0.291,0.011,0.83,True,theme
+Family Life,West Bengal,7,0.025,0.006,0.053,True,theme
+Female Harem,Andhra Pradesh,8,0.162,0.004,0.473,True,theme
+Female Harem,Assam,10,0.131,0.005,0.378,True,theme
+Female Harem,Bihar,7,0.08,0.003,0.224,True,theme
+Female Harem,Chandigarh,6,0.9,0.021,1.817,False,theme
+Female Harem,Chhattisgarh,6,0.007,0.003,0.015,True,theme
+Female Harem,Dadra and Nagar Haveli and Daman and Diu,5,1.507,0.426,2.543,False,theme
+Female Harem,Delhi,15,0.02,0.003,0.046,True,theme
+Female Harem,Goa,9,1.172,0.085,2.372,False,theme
+Female Harem,Gujarat,13,0.029,0.002,0.078,True,theme
+Female Harem,Haryana,9,0.007,0.002,0.015,True,theme
+Female Harem,Himachal Pradesh,8,0.619,0.003,1.474,False,theme
+Female Harem,Jammu and Kashmir,8,0.561,0.003,1.417,False,theme
+Female Harem,Jharkhand,11,1.053,0.02,2.509,False,theme
+Female Harem,Karnataka,13,0.007,0.003,0.013,True,theme
+Female Harem,Kerala,11,0.009,0.004,0.015,True,theme
+Female Harem,Lakshadweep,5,4.763,2.225,8.488,True,theme
+Female Harem,Madhya Pradesh,13,0.015,0.002,0.034,True,theme
+Female Harem,Maharashtra,16,0.015,0.004,0.034,True,theme
+Female Harem,Manipur,7,2.15,0.441,4.149,False,theme
+Female Harem,Meghalaya,6,3.996,1.347,6.714,True,theme
+Female Harem,Mizoram,8,6.238,4.857,7.691,True,theme
+Female Harem,Nagaland,6,10.826,6.55,13.862,True,theme
+Female Harem,Odisha,7,0.01,0.002,0.019,True,theme
+Female Harem,Punjab,10,0.006,0.003,0.012,True,theme
+Female Harem,Rajasthan,9,0.007,0.002,0.016,True,theme
+Female Harem,Tamil Nadu,14,0.047,0.006,0.115,True,theme
+Female Harem,Telangana,12,0.009,0.002,0.018,True,theme
+Female Harem,Tripura,8,1.901,0.095,3.921,False,theme
+Female Harem,Uttar Pradesh,11,0.009,0.004,0.016,True,theme
+Female Harem,Uttarakhand,5,0.337,0.006,0.988,True,theme
+Female Harem,West Bengal,12,0.01,0.004,0.018,True,theme
+Female Protagonist,Andaman and Nicobar Islands,9,6.116,4.433,7.888,True,theme
+Female Protagonist,Andhra Pradesh,17,0.015,0.008,0.025,True,theme
+Female Protagonist,Arunachal Pradesh,9,4.72,0.742,9.339,False,theme
+Female Protagonist,Assam,19,0.019,0.008,0.034,True,theme
+Female Protagonist,Bihar,13,0.015,0.004,0.028,True,theme
+Female Protagonist,Chandigarh,6,0.444,0.018,1.281,False,theme
+Female Protagonist,Chhattisgarh,12,0.019,0.007,0.038,True,theme
+Female Protagonist,Dadra and Nagar Haveli and Daman and Diu,7,3.155,1.851,4.429,True,theme
+Female Protagonist,Delhi,28,0.01,0.004,0.02,True,theme
+Female Protagonist,Goa,10,0.624,0.04,1.761,False,theme
+Female Protagonist,Gujarat,15,0.015,0.004,0.029,True,theme
+Female Protagonist,Haryana,16,0.01,0.004,0.019,True,theme
+Female Protagonist,Himachal Pradesh,13,0.804,0.017,1.846,False,theme
+Female Protagonist,Jammu and Kashmir,10,0.616,0.004,1.514,False,theme
+Female Protagonist,Jharkhand,15,0.22,0.008,0.628,True,theme
+Female Protagonist,Karnataka,23,0.011,0.005,0.017,True,theme
+Female Protagonist,Kerala,24,0.011,0.004,0.019,True,theme
+Female Protagonist,Lakshadweep,9,4.668,3.189,6.273,True,theme
+Female Protagonist,Madhya Pradesh,19,0.012,0.003,0.022,True,theme
+Female Protagonist,Maharashtra,25,0.012,0.005,0.02,True,theme
+Female Protagonist,Manipur,9,5.635,1.857,10.377,True,theme
+Female Protagonist,Meghalaya,12,4.849,1.835,9.051,True,theme
+Female Protagonist,Mizoram,8,5.478,3.396,7.718,True,theme
+Female Protagonist,Nagaland,9,9.417,6.485,12.324,True,theme
+Female Protagonist,Odisha,15,0.018,0.008,0.032,True,theme
+Female Protagonist,Puducherry,5,5.749,2.943,9.749,True,theme
+Female Protagonist,Punjab,16,0.01,0.004,0.017,True,theme
+Female Protagonist,Rajasthan,17,0.012,0.004,0.023,True,theme
+Female Protagonist,Sikkim,6,3.584,0.911,7.058,False,theme
+Female Protagonist,Tamil Nadu,24,0.013,0.005,0.022,True,theme
+Female Protagonist,Telangana,17,0.014,0.006,0.024,True,theme
+Female Protagonist,Tripura,9,1.666,0.178,3.83,False,theme
+Female Protagonist,Uttar Pradesh,21,0.013,0.005,0.023,True,theme
+Female Protagonist,Uttarakhand,13,0.25,0.013,0.614,True,theme
+Female Protagonist,West Bengal,21,0.017,0.007,0.029,True,theme
+Femboy,Delhi,7,0.002,0.001,0.004,True,theme
+Femboy,Karnataka,5,0.003,0.001,0.005,True,theme
+Femboy,Kerala,5,0.004,0.001,0.007,True,theme
+Femboy,Madhya Pradesh,5,0.002,0.001,0.003,True,theme
+Femboy,Maharashtra,5,0.004,0.001,0.008,True,theme
+Femboy,Mizoram,5,6.098,3.782,8.161,True,theme
+Femboy,Uttar Pradesh,6,0.003,0.001,0.006,True,theme
+Food,Delhi,5,0.002,0.0,0.005,True,theme
+Food,Karnataka,5,0.002,0.0,0.004,True,theme
+Food,Kerala,6,0.002,0.001,0.003,True,theme
+Food,Maharashtra,5,0.004,0.001,0.008,True,theme
+Food,Uttar Pradesh,5,0.003,0.0,0.005,True,theme
+Foreign,Andhra Pradesh,7,0.398,0.014,0.89,True,theme
+Foreign,Assam,8,0.137,0.006,0.379,True,theme
+Foreign,Bihar,8,0.307,0.008,0.688,True,theme
+Foreign,Chhattisgarh,7,0.026,0.004,0.055,True,theme
+Foreign,Delhi,14,0.146,0.003,0.424,True,theme
+Foreign,Goa,5,0.05,0.021,0.093,True,theme
+Foreign,Gujarat,8,0.103,0.003,0.281,True,theme
+Foreign,Haryana,5,0.018,0.004,0.039,True,theme
+Foreign,Himachal Pradesh,5,0.021,0.004,0.045,True,theme
+Foreign,Jammu and Kashmir,5,0.003,0.002,0.004,True,theme
+Foreign,Jharkhand,9,0.144,0.005,0.4,True,theme
+Foreign,Karnataka,13,0.049,0.003,0.125,True,theme
+Foreign,Kerala,11,0.012,0.003,0.025,True,theme
+Foreign,Madhya Pradesh,9,0.013,0.002,0.032,True,theme
+Foreign,Maharashtra,15,0.146,0.007,0.402,True,theme
+Foreign,Manipur,5,5.713,0.175,12.203,False,theme
+Foreign,Meghalaya,7,4.949,2.536,7.085,True,theme
+Foreign,Nagaland,5,9.136,5.092,12.843,True,theme
+Foreign,Odisha,7,0.211,0.006,0.592,True,theme
+Foreign,Punjab,7,0.201,0.006,0.575,True,theme
+Foreign,Rajasthan,9,0.012,0.002,0.032,True,theme
+Foreign,Sikkim,7,1.826,0.601,3.005,False,theme
+Foreign,Tamil Nadu,11,0.083,0.01,0.174,True,theme
+Foreign,Telangana,9,0.087,0.005,0.239,True,theme
+Foreign,Tripura,5,1.144,0.082,2.869,False,theme
+Foreign,Uttar Pradesh,13,0.073,0.003,0.202,True,theme
+Foreign,Uttarakhand,6,0.652,0.006,1.915,False,theme
+Foreign,West Bengal,14,0.136,0.007,0.339,True,theme
+Found Family,Andhra Pradesh,8,0.012,0.004,0.023,True,theme
+Found Family,Arunachal Pradesh,5,3.341,0.06,7.919,False,theme
+Found Family,Assam,8,0.028,0.008,0.056,True,theme
+Found Family,Bihar,6,0.019,0.003,0.046,True,theme
+Found Family,Chandigarh,5,0.57,0.017,1.672,False,theme
+Found Family,Chhattisgarh,6,0.025,0.003,0.061,True,theme
+Found Family,Delhi,10,0.014,0.003,0.031,True,theme
+Found Family,Gujarat,8,0.014,0.003,0.031,True,theme
+Found Family,Haryana,8,0.012,0.004,0.026,True,theme
+Found Family,Himachal Pradesh,5,1.213,0.003,3.593,False,theme
+Found Family,Jharkhand,7,1.019,0.008,3.014,False,theme
+Found Family,Karnataka,9,0.014,0.005,0.029,True,theme
+Found Family,Kerala,8,0.016,0.005,0.031,True,theme
+Found Family,Madhya Pradesh,6,0.02,0.004,0.046,True,theme
+Found Family,Maharashtra,13,0.011,0.003,0.024,True,theme
+Found Family,Manipur,7,3.805,0.927,7.392,False,theme
+Found Family,Meghalaya,6,7.347,2.427,13.307,True,theme
+Found Family,Odisha,5,0.028,0.009,0.063,True,theme
+Found Family,Punjab,8,0.011,0.004,0.024,True,theme
+Found Family,Rajasthan,10,0.011,0.002,0.026,True,theme
+Found Family,Tamil Nadu,8,0.017,0.005,0.036,True,theme
+Found Family,Telangana,6,0.019,0.006,0.038,True,theme
+Found Family,Tripura,5,1.351,0.078,3.494,False,theme
+Found Family,Uttar Pradesh,10,0.013,0.003,0.029,True,theme
+Found Family,Uttarakhand,5,0.022,0.006,0.043,True,theme
+Found Family,West Bengal,8,0.023,0.006,0.046,True,theme
+Fugitive,Delhi,6,0.017,0.005,0.031,True,theme
+Fugitive,Haryana,5,0.015,0.003,0.027,True,theme
+Fugitive,Kerala,5,0.021,0.005,0.037,True,theme
+Fugitive,Maharashtra,6,0.019,0.006,0.03,True,theme
+Fugitive,Rajasthan,6,0.012,0.003,0.024,True,theme
+Fugitive,Telangana,5,0.018,0.003,0.036,True,theme
+Fugitive,Uttar Pradesh,5,0.018,0.005,0.032,True,theme
+Fugitive,West Bengal,5,0.026,0.01,0.043,True,theme
+Gangs,Delhi,6,0.011,0.001,0.021,True,theme
+Gangs,Karnataka,5,0.013,0.002,0.023,True,theme
+Gangs,Maharashtra,7,0.011,0.003,0.02,True,theme
+Gangs,Rajasthan,5,0.007,0.001,0.017,True,theme
+Gangs,Telangana,5,0.014,0.004,0.026,True,theme
+Gender Bending,Maharashtra,5,0.002,0.0,0.005,True,theme
+Goblin,Delhi,6,0.018,0.004,0.044,True,theme
+Goblin,Goa,5,2.287,0.07,4.552,False,theme
+Goblin,Gujarat,6,0.013,0.001,0.037,True,theme
+Goblin,Karnataka,5,0.018,0.005,0.041,True,theme
+Goblin,Kerala,6,0.015,0.003,0.037,True,theme
+Goblin,Madhya Pradesh,5,0.019,0.002,0.052,True,theme
+Goblin,Maharashtra,6,0.02,0.006,0.045,True,theme
+Goblin,Punjab,5,0.013,0.002,0.035,True,theme
+Goblin,Tamil Nadu,5,0.022,0.006,0.052,True,theme
+Goblin,Telangana,5,0.017,0.004,0.042,True,theme
+Goblin,Uttar Pradesh,5,0.022,0.006,0.052,True,theme
+Goblin,West Bengal,5,0.025,0.005,0.062,True,theme
+Gods,Delhi,9,0.308,0.003,0.734,True,theme
+Gods,Goa,5,1.634,0.017,3.913,False,theme
+Gods,Gujarat,7,0.104,0.001,0.309,True,theme
+Gods,Karnataka,8,0.139,0.003,0.306,True,theme
+Gods,Madhya Pradesh,5,0.074,0.001,0.214,True,theme
+Gods,Maharashtra,11,0.319,0.002,0.662,True,theme
+Gods,Odisha,5,0.273,0.001,0.809,True,theme
+Gods,Punjab,5,0.469,0.002,0.993,True,theme
+Gods,Tamil Nadu,8,0.128,0.004,0.277,True,theme
+Gods,Telangana,7,0.098,0.001,0.289,True,theme
+Gods,Uttar Pradesh,6,0.325,0.004,0.694,True,theme
+Gods,West Bengal,8,0.229,0.005,0.617,True,theme
+Gore,Andaman and Nicobar Islands,9,7.417,6.609,8.352,True,theme
+Gore,Andhra Pradesh,23,0.1,0.013,0.24,True,theme
+Gore,Arunachal Pradesh,12,5.007,1.671,9.474,True,theme
+Gore,Assam,28,0.102,0.034,0.192,True,theme
+Gore,Bihar,21,0.09,0.011,0.236,True,theme
+Gore,Chandigarh,11,1.186,0.205,2.576,False,theme
+Gore,Chhattisgarh,17,0.144,0.013,0.39,True,theme
+Gore,Dadra and Nagar Haveli and Daman and Diu,9,3.33,1.795,4.814,True,theme
+Gore,Delhi,39,0.037,0.009,0.083,True,theme
+Gore,Goa,12,0.743,0.062,1.873,False,theme
+Gore,Gujarat,26,0.017,0.009,0.028,True,theme
+Gore,Haryana,25,0.017,0.008,0.029,True,theme
+Gore,Himachal Pradesh,14,0.655,0.013,1.619,False,theme
+Gore,Jammu and Kashmir,15,0.352,0.009,0.969,True,theme
+Gore,Jharkhand,23,0.37,0.012,1.003,False,theme
+Gore,Karnataka,34,0.033,0.011,0.069,True,theme
+Gore,Kerala,31,0.02,0.011,0.03,True,theme
+Gore,Lakshadweep,9,6.484,4.871,8.42,True,theme
+Gore,Madhya Pradesh,33,0.025,0.009,0.048,True,theme
+Gore,Maharashtra,40,0.062,0.012,0.144,True,theme
+Gore,Manipur,14,4.082,1.43,7.044,True,theme
+Gore,Meghalaya,20,4.989,3.256,6.918,True,theme
+Gore,Mizoram,11,5.689,4.251,7.246,True,theme
+Gore,Nagaland,15,7.715,5.276,10.243,True,theme
+Gore,Odisha,22,0.029,0.014,0.045,True,theme
+Gore,Puducherry,8,5.746,3.281,9.568,True,theme
+Gore,Punjab,22,0.063,0.011,0.158,True,theme
+Gore,Rajasthan,28,0.041,0.01,0.098,True,theme
+Gore,Sikkim,11,2.809,1.51,4.051,True,theme
+Gore,Tamil Nadu,36,0.043,0.014,0.082,True,theme
+Gore,Telangana,29,0.019,0.01,0.03,True,theme
+Gore,Tripura,12,2.73,1.37,4.238,True,theme
+Gore,Uttar Pradesh,36,0.046,0.009,0.11,True,theme
+Gore,Uttarakhand,18,0.782,0.016,2.166,False,theme
+Gore,West Bengal,33,0.099,0.017,0.219,True,theme
+Guns,Andhra Pradesh,7,0.022,0.011,0.035,True,theme
+Guns,Arunachal Pradesh,5,7.051,0.552,13.497,False,theme
+Guns,Assam,9,0.051,0.02,0.088,True,theme
+Guns,Bihar,8,0.025,0.008,0.045,True,theme
+Guns,Chandigarh,5,0.035,0.017,0.062,True,theme
+Guns,Chhattisgarh,9,0.028,0.01,0.053,True,theme
+Guns,Delhi,12,0.022,0.008,0.039,True,theme
+Guns,Goa,5,0.059,0.031,0.096,True,theme
+Guns,Gujarat,7,0.031,0.013,0.052,True,theme
+Guns,Haryana,8,0.02,0.007,0.033,True,theme
+Guns,Himachal Pradesh,6,0.515,0.009,1.506,False,theme
+Guns,Jammu and Kashmir,5,0.006,0.003,0.009,True,theme
+Guns,Jharkhand,7,0.027,0.006,0.054,True,theme
+Guns,Karnataka,12,0.019,0.008,0.031,True,theme
+Guns,Kerala,10,0.026,0.01,0.042,True,theme
+Guns,Madhya Pradesh,11,0.02,0.006,0.035,True,theme
+Guns,Maharashtra,14,0.019,0.007,0.031,True,theme
+Guns,Manipur,7,4.336,0.508,9.359,False,theme
+Guns,Meghalaya,8,5.713,1.787,10.881,True,theme
+Guns,Odisha,8,0.033,0.012,0.056,True,theme
+Guns,Punjab,7,0.025,0.011,0.04,True,theme
+Guns,Rajasthan,12,0.017,0.004,0.031,True,theme
+Guns,Tamil Nadu,10,0.027,0.01,0.046,True,theme
+Guns,Telangana,11,0.019,0.008,0.032,True,theme
+Guns,Tripura,6,2.038,0.254,4.014,False,theme
+Guns,Uttar Pradesh,9,0.028,0.01,0.047,True,theme
+Guns,Uttarakhand,8,1.422,0.013,4.225,False,theme
+Guns,West Bengal,10,0.031,0.013,0.051,True,theme
+Henshin,Andhra Pradesh,6,0.344,0.022,0.858,True,theme
+Henshin,Assam,7,0.225,0.046,0.483,True,theme
+Henshin,Bihar,6,0.286,0.031,0.778,True,theme
+Henshin,Chandigarh,6,1.57,0.045,3.708,False,theme
+Henshin,Delhi,8,0.039,0.012,0.076,True,theme
+Henshin,Gujarat,6,0.039,0.015,0.062,True,theme
+Henshin,Haryana,6,0.037,0.012,0.071,True,theme
+Henshin,Jharkhand,6,1.371,0.016,3.692,False,theme
+Henshin,Karnataka,7,0.041,0.015,0.077,True,theme
+Henshin,Kerala,7,0.043,0.016,0.077,True,theme
+Henshin,Madhya Pradesh,6,0.039,0.015,0.067,True,theme
+Henshin,Maharashtra,10,0.051,0.012,0.093,True,theme
+Henshin,Odisha,5,0.067,0.03,0.11,True,theme
+Henshin,Punjab,5,0.037,0.019,0.053,True,theme
+Henshin,Rajasthan,7,0.031,0.012,0.052,True,theme
+Henshin,Tamil Nadu,7,0.094,0.024,0.179,True,theme
+Henshin,Telangana,6,0.044,0.017,0.089,True,theme
+Henshin,Uttar Pradesh,8,0.036,0.011,0.069,True,theme
+Henshin,Uttarakhand,5,2.268,0.02,6.747,False,theme
+Henshin,West Bengal,9,0.178,0.02,0.463,True,theme
+Heterosexual,Andaman and Nicobar Islands,10,6.002,4.402,7.56,True,theme
+Heterosexual,Andhra Pradesh,23,0.086,0.01,0.225,True,theme
+Heterosexual,Arunachal Pradesh,10,2.583,0.748,4.958,False,theme
+Heterosexual,Assam,25,0.087,0.015,0.187,True,theme
+Heterosexual,Bihar,18,0.09,0.004,0.258,True,theme
+Heterosexual,Chandigarh,11,0.423,0.024,1.018,False,theme
+Heterosexual,Chhattisgarh,15,0.152,0.006,0.432,True,theme
+Heterosexual,Dadra and Nagar Haveli and Daman and Diu,9,2.932,1.371,4.711,True,theme
+Heterosexual,Delhi,37,0.034,0.006,0.095,True,theme
+Heterosexual,Goa,12,1.612,0.059,3.633,False,theme
+Heterosexual,Gujarat,24,0.019,0.004,0.047,True,theme
+Heterosexual,Haryana,20,0.008,0.004,0.013,True,theme
+Heterosexual,Himachal Pradesh,18,1.47,0.482,2.567,False,theme
+Heterosexual,Jammu and Kashmir,15,0.129,0.006,0.366,True,theme
+Heterosexual,Jharkhand,24,0.534,0.054,1.267,False,theme
+Heterosexual,Karnataka,32,0.025,0.006,0.06,True,theme
+Heterosexual,Kerala,27,0.01,0.006,0.017,True,theme
+Heterosexual,Lakshadweep,10,4.34,2.952,5.947,True,theme
+Heterosexual,Madhya Pradesh,30,0.017,0.003,0.041,True,theme
+Heterosexual,Maharashtra,35,0.065,0.008,0.16,True,theme
+Heterosexual,Manipur,14,3.761,1.039,7.36,True,theme
+Heterosexual,Meghalaya,17,5.921,3.923,8.378,True,theme
+Heterosexual,Mizoram,12,6.118,4.435,7.749,True,theme
+Heterosexual,Nagaland,15,8.127,5.918,10.32,True,theme
+Heterosexual,Odisha,21,0.013,0.007,0.019,True,theme
+Heterosexual,Punjab,21,0.056,0.005,0.157,True,theme
+Heterosexual,Rajasthan,23,0.037,0.004,0.101,True,theme
+Heterosexual,Sikkim,12,4.166,2.458,5.963,True,theme
+Heterosexual,Tamil Nadu,34,0.048,0.009,0.095,True,theme
+Heterosexual,Telangana,25,0.009,0.005,0.015,True,theme
+Heterosexual,Tripura,14,2.241,0.939,3.766,False,theme
+Heterosexual,Uttar Pradesh,31,0.042,0.005,0.114,True,theme
+Heterosexual,Uttarakhand,19,0.49,0.103,0.979,True,theme
+Heterosexual,West Bengal,29,0.1,0.008,0.236,True,theme
+Hikikomori,Assam,5,0.013,0.001,0.027,True,theme
+Hikikomori,Delhi,6,0.001,0.0,0.002,True,theme
+Hikikomori,Jammu and Kashmir,5,0.007,0.001,0.017,True,theme
+Hikikomori,Jharkhand,5,0.009,0.001,0.025,True,theme
+Hikikomori,Madhya Pradesh,5,0.0,0.0,0.001,True,theme
+Hikikomori,Maharashtra,6,0.001,0.0,0.002,True,theme
+Hikikomori,Tamil Nadu,7,0.0,0.0,0.001,True,theme
+Hikikomori,West Bengal,6,0.001,0.0,0.002,True,theme
+Historical,Andaman and Nicobar Islands,6,7.825,6.708,9.006,True,theme
+Historical,Andhra Pradesh,5,0.323,0.004,0.95,True,theme
+Historical,Assam,6,0.168,0.006,0.476,True,theme
+Historical,Bihar,6,0.255,0.001,0.756,True,theme
+Historical,Chhattisgarh,5,0.011,0.004,0.018,True,theme
+Historical,Delhi,7,0.011,0.003,0.019,True,theme
+Historical,Gujarat,7,0.006,0.002,0.013,True,theme
+Historical,Haryana,5,0.008,0.002,0.014,True,theme
+Historical,Jharkhand,6,0.202,0.008,0.586,True,theme
+Historical,Karnataka,7,0.011,0.003,0.021,True,theme
+Historical,Kerala,8,0.013,0.002,0.026,True,theme
+Historical,Madhya Pradesh,6,0.007,0.002,0.013,True,theme
+Historical,Maharashtra,8,0.037,0.006,0.09,True,theme
+Historical,Meghalaya,7,7.284,3.879,10.962,True,theme
+Historical,Punjab,5,0.006,0.002,0.012,True,theme
+Historical,Rajasthan,6,0.008,0.002,0.014,True,theme
+Historical,Tamil Nadu,9,0.046,0.004,0.118,True,theme
+Historical,Telangana,6,0.012,0.003,0.023,True,theme
+Historical,Uttar Pradesh,9,0.008,0.002,0.015,True,theme
+Historical,Uttarakhand,5,0.013,0.005,0.02,True,theme
+Historical,West Bengal,7,0.196,0.009,0.561,True,theme
+Interspecies,Uttar Pradesh,5,0.001,0.0,0.002,True,theme
+Isekai,Andhra Pradesh,5,0.251,0.003,0.745,True,theme
+Isekai,Assam,7,0.177,0.002,0.524,True,theme
+Isekai,Bihar,6,0.087,0.001,0.258,True,theme
+Isekai,Delhi,13,0.003,0.001,0.004,True,theme
+Isekai,Goa,6,2.285,0.426,4.173,False,theme
+Isekai,Gujarat,10,0.001,0.001,0.002,True,theme
+Isekai,Haryana,8,0.003,0.001,0.005,True,theme
+Isekai,Jharkhand,5,1.399,0.001,4.195,False,theme
+Isekai,Karnataka,8,0.005,0.003,0.007,True,theme
+Isekai,Kerala,9,0.004,0.002,0.006,True,theme
+Isekai,Madhya Pradesh,12,0.012,0.001,0.033,True,theme
+Isekai,Maharashtra,12,0.005,0.003,0.008,True,theme
+Isekai,Nagaland,5,5.856,3.359,9.357,True,theme
+Isekai,Punjab,6,0.003,0.001,0.005,True,theme
+Isekai,Rajasthan,7,0.002,0.001,0.003,True,theme
+Isekai,Tamil Nadu,11,0.011,0.003,0.024,True,theme
+Isekai,Telangana,8,0.004,0.002,0.005,True,theme
+Isekai,Tripura,5,4.263,1.802,6.452,True,theme
+Isekai,Uttar Pradesh,10,0.004,0.002,0.006,True,theme
+Isekai,West Bengal,12,0.004,0.002,0.006,True,theme
+Kaiju,Andhra Pradesh,7,0.072,0.013,0.179,True,theme
+Kaiju,Assam,7,0.089,0.018,0.181,True,theme
+Kaiju,Bihar,7,0.027,0.01,0.048,True,theme
+Kaiju,Chandigarh,6,1.114,0.031,3.252,False,theme
+Kaiju,Delhi,9,0.03,0.009,0.067,True,theme
+Kaiju,Gujarat,8,0.023,0.007,0.041,True,theme
+Kaiju,Haryana,8,0.027,0.005,0.056,True,theme
+Kaiju,Himachal Pradesh,5,1.807,0.023,4.192,False,theme
+Kaiju,Karnataka,10,0.027,0.007,0.055,True,theme
+Kaiju,Kerala,9,0.032,0.009,0.062,True,theme
+Kaiju,Madhya Pradesh,9,0.022,0.005,0.048,True,theme
+Kaiju,Maharashtra,11,0.024,0.007,0.049,True,theme
+Kaiju,Manipur,5,3.972,0.123,9.94,False,theme
+Kaiju,Meghalaya,7,3.042,1.251,5.048,True,theme
+Kaiju,Nagaland,6,8.079,2.826,13.241,True,theme
+Kaiju,Odisha,6,0.051,0.018,0.094,True,theme
+Kaiju,Punjab,7,0.025,0.008,0.042,True,theme
+Kaiju,Rajasthan,9,0.02,0.006,0.038,True,theme
+Kaiju,Sikkim,5,2.048,0.082,4.593,False,theme
+Kaiju,Tamil Nadu,10,0.029,0.007,0.058,True,theme
+Kaiju,Telangana,9,0.028,0.008,0.056,True,theme
+Kaiju,Uttar Pradesh,11,0.022,0.006,0.044,True,theme
+Kaiju,Uttarakhand,5,2.267,0.02,6.743,False,theme
+Kaiju,West Bengal,10,0.027,0.007,0.055,True,theme
+Kemonomimi,Delhi,7,0.274,0.001,0.819,True,theme
+Kemonomimi,Gujarat,5,0.144,0.0,0.431,True,theme
+Kemonomimi,Jammu and Kashmir,5,0.568,0.001,1.699,False,theme
+Kemonomimi,Jharkhand,5,1.401,0.001,4.197,False,theme
+Kemonomimi,Karnataka,6,0.089,0.0,0.262,True,theme
+Kemonomimi,Madhya Pradesh,6,0.022,0.001,0.064,True,theme
+Kemonomimi,Maharashtra,8,0.231,0.001,0.689,True,theme
+Kemonomimi,Odisha,5,0.27,0.001,0.807,True,theme
+Kemonomimi,Puducherry,5,7.331,3.054,13.069,True,theme
+Kemonomimi,Tamil Nadu,6,0.088,0.001,0.236,True,theme
+Kemonomimi,Telangana,6,0.113,0.001,0.336,True,theme
+Kemonomimi,Uttar Pradesh,7,0.12,0.0,0.356,True,theme
+Kemonomimi,West Bengal,6,0.079,0.002,0.23,True,theme
+Kuudere,Andhra Pradesh,12,0.155,0.018,0.363,True,theme
+Kuudere,Arunachal Pradesh,7,4.044,1.604,6.967,True,theme
+Kuudere,Assam,14,0.145,0.027,0.331,True,theme
+Kuudere,Bihar,10,0.081,0.02,0.179,True,theme
+Kuudere,Chandigarh,8,1.153,0.031,2.757,False,theme
+Kuudere,Chhattisgarh,6,0.029,0.007,0.063,True,theme
+Kuudere,Dadra and Nagar Haveli and Daman and Diu,6,2.279,0.615,4.695,False,theme
+Kuudere,Delhi,20,0.03,0.009,0.053,True,theme
+Kuudere,Goa,9,0.586,0.072,1.338,False,theme
+Kuudere,Gujarat,11,0.055,0.018,0.115,True,theme
+Kuudere,Haryana,12,0.026,0.011,0.047,True,theme
+Kuudere,Himachal Pradesh,12,1.161,0.271,2.364,False,theme
+Kuudere,Jammu and Kashmir,8,0.42,0.003,1.127,False,theme
+Kuudere,Jharkhand,11,0.15,0.01,0.421,True,theme
+Kuudere,Karnataka,15,0.025,0.01,0.046,True,theme
+Kuudere,Kerala,15,0.026,0.01,0.045,True,theme
+Kuudere,Lakshadweep,8,6.059,4.094,8.411,True,theme
+Kuudere,Madhya Pradesh,17,0.027,0.008,0.046,True,theme
+Kuudere,Maharashtra,19,0.026,0.009,0.044,True,theme
+Kuudere,Manipur,9,4.193,0.995,7.878,False,theme
+Kuudere,Meghalaya,9,2.483,1.064,4.384,True,theme
+Kuudere,Mizoram,5,5.228,2.956,7.786,True,theme
+Kuudere,Nagaland,8,8.163,3.644,12.722,True,theme
+Kuudere,Odisha,10,0.044,0.019,0.072,True,theme
+Kuudere,Puducherry,5,3.84,2.374,5.593,True,theme
+Kuudere,Punjab,9,0.029,0.015,0.044,True,theme
+Kuudere,Rajasthan,11,0.026,0.011,0.043,True,theme
+Kuudere,Sikkim,8,4.188,2.068,6.786,True,theme
+Kuudere,Tamil Nadu,19,0.051,0.015,0.113,True,theme
+Kuudere,Telangana,14,0.026,0.01,0.045,True,theme
+Kuudere,Tripura,7,1.959,0.409,3.785,False,theme
+Kuudere,Uttar Pradesh,17,0.021,0.008,0.039,True,theme
+Kuudere,Uttarakhand,10,1.142,0.013,3.387,False,theme
+Kuudere,West Bengal,15,0.027,0.009,0.048,True,theme
+LGBTQ+ Themes,Andhra Pradesh,10,0.229,0.026,0.542,True,theme
+LGBTQ+ Themes,Arunachal Pradesh,5,4.852,0.073,13.56,False,theme
+LGBTQ+ Themes,Assam,12,0.189,0.033,0.373,True,theme
+LGBTQ+ Themes,Bihar,9,0.192,0.016,0.525,True,theme
+LGBTQ+ Themes,Chhattisgarh,7,0.333,0.025,0.925,True,theme
+LGBTQ+ Themes,Delhi,13,0.093,0.016,0.224,True,theme
+LGBTQ+ Themes,Goa,5,2.266,0.078,6.501,False,theme
+LGBTQ+ Themes,Gujarat,8,0.035,0.017,0.054,True,theme
+LGBTQ+ Themes,Haryana,9,0.032,0.012,0.056,True,theme
+LGBTQ+ Themes,Himachal Pradesh,6,2.135,0.014,4.385,False,theme
+LGBTQ+ Themes,Jammu and Kashmir,8,0.277,0.01,0.715,True,theme
+LGBTQ+ Themes,Jharkhand,8,0.545,0.019,1.333,False,theme
+LGBTQ+ Themes,Karnataka,12,0.075,0.017,0.167,True,theme
+LGBTQ+ Themes,Kerala,11,0.035,0.013,0.063,True,theme
+LGBTQ+ Themes,Madhya Pradesh,9,0.071,0.021,0.148,True,theme
+LGBTQ+ Themes,Maharashtra,16,0.138,0.017,0.361,True,theme
+LGBTQ+ Themes,Manipur,5,6.167,1.545,10.727,True,theme
+LGBTQ+ Themes,Meghalaya,7,4.538,1.321,7.48,True,theme
+LGBTQ+ Themes,Odisha,7,0.051,0.025,0.082,True,theme
+LGBTQ+ Themes,Punjab,10,0.125,0.017,0.324,True,theme
+LGBTQ+ Themes,Rajasthan,11,0.09,0.016,0.217,True,theme
+LGBTQ+ Themes,Tamil Nadu,13,0.099,0.032,0.197,True,theme
+LGBTQ+ Themes,Telangana,8,0.046,0.024,0.074,True,theme
+LGBTQ+ Themes,Tripura,6,2.072,0.468,4.18,False,theme
+LGBTQ+ Themes,Uttar Pradesh,11,0.131,0.019,0.331,True,theme
+LGBTQ+ Themes,Uttarakhand,9,1.014,0.203,2.178,False,theme
+LGBTQ+ Themes,West Bengal,13,0.231,0.025,0.523,True,theme
+Language Barrier,Gujarat,5,0.0,0.0,0.0,True,theme
+Language Barrier,Maharashtra,5,0.001,0.0,0.002,True,theme
+Love Triangle,Andaman and Nicobar Islands,6,6.323,4.378,8.22,True,theme
+Love Triangle,Andhra Pradesh,10,0.014,0.004,0.028,True,theme
+Love Triangle,Assam,9,0.113,0.008,0.295,True,theme
+Love Triangle,Bihar,6,0.007,0.002,0.016,True,theme
+Love Triangle,Chandigarh,5,0.526,0.02,1.533,False,theme
+Love Triangle,Chhattisgarh,5,0.428,0.004,1.267,False,theme
+Love Triangle,Dadra and Nagar Haveli and Daman and Diu,5,3.323,0.996,5.961,False,theme
+Love Triangle,Delhi,18,0.062,0.004,0.165,True,theme
+Love Triangle,Goa,6,1.001,0.031,2.897,False,theme
+Love Triangle,Gujarat,8,0.047,0.003,0.126,True,theme
+Love Triangle,Haryana,8,0.009,0.003,0.018,True,theme
+Love Triangle,Himachal Pradesh,9,1.216,0.008,2.735,False,theme
+Love Triangle,Jammu and Kashmir,7,0.265,0.003,0.73,True,theme
+Love Triangle,Jharkhand,9,1.286,0.166,2.839,False,theme
+Love Triangle,Karnataka,14,0.046,0.003,0.126,True,theme
+Love Triangle,Kerala,10,0.009,0.003,0.016,True,theme
+Love Triangle,Lakshadweep,5,5.281,2.665,8.359,True,theme
+Love Triangle,Madhya Pradesh,12,0.035,0.003,0.095,True,theme
+Love Triangle,Maharashtra,16,0.117,0.006,0.327,True,theme
+Love Triangle,Manipur,5,5.748,0.966,12.121,False,theme
+Love Triangle,Mizoram,5,5.314,2.908,8.394,True,theme
+Love Triangle,Odisha,10,0.015,0.005,0.026,True,theme
+Love Triangle,Punjab,6,0.178,0.005,0.514,True,theme
+Love Triangle,Rajasthan,10,0.078,0.003,0.224,True,theme
+Love Triangle,Tamil Nadu,14,0.08,0.005,0.188,True,theme
+Love Triangle,Telangana,8,0.012,0.004,0.023,True,theme
+Love Triangle,Uttar Pradesh,12,0.099,0.003,0.286,True,theme
+Love Triangle,Uttarakhand,9,0.198,0.004,0.568,True,theme
+Love Triangle,West Bengal,12,0.12,0.004,0.344,True,theme
+Magic,Andhra Pradesh,12,0.205,0.006,0.493,True,theme
+Magic,Arunachal Pradesh,6,7.989,3.672,14.028,True,theme
+Magic,Assam,12,0.114,0.005,0.318,True,theme
+Magic,Bihar,11,0.128,0.004,0.304,True,theme
+Magic,Chhattisgarh,7,0.012,0.004,0.022,True,theme
+Magic,Delhi,21,0.099,0.004,0.282,True,theme
+Magic,Goa,7,1.96,0.368,3.988,False,theme
+Magic,Gujarat,17,0.049,0.002,0.135,True,theme
+Magic,Haryana,14,0.006,0.002,0.012,True,theme
+Magic,Himachal Pradesh,5,0.007,0.002,0.013,True,theme
+Magic,Jammu and Kashmir,7,0.408,0.001,1.215,False,theme
+Magic,Jharkhand,11,0.642,0.002,1.913,False,theme
+Magic,Karnataka,17,0.039,0.004,0.101,True,theme
+Magic,Kerala,16,0.008,0.004,0.015,True,theme
+Magic,Lakshadweep,5,4.289,3.22,5.183,True,theme
+Magic,Madhya Pradesh,18,0.013,0.002,0.03,True,theme
+Magic,Maharashtra,20,0.101,0.005,0.286,True,theme
+Magic,Manipur,8,1.985,0.132,3.792,False,theme
+Magic,Meghalaya,8,6.309,2.515,11.093,True,theme
+Magic,Mizoram,6,5.515,4.197,7.45,True,theme
+Magic,Nagaland,8,5.924,4.088,7.82,True,theme
+Magic,Odisha,11,0.132,0.003,0.378,True,theme
+Magic,Puducherry,5,6.568,3.054,12.251,True,theme
+Magic,Punjab,11,0.125,0.003,0.48,True,theme
+Magic,Rajasthan,12,0.008,0.002,0.02,True,theme
+Magic,Sikkim,6,3.524,2.007,4.725,True,theme
+Magic,Tamil Nadu,18,0.038,0.006,0.103,True,theme
+Magic,Telangana,16,0.05,0.003,0.134,True,theme
+Magic,Tripura,6,4.174,2.147,5.928,True,theme
+Magic,Uttar Pradesh,19,0.051,0.003,0.147,True,theme
+Magic,Uttarakhand,6,0.028,0.008,0.056,True,theme
+Magic,West Bengal,19,0.034,0.005,0.081,True,theme
+Maids,Delhi,6,0.002,0.0,0.004,True,theme
+Maids,Jharkhand,5,0.002,0.001,0.005,True,theme
+Maids,Madhya Pradesh,5,0.001,0.0,0.002,True,theme
+Maids,Uttar Pradesh,5,0.002,0.0,0.005,True,theme
+Maids,West Bengal,5,0.004,0.0,0.008,True,theme
+Male Protagonist,Andaman and Nicobar Islands,16,5.902,4.64,7.107,True,theme
+Male Protagonist,Andhra Pradesh,46,0.111,0.026,0.219,True,theme
+Male Protagonist,Arunachal Pradesh,19,4.013,1.777,6.77,True,theme
+Male Protagonist,Assam,50,0.088,0.028,0.164,True,theme
+Male Protagonist,Bihar,36,0.093,0.018,0.206,True,theme
+Male Protagonist,Chandigarh,23,1.01,0.316,1.769,False,theme
+Male Protagonist,Chhattisgarh,31,0.203,0.015,0.465,True,theme
+Male Protagonist,Dadra and Nagar Haveli and Daman and Diu,17,2.344,1.334,3.559,True,theme
+Male Protagonist,Delhi,68,0.056,0.012,0.12,True,theme
+Male Protagonist,Goa,24,1.172,0.281,2.377,False,theme
+Male Protagonist,Gujarat,49,0.034,0.011,0.068,True,theme
+Male Protagonist,Haryana,41,0.015,0.009,0.021,True,theme
+Male Protagonist,Himachal Pradesh,30,1.221,0.54,1.985,False,theme
+Male Protagonist,Jammu and Kashmir,29,0.34,0.038,0.688,True,theme
+Male Protagonist,Jharkhand,37,0.355,0.045,0.807,True,theme
+Male Protagonist,Karnataka,63,0.03,0.012,0.06,True,theme
+Male Protagonist,Kerala,52,0.018,0.012,0.025,True,theme
+Male Protagonist,Lakshadweep,12,5.847,3.813,8.017,True,theme
+Male Protagonist,Madhya Pradesh,54,0.021,0.009,0.037,True,theme
+Male Protagonist,Maharashtra,68,0.07,0.016,0.146,True,theme
+Male Protagonist,Manipur,31,4.1,2.291,6.112,True,theme
+Male Protagonist,Meghalaya,35,5.57,3.738,7.357,True,theme
+Male Protagonist,Mizoram,24,5.851,4.853,6.952,True,theme
+Male Protagonist,Nagaland,22,8.509,6.597,10.537,True,theme
+Male Protagonist,Odisha,40,0.055,0.014,0.123,True,theme
+Male Protagonist,Puducherry,13,5.064,3.167,7.83,True,theme
+Male Protagonist,Punjab,42,0.12,0.015,0.256,True,theme
+Male Protagonist,Rajasthan,44,0.03,0.009,0.066,True,theme
+Male Protagonist,Sikkim,20,3.643,2.434,4.997,True,theme
+Male Protagonist,Tamil Nadu,63,0.045,0.021,0.076,True,theme
+Male Protagonist,Telangana,50,0.03,0.013,0.061,True,theme
+Male Protagonist,Tripura,23,2.344,1.404,3.295,True,theme
+Male Protagonist,Uttar Pradesh,56,0.049,0.011,0.097,True,theme
+Male Protagonist,Uttarakhand,37,0.958,0.332,1.777,False,theme
+Male Protagonist,West Bengal,58,0.069,0.018,0.136,True,theme
+Martial Arts,Andhra Pradesh,11,0.12,0.012,0.323,True,theme
+Martial Arts,Arunachal Pradesh,8,6.394,1.988,11.447,True,theme
+Martial Arts,Assam,10,0.031,0.015,0.05,True,theme
+Martial Arts,Bihar,9,0.113,0.011,0.296,True,theme
+Martial Arts,Chandigarh,6,0.021,0.016,0.029,True,theme
+Martial Arts,Chhattisgarh,7,0.031,0.013,0.063,True,theme
+Martial Arts,Delhi,14,0.156,0.01,0.431,True,theme
+Martial Arts,Goa,8,0.095,0.058,0.134,True,theme
+Martial Arts,Gujarat,11,0.088,0.012,0.219,True,theme
+Martial Arts,Haryana,8,0.023,0.012,0.037,True,theme
+Martial Arts,Himachal Pradesh,8,0.501,0.01,1.469,False,theme
+Martial Arts,Jammu and Kashmir,7,0.01,0.006,0.017,True,theme
+Martial Arts,Jharkhand,10,0.028,0.012,0.047,True,theme
+Martial Arts,Karnataka,13,0.058,0.012,0.144,True,theme
+Martial Arts,Kerala,10,0.023,0.012,0.037,True,theme
+Martial Arts,Madhya Pradesh,11,0.022,0.008,0.038,True,theme
+Martial Arts,Maharashtra,13,0.162,0.013,0.447,True,theme
+Martial Arts,Manipur,7,4.753,1.038,9.16,True,theme
+Martial Arts,Meghalaya,7,5.338,3.448,7.003,True,theme
+Martial Arts,Nagaland,5,11.32,7.989,14.834,True,theme
+Martial Arts,Odisha,11,0.146,0.014,0.394,True,theme
+Martial Arts,Punjab,9,0.164,0.014,0.459,True,theme
+Martial Arts,Rajasthan,9,0.025,0.009,0.045,True,theme
+Martial Arts,Sikkim,8,3.623,1.425,6.571,True,theme
+Martial Arts,Tamil Nadu,13,0.055,0.012,0.124,True,theme
+Martial Arts,Telangana,11,0.084,0.017,0.204,True,theme
+Martial Arts,Tripura,6,1.78,0.24,3.968,False,theme
+Martial Arts,Uttar Pradesh,12,0.091,0.011,0.233,True,theme
+Martial Arts,Uttarakhand,10,0.278,0.016,0.777,True,theme
+Martial Arts,West Bengal,12,0.064,0.014,0.137,True,theme
+Matriarchy,Assam,5,0.121,0.027,0.218,True,theme
+Matriarchy,Delhi,6,0.04,0.008,0.083,True,theme
+Matriarchy,Haryana,5,0.039,0.011,0.08,True,theme
+Matriarchy,Karnataka,6,0.041,0.009,0.082,True,theme
+Matriarchy,Kerala,5,0.051,0.018,0.094,True,theme
+Matriarchy,Madhya Pradesh,5,0.036,0.01,0.07,True,theme
+Matriarchy,Maharashtra,7,0.033,0.008,0.067,True,theme
+Matriarchy,Rajasthan,6,0.026,0.006,0.048,True,theme
+Matriarchy,Tamil Nadu,5,0.052,0.016,0.106,True,theme
+Matriarchy,Telangana,5,0.044,0.012,0.088,True,theme
+Matriarchy,Uttar Pradesh,7,0.031,0.005,0.062,True,theme
+Matriarchy,West Bengal,7,0.034,0.007,0.071,True,theme
+Medieval,Andhra Pradesh,9,0.053,0.004,0.143,True,theme
+Medieval,Assam,10,0.061,0.004,0.13,True,theme
+Medieval,Bihar,9,0.019,0.002,0.036,True,theme
+Medieval,Chandigarh,7,1.613,0.17,3.255,False,theme
+Medieval,Dadra and Nagar Haveli and Daman and Diu,5,3.661,1.621,5.698,True,theme
+Medieval,Delhi,21,0.013,0.002,0.029,True,theme
+Medieval,Goa,8,1.721,0.178,3.498,False,theme
+Medieval,Gujarat,17,0.01,0.002,0.02,True,theme
+Medieval,Haryana,14,0.015,0.002,0.033,True,theme
+Medieval,Himachal Pradesh,5,0.605,0.002,1.797,False,theme
+Medieval,Jammu and Kashmir,5,0.103,0.001,0.305,True,theme
+Medieval,Jharkhand,7,1.003,0.001,3.001,False,theme
+Medieval,Karnataka,18,0.015,0.003,0.032,True,theme
+Medieval,Kerala,17,0.016,0.003,0.035,True,theme
+Medieval,Lakshadweep,5,4.289,3.208,5.284,True,theme
+Medieval,Madhya Pradesh,18,0.011,0.001,0.024,True,theme
+Medieval,Maharashtra,20,0.014,0.004,0.03,True,theme
+Medieval,Manipur,6,2.081,0.573,3.833,False,theme
+Medieval,Meghalaya,8,3.641,1.916,5.267,True,theme
+Medieval,Mizoram,9,5.392,4.196,6.691,True,theme
+Medieval,Nagaland,10,6.247,3.269,9.688,True,theme
+Medieval,Odisha,9,0.032,0.002,0.065,True,theme
+Medieval,Puducherry,5,6.825,3.054,12.519,True,theme
+Medieval,Punjab,10,0.017,0.003,0.031,True,theme
+Medieval,Rajasthan,11,0.014,0.002,0.032,True,theme
+Medieval,Sikkim,6,3.747,2.034,5.055,True,theme
+Medieval,Tamil Nadu,17,0.017,0.004,0.037,True,theme
+Medieval,Telangana,14,0.017,0.003,0.038,True,theme
+Medieval,Tripura,5,3.918,1.927,5.733,True,theme
+Medieval,Uttar Pradesh,20,0.012,0.003,0.026,True,theme
+Medieval,Uttarakhand,6,1.901,0.015,5.634,False,theme
+Medieval,West Bengal,19,0.014,0.004,0.03,True,theme
+Memory Manipulation,Andhra Pradesh,6,0.023,0.009,0.038,True,theme
+Memory Manipulation,Assam,6,0.051,0.007,0.103,True,theme
+Memory Manipulation,Delhi,8,0.013,0.002,0.027,True,theme
+Memory Manipulation,Gujarat,5,0.016,0.002,0.034,True,theme
+Memory Manipulation,Haryana,5,0.013,0.001,0.028,True,theme
+Memory Manipulation,Jharkhand,5,0.008,0.001,0.017,True,theme
+Memory Manipulation,Karnataka,9,0.011,0.002,0.024,True,theme
+Memory Manipulation,Kerala,8,0.015,0.002,0.03,True,theme
+Memory Manipulation,Madhya Pradesh,9,0.008,0.001,0.018,True,theme
+Memory Manipulation,Maharashtra,10,0.012,0.003,0.023,True,theme
+Memory Manipulation,Nagaland,5,3.594,1.635,5.555,True,theme
+Memory Manipulation,Punjab,5,0.024,0.003,0.046,True,theme
+Memory Manipulation,Rajasthan,5,0.014,0.001,0.033,True,theme
+Memory Manipulation,Sikkim,5,3.611,1.659,5.373,True,theme
+Memory Manipulation,Tamil Nadu,10,0.011,0.002,0.023,True,theme
+Memory Manipulation,Telangana,7,0.013,0.002,0.027,True,theme
+Memory Manipulation,Uttar Pradesh,12,0.008,0.002,0.019,True,theme
+Memory Manipulation,West Bengal,10,0.01,0.001,0.022,True,theme
+Military,Andhra Pradesh,5,0.096,0.014,0.244,True,theme
+Military,Assam,5,0.121,0.024,0.228,True,theme
+Military,Chandigarh,5,1.7,0.058,4.26,False,theme
+Military,Delhi,5,0.048,0.012,0.094,True,theme
+Military,Gujarat,5,0.032,0.01,0.058,True,theme
+Military,Himachal Pradesh,5,1.805,0.018,4.192,False,theme
+Military,Karnataka,8,0.031,0.005,0.064,True,theme
+Military,Kerala,5,0.051,0.018,0.093,True,theme
+Military,Madhya Pradesh,5,0.036,0.009,0.075,True,theme
+Military,Maharashtra,8,0.028,0.006,0.061,True,theme
+Military,Odisha,5,0.057,0.017,0.104,True,theme
+Military,Rajasthan,7,0.023,0.005,0.044,True,theme
+Military,Tamil Nadu,7,0.037,0.008,0.077,True,theme
+Military,Telangana,6,0.037,0.008,0.075,True,theme
+Military,Uttar Pradesh,8,0.027,0.006,0.056,True,theme
+Military,West Bengal,6,0.039,0.008,0.076,True,theme
+Monster Boy,Delhi,6,0.007,0.002,0.013,True,theme
+Monster Boy,Gujarat,5,0.007,0.001,0.015,True,theme
+Monster Boy,Karnataka,5,0.009,0.003,0.017,True,theme
+Monster Boy,Kerala,6,0.008,0.003,0.014,True,theme
+Monster Boy,Madhya Pradesh,6,0.005,0.001,0.01,True,theme
+Monster Boy,Maharashtra,5,0.01,0.005,0.017,True,theme
+Monster Boy,Tamil Nadu,5,0.008,0.003,0.015,True,theme
+Monster Boy,Uttar Pradesh,6,0.007,0.002,0.012,True,theme
+Monster Boy,West Bengal,6,0.007,0.002,0.014,True,theme
+Monster Girl,Andhra Pradesh,9,0.147,0.006,0.422,True,theme
+Monster Girl,Assam,8,0.166,0.009,0.469,True,theme
+Monster Girl,Bihar,7,0.078,0.003,0.224,True,theme
+Monster Girl,Chandigarh,5,1.455,0.025,3.211,False,theme
+Monster Girl,Chhattisgarh,6,0.012,0.006,0.018,True,theme
+Monster Girl,Delhi,10,0.011,0.005,0.018,True,theme
+Monster Girl,Gujarat,8,0.009,0.004,0.015,True,theme
+Monster Girl,Haryana,8,0.008,0.004,0.013,True,theme
+Monster Girl,Himachal Pradesh,5,1.204,0.007,3.594,False,theme
+Monster Girl,Jammu and Kashmir,5,0.571,0.003,1.7,False,theme
+Monster Girl,Jharkhand,8,0.883,0.007,2.63,False,theme
+Monster Girl,Karnataka,8,0.015,0.007,0.022,True,theme
+Monster Girl,Kerala,10,0.015,0.007,0.025,True,theme
+Monster Girl,Madhya Pradesh,10,0.019,0.004,0.045,True,theme
+Monster Girl,Maharashtra,11,0.011,0.005,0.017,True,theme
+Monster Girl,Manipur,7,3.074,0.114,7.458,False,theme
+Monster Girl,Meghalaya,7,7.282,3.146,11.039,True,theme
+Monster Girl,Odisha,5,0.011,0.006,0.017,True,theme
+Monster Girl,Punjab,8,0.006,0.003,0.011,True,theme
+Monster Girl,Rajasthan,10,0.008,0.004,0.012,True,theme
+Monster Girl,Tamil Nadu,11,0.018,0.007,0.031,True,theme
+Monster Girl,Telangana,8,0.014,0.007,0.022,True,theme
+Monster Girl,Uttar Pradesh,12,0.008,0.004,0.013,True,theme
+Monster Girl,Uttarakhand,6,0.014,0.008,0.019,True,theme
+Monster Girl,West Bengal,10,0.012,0.005,0.02,True,theme
+Mythology,Assam,8,0.128,0.013,0.336,True,theme
+Mythology,Delhi,8,0.108,0.001,0.318,True,theme
+Mythology,Jharkhand,7,0.011,0.003,0.022,True,theme
+Mythology,Karnataka,8,0.074,0.002,0.213,True,theme
+Mythology,Kerala,6,0.006,0.001,0.011,True,theme
+Mythology,Madhya Pradesh,8,0.047,0.002,0.135,True,theme
+Mythology,Maharashtra,10,0.168,0.002,0.495,True,theme
+Mythology,Meghalaya,5,9.548,5.605,15.523,True,theme
+Mythology,Odisha,6,0.013,0.003,0.028,True,theme
+Mythology,Punjab,5,0.207,0.003,0.613,True,theme
+Mythology,Rajasthan,6,0.122,0.001,0.36,True,theme
+Mythology,Tamil Nadu,9,0.065,0.001,0.187,True,theme
+Mythology,Telangana,5,0.004,0.001,0.006,True,theme
+Mythology,Uttar Pradesh,9,0.126,0.002,0.37,True,theme
+Mythology,Uttarakhand,5,0.515,0.004,1.522,False,theme
+Mythology,West Bengal,6,0.23,0.002,0.673,True,theme
+Nekomimi,Jharkhand,5,1.402,0.002,4.197,False,theme
+Nekomimi,Maharashtra,6,0.002,0.0,0.005,True,theme
+Nudity,Andhra Pradesh,7,0.185,0.004,0.538,True,theme
+Nudity,Assam,11,0.191,0.005,0.449,True,theme
+Nudity,Bihar,6,0.091,0.002,0.261,True,theme
+Nudity,Chhattisgarh,6,0.357,0.003,1.06,False,theme
+Nudity,Dadra and Nagar Haveli and Daman and Diu,7,1.644,0.615,2.712,False,theme
+Nudity,Delhi,16,0.069,0.003,0.172,True,theme
+Nudity,Goa,6,0.833,0.06,1.627,False,theme
+Nudity,Gujarat,12,0.031,0.002,0.086,True,theme
+Nudity,Haryana,6,0.008,0.001,0.019,True,theme
+Nudity,Himachal Pradesh,5,0.691,0.003,2.062,False,theme
+Nudity,Jammu and Kashmir,7,0.641,0.003,1.617,False,theme
+Nudity,Jharkhand,11,0.417,0.005,0.974,True,theme
+Nudity,Karnataka,16,0.04,0.002,0.112,True,theme
+Nudity,Kerala,10,0.008,0.002,0.016,True,theme
+Nudity,Lakshadweep,7,5.234,3.255,7.913,True,theme
+Nudity,Madhya Pradesh,14,0.038,0.002,0.094,True,theme
+Nudity,Maharashtra,16,0.116,0.005,0.324,True,theme
+Nudity,Manipur,5,0.536,0.064,1.426,False,theme
+Nudity,Meghalaya,6,5.535,3.164,7.391,True,theme
+Nudity,Mizoram,6,6.498,4.413,8.941,True,theme
+Nudity,Nagaland,6,9.959,6.566,13.178,True,theme
+Nudity,Odisha,7,0.008,0.001,0.018,True,theme
+Nudity,Puducherry,5,7.854,3.876,12.693,True,theme
+Nudity,Punjab,9,0.119,0.003,0.345,True,theme
+Nudity,Rajasthan,10,0.077,0.002,0.22,True,theme
+Nudity,Tamil Nadu,15,0.079,0.006,0.173,True,theme
+Nudity,Telangana,12,0.007,0.002,0.016,True,theme
+Nudity,Tripura,7,1.401,0.085,3.353,False,theme
+Nudity,Uttar Pradesh,11,0.107,0.003,0.307,True,theme
+Nudity,Uttarakhand,6,0.294,0.006,0.834,True,theme
+Nudity,West Bengal,11,0.13,0.005,0.374,True,theme
+Orphan,Andaman and Nicobar Islands,6,5.936,3.872,7.826,True,theme
+Orphan,Andhra Pradesh,11,0.009,0.006,0.013,True,theme
+Orphan,Arunachal Pradesh,7,1.439,0.305,3.131,False,theme
+Orphan,Assam,11,0.091,0.012,0.24,True,theme
+Orphan,Bihar,8,0.006,0.003,0.01,True,theme
+Orphan,Chandigarh,6,1.064,0.021,2.475,False,theme
+Orphan,Chhattisgarh,10,0.22,0.008,0.641,True,theme
+Orphan,Dadra and Nagar Haveli and Daman and Diu,6,2.713,1.264,4.218,True,theme
+Orphan,Delhi,16,0.06,0.005,0.163,True,theme
+Orphan,Goa,5,0.051,0.033,0.073,True,theme
+Orphan,Gujarat,12,0.006,0.003,0.011,True,theme
+Orphan,Haryana,10,0.007,0.004,0.011,True,theme
+Orphan,Himachal Pradesh,7,0.86,0.004,2.568,False,theme
+Orphan,Jammu and Kashmir,5,0.902,0.003,2.696,False,theme
+Orphan,Jharkhand,10,0.009,0.006,0.012,True,theme
+Orphan,Karnataka,15,0.046,0.005,0.12,True,theme
+Orphan,Kerala,13,0.012,0.006,0.021,True,theme
+Orphan,Madhya Pradesh,12,0.036,0.004,0.094,True,theme
+Orphan,Maharashtra,17,0.104,0.006,0.297,True,theme
+Orphan,Manipur,8,3.601,0.205,7.838,False,theme
+Orphan,Meghalaya,11,7.315,3.577,11.423,True,theme
+Orphan,Mizoram,7,4.566,3.26,6.009,True,theme
+Orphan,Nagaland,6,12.169,9.39,14.677,True,theme
+Orphan,Odisha,8,0.01,0.006,0.014,True,theme
+Orphan,Punjab,11,0.098,0.005,0.283,True,theme
+Orphan,Rajasthan,14,0.057,0.003,0.159,True,theme
+Orphan,Tamil Nadu,15,0.046,0.006,0.122,True,theme
+Orphan,Telangana,12,0.01,0.005,0.015,True,theme
+Orphan,Uttar Pradesh,16,0.076,0.005,0.215,True,theme
+Orphan,Uttarakhand,8,0.014,0.009,0.02,True,theme
+Orphan,West Bengal,11,0.135,0.01,0.376,True,theme
+Parody,Delhi,5,0.006,0.002,0.011,True,theme
+Parody,Gujarat,5,0.004,0.001,0.007,True,theme
+Parody,Haryana,5,0.005,0.002,0.009,True,theme
+Parody,Karnataka,5,0.007,0.003,0.013,True,theme
+Parody,Maharashtra,5,0.006,0.002,0.011,True,theme
+Parody,Meghalaya,5,4.823,1.914,7.374,True,theme
+Parody,Tamil Nadu,5,0.006,0.002,0.012,True,theme
+Parody,West Bengal,5,0.008,0.002,0.014,True,theme
+Philosophy,Andaman and Nicobar Islands,5,4.931,2.955,6.807,True,theme
+Philosophy,Andhra Pradesh,6,0.012,0.003,0.026,True,theme
+Philosophy,Arunachal Pradesh,6,1.545,0.342,3.181,False,theme
+Philosophy,Assam,9,0.096,0.002,0.275,True,theme
+Philosophy,Dadra and Nagar Haveli and Daman and Diu,6,1.884,1.057,2.779,True,theme
+Philosophy,Delhi,19,0.046,0.001,0.135,True,theme
+Philosophy,Goa,6,2.216,0.041,5.789,False,theme
+Philosophy,Gujarat,8,0.004,0.0,0.01,True,theme
+Philosophy,Haryana,6,0.008,0.001,0.015,True,theme
+Philosophy,Karnataka,14,0.044,0.001,0.123,True,theme
+Philosophy,Kerala,12,0.005,0.001,0.01,True,theme
+Philosophy,Lakshadweep,5,4.337,2.495,5.705,True,theme
+Philosophy,Madhya Pradesh,12,0.032,0.001,0.091,True,theme
+Philosophy,Maharashtra,15,0.114,0.002,0.333,True,theme
+Philosophy,Manipur,5,4.56,0.516,11.228,False,theme
+Philosophy,Meghalaya,9,3.921,2.027,5.662,True,theme
+Philosophy,Mizoram,8,3.561,2.481,4.625,True,theme
+Philosophy,Punjab,6,0.535,0.008,1.248,False,theme
+Philosophy,Rajasthan,8,0.093,0.001,0.272,True,theme
+Philosophy,Sikkim,6,2.597,1.099,3.967,True,theme
+Philosophy,Tamil Nadu,12,0.05,0.002,0.145,True,theme
+Philosophy,Telangana,7,0.008,0.001,0.018,True,theme
+Philosophy,Tripura,6,4.742,3.491,6.098,True,theme
+Philosophy,Uttar Pradesh,15,0.076,0.001,0.224,True,theme
+Philosophy,West Bengal,12,0.115,0.001,0.338,True,theme
+Police,Assam,5,0.05,0.025,0.088,True,theme
+Police,Delhi,6,0.017,0.002,0.037,True,theme
+Police,Jammu and Kashmir,5,0.054,0.01,0.128,True,theme
+Police,Karnataka,5,0.019,0.003,0.037,True,theme
+Police,Madhya Pradesh,5,0.013,0.003,0.026,True,theme
+Police,Maharashtra,6,0.017,0.003,0.037,True,theme
+Police,Odisha,5,0.029,0.015,0.045,True,theme
+Police,Tamil Nadu,5,0.021,0.003,0.044,True,theme
+Politics,Andhra Pradesh,10,0.051,0.006,0.126,True,theme
+Politics,Assam,11,0.059,0.008,0.115,True,theme
+Politics,Bihar,10,0.022,0.006,0.043,True,theme
+Politics,Chandigarh,9,0.543,0.029,1.262,False,theme
+Politics,Chhattisgarh,5,0.025,0.002,0.069,True,theme
+Politics,Delhi,15,0.02,0.005,0.041,True,theme
+Politics,Goa,8,1.023,0.044,2.377,False,theme
+Politics,Gujarat,14,0.014,0.003,0.03,True,theme
+Politics,Haryana,13,0.019,0.004,0.04,True,theme
+Politics,Himachal Pradesh,7,1.292,0.012,3.002,False,theme
+Politics,Jharkhand,7,1.016,0.004,3.012,False,theme
+Politics,Karnataka,14,0.021,0.005,0.043,True,theme
+Politics,Kerala,13,0.023,0.006,0.046,True,theme
+Politics,Madhya Pradesh,13,0.019,0.004,0.037,True,theme
+Politics,Maharashtra,17,0.018,0.005,0.033,True,theme
+Politics,Manipur,7,2.954,0.223,6.506,False,theme
+Politics,Meghalaya,8,4.613,2.236,6.42,True,theme
+Politics,Mizoram,8,5.419,4.113,6.935,True,theme
+Politics,Nagaland,8,9.718,5.766,13.842,True,theme
+Politics,Odisha,8,0.041,0.009,0.077,True,theme
+Politics,Punjab,11,0.016,0.006,0.03,True,theme
+Politics,Rajasthan,13,0.016,0.003,0.031,True,theme
+Politics,Tamil Nadu,14,0.023,0.005,0.046,True,theme
+Politics,Telangana,12,0.022,0.006,0.045,True,theme
+Politics,Tripura,8,2.29,0.898,3.773,False,theme
+Politics,Uttar Pradesh,17,0.017,0.004,0.032,True,theme
+Politics,Uttarakhand,6,1.89,0.012,5.624,False,theme
+Politics,West Bengal,14,0.024,0.006,0.046,True,theme
+Post-Apocalyptic,Andhra Pradesh,5,0.098,0.009,0.252,True,theme
+Post-Apocalyptic,Delhi,5,0.042,0.003,0.094,True,theme
+Post-Apocalyptic,Gujarat,5,0.029,0.004,0.056,True,theme
+Post-Apocalyptic,Jammu and Kashmir,5,0.106,0.003,0.307,True,theme
+Post-Apocalyptic,Karnataka,6,0.036,0.004,0.08,True,theme
+Post-Apocalyptic,Madhya Pradesh,5,0.033,0.004,0.072,True,theme
+Post-Apocalyptic,Maharashtra,7,0.029,0.003,0.062,True,theme
+Post-Apocalyptic,Odisha,6,0.036,0.003,0.084,True,theme
+Post-Apocalyptic,Rajasthan,6,0.024,0.003,0.052,True,theme
+Post-Apocalyptic,Tamil Nadu,6,0.04,0.004,0.09,True,theme
+Post-Apocalyptic,Telangana,6,0.035,0.004,0.076,True,theme
+Post-Apocalyptic,Uttar Pradesh,5,0.036,0.005,0.079,True,theme
+Post-Apocalyptic,Uttarakhand,5,0.022,0.005,0.039,True,theme
+Post-Apocalyptic,West Bengal,5,0.042,0.005,0.089,True,theme
+Pregnancy,Maharashtra,5,0.004,0.001,0.007,True,theme
+Pregnancy,Uttar Pradesh,5,0.003,0.0,0.007,True,theme
+Primarily Adult Cast,Andhra Pradesh,9,0.228,0.009,0.575,True,theme
+Primarily Adult Cast,Assam,12,0.142,0.032,0.311,True,theme
+Primarily Adult Cast,Bihar,9,0.188,0.013,0.519,True,theme
+Primarily Adult Cast,Chandigarh,7,1.221,0.034,3.054,False,theme
+Primarily Adult Cast,Chhattisgarh,6,0.008,0.003,0.013,True,theme
+Primarily Adult Cast,Delhi,15,0.018,0.003,0.039,True,theme
+Primarily Adult Cast,Gujarat,9,0.019,0.005,0.038,True,theme
+Primarily Adult Cast,Haryana,7,0.029,0.006,0.062,True,theme
+Primarily Adult Cast,Himachal Pradesh,5,0.609,0.008,1.796,False,theme
+Primarily Adult Cast,Jammu and Kashmir,6,0.124,0.007,0.292,True,theme
+Primarily Adult Cast,Jharkhand,8,0.157,0.009,0.447,True,theme
+Primarily Adult Cast,Karnataka,17,0.016,0.004,0.036,True,theme
+Primarily Adult Cast,Kerala,12,0.024,0.007,0.048,True,theme
+Primarily Adult Cast,Madhya Pradesh,13,0.015,0.002,0.032,True,theme
+Primarily Adult Cast,Maharashtra,17,0.028,0.006,0.058,True,theme
+Primarily Adult Cast,Manipur,5,3.931,0.072,10.478,False,theme
+Primarily Adult Cast,Meghalaya,10,3.93,2.249,5.636,True,theme
+Primarily Adult Cast,Nagaland,6,8.911,3.681,13.642,True,theme
+Primarily Adult Cast,Odisha,11,0.032,0.01,0.06,True,theme
+Primarily Adult Cast,Punjab,8,0.023,0.008,0.039,True,theme
+Primarily Adult Cast,Rajasthan,11,0.015,0.003,0.03,True,theme
+Primarily Adult Cast,Sikkim,7,2.84,1.02,4.607,True,theme
+Primarily Adult Cast,Tamil Nadu,16,0.038,0.006,0.086,True,theme
+Primarily Adult Cast,Telangana,11,0.021,0.004,0.045,True,theme
+Primarily Adult Cast,Uttar Pradesh,13,0.018,0.004,0.037,True,theme
+Primarily Adult Cast,Uttarakhand,11,1.607,0.015,3.594,False,theme
+Primarily Adult Cast,West Bengal,12,0.129,0.011,0.349,True,theme
+Primarily Female Cast,Andhra Pradesh,5,0.251,0.003,0.744,True,theme
+Primarily Female Cast,Assam,7,0.178,0.002,0.525,True,theme
+Primarily Female Cast,Bihar,5,0.105,0.002,0.309,True,theme
+Primarily Female Cast,Delhi,10,0.023,0.002,0.063,True,theme
+Primarily Female Cast,Gujarat,6,0.055,0.002,0.16,True,theme
+Primarily Female Cast,Haryana,7,0.004,0.001,0.006,True,theme
+Primarily Female Cast,Jharkhand,5,0.29,0.001,0.866,True,theme
+Primarily Female Cast,Karnataka,8,0.004,0.002,0.007,True,theme
+Primarily Female Cast,Kerala,7,0.004,0.002,0.007,True,theme
+Primarily Female Cast,Madhya Pradesh,11,0.013,0.001,0.036,True,theme
+Primarily Female Cast,Maharashtra,8,0.022,0.004,0.052,True,theme
+Primarily Female Cast,Meghalaya,5,3.388,0.479,6.644,False,theme
+Primarily Female Cast,Nagaland,5,8.02,4.585,11.456,True,theme
+Primarily Female Cast,Punjab,5,0.004,0.002,0.006,True,theme
+Primarily Female Cast,Tamil Nadu,10,0.06,0.004,0.156,True,theme
+Primarily Female Cast,Telangana,5,0.006,0.004,0.008,True,theme
+Primarily Female Cast,Tripura,6,2.293,0.076,4.582,False,theme
+Primarily Female Cast,Uttar Pradesh,9,0.004,0.002,0.006,True,theme
+Primarily Female Cast,West Bengal,10,0.004,0.002,0.008,True,theme
+Primarily Male Cast,Andaman and Nicobar Islands,8,5.086,3.436,6.715,True,theme
+Primarily Male Cast,Andhra Pradesh,19,0.125,0.017,0.323,True,theme
+Primarily Male Cast,Arunachal Pradesh,9,5.029,1.346,9.322,True,theme
+Primarily Male Cast,Assam,20,0.087,0.02,0.182,True,theme
+Primarily Male Cast,Bihar,16,0.113,0.012,0.302,True,theme
+Primarily Male Cast,Chandigarh,12,1.478,0.189,2.7,False,theme
+Primarily Male Cast,Chhattisgarh,14,0.28,0.017,0.794,True,theme
+Primarily Male Cast,Dadra and Nagar Haveli and Daman and Diu,5,2.246,0.44,4.401,False,theme
+Primarily Male Cast,Delhi,25,0.021,0.01,0.037,True,theme
+Primarily Male Cast,Goa,8,1.41,0.053,4.092,False,theme
+Primarily Male Cast,Gujarat,22,0.017,0.008,0.027,True,theme
+Primarily Male Cast,Haryana,17,0.021,0.011,0.036,True,theme
+Primarily Male Cast,Himachal Pradesh,11,1.179,0.282,2.406,False,theme
+Primarily Male Cast,Jammu and Kashmir,9,0.07,0.01,0.184,True,theme
+Primarily Male Cast,Jharkhand,15,0.088,0.008,0.245,True,theme
+Primarily Male Cast,Karnataka,26,0.019,0.01,0.034,True,theme
+Primarily Male Cast,Kerala,24,0.023,0.012,0.038,True,theme
+Primarily Male Cast,Madhya Pradesh,19,0.019,0.008,0.032,True,theme
+Primarily Male Cast,Maharashtra,29,0.026,0.013,0.045,True,theme
+Primarily Male Cast,Manipur,15,4.28,1.738,7.154,True,theme
+Primarily Male Cast,Meghalaya,19,6.048,3.63,8.488,True,theme
+Primarily Male Cast,Mizoram,7,5.05,3.685,6.567,True,theme
+Primarily Male Cast,Nagaland,7,6.582,3.317,10.636,True,theme
+Primarily Male Cast,Odisha,17,0.03,0.014,0.049,True,theme
+Primarily Male Cast,Puducherry,5,3.967,1.928,5.859,True,theme
+Primarily Male Cast,Punjab,19,0.132,0.013,0.361,True,theme
+Primarily Male Cast,Rajasthan,20,0.017,0.008,0.027,True,theme
+Primarily Male Cast,Sikkim,11,3.428,1.904,4.939,True,theme
+Primarily Male Cast,Tamil Nadu,25,0.035,0.015,0.071,True,theme
+Primarily Male Cast,Telangana,22,0.023,0.012,0.036,True,theme
+Primarily Male Cast,Tripura,9,4.131,3.2,5.025,True,theme
+Primarily Male Cast,Uttar Pradesh,26,0.018,0.008,0.03,True,theme
+Primarily Male Cast,Uttarakhand,18,1.64,0.443,3.202,False,theme
+Primarily Male Cast,West Bengal,25,0.072,0.013,0.18,True,theme
+Primarily Teen Cast,Andaman and Nicobar Islands,9,4.701,3.397,6.07,True,theme
+Primarily Teen Cast,Andhra Pradesh,21,0.097,0.022,0.231,True,theme
+Primarily Teen Cast,Arunachal Pradesh,10,4.178,0.997,8.881,False,theme
+Primarily Teen Cast,Assam,23,0.061,0.01,0.151,True,theme
+Primarily Teen Cast,Bihar,15,0.07,0.009,0.182,True,theme
+Primarily Teen Cast,Chandigarh,10,1.186,0.036,2.324,False,theme
+Primarily Teen Cast,Chhattisgarh,13,0.459,0.018,1.061,False,theme
+Primarily Teen Cast,Dadra and Nagar Haveli and Daman and Diu,12,2.743,1.366,4.366,True,theme
+Primarily Teen Cast,Delhi,31,0.11,0.017,0.243,True,theme
+Primarily Teen Cast,Goa,10,1.942,0.303,4.045,False,theme
+Primarily Teen Cast,Gujarat,20,0.067,0.013,0.153,True,theme
+Primarily Teen Cast,Haryana,19,0.017,0.007,0.032,True,theme
+Primarily Teen Cast,Himachal Pradesh,14,2.112,0.875,3.461,False,theme
+Primarily Teen Cast,Jammu and Kashmir,12,0.053,0.007,0.137,True,theme
+Primarily Teen Cast,Jharkhand,14,0.115,0.008,0.329,True,theme
+Primarily Teen Cast,Karnataka,26,0.058,0.014,0.117,True,theme
+Primarily Teen Cast,Kerala,22,0.021,0.01,0.036,True,theme
+Primarily Teen Cast,Lakshadweep,7,5.122,3.068,7.637,True,theme
+Primarily Teen Cast,Madhya Pradesh,22,0.03,0.008,0.073,True,theme
+Primarily Teen Cast,Maharashtra,31,0.132,0.015,0.3,True,theme
+Primarily Teen Cast,Manipur,12,3.351,1.336,6.01,True,theme
+Primarily Teen Cast,Meghalaya,12,6.721,3.339,10.813,True,theme
+Primarily Teen Cast,Mizoram,9,5.26,3.372,7.294,True,theme
+Primarily Teen Cast,Nagaland,7,8.705,5.038,12.917,True,theme
+Primarily Teen Cast,Odisha,19,0.094,0.015,0.244,True,theme
+Primarily Teen Cast,Puducherry,5,4.25,1.072,9.257,True,theme
+Primarily Teen Cast,Punjab,21,0.226,0.013,0.482,True,theme
+Primarily Teen Cast,Rajasthan,18,0.056,0.01,0.138,True,theme
+Primarily Teen Cast,Sikkim,5,5.773,2.216,9.549,True,theme
+Primarily Teen Cast,Tamil Nadu,30,0.066,0.019,0.118,True,theme
+Primarily Teen Cast,Telangana,22,0.051,0.013,0.114,True,theme
+Primarily Teen Cast,Tripura,10,2.943,1.5,4.352,True,theme
+Primarily Teen Cast,Uttar Pradesh,25,0.094,0.014,0.207,True,theme
+Primarily Teen Cast,Uttarakhand,16,0.992,0.211,2.109,False,theme
+Primarily Teen Cast,West Bengal,26,0.087,0.014,0.2,True,theme
+Prison,Delhi,5,0.001,0.0,0.002,True,theme
+Prison,Maharashtra,5,0.002,0.001,0.004,True,theme
+Rape,Tamil Nadu,5,0.019,0.002,0.048,True,theme
+Rehabilitation,Andhra Pradesh,6,0.016,0.004,0.035,True,theme
+Rehabilitation,Assam,7,0.009,0.003,0.016,True,theme
+Rehabilitation,Dadra and Nagar Haveli and Daman and Diu,5,2.141,1.059,3.192,True,theme
+Rehabilitation,Delhi,7,0.004,0.0,0.01,True,theme
+Rehabilitation,Jharkhand,5,0.006,0.002,0.011,True,theme
+Rehabilitation,Karnataka,5,0.006,0.0,0.016,True,theme
+Rehabilitation,Maharashtra,7,0.004,0.0,0.011,True,theme
+Rehabilitation,Odisha,6,0.004,0.001,0.01,True,theme
+Rehabilitation,Tamil Nadu,6,0.005,0.0,0.011,True,theme
+Rehabilitation,Telangana,5,0.007,0.0,0.017,True,theme
+Rehabilitation,Uttar Pradesh,5,0.004,0.0,0.011,True,theme
+Rehabilitation,Uttarakhand,5,0.29,0.001,0.862,True,theme
+Rehabilitation,West Bengal,5,0.006,0.001,0.013,True,theme
+Reincarnation,Andhra Pradesh,6,0.008,0.002,0.018,True,theme
+Reincarnation,Assam,7,0.126,0.004,0.355,True,theme
+Reincarnation,Delhi,10,0.094,0.003,0.259,True,theme
+Reincarnation,Gujarat,9,0.009,0.001,0.026,True,theme
+Reincarnation,Haryana,6,0.008,0.001,0.019,True,theme
+Reincarnation,Jammu and Kashmir,5,0.003,0.001,0.006,True,theme
+Reincarnation,Jharkhand,6,0.009,0.001,0.024,True,theme
+Reincarnation,Karnataka,8,0.079,0.004,0.217,True,theme
+Reincarnation,Kerala,7,0.012,0.004,0.027,True,theme
+Reincarnation,Madhya Pradesh,8,0.054,0.002,0.142,True,theme
+Reincarnation,Maharashtra,11,0.158,0.003,0.459,True,theme
+Reincarnation,Manipur,5,3.191,0.803,5.561,False,theme
+Reincarnation,Mizoram,6,5.873,4.374,7.544,True,theme
+Reincarnation,Punjab,6,0.176,0.003,0.515,True,theme
+Reincarnation,Rajasthan,6,0.132,0.003,0.37,True,theme
+Reincarnation,Tamil Nadu,9,0.073,0.003,0.202,True,theme
+Reincarnation,Telangana,8,0.01,0.002,0.022,True,theme
+Reincarnation,Uttar Pradesh,7,0.172,0.005,0.486,True,theme
+Reincarnation,West Bengal,9,0.161,0.003,0.457,True,theme
+Religion,Assam,5,0.35,0.002,0.721,True,theme
+Religion,Chhattisgarh,5,0.423,0.002,1.263,False,theme
+Religion,Delhi,7,0.12,0.0,0.357,True,theme
+Religion,Karnataka,8,0.071,0.0,0.211,True,theme
+Religion,Maharashtra,8,0.233,0.002,0.641,True,theme
+Religion,Mizoram,5,4.288,2.744,5.858,True,theme
+Religion,Rajasthan,6,0.121,0.001,0.359,True,theme
+Religion,Tamil Nadu,5,0.179,0.003,0.395,True,theme
+Religion,Uttar Pradesh,6,0.186,0.0,0.553,True,theme
+Religion,West Bengal,5,0.526,0.003,1.058,False,theme
+Revenge,Andhra Pradesh,19,0.042,0.013,0.09,True,theme
+Revenge,Arunachal Pradesh,8,5.342,1.022,10.877,True,theme
+Revenge,Assam,21,0.042,0.018,0.075,True,theme
+Revenge,Bihar,17,0.02,0.01,0.03,True,theme
+Revenge,Chandigarh,14,0.938,0.038,2.031,False,theme
+Revenge,Chhattisgarh,14,0.277,0.013,0.788,True,theme
+Revenge,Dadra and Nagar Haveli and Daman and Diu,5,0.505,0.126,1.186,False,theme
+Revenge,Delhi,25,0.023,0.011,0.036,True,theme
+Revenge,Goa,8,0.78,0.067,2.144,False,theme
+Revenge,Gujarat,23,0.018,0.01,0.029,True,theme
+Revenge,Haryana,21,0.019,0.009,0.032,True,theme
+Revenge,Himachal Pradesh,11,0.899,0.015,2.395,False,theme
+Revenge,Jammu and Kashmir,10,0.059,0.005,0.16,True,theme
+Revenge,Jharkhand,16,0.452,0.011,1.755,False,theme
+Revenge,Karnataka,25,0.022,0.012,0.036,True,theme
+Revenge,Kerala,24,0.026,0.015,0.041,True,theme
+Revenge,Madhya Pradesh,22,0.019,0.01,0.03,True,theme
+Revenge,Maharashtra,26,0.023,0.014,0.035,True,theme
+Revenge,Manipur,15,3.823,1.341,7.086,True,theme
+Revenge,Meghalaya,17,5.364,2.819,8.17,True,theme
+Revenge,Mizoram,8,6.872,4.983,8.614,True,theme
+Revenge,Nagaland,10,10.444,6.959,13.718,True,theme
+Revenge,Odisha,16,0.033,0.018,0.053,True,theme
+Revenge,Puducherry,5,7.036,2.419,12.388,True,theme
+Revenge,Punjab,20,0.019,0.01,0.028,True,theme
+Revenge,Rajasthan,25,0.016,0.009,0.026,True,theme
+Revenge,Sikkim,9,3.785,1.88,5.484,True,theme
+Revenge,Tamil Nadu,24,0.026,0.013,0.041,True,theme
+Revenge,Telangana,25,0.022,0.011,0.034,True,theme
+Revenge,Tripura,10,2.28,0.6,4.111,False,theme
+Revenge,Uttar Pradesh,27,0.02,0.011,0.032,True,theme
+Revenge,Uttarakhand,17,0.883,0.015,2.538,False,theme
+Revenge,West Bengal,24,0.025,0.015,0.038,True,theme
+Rotoscoping,Delhi,7,0.291,0.007,0.836,True,theme
+Rotoscoping,Karnataka,8,0.077,0.006,0.208,True,theme
+Rotoscoping,Kerala,6,0.016,0.002,0.033,True,theme
+Rotoscoping,Maharashtra,9,0.218,0.006,0.628,True,theme
+Rotoscoping,Odisha,5,0.288,0.008,0.821,True,theme
+Rotoscoping,Punjab,5,0.277,0.009,0.797,True,theme
+Rotoscoping,Rajasthan,5,0.021,0.001,0.046,True,theme
+Rotoscoping,Tamil Nadu,7,0.081,0.006,0.208,True,theme
+Rotoscoping,Telangana,5,0.155,0.011,0.412,True,theme
+Rotoscoping,Uttar Pradesh,8,0.119,0.001,0.326,True,theme
+Rotoscoping,Uttarakhand,5,0.778,0.012,2.302,False,theme
+Rotoscoping,West Bengal,7,0.085,0.008,0.215,True,theme
+Rural,Andhra Pradesh,5,0.087,0.004,0.238,True,theme
+Rural,Assam,6,0.198,0.013,0.466,True,theme
+Rural,Bihar,5,0.019,0.001,0.046,True,theme
+Rural,Chhattisgarh,5,0.43,0.007,1.267,False,theme
+Rural,Delhi,9,0.114,0.004,0.309,True,theme
+Rural,Gujarat,6,0.019,0.002,0.043,True,theme
+Rural,Haryana,5,0.03,0.003,0.077,True,theme
+Rural,Karnataka,9,0.084,0.005,0.206,True,theme
+Rural,Kerala,9,0.024,0.003,0.053,True,theme
+Rural,Madhya Pradesh,7,0.07,0.005,0.168,True,theme
+Rural,Maharashtra,10,0.181,0.005,0.516,True,theme
+Rural,Meghalaya,8,4.456,1.885,7.323,True,theme
+Rural,Odisha,5,0.035,0.002,0.091,True,theme
+Rural,Punjab,6,0.181,0.005,0.52,True,theme
+Rural,Rajasthan,7,0.118,0.006,0.321,True,theme
+Rural,Tamil Nadu,9,0.085,0.006,0.205,True,theme
+Rural,Telangana,6,0.03,0.004,0.07,True,theme
+Rural,Uttar Pradesh,11,0.115,0.003,0.315,True,theme
+Rural,Uttarakhand,6,0.016,0.005,0.028,True,theme
+Rural,West Bengal,8,0.191,0.007,0.518,True,theme
+School,Andaman and Nicobar Islands,8,3.467,2.415,4.717,True,theme
+School,Andhra Pradesh,22,0.026,0.014,0.04,True,theme
+School,Arunachal Pradesh,12,3.449,1.575,5.507,True,theme
+School,Assam,24,0.018,0.009,0.03,True,theme
+School,Bihar,14,0.017,0.008,0.031,True,theme
+School,Chandigarh,11,0.254,0.019,0.832,True,theme
+School,Chhattisgarh,13,0.304,0.018,0.856,True,theme
+School,Dadra and Nagar Haveli and Daman and Diu,10,2.338,0.999,4.085,False,theme
+School,Delhi,30,0.019,0.007,0.035,True,theme
+School,Goa,12,1.178,0.087,2.97,False,theme
+School,Gujarat,19,0.032,0.01,0.067,True,theme
+School,Haryana,18,0.016,0.008,0.024,True,theme
+School,Himachal Pradesh,18,1.358,0.483,2.383,False,theme
+School,Jammu and Kashmir,14,0.126,0.006,0.362,True,theme
+School,Jharkhand,17,0.282,0.014,0.646,True,theme
+School,Karnataka,27,0.013,0.007,0.02,True,theme
+School,Kerala,22,0.018,0.009,0.027,True,theme
+School,Lakshadweep,7,4.539,2.353,7.244,True,theme
+School,Madhya Pradesh,20,0.015,0.006,0.025,True,theme
+School,Maharashtra,27,0.019,0.009,0.031,True,theme
+School,Manipur,18,4.577,2.472,6.946,True,theme
+School,Meghalaya,14,3.825,2.111,5.759,True,theme
+School,Mizoram,13,5.643,4.236,7.143,True,theme
+School,Nagaland,11,9.575,7.18,11.903,True,theme
+School,Odisha,20,0.021,0.011,0.032,True,theme
+School,Punjab,16,0.152,0.013,0.424,True,theme
+School,Rajasthan,17,0.017,0.008,0.028,True,theme
+School,Sikkim,7,4.029,1.48,7.155,True,theme
+School,Tamil Nadu,25,0.035,0.01,0.081,True,theme
+School,Telangana,19,0.021,0.012,0.031,True,theme
+School,Tripura,14,1.954,0.809,3.38,False,theme
+School,Uttar Pradesh,21,0.016,0.008,0.026,True,theme
+School,Uttarakhand,17,0.633,0.112,1.289,False,theme
+School,West Bengal,25,0.016,0.008,0.027,True,theme
+School Club,Delhi,5,0.049,0.0,0.129,True,theme
+Seinen,Andhra Pradesh,5,0.015,0.003,0.036,True,theme
+Seinen,Assam,9,0.023,0.004,0.051,True,theme
+Seinen,Delhi,11,0.002,0.0,0.003,True,theme
+Seinen,Haryana,5,0.004,0.001,0.009,True,theme
+Seinen,Jammu and Kashmir,5,0.046,0.002,0.122,True,theme
+Seinen,Karnataka,10,0.002,0.0,0.003,True,theme
+Seinen,Kerala,7,0.003,0.001,0.006,True,theme
+Seinen,Madhya Pradesh,10,0.002,0.001,0.003,True,theme
+Seinen,Maharashtra,8,0.003,0.001,0.005,True,theme
+Seinen,Meghalaya,5,3.401,0.991,6.342,False,theme
+Seinen,Mizoram,5,5.856,3.764,8.446,True,theme
+Seinen,Odisha,6,0.012,0.003,0.027,True,theme
+Seinen,Sikkim,5,3.152,1.516,4.271,True,theme
+Seinen,Tamil Nadu,10,0.002,0.0,0.004,True,theme
+Seinen,Uttar Pradesh,10,0.002,0.0,0.003,True,theme
+Seinen,Uttarakhand,5,0.508,0.001,1.518,False,theme
+Seinen,West Bengal,8,0.003,0.0,0.005,True,theme
+Shapeshifting,Andhra Pradesh,9,0.055,0.007,0.141,True,theme
+Shapeshifting,Assam,10,0.064,0.015,0.138,True,theme
+Shapeshifting,Bihar,9,0.021,0.006,0.038,True,theme
+Shapeshifting,Chandigarh,8,1.184,0.034,2.79,False,theme
+Shapeshifting,Delhi,12,0.024,0.008,0.049,True,theme
+Shapeshifting,Gujarat,12,0.016,0.006,0.033,True,theme
+Shapeshifting,Haryana,10,0.022,0.005,0.047,True,theme
+Shapeshifting,Jharkhand,6,0.012,0.006,0.019,True,theme
+Shapeshifting,Karnataka,12,0.025,0.008,0.049,True,theme
+Shapeshifting,Kerala,12,0.026,0.009,0.052,True,theme
+Shapeshifting,Madhya Pradesh,11,0.019,0.006,0.039,True,theme
+Shapeshifting,Maharashtra,14,0.021,0.007,0.04,True,theme
+Shapeshifting,Manipur,8,3.929,0.854,7.964,False,theme
+Shapeshifting,Meghalaya,7,2.94,0.834,5.65,False,theme
+Shapeshifting,Mizoram,5,6.054,4.228,8.068,True,theme
+Shapeshifting,Nagaland,6,7.853,3.656,12.202,True,theme
+Shapeshifting,Odisha,8,0.039,0.012,0.074,True,theme
+Shapeshifting,Punjab,10,0.019,0.007,0.033,True,theme
+Shapeshifting,Rajasthan,10,0.019,0.006,0.035,True,theme
+Shapeshifting,Tamil Nadu,11,0.028,0.009,0.055,True,theme
+Shapeshifting,Telangana,10,0.027,0.009,0.05,True,theme
+Shapeshifting,Tripura,5,3.445,0.93,5.961,False,theme
+Shapeshifting,Uttar Pradesh,13,0.02,0.006,0.04,True,theme
+Shapeshifting,Uttarakhand,6,1.89,0.013,5.623,False,theme
+Shapeshifting,West Bengal,12,0.024,0.007,0.048,True,theme
+Shounen,Andaman and Nicobar Islands,12,5.21,3.758,6.619,True,theme
+Shounen,Andhra Pradesh,30,0.123,0.023,0.28,True,theme
+Shounen,Arunachal Pradesh,15,4.275,1.603,7.404,True,theme
+Shounen,Assam,30,0.095,0.027,0.186,True,theme
+Shounen,Bihar,26,0.108,0.016,0.232,True,theme
+Shounen,Chandigarh,17,1.25,0.339,2.348,False,theme
+Shounen,Chhattisgarh,27,0.231,0.017,0.569,True,theme
+Shounen,Dadra and Nagar Haveli and Daman and Diu,5,1.827,0.319,4.263,False,theme
+Shounen,Delhi,44,0.084,0.018,0.176,True,theme
+Shounen,Goa,14,0.849,0.062,2.388,False,theme
+Shounen,Gujarat,35,0.045,0.014,0.092,True,theme
+Shounen,Haryana,29,0.018,0.01,0.03,True,theme
+Shounen,Himachal Pradesh,24,0.913,0.282,1.713,False,theme
+Shounen,Jammu and Kashmir,20,0.34,0.012,0.857,True,theme
+Shounen,Jharkhand,26,0.232,0.017,0.523,True,theme
+Shounen,Karnataka,44,0.041,0.015,0.078,True,theme
+Shounen,Kerala,37,0.022,0.014,0.032,True,theme
+Shounen,Lakshadweep,7,6.454,3.812,8.902,True,theme
+Shounen,Madhya Pradesh,33,0.027,0.011,0.048,True,theme
+Shounen,Maharashtra,46,0.1,0.022,0.23,True,theme
+Shounen,Manipur,21,4.742,2.011,7.295,True,theme
+Shounen,Meghalaya,26,5.625,3.911,7.509,True,theme
+Shounen,Mizoram,14,6.326,5.016,7.561,True,theme
+Shounen,Nagaland,12,9.439,6.353,12.543,True,theme
+Shounen,Odisha,28,0.074,0.019,0.175,True,theme
+Shounen,Puducherry,8,4.552,2.618,6.114,True,theme
+Shounen,Punjab,29,0.172,0.019,0.362,True,theme
+Shounen,Rajasthan,31,0.04,0.012,0.088,True,theme
+Shounen,Sikkim,15,3.806,2.267,5.347,True,theme
+Shounen,Tamil Nadu,41,0.064,0.026,0.109,True,theme
+Shounen,Telangana,34,0.041,0.016,0.088,True,theme
+Shounen,Tripura,15,2.27,1.205,3.477,True,theme
+Shounen,Uttar Pradesh,38,0.069,0.016,0.143,True,theme
+Shounen,Uttarakhand,28,0.986,0.21,2.072,False,theme
+Shounen,West Bengal,39,0.099,0.022,0.207,True,theme
+Slapstick,Andaman and Nicobar Islands,5,3.341,2.415,4.527,True,theme
+Slapstick,Andhra Pradesh,9,0.154,0.008,0.433,True,theme
+Slapstick,Arunachal Pradesh,6,6.014,2.295,9.732,True,theme
+Slapstick,Assam,12,0.186,0.015,0.406,True,theme
+Slapstick,Bihar,6,0.103,0.003,0.271,True,theme
+Slapstick,Chhattisgarh,6,0.372,0.005,1.072,False,theme
+Slapstick,Delhi,12,0.079,0.002,0.217,True,theme
+Slapstick,Gujarat,9,0.011,0.001,0.027,True,theme
+Slapstick,Haryana,7,0.012,0.002,0.028,True,theme
+Slapstick,Himachal Pradesh,6,0.994,0.003,2.952,False,theme
+Slapstick,Jammu and Kashmir,8,0.363,0.005,1.07,False,theme
+Slapstick,Jharkhand,7,0.024,0.005,0.05,True,theme
+Slapstick,Karnataka,14,0.047,0.002,0.127,True,theme
+Slapstick,Kerala,8,0.013,0.003,0.03,True,theme
+Slapstick,Madhya Pradesh,11,0.054,0.005,0.117,True,theme
+Slapstick,Maharashtra,15,0.117,0.002,0.336,True,theme
+Slapstick,Manipur,7,4.205,1.499,7.495,True,theme
+Slapstick,Meghalaya,7,3.222,1.392,5.521,True,theme
+Slapstick,Mizoram,5,6.042,3.386,8.49,True,theme
+Slapstick,Nagaland,5,9.462,6.181,12.773,True,theme
+Slapstick,Odisha,10,0.014,0.002,0.034,True,theme
+Slapstick,Punjab,8,0.406,0.009,1.063,False,theme
+Slapstick,Rajasthan,8,0.101,0.003,0.278,True,theme
+Slapstick,Tamil Nadu,15,0.049,0.004,0.123,True,theme
+Slapstick,Telangana,8,0.013,0.002,0.03,True,theme
+Slapstick,Tripura,5,0.764,0.119,1.628,False,theme
+Slapstick,Uttar Pradesh,9,0.135,0.004,0.378,True,theme
+Slapstick,Uttarakhand,7,0.373,0.004,1.093,False,theme
+Slapstick,West Bengal,12,0.123,0.003,0.343,True,theme
+Slavery,Assam,5,0.245,0.001,0.731,True,theme
+Slavery,Delhi,6,0.002,0.0,0.004,True,theme
+Slavery,Karnataka,5,0.002,0.0,0.004,True,theme
+Slavery,Madhya Pradesh,5,0.026,0.001,0.076,True,theme
+Slavery,Maharashtra,6,0.003,0.001,0.006,True,theme
+Slavery,Rajasthan,5,0.001,0.0,0.002,True,theme
+Slavery,Tamil Nadu,5,0.017,0.001,0.047,True,theme
+Slavery,Uttar Pradesh,6,0.002,0.0,0.004,True,theme
+Slavery,West Bengal,6,0.004,0.001,0.008,True,theme
+Steampunk,Andhra Pradesh,5,0.408,0.022,1.025,False,theme
+Steampunk,Assam,6,0.253,0.059,0.547,True,theme
+Steampunk,Delhi,5,0.046,0.007,0.089,True,theme
+Steampunk,Karnataka,7,0.032,0.005,0.074,True,theme
+Steampunk,Kerala,5,0.047,0.01,0.09,True,theme
+Steampunk,Madhya Pradesh,5,0.034,0.005,0.072,True,theme
+Steampunk,Maharashtra,6,0.072,0.018,0.137,True,theme
+Steampunk,Rajasthan,5,0.029,0.005,0.055,True,theme
+Steampunk,Tamil Nadu,5,0.113,0.025,0.227,True,theme
+Steampunk,Uttar Pradesh,5,0.04,0.007,0.078,True,theme
+Steampunk,West Bengal,6,0.251,0.018,0.668,True,theme
+Suicide,Andaman and Nicobar Islands,5,5.968,3.773,8.091,True,theme
+Suicide,Andhra Pradesh,8,0.019,0.004,0.039,True,theme
+Suicide,Assam,10,0.089,0.006,0.251,True,theme
+Suicide,Bihar,7,0.003,0.002,0.006,True,theme
+Suicide,Chhattisgarh,6,0.354,0.003,1.054,False,theme
+Suicide,Delhi,11,0.081,0.003,0.232,True,theme
+Suicide,Gujarat,7,0.005,0.002,0.008,True,theme
+Suicide,Haryana,7,0.004,0.002,0.007,True,theme
+Suicide,Himachal Pradesh,5,1.185,0.007,3.534,False,theme
+Suicide,Jharkhand,8,0.007,0.005,0.011,True,theme
+Suicide,Karnataka,9,0.07,0.006,0.192,True,theme
+Suicide,Kerala,8,0.01,0.006,0.015,True,theme
+Suicide,Madhya Pradesh,9,0.043,0.002,0.12,True,theme
+Suicide,Maharashtra,11,0.156,0.005,0.45,True,theme
+Suicide,Manipur,5,8.209,1.371,14.332,True,theme
+Suicide,Meghalaya,6,2.931,0.077,7.358,False,theme
+Suicide,Odisha,7,0.009,0.004,0.016,True,theme
+Suicide,Punjab,8,0.13,0.002,0.385,True,theme
+Suicide,Rajasthan,10,0.075,0.003,0.218,True,theme
+Suicide,Tamil Nadu,10,0.062,0.006,0.172,True,theme
+Suicide,Telangana,9,0.007,0.003,0.01,True,theme
+Suicide,Uttar Pradesh,9,0.129,0.005,0.372,True,theme
+Suicide,Uttarakhand,6,0.006,0.003,0.009,True,theme
+Suicide,West Bengal,9,0.156,0.007,0.451,True,theme
+Super Power,Andaman and Nicobar Islands,10,5.673,3.85,7.478,True,theme
+Super Power,Andhra Pradesh,28,0.176,0.055,0.332,True,theme
+Super Power,Arunachal Pradesh,12,4.914,1.763,8.821,True,theme
+Super Power,Assam,28,0.146,0.057,0.264,True,theme
+Super Power,Bihar,23,0.144,0.026,0.309,True,theme
+Super Power,Chandigarh,15,1.245,0.337,2.343,False,theme
+Super Power,Chhattisgarh,24,0.26,0.018,0.635,True,theme
+Super Power,Delhi,34,0.103,0.018,0.235,True,theme
+Super Power,Goa,13,1.326,0.078,3.358,False,theme
+Super Power,Gujarat,28,0.045,0.014,0.103,True,theme
+Super Power,Haryana,25,0.021,0.011,0.031,True,theme
+Super Power,Himachal Pradesh,18,0.942,0.181,1.787,False,theme
+Super Power,Jammu and Kashmir,17,0.206,0.009,0.566,True,theme
+Super Power,Jharkhand,20,0.075,0.012,0.191,True,theme
+Super Power,Karnataka,35,0.051,0.016,0.103,True,theme
+Super Power,Kerala,29,0.027,0.017,0.037,True,theme
+Super Power,Madhya Pradesh,29,0.035,0.016,0.063,True,theme
+Super Power,Maharashtra,38,0.117,0.022,0.256,True,theme
+Super Power,Manipur,22,4.137,2.13,6.589,True,theme
+Super Power,Meghalaya,20,5.5,3.299,8.049,True,theme
+Super Power,Mizoram,14,5.866,4.662,7.105,True,theme
+Super Power,Nagaland,9,8.73,5.296,12.301,True,theme
+Super Power,Odisha,24,0.087,0.022,0.199,True,theme
+Super Power,Puducherry,6,4.803,2.698,6.908,True,theme
+Super Power,Punjab,26,0.191,0.038,0.437,True,theme
+Super Power,Rajasthan,27,0.046,0.014,0.1,True,theme
+Super Power,Sikkim,13,3.137,1.793,4.569,True,theme
+Super Power,Tamil Nadu,34,0.064,0.029,0.108,True,theme
+Super Power,Telangana,30,0.046,0.016,0.095,True,theme
+Super Power,Tripura,14,2.81,1.712,3.962,True,theme
+Super Power,Uttar Pradesh,32,0.081,0.019,0.177,True,theme
+Super Power,Uttarakhand,24,1.082,0.176,2.272,False,theme
+Super Power,West Bengal,33,0.117,0.027,0.235,True,theme
+Superhero,Andhra Pradesh,5,0.065,0.036,0.101,True,theme
+Superhero,Assam,6,0.03,0.015,0.044,True,theme
+Superhero,Bihar,5,0.02,0.01,0.031,True,theme
+Superhero,Chhattisgarh,7,0.544,0.023,1.566,False,theme
+Superhero,Delhi,7,0.028,0.014,0.044,True,theme
+Superhero,Goa,5,2.271,0.096,6.507,False,theme
+Superhero,Gujarat,6,0.023,0.011,0.037,True,theme
+Superhero,Haryana,6,0.024,0.012,0.037,True,theme
+Superhero,Himachal Pradesh,5,1.984,0.014,4.629,False,theme
+Superhero,Jammu and Kashmir,5,0.016,0.008,0.028,True,theme
+Superhero,Karnataka,7,0.026,0.012,0.039,True,theme
+Superhero,Kerala,6,0.036,0.016,0.057,True,theme
+Superhero,Madhya Pradesh,5,0.026,0.015,0.038,True,theme
+Superhero,Maharashtra,7,0.028,0.014,0.043,True,theme
+Superhero,Manipur,5,5.119,0.925,10.298,False,theme
+Superhero,Odisha,6,0.034,0.025,0.045,True,theme
+Superhero,Punjab,6,0.029,0.017,0.044,True,theme
+Superhero,Rajasthan,5,0.027,0.015,0.04,True,theme
+Superhero,Tamil Nadu,6,0.035,0.017,0.054,True,theme
+Superhero,Telangana,6,0.035,0.019,0.052,True,theme
+Superhero,Tripura,5,2.664,1.386,3.711,True,theme
+Superhero,Uttar Pradesh,7,0.023,0.01,0.036,True,theme
+Superhero,Uttarakhand,6,2.391,0.609,4.639,False,theme
+Superhero,West Bengal,6,0.031,0.017,0.05,True,theme
+Surreal Comedy,Andhra Pradesh,8,0.212,0.01,0.603,True,theme
+Surreal Comedy,Arunachal Pradesh,5,10.069,3.523,15.664,True,theme
+Surreal Comedy,Assam,8,0.141,0.009,0.367,True,theme
+Surreal Comedy,Bihar,6,0.275,0.013,0.786,True,theme
+Surreal Comedy,Delhi,8,0.024,0.004,0.045,True,theme
+Surreal Comedy,Gujarat,7,0.024,0.003,0.053,True,theme
+Surreal Comedy,Haryana,7,0.017,0.005,0.034,True,theme
+Surreal Comedy,Jammu and Kashmir,5,0.01,0.004,0.019,True,theme
+Surreal Comedy,Jharkhand,7,0.188,0.011,0.515,True,theme
+Surreal Comedy,Karnataka,8,0.018,0.004,0.034,True,theme
+Surreal Comedy,Kerala,6,0.026,0.009,0.047,True,theme
+Surreal Comedy,Madhya Pradesh,6,0.028,0.005,0.056,True,theme
+Surreal Comedy,Maharashtra,9,0.045,0.009,0.093,True,theme
+Surreal Comedy,Manipur,5,4.097,0.746,8.399,False,theme
+Surreal Comedy,Odisha,7,0.026,0.004,0.054,True,theme
+Surreal Comedy,Punjab,6,0.376,0.009,1.088,False,theme
+Surreal Comedy,Rajasthan,6,0.026,0.004,0.056,True,theme
+Surreal Comedy,Tamil Nadu,9,0.058,0.011,0.128,True,theme
+Surreal Comedy,Telangana,6,0.025,0.007,0.047,True,theme
+Surreal Comedy,Tripura,5,0.764,0.111,1.699,False,theme
+Surreal Comedy,Uttar Pradesh,7,0.027,0.005,0.05,True,theme
+Surreal Comedy,Uttarakhand,6,0.017,0.004,0.037,True,theme
+Surreal Comedy,West Bengal,9,0.167,0.007,0.48,True,theme
+Survival,Andhra Pradesh,10,0.053,0.009,0.131,True,theme
+Survival,Assam,12,0.124,0.022,0.272,True,theme
+Survival,Bihar,8,0.028,0.009,0.047,True,theme
+Survival,Chandigarh,5,1.7,0.043,3.896,False,theme
+Survival,Chhattisgarh,6,0.362,0.006,1.06,False,theme
+Survival,Delhi,16,0.073,0.009,0.186,True,theme
+Survival,Gujarat,11,0.022,0.008,0.039,True,theme
+Survival,Haryana,10,0.024,0.007,0.046,True,theme
+Survival,Himachal Pradesh,5,1.808,0.022,4.184,False,theme
+Survival,Jammu and Kashmir,5,1.002,0.004,2.695,False,theme
+Survival,Jharkhand,7,0.014,0.004,0.026,True,theme
+Survival,Karnataka,15,0.058,0.01,0.136,True,theme
+Survival,Kerala,11,0.03,0.01,0.056,True,theme
+Survival,Madhya Pradesh,12,0.05,0.011,0.114,True,theme
+Survival,Maharashtra,16,0.122,0.01,0.332,True,theme
+Survival,Manipur,6,3.666,0.453,8.694,False,theme
+Survival,Meghalaya,8,2.092,0.489,3.73,False,theme
+Survival,Mizoram,6,5.265,3.201,7.86,True,theme
+Survival,Odisha,8,0.043,0.014,0.078,True,theme
+Survival,Puducherry,6,4.659,3.444,5.772,True,theme
+Survival,Punjab,9,0.135,0.013,0.359,True,theme
+Survival,Rajasthan,12,0.079,0.009,0.202,True,theme
+Survival,Sikkim,5,3.075,0.805,5.351,False,theme
+Survival,Tamil Nadu,14,0.065,0.013,0.143,True,theme
+Survival,Telangana,10,0.028,0.009,0.054,True,theme
+Survival,Uttar Pradesh,14,0.101,0.011,0.258,True,theme
+Survival,Uttarakhand,7,1.622,0.012,4.825,False,theme
+Survival,West Bengal,13,0.128,0.014,0.331,True,theme
+Swordplay,Andaman and Nicobar Islands,10,6.356,4.812,7.934,True,theme
+Swordplay,Andhra Pradesh,19,0.091,0.01,0.229,True,theme
+Swordplay,Arunachal Pradesh,8,4.714,0.827,9.427,False,theme
+Swordplay,Assam,16,0.047,0.015,0.095,True,theme
+Swordplay,Bihar,14,0.077,0.011,0.195,True,theme
+Swordplay,Chandigarh,10,1.577,0.321,2.911,False,theme
+Swordplay,Chhattisgarh,12,0.011,0.006,0.017,True,theme
+Swordplay,Dadra and Nagar Haveli and Daman and Diu,7,3.647,1.646,5.497,True,theme
+Swordplay,Delhi,26,0.09,0.009,0.24,True,theme
+Swordplay,Goa,10,0.851,0.042,1.986,False,theme
+Swordplay,Gujarat,24,0.043,0.007,0.107,True,theme
+Swordplay,Haryana,17,0.017,0.007,0.033,True,theme
+Swordplay,Himachal Pradesh,11,0.632,0.007,1.602,False,theme
+Swordplay,Jammu and Kashmir,9,0.064,0.004,0.175,True,theme
+Swordplay,Jharkhand,15,0.475,0.006,1.409,False,theme
+Swordplay,Karnataka,25,0.038,0.009,0.083,True,theme
+Swordplay,Kerala,21,0.022,0.01,0.036,True,theme
+Swordplay,Lakshadweep,5,5.841,3.372,9.276,True,theme
+Swordplay,Madhya Pradesh,20,0.015,0.006,0.026,True,theme
+Swordplay,Maharashtra,28,0.081,0.01,0.22,True,theme
+Swordplay,Manipur,12,2.616,0.631,5.357,False,theme
+Swordplay,Meghalaya,14,5.916,3.927,8.306,True,theme
+Swordplay,Mizoram,10,5.272,4.055,6.702,True,theme
+Swordplay,Nagaland,9,6.659,3.649,10.632,True,theme
+Swordplay,Odisha,16,0.109,0.013,0.28,True,theme
+Swordplay,Puducherry,5,4.192,2.963,5.412,True,theme
+Swordplay,Punjab,18,0.206,0.011,0.497,True,theme
+Swordplay,Rajasthan,18,0.016,0.007,0.027,True,theme
+Swordplay,Sikkim,8,3.391,1.858,4.995,True,theme
+Swordplay,Tamil Nadu,24,0.038,0.011,0.074,True,theme
+Swordplay,Telangana,22,0.049,0.011,0.112,True,theme
+Swordplay,Tripura,8,4.172,2.428,5.64,True,theme
+Swordplay,Uttar Pradesh,25,0.049,0.01,0.132,True,theme
+Swordplay,Uttarakhand,15,0.768,0.013,2.266,False,theme
+Swordplay,West Bengal,25,0.036,0.011,0.072,True,theme
+Tanned Skin,Assam,5,0.598,0.198,0.997,True,theme
+Tanned Skin,Chhattisgarh,5,0.425,0.004,1.264,False,theme
+Tanned Skin,Delhi,5,0.17,0.001,0.5,True,theme
+Tanned Skin,Karnataka,7,0.083,0.001,0.242,True,theme
+Tanned Skin,Madhya Pradesh,5,0.098,0.003,0.237,True,theme
+Tanned Skin,Maharashtra,7,0.268,0.004,0.733,True,theme
+Tanned Skin,Tamil Nadu,8,0.122,0.011,0.275,True,theme
+Tanned Skin,West Bengal,5,0.528,0.006,1.058,False,theme
+Teacher,Delhi,5,0.049,0.0,0.129,True,theme
+Teacher,Tamil Nadu,5,0.105,0.0,0.298,True,theme
+Terrorism,Andhra Pradesh,8,0.165,0.014,0.446,True,theme
+Terrorism,Assam,8,0.017,0.006,0.032,True,theme
+Terrorism,Bihar,8,0.113,0.006,0.319,True,theme
+Terrorism,Chhattisgarh,7,0.013,0.004,0.024,True,theme
+Terrorism,Delhi,10,0.206,0.01,0.59,True,theme
+Terrorism,Gujarat,8,0.104,0.009,0.282,True,theme
+Terrorism,Haryana,7,0.015,0.005,0.028,True,theme
+Terrorism,Himachal Pradesh,6,0.529,0.006,1.563,False,theme
+Terrorism,Jammu and Kashmir,5,0.009,0.005,0.015,True,theme
+Terrorism,Jharkhand,6,0.013,0.003,0.028,True,theme
+Terrorism,Karnataka,11,0.061,0.008,0.156,True,theme
+Terrorism,Kerala,8,0.021,0.011,0.034,True,theme
+Terrorism,Madhya Pradesh,9,0.011,0.003,0.022,True,theme
+Terrorism,Maharashtra,11,0.181,0.009,0.515,True,theme
+Terrorism,Manipur,6,3.432,0.098,8.876,False,theme
+Terrorism,Meghalaya,6,4.796,1.351,7.619,True,theme
+Terrorism,Odisha,8,0.185,0.011,0.52,True,theme
+Terrorism,Punjab,8,0.178,0.007,0.505,True,theme
+Terrorism,Rajasthan,9,0.012,0.003,0.022,True,theme
+Terrorism,Tamil Nadu,9,0.069,0.012,0.168,True,theme
+Terrorism,Telangana,10,0.083,0.008,0.219,True,theme
+Terrorism,Tripura,7,1.698,0.093,3.2,False,theme
+Terrorism,Uttar Pradesh,10,0.096,0.008,0.264,True,theme
+Terrorism,Uttarakhand,5,1.372,0.01,4.077,False,theme
+Terrorism,West Bengal,10,0.061,0.009,0.152,True,theme
+Time Manipulation,Andhra Pradesh,7,0.025,0.007,0.045,True,theme
+Time Manipulation,Assam,7,0.144,0.012,0.366,True,theme
+Time Manipulation,Dadra and Nagar Haveli and Daman and Diu,5,2.437,0.257,5.226,False,theme
+Time Manipulation,Delhi,13,0.071,0.001,0.198,True,theme
+Time Manipulation,Karnataka,12,0.052,0.001,0.143,True,theme
+Time Manipulation,Kerala,7,0.01,0.001,0.025,True,theme
+Time Manipulation,Madhya Pradesh,11,0.039,0.001,0.102,True,theme
+Time Manipulation,Maharashtra,9,0.193,0.004,0.554,True,theme
+Time Manipulation,Rajasthan,7,0.113,0.002,0.321,True,theme
+Time Manipulation,Tamil Nadu,8,0.081,0.003,0.21,True,theme
+Time Manipulation,Telangana,8,0.009,0.001,0.021,True,theme
+Time Manipulation,Uttar Pradesh,10,0.119,0.001,0.34,True,theme
+Time Manipulation,West Bengal,8,0.179,0.002,0.511,True,theme
+Time Skip,Andaman and Nicobar Islands,5,7.585,6.421,8.779,True,theme
+Time Skip,Andhra Pradesh,9,0.008,0.005,0.012,True,theme
+Time Skip,Arunachal Pradesh,5,2.953,0.494,5.523,False,theme
+Time Skip,Assam,9,0.031,0.012,0.056,True,theme
+Time Skip,Bihar,7,0.006,0.003,0.008,True,theme
+Time Skip,Chandigarh,8,1.121,0.031,2.22,False,theme
+Time Skip,Chhattisgarh,9,0.01,0.005,0.015,True,theme
+Time Skip,Delhi,15,0.007,0.003,0.011,True,theme
+Time Skip,Gujarat,11,0.006,0.003,0.01,True,theme
+Time Skip,Haryana,8,0.007,0.004,0.011,True,theme
+Time Skip,Himachal Pradesh,9,0.837,0.007,2.166,False,theme
+Time Skip,Jammu and Kashmir,8,0.031,0.003,0.081,True,theme
+Time Skip,Jharkhand,10,0.011,0.005,0.019,True,theme
+Time Skip,Karnataka,18,0.006,0.003,0.011,True,theme
+Time Skip,Kerala,13,0.009,0.004,0.014,True,theme
+Time Skip,Madhya Pradesh,16,0.004,0.002,0.006,True,theme
+Time Skip,Maharashtra,18,0.008,0.004,0.011,True,theme
+Time Skip,Manipur,5,4.701,0.152,9.963,False,theme
+Time Skip,Meghalaya,12,5.802,2.536,9.96,True,theme
+Time Skip,Nagaland,8,7.878,5.082,11.068,True,theme
+Time Skip,Odisha,9,0.013,0.006,0.023,True,theme
+Time Skip,Punjab,8,0.007,0.005,0.009,True,theme
+Time Skip,Rajasthan,12,0.005,0.003,0.009,True,theme
+Time Skip,Sikkim,7,2.35,1.045,3.698,True,theme
+Time Skip,Tamil Nadu,16,0.007,0.004,0.011,True,theme
+Time Skip,Telangana,11,0.009,0.004,0.014,True,theme
+Time Skip,Tripura,7,3.025,1.034,4.98,True,theme
+Time Skip,Uttar Pradesh,18,0.005,0.002,0.008,True,theme
+Time Skip,Uttarakhand,9,0.291,0.008,0.851,True,theme
+Time Skip,West Bengal,14,0.009,0.004,0.015,True,theme
+Tomboy,Andhra Pradesh,5,0.034,0.002,0.089,True,theme
+Tomboy,Assam,6,0.013,0.001,0.031,True,theme
+Tomboy,Bihar,5,0.01,0.003,0.02,True,theme
+Tomboy,Chandigarh,5,0.025,0.017,0.036,True,theme
+Tomboy,Delhi,10,0.009,0.001,0.022,True,theme
+Tomboy,Goa,5,0.561,0.07,1.493,False,theme
+Tomboy,Gujarat,6,0.009,0.001,0.02,True,theme
+Tomboy,Haryana,7,0.011,0.003,0.02,True,theme
+Tomboy,Jammu and Kashmir,5,0.01,0.002,0.024,True,theme
+Tomboy,Jharkhand,5,0.004,0.001,0.011,True,theme
+Tomboy,Karnataka,7,0.012,0.002,0.026,True,theme
+Tomboy,Kerala,7,0.017,0.003,0.038,True,theme
+Tomboy,Madhya Pradesh,9,0.007,0.001,0.015,True,theme
+Tomboy,Maharashtra,8,0.012,0.002,0.028,True,theme
+Tomboy,Punjab,5,0.017,0.002,0.037,True,theme
+Tomboy,Rajasthan,6,0.01,0.001,0.02,True,theme
+Tomboy,Sikkim,6,5.018,2.482,7.931,True,theme
+Tomboy,Tamil Nadu,8,0.013,0.002,0.027,True,theme
+Tomboy,Telangana,8,0.012,0.002,0.026,True,theme
+Tomboy,Tripura,5,2.245,0.522,4.379,False,theme
+Tomboy,Uttar Pradesh,8,0.011,0.002,0.022,True,theme
+Tomboy,West Bengal,7,0.013,0.003,0.029,True,theme
+Tragedy,Andaman and Nicobar Islands,11,6.482,5.389,7.564,True,theme
+Tragedy,Andhra Pradesh,32,0.077,0.013,0.184,True,theme
+Tragedy,Arunachal Pradesh,14,3.771,1.216,6.601,True,theme
+Tragedy,Assam,35,0.08,0.021,0.158,True,theme
+Tragedy,Bihar,25,0.074,0.009,0.197,True,theme
+Tragedy,Chandigarh,14,0.936,0.035,2.04,False,theme
+Tragedy,Chhattisgarh,21,0.114,0.011,0.316,True,theme
+Tragedy,Dadra and Nagar Haveli and Daman and Diu,11,2.866,1.427,4.355,True,theme
+Tragedy,Delhi,46,0.031,0.009,0.069,True,theme
+Tragedy,Goa,15,1.681,0.227,3.602,False,theme
+Tragedy,Gujarat,31,0.014,0.007,0.021,True,theme
+Tragedy,Haryana,29,0.015,0.008,0.024,True,theme
+Tragedy,Himachal Pradesh,19,0.94,0.162,2.013,False,theme
+Tragedy,Jammu and Kashmir,20,0.337,0.007,0.842,True,theme
+Tragedy,Jharkhand,30,0.385,0.012,0.95,True,theme
+Tragedy,Karnataka,42,0.028,0.009,0.059,True,theme
+Tragedy,Kerala,37,0.018,0.01,0.027,True,theme
+Tragedy,Lakshadweep,11,5.584,3.827,7.852,True,theme
+Tragedy,Madhya Pradesh,38,0.021,0.007,0.041,True,theme
+Tragedy,Maharashtra,45,0.056,0.013,0.131,True,theme
+Tragedy,Manipur,19,4.767,2.146,7.603,True,theme
+Tragedy,Meghalaya,26,6.039,3.769,8.397,True,theme
+Tragedy,Mizoram,17,5.866,4.675,7.036,True,theme
+Tragedy,Nagaland,15,6.842,4.374,9.327,True,theme
+Tragedy,Odisha,27,0.022,0.011,0.035,True,theme
+Tragedy,Puducherry,9,4.703,3.436,6.004,True,theme
+Tragedy,Punjab,27,0.051,0.009,0.127,True,theme
+Tragedy,Rajasthan,34,0.033,0.008,0.08,True,theme
+Tragedy,Sikkim,13,2.778,1.521,4.037,True,theme
+Tragedy,Tamil Nadu,42,0.037,0.013,0.072,True,theme
+Tragedy,Telangana,37,0.016,0.009,0.024,True,theme
+Tragedy,Tripura,16,3.056,1.854,4.328,True,theme
+Tragedy,Uttar Pradesh,40,0.041,0.01,0.098,True,theme
+Tragedy,Uttarakhand,27,0.636,0.071,1.602,False,theme
+Tragedy,West Bengal,38,0.086,0.014,0.19,True,theme
+Travel,Andaman and Nicobar Islands,5,6.328,5.633,7.04,True,theme
+Travel,Andhra Pradesh,7,0.005,0.003,0.008,True,theme
+Travel,Assam,6,0.004,0.002,0.007,True,theme
+Travel,Bihar,6,0.001,0.001,0.002,True,theme
+Travel,Chhattisgarh,6,0.012,0.002,0.025,True,theme
+Travel,Dadra and Nagar Haveli and Daman and Diu,5,2.977,1.402,5.101,True,theme
+Travel,Delhi,18,0.002,0.001,0.004,True,theme
+Travel,Goa,5,0.519,0.026,1.457,False,theme
+Travel,Gujarat,13,0.001,0.001,0.003,True,theme
+Travel,Haryana,9,0.003,0.001,0.006,True,theme
+Travel,Jharkhand,7,1.003,0.002,2.999,False,theme
+Travel,Karnataka,13,0.003,0.001,0.006,True,theme
+Travel,Kerala,15,0.004,0.002,0.007,True,theme
+Travel,Madhya Pradesh,11,0.002,0.001,0.003,True,theme
+Travel,Maharashtra,17,0.004,0.002,0.006,True,theme
+Travel,Meghalaya,9,5.061,2.723,7.415,True,theme
+Travel,Mizoram,6,5.226,3.405,7.579,True,theme
+Travel,Nagaland,5,6.775,3.563,11.351,True,theme
+Travel,Odisha,6,0.002,0.001,0.003,True,theme
+Travel,Puducherry,5,6.568,3.054,12.171,True,theme
+Travel,Punjab,7,0.003,0.001,0.004,True,theme
+Travel,Rajasthan,11,0.002,0.001,0.004,True,theme
+Travel,Sikkim,5,3.431,1.686,4.735,True,theme
+Travel,Tamil Nadu,13,0.004,0.001,0.006,True,theme
+Travel,Telangana,12,0.003,0.001,0.006,True,theme
+Travel,Uttar Pradesh,17,0.002,0.001,0.004,True,theme
+Travel,Uttarakhand,5,0.006,0.002,0.012,True,theme
+Travel,West Bengal,12,0.004,0.002,0.007,True,theme
+Tsundere,Andaman and Nicobar Islands,6,4.814,3.215,6.238,True,theme
+Tsundere,Andhra Pradesh,15,0.123,0.011,0.335,True,theme
+Tsundere,Arunachal Pradesh,8,4.327,1.273,7.684,True,theme
+Tsundere,Assam,14,0.085,0.01,0.216,True,theme
+Tsundere,Bihar,14,0.119,0.005,0.347,True,theme
+Tsundere,Chandigarh,9,0.302,0.019,0.861,True,theme
+Tsundere,Chhattisgarh,8,0.022,0.005,0.049,True,theme
+Tsundere,Dadra and Nagar Haveli and Daman and Diu,7,3.039,1.075,4.981,True,theme
+Tsundere,Delhi,21,0.02,0.005,0.04,True,theme
+Tsundere,Goa,11,0.478,0.045,1.088,False,theme
+Tsundere,Gujarat,14,0.035,0.005,0.085,True,theme
+Tsundere,Haryana,13,0.012,0.004,0.023,True,theme
+Tsundere,Himachal Pradesh,14,1.207,0.228,2.393,False,theme
+Tsundere,Jammu and Kashmir,12,0.14,0.002,0.412,True,theme
+Tsundere,Jharkhand,19,0.678,0.081,1.46,False,theme
+Tsundere,Karnataka,18,0.011,0.004,0.02,True,theme
+Tsundere,Kerala,16,0.013,0.007,0.023,True,theme
+Tsundere,Lakshadweep,8,5.44,2.999,8.259,True,theme
+Tsundere,Madhya Pradesh,16,0.011,0.003,0.025,True,theme
+Tsundere,Maharashtra,21,0.027,0.007,0.051,True,theme
+Tsundere,Manipur,9,2.8,0.645,5.43,False,theme
+Tsundere,Meghalaya,9,5.264,2.965,7.728,True,theme
+Tsundere,Mizoram,8,6.838,5.17,8.589,True,theme
+Tsundere,Nagaland,10,8.465,5.446,11.755,True,theme
+Tsundere,Odisha,13,0.017,0.007,0.036,True,theme
+Tsundere,Punjab,13,0.011,0.004,0.019,True,theme
+Tsundere,Rajasthan,13,0.014,0.005,0.025,True,theme
+Tsundere,Sikkim,5,4.077,1.191,8.444,True,theme
+Tsundere,Tamil Nadu,21,0.049,0.008,0.114,True,theme
+Tsundere,Telangana,16,0.013,0.006,0.023,True,theme
+Tsundere,Tripura,8,1.968,0.392,3.622,False,theme
+Tsundere,Uttar Pradesh,17,0.012,0.004,0.024,True,theme
+Tsundere,Uttarakhand,13,0.431,0.009,1.02,False,theme
+Tsundere,West Bengal,20,0.077,0.007,0.21,True,theme
+Twins,Delhi,7,0.035,0.002,0.091,True,theme
+Twins,Jharkhand,6,0.245,0.002,0.724,True,theme
+Twins,Karnataka,6,0.008,0.001,0.019,True,theme
+Twins,Kerala,5,0.013,0.001,0.034,True,theme
+Twins,Madhya Pradesh,8,0.004,0.001,0.009,True,theme
+Twins,Maharashtra,5,0.035,0.005,0.08,True,theme
+Twins,Tamil Nadu,6,0.09,0.003,0.25,True,theme
+Twins,Uttar Pradesh,7,0.006,0.001,0.014,True,theme
+Twins,West Bengal,7,0.008,0.001,0.019,True,theme
+Unrequited Love,Andaman and Nicobar Islands,8,6.072,4.096,8.007,True,theme
+Unrequited Love,Andhra Pradesh,12,0.048,0.008,0.112,True,theme
+Unrequited Love,Arunachal Pradesh,7,3.297,0.594,6.832,False,theme
+Unrequited Love,Assam,13,0.112,0.018,0.259,True,theme
+Unrequited Love,Bihar,8,0.024,0.004,0.046,True,theme
+Unrequited Love,Chandigarh,5,0.028,0.017,0.042,True,theme
+Unrequited Love,Chhattisgarh,10,0.224,0.003,0.655,True,theme
+Unrequited Love,Dadra and Nagar Haveli and Daman and Diu,5,2.283,0.93,4.182,False,theme
+Unrequited Love,Delhi,19,0.058,0.004,0.151,True,theme
+Unrequited Love,Gujarat,10,0.019,0.004,0.039,True,theme
+Unrequited Love,Haryana,11,0.021,0.005,0.041,True,theme
+Unrequited Love,Himachal Pradesh,9,0.99,0.004,2.626,False,theme
+Unrequited Love,Jammu and Kashmir,9,0.086,0.008,0.203,True,theme
+Unrequited Love,Jharkhand,10,0.018,0.005,0.038,True,theme
+Unrequited Love,Karnataka,16,0.051,0.006,0.127,True,theme
+Unrequited Love,Kerala,12,0.022,0.005,0.047,True,theme
+Unrequited Love,Madhya Pradesh,16,0.037,0.005,0.081,True,theme
+Unrequited Love,Maharashtra,19,0.1,0.004,0.272,True,theme
+Unrequited Love,Manipur,8,2.651,0.316,5.681,False,theme
+Unrequited Love,Meghalaya,8,4.506,2.264,6.559,True,theme
+Unrequited Love,Mizoram,8,4.472,2.868,6.181,True,theme
+Unrequited Love,Nagaland,10,10.69,7.265,13.693,True,theme
+Unrequited Love,Odisha,14,0.027,0.007,0.052,True,theme
+Unrequited Love,Punjab,12,0.275,0.01,0.712,True,theme
+Unrequited Love,Rajasthan,12,0.076,0.005,0.194,True,theme
+Unrequited Love,Tamil Nadu,18,0.047,0.005,0.109,True,theme
+Unrequited Love,Telangana,11,0.023,0.005,0.046,True,theme
+Unrequited Love,Tripura,7,0.544,0.052,1.139,False,theme
+Unrequited Love,Uttar Pradesh,15,0.09,0.005,0.25,True,theme
+Unrequited Love,Uttarakhand,10,0.409,0.012,0.962,True,theme
+Unrequited Love,West Bengal,13,0.126,0.011,0.335,True,theme
+Urban,Andaman and Nicobar Islands,7,5.494,3.684,7.245,True,theme
+Urban,Andhra Pradesh,19,0.076,0.012,0.197,True,theme
+Urban,Arunachal Pradesh,10,6.226,2.264,10.614,True,theme
+Urban,Assam,21,0.026,0.013,0.043,True,theme
+Urban,Bihar,14,0.075,0.008,0.196,True,theme
+Urban,Chandigarh,9,0.544,0.022,1.582,False,theme
+Urban,Chhattisgarh,15,0.023,0.011,0.041,True,theme
+Urban,Delhi,24,0.095,0.01,0.257,True,theme
+Urban,Goa,7,0.113,0.056,0.183,True,theme
+Urban,Gujarat,19,0.054,0.009,0.132,True,theme
+Urban,Haryana,16,0.015,0.007,0.023,True,theme
+Urban,Himachal Pradesh,12,0.274,0.008,1.043,False,theme
+Urban,Jammu and Kashmir,14,0.024,0.007,0.052,True,theme
+Urban,Jharkhand,16,0.02,0.009,0.034,True,theme
+Urban,Karnataka,25,0.034,0.01,0.077,True,theme
+Urban,Kerala,18,0.02,0.013,0.03,True,theme
+Urban,Madhya Pradesh,21,0.014,0.006,0.026,True,theme
+Urban,Maharashtra,26,0.086,0.009,0.231,True,theme
+Urban,Manipur,16,4.577,2.16,7.64,True,theme
+Urban,Meghalaya,14,6.595,3.409,10.133,True,theme
+Urban,Mizoram,9,7.137,5.386,8.813,True,theme
+Urban,Nagaland,8,10.79,8.811,13.032,True,theme
+Urban,Odisha,20,0.087,0.014,0.222,True,theme
+Urban,Punjab,17,0.217,0.01,0.572,True,theme
+Urban,Rajasthan,19,0.015,0.007,0.027,True,theme
+Urban,Sikkim,5,1.873,0.221,3.346,False,theme
+Urban,Tamil Nadu,23,0.037,0.01,0.075,True,theme
+Urban,Telangana,20,0.051,0.012,0.122,True,theme
+Urban,Tripura,13,1.329,0.371,2.463,False,theme
+Urban,Uttar Pradesh,19,0.062,0.011,0.153,True,theme
+Urban,Uttarakhand,17,0.562,0.014,1.435,False,theme
+Urban,West Bengal,21,0.042,0.013,0.086,True,theme
+Urban Fantasy,Andaman and Nicobar Islands,8,5.085,3.461,6.996,True,theme
+Urban Fantasy,Andhra Pradesh,21,0.081,0.019,0.193,True,theme
+Urban Fantasy,Arunachal Pradesh,14,4.472,1.706,8.031,True,theme
+Urban Fantasy,Assam,23,0.063,0.019,0.133,True,theme
+Urban Fantasy,Bihar,17,0.065,0.01,0.166,True,theme
+Urban Fantasy,Chandigarh,10,0.489,0.017,1.423,False,theme
+Urban Fantasy,Chhattisgarh,20,0.309,0.019,0.753,True,theme
+Urban Fantasy,Delhi,29,0.111,0.013,0.264,True,theme
+Urban Fantasy,Goa,10,1.172,0.074,3.329,False,theme
+Urban Fantasy,Gujarat,22,0.049,0.011,0.13,True,theme
+Urban Fantasy,Haryana,19,0.016,0.009,0.025,True,theme
+Urban Fantasy,Himachal Pradesh,14,0.718,0.01,1.692,False,theme
+Urban Fantasy,Jammu and Kashmir,16,0.023,0.008,0.048,True,theme
+Urban Fantasy,Jharkhand,18,0.018,0.01,0.032,True,theme
+Urban Fantasy,Karnataka,28,0.053,0.013,0.108,True,theme
+Urban Fantasy,Kerala,22,0.021,0.013,0.03,True,theme
+Urban Fantasy,Madhya Pradesh,23,0.03,0.009,0.064,True,theme
+Urban Fantasy,Maharashtra,29,0.136,0.015,0.318,True,theme
+Urban Fantasy,Manipur,15,4.733,2.055,7.84,True,theme
+Urban Fantasy,Meghalaya,16,5.803,3.494,8.817,True,theme
+Urban Fantasy,Mizoram,12,6.705,5.201,7.987,True,theme
+Urban Fantasy,Nagaland,7,10.935,8.439,13.298,True,theme
+Urban Fantasy,Odisha,23,0.081,0.017,0.201,True,theme
+Urban Fantasy,Punjab,21,0.229,0.019,0.486,True,theme
+Urban Fantasy,Rajasthan,22,0.048,0.011,0.115,True,theme
+Urban Fantasy,Sikkim,8,3.502,1.484,5.161,True,theme
+Urban Fantasy,Tamil Nadu,27,0.055,0.016,0.101,True,theme
+Urban Fantasy,Telangana,24,0.046,0.013,0.109,True,theme
+Urban Fantasy,Tripura,14,2.207,1.042,3.385,True,theme
+Urban Fantasy,Uttar Pradesh,25,0.094,0.016,0.223,True,theme
+Urban Fantasy,Uttarakhand,19,0.897,0.149,1.839,False,theme
+Urban Fantasy,West Bengal,23,0.1,0.02,0.243,True,theme
+Vampire,Jharkhand,5,0.236,0.003,0.697,True,theme
+Vampire,Tamil Nadu,5,0.07,0.001,0.201,True,theme
+War,Andhra Pradesh,8,0.015,0.003,0.035,True,theme
+War,Assam,9,0.019,0.002,0.043,True,theme
+War,Bihar,6,0.016,0.002,0.032,True,theme
+War,Chandigarh,6,1.403,0.02,3.547,False,theme
+War,Delhi,11,0.013,0.002,0.026,True,theme
+War,Goa,6,1.938,0.082,3.867,False,theme
+War,Gujarat,9,0.012,0.001,0.023,True,theme
+War,Haryana,8,0.011,0.001,0.026,True,theme
+War,Jharkhand,5,0.015,0.001,0.033,True,theme
+War,Karnataka,12,0.011,0.002,0.023,True,theme
+War,Kerala,11,0.014,0.003,0.027,True,theme
+War,Madhya Pradesh,10,0.01,0.001,0.02,True,theme
+War,Maharashtra,11,0.014,0.004,0.027,True,theme
+War,Manipur,6,1.636,0.122,3.429,False,theme
+War,Meghalaya,7,4.542,2.179,6.76,True,theme
+War,Mizoram,8,6.141,4.777,7.621,True,theme
+War,Odisha,5,0.027,0.003,0.055,True,theme
+War,Punjab,7,0.015,0.002,0.033,True,theme
+War,Rajasthan,8,0.014,0.001,0.029,True,theme
+War,Sikkim,5,3.009,0.775,5.244,False,theme
+War,Tamil Nadu,11,0.015,0.003,0.03,True,theme
+War,Telangana,10,0.014,0.002,0.029,True,theme
+War,Uttar Pradesh,13,0.01,0.002,0.02,True,theme
+War,Uttarakhand,5,0.02,0.001,0.039,True,theme
+War,West Bengal,11,0.013,0.003,0.026,True,theme
+Work,Karnataka,5,0.006,0.001,0.014,True,theme
+Work,Madhya Pradesh,5,0.003,0.001,0.007,True,theme
+Work,Tamil Nadu,5,0.102,0.003,0.294,True,theme
+Yandere,Andhra Pradesh,9,0.04,0.018,0.071,True,theme
+Yandere,Arunachal Pradesh,5,4.197,0.45,8.423,False,theme
+Yandere,Assam,8,0.059,0.028,0.1,True,theme
+Yandere,Bihar,8,0.03,0.015,0.048,True,theme
+Yandere,Chandigarh,5,0.042,0.023,0.065,True,theme
+Yandere,Chhattisgarh,6,0.048,0.018,0.08,True,theme
+Yandere,Delhi,12,0.043,0.018,0.08,True,theme
+Yandere,Goa,8,0.105,0.052,0.158,True,theme
+Yandere,Gujarat,9,0.063,0.022,0.131,True,theme
+Yandere,Haryana,8,0.03,0.018,0.04,True,theme
+Yandere,Himachal Pradesh,9,2.143,0.4,3.931,False,theme
+Yandere,Jammu and Kashmir,6,0.012,0.006,0.023,True,theme
+Yandere,Jharkhand,7,0.238,0.024,0.635,True,theme
+Yandere,Karnataka,10,0.028,0.014,0.043,True,theme
+Yandere,Kerala,9,0.037,0.02,0.055,True,theme
+Yandere,Madhya Pradesh,10,0.026,0.013,0.043,True,theme
+Yandere,Maharashtra,13,0.034,0.013,0.054,True,theme
+Yandere,Manipur,7,3.194,0.657,6.929,False,theme
+Yandere,Meghalaya,6,6.107,4.204,7.915,True,theme
+Yandere,Nagaland,6,8.891,5.265,12.43,True,theme
+Yandere,Odisha,8,0.041,0.022,0.061,True,theme
+Yandere,Punjab,8,0.034,0.019,0.047,True,theme
+Yandere,Rajasthan,8,0.032,0.017,0.046,True,theme
+Yandere,Tamil Nadu,11,0.073,0.022,0.165,True,theme
+Yandere,Telangana,7,0.045,0.03,0.058,True,theme
+Yandere,Tripura,5,1.542,0.097,4.37,False,theme
+Yandere,Uttar Pradesh,12,0.024,0.011,0.038,True,theme
+Yandere,Uttarakhand,8,1.863,0.021,5.098,False,theme
+Yandere,West Bengal,10,0.034,0.016,0.055,True,theme

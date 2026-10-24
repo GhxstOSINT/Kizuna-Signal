@@ -23,6 +23,16 @@ frontend = [
   "pandas>=2.2,<3.0",
   "fpdf2>=2.8,<3.0",
 ]
+ml = [
+  "numpy>=2.0",
+  "pandas>=2.2,<3.0",
+  "scipy>=1.13",
+  "scikit-learn>=1.5",
+  "xgboost>=2.1",
+  "joblib>=1.4",
+  "matplotlib>=3.8",
+  "pytrends>=4.9",
+]
 postgres = [
   "psycopg[binary]>=3.2,<4.0",
   "pgvector>=0.3,<1.0",
