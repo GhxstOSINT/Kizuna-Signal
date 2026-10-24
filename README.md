@@ -42,3 +42,11 @@ pytest
 python scripts/build_anilist_dataset.py --pages 20 --start-year-from 2000
 ```
 Raw responses go to `data/raw/anilist` (append-only, checksummed, cached 7 days). Output in `data/processed`: `anilist_features.jsonl` (pre-release features only), `anilist_labels.jsonl` (popularity outcomes, joined by `anilist_id`) and `anilist_report.json` (drop counts). Outcomes never appear in the feature table.
+
+## India state-level model (initial training)
+```
+python scripts/build_anilist_dataset.py --pages 6 --sort popularity --start-year-from 2016 --start-year-to 2023
+python scripts/collect_trends.py --n-titles 150 --max-requests 200   # resumable; repeat daily
+python scripts/train_initial.py --n-titles 100
+```
+Writes `models/<version>/{report.json,model.joblib}` and `models/initial_report.json`. Sentence Transformers are used when installed, otherwise TF-IDF+SVD (`--embedder`). Engagement quality (YouTube) is not collected yet.
