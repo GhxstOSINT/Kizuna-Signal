@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.ml import csv_data  # noqa: E402
 from app.ml.embeddings import get_embedder  # noqa: E402
 from app.ml.state_model import StateModel  # noqa: E402
+from app.ml.success import SuccessModel  # noqa: E402
 from app.ml.synthetic import SyntheticConfig  # noqa: E402
 from app.ml.states import STATES  # noqa: E402
 
@@ -43,6 +44,10 @@ def main() -> int:
                              synthetic=None if args.no_synthetic else SyntheticConfig(weight=args.synthetic_weight))
     folder = model.save(args.out)
     print(f"saved {folder}")
+    success = SuccessModel.from_csv(model, args.csv)
+    if success is not None:  # cache the 0-100 rating reference so the API does not build it on the first request
+        ref = success.reference_scores(model, folder)
+        print(f"rating reference: {len(ref)} titles, raw score {ref.min():.1f}-{ref.max():.1f}")
     print(json.dumps(model.report, indent=2, default=str))
     return 0
 

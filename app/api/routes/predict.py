@@ -45,6 +45,10 @@ def get_trends_client() -> TrendsClient:
     return TrendsClient()
 
 
+def _model_folder(model: StateModel) -> Path:
+    return Path(settings.models_dir) / "state" / model.version
+
+
 def run_prediction(body: PredictIn, model: StateModel, trends: TrendsClient, success: SuccessModel | None) -> dict:
     launch = body.release_date or date.today()
     frame = make_frame(f"predict:{body.name_en}", f"predict:{body.name_en}", body.name_en, body.name_jp,
@@ -53,7 +57,10 @@ def run_prediction(body: PredictIn, model: StateModel, trends: TrendsClient, suc
     result = model.predict(frame)
     states = result["states"]
     out = report_build.prediction_out(result, body.name_en,
-                                      success.score(model, frame, states) if success is not None else None)
+                                      success.score(model, frame, states, _model_folder(model)) if success is not None else None)
+    unknown = sorted(set(frame.iloc[0]["genres"]) - set(model.encoder.genres_))
+    if unknown:  # silently scoring a genre the model never saw would look like a real signal
+        out["india"]["warnings"].append("unknown_genres: " + ", ".join(unknown))
     if body.include_seo:
         cands = candidates(body.name_en, body.name_jp, body.languages,
                            body.localization_mode.value if body.localization_mode else None)

@@ -68,6 +68,15 @@ def _state_error(val: pd.DataFrame, pred: np.ndarray, y: np.ndarray, state_title
     return out
 
 
+def _input_completeness(t: pd.Series) -> float:
+    """0-1: how much of the title's own description was supplied (themes, studio, length, synopsis)."""
+    def present(col):
+        return float(col in t and pd.notna(t[col]) and t[col] not in ("", 0))
+    themes = min(len(t["themes"]) / 3, 1.0) if "themes" in t and t["themes"] is not None else 0.0
+    synopsis = min(len(str(t.get("synopsis") or "")) / 300, 1.0)
+    return float(np.mean([themes, present("studio"), present("episodes"), present("minutes"), synopsis]))
+
+
 def _softmax(x: np.ndarray) -> np.ndarray:
     e = np.exp(x - x.max())
     return e / e.sum()
@@ -260,8 +269,11 @@ class StateModel:
                        & (self.pool["release_date"] < t["release_date"])).to_numpy()
         masked = np.where(older_other, sims, -np.inf)
         ood = float(masked.max()) if older_other.any() else 0.0
+        ridge, boost = (m.predict(rows, self.cols) for m in self.ensemble.members[:2])
+        has_history = float(bool(rows["parent_n"].max() or rows["studio_n"].max()))
         conf = title_confidence(rows, lift, hi - lo, len(self.states), stats, {t["title_id"]: ood},
-                                scale=self.y_scale)
+                                scale=self.y_scale, inputs=_input_completeness(t), history=has_history,
+                                disagreement=ridge - boost)
         order = (-lift).argsort().argsort() + 1
         results = []
         for i, state in enumerate(rows["state"]):
@@ -282,7 +294,7 @@ class StateModel:
         return {"model_version": self.version, "task": TASK, "states": results,
                 "confidence": float(f["confidence"]),
                 "confidence_factors": {k: round(float(f[k]), 4)
-                                       for k in ("completeness", "comparables", "interval", "ood")},
+                                       for k in ("completeness", "comparables", "agreement", "interval", "ood")},
                 "comparables": comparables, "history_titles": history,
                 "warnings": self._warnings(demand, len(comparables), ood, history)}
 

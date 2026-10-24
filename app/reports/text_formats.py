@@ -6,7 +6,7 @@ import re
 import xml.etree.ElementTree as ET
 
 CSV_COLUMNS = [
-    "title", "success_score", "success_low", "success_high", "success_band", "success_coverage",
+    "title", "success_rating", "success_score", "success_low", "success_high", "success_band", "success_coverage",
     "confidence", "state_code", "state_name", "rank", "lift", "lift_low", "lift_high",
     "expected_share", "train_titles", "top_drivers",
 ]
@@ -23,7 +23,7 @@ def to_json(report: dict) -> bytes:
 def to_csv(report: dict) -> bytes:
     """One row per state. Title-level scores repeat on every row so the file stands alone in a spreadsheet."""
     s = report["success"] or {}
-    head = {"title": report["title"]["name_en"], "success_score": s.get("score"), "success_low": s.get("low"),
+    head = {"title": report["title"]["name_en"], "success_rating": s.get("rating"), "success_score": s.get("score"), "success_low": s.get("low"),
             "success_high": s.get("high"), "success_band": s.get("band"), "success_coverage": s.get("coverage"),
             "confidence": report["india"]["confidence"]}
     buf = io.StringIO()

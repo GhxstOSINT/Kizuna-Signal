@@ -83,7 +83,8 @@ def formulas(report: dict) -> list[dict]:
                    f"(80% range {s['low']:.1f}-{s['high']:.1f})"},
         {"id": "confidence", "name": "Confidence (separate output)",
          "latex": r"$\mathrm{conf}=100\sum_k w_k f_k$",
-         "plain": f"confidence = 100 * (0.25 completeness + 0.25 comparables + 0.25 interval + 0.25 OOD); weights {w.version}",
+         "plain": f"confidence = 100 * ({w.completeness} completeness + {w.comparables} comparables + {w.agreement} agreement "
+                  f"+ {w.interval} interval + {w.out_of_distribution} OOD); weights {w.version}",
          "worked": ", ".join(f"{k} {v:.2f}" for k, v in f.items()) + f" -> {report['india']['confidence']:.1f}"},
     ]
     return out

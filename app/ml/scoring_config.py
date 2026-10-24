@@ -4,10 +4,11 @@ from dataclasses import asdict, dataclass
 
 @dataclass(frozen=True)
 class ConfidenceConfig:
-    version: str = "confidence-v1"
-    completeness: float = 0.25
+    version: str = "confidence-v2"
+    completeness: float = 0.25  # how much of the title's own information was supplied
     comparables: float = 0.25
-    interval: float = 0.25
+    agreement: float = 0.15  # ridge and XGBoost give similar lifts for this title
+    interval: float = 0.10  # width of the calibrated interval (the same for every title)
     out_of_distribution: float = 0.25
 
 

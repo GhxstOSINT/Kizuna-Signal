@@ -63,11 +63,11 @@ def _summary(r: dict, n: int):
     ax = fig.add_axes([0.07, 0.62, 0.86, 0.26])
     ax.axis("off")
     if s:
-        ax.text(0, 0.78, f"{s['score']:.0f}", fontsize=64, weight="bold", color=INK, va="center")
-        ax.text(0.22, 0.86, f"Success score ({s['band']})", fontsize=13, weight="bold", color=INK)
-        ax.text(0.22, 0.70, f"80% range {s['low']:.0f}-{s['high']:.0f}  |  weight measured {s['coverage']:.0%}",
-                fontsize=9, color=MUTED)
-        ax.text(0.22, 0.58, _wrap(s["meaning"], 70), fontsize=8, color=MUTED, va="top")
+        ax.text(0, 0.78, f"{s['rating']:.0f}", fontsize=64, weight="bold", color=INK, va="center")
+        ax.text(0.22, 0.86, f"India success rating, out of 100 ({s['rating_band']})", fontsize=13, weight="bold", color=INK)
+        ax.text(0.22, 0.70, f"80% range {s['rating_low']:.0f}-{s['rating_high']:.0f}  |  raw weighted score {s['score']:.0f}"
+                            f" ({s['band']})  |  weight measured {s['coverage']:.0%}", fontsize=9, color=MUTED)
+        ax.text(0.22, 0.58, _wrap("Rating = share of the training titles this one outscores. " + s["meaning"], 70), fontsize=8, color=MUTED, va="top")
     ax.text(0, 0.22, f"{ind['confidence']:.0f}", fontsize=34, weight="bold", color=INK, va="center")
     ax.text(0.22, 0.30, "Confidence (separate from the score)", fontsize=11, weight="bold", color=INK)
     ax.text(0.22, 0.14, "Warnings: " + (", ".join(ind["warnings"]) or "none"), fontsize=8, color=MUTED)

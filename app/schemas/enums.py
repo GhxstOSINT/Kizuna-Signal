@@ -82,12 +82,6 @@ class RecommendationCategory(StrEnum):
     CAMPAIGN = "campaign"
 
 
-class DecisionStatus(StrEnum):
-    DRAFT = "draft"
-    ACCEPTED = "accepted"
-    REJECTED = "rejected"
-
-
 class ReportFormat(StrEnum):
     PDF = "pdf"
     JSON = "json"

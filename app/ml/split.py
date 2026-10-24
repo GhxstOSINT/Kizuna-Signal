@@ -2,13 +2,6 @@
 import pandas as pd
 
 
-def time_split(titles: pd.DataFrame, test_frac: float = 0.2) -> tuple[set[str], set[str]]:
-    """Latest `test_frac` of titles by release date are the held-out test set."""
-    ordered = titles.sort_values("release_date")["title_id"].tolist()
-    n_test = max(1, round(len(ordered) * test_frac))
-    return set(ordered[:-n_test]), set(ordered[-n_test:])
-
-
 def franchise_time_split(titles: pd.DataFrame, test_frac: float = 0.2) -> tuple[set[str], set[str]]:
     """Time split where a whole franchise stays on one side (seasons of one show are near-duplicates).
 

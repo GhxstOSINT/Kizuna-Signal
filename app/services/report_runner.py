@@ -4,6 +4,7 @@ from pathlib import Path
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.db.models import Analysis, Job, Report, Title, TitleAssumption
 from app.ml.state_model import StateModel
 from app.ml.success import SuccessModel
@@ -40,7 +41,8 @@ def run(db: Session, job: Job, model: StateModel, success: SuccessModel | None, 
         seo_job = seo_service.latest(db, title.id)
         seo = seo_job.result if seo_job is not None and seo_job.status == "succeeded" else None
         out = build.prediction_out(result, title.name_en,
-                                   success.score(model, frame, result["states"]) if success else None, seo)
+                                   success.score(model, frame, result["states"], Path(settings.models_dir) / "state" / model.version)
+                                   if success else None, seo)
         data = RENDER[report.format](build.assemble(_title_facts(title, assumption), out, out["success"], model))
         out_dir.mkdir(parents=True, exist_ok=True)
         path = out_dir / f"report_{report.id}.{report.format}"

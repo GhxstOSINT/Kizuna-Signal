@@ -9,6 +9,7 @@ weights of the rest are renormalised; `coverage` says how much of the 100% weigh
 Global popularity is the only outcome in csv/ and it is post-release. It is used here the way the
 data dictionary allows: as a label for content-fit and comparables, never as a feature of the title.
 """
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -30,6 +31,8 @@ OUTCOMES_FILE = "titles_outcomes_global_POST_RELEASE.csv"
 MIN_TITLES = 10
 MIN_SKILL = 0.1  # a component must reach this held-out Spearman to count towards the score
 BANDS = ((60.0, "above typical"), (40.0, "typical"), (0.0, "below typical"))
+RATING_BANDS = ((75.0, "top quarter"), (25.0, "middle half"), (0.0, "bottom quarter"))
+REFERENCE_FILE = "score_reference.json"
 LABELS = {
     "content_fit": "Content fit", "demand_momentum": "Demand momentum",
     "regional_opportunity": "Regional opportunity", "engagement_quality": "Engagement quality",
@@ -44,6 +47,10 @@ UNVALIDATED = "held-out Spearman {rho:.2f} is below {floor}: shown for informati
 
 def band(score: float) -> str:
     return next(name for floor, name in BANDS if score >= floor)
+
+
+def rating_band(rating: float) -> str:
+    return next(name for floor, name in RATING_BANDS if rating >= floor)
 
 
 def _pct_of(value: float, reference: np.ndarray) -> float:
@@ -65,6 +72,7 @@ class SuccessModel:
     report: dict
     pool: pd.DataFrame  # titles with a global outcome (all csv/ titles, not only the state-labelled ones)
     pool_emb: np.ndarray
+    reference: np.ndarray | None = None  # raw scores of the reference titles, for the 0-100 rating
     config: MarketPotentialConfig = MarketPotentialConfig()
 
     @classmethod
@@ -153,8 +161,51 @@ class SuccessModel:
         return {"value": mean, "low": max(0.0, mean - half), "high": min(100.0, mean + half),
                 "inputs": {"n_comparables": len(rows), "weighted_sd": sd}}
 
-    def score(self, model: StateModel, frame: pd.DataFrame, states: list[dict]) -> dict:
-        """`states`: StateModel.predict()["states"] (lift, low, high, expected_share per state)."""
+    def reference_scores(self, model: StateModel, folder: Path | None = None) -> np.ndarray:
+        """Raw scores of every csv/ title (300) run through this same pipeline, cached on disk beside the model.
+        Content fit and comparables are out-of-sample for all of them; the state model is out-of-sample for the
+        ones without state labels and in-sample for the 62 that have them (their regional part is slightly generous)."""
+        if self.reference is not None:
+            return self.reference
+        path = None if folder is None else folder / REFERENCE_FILE
+        if path is not None and path.exists():
+            self.reference = np.array(json.loads(path.read_text(encoding="utf-8"))["scores"])
+            return self.reference
+        scores = []
+        loo = pd.Series(self.loo_pred, index=self.pool["title_id"])
+        for i in range(len(self.pool)):
+            frame = self.pool.iloc[[i]]
+            tid = frame["title_id"].iloc[0]
+            # content fit from the leave-one-franchise-out prediction: the final ridge has seen this title
+            pred = float(loo[tid])
+            fit = {"value": _pct_of(pred, self.loo_pred), "low": _pct_of(pred - self.resid_q80, self.loo_pred),
+                   "high": _pct_of(pred + self.resid_q80, self.loo_pred), "inputs": {"predicted_log_popularity": pred}}
+            try:
+                scores.append(self._score_raw(model, frame, model.predict(frame)["states"], content_fit=fit)["score"])
+            except ValueError:
+                continue
+        self.reference = np.sort(np.array(scores))
+        if path is not None:
+            path.write_text(json.dumps({"model_version": model.version, "scores": self.reference.tolist()}),
+                            encoding="utf-8")
+        return self.reference
+
+    def score(self, model: StateModel, frame: pd.DataFrame, states: list[dict], folder: Path | None = None) -> dict:
+        """Raw weighted score plus `rating`: the same score as a 0-100 percentile among the reference titles
+        (the raw score is squeezed towards 50 because the components are averaged)."""
+        out = self._score_raw(model, frame, states)
+        ref = self.reference_scores(model, folder)
+        out["rating"] = round(_pct_of(out["score"], ref), 1)
+        out["rating_low"], out["rating_high"] = round(_pct_of(out["low"], ref), 1), round(_pct_of(out["high"], ref), 1)
+        out["rating_band"] = rating_band(out["rating"])
+        out["rating_reference"] = {"n_titles": int(len(ref)), "min": round(float(ref.min()), 1),
+                                   "median": round(float(np.median(ref)), 1), "max": round(float(ref.max()), 1),
+                                   "meaning": "share of the 300 csv/ titles scoring below this one, x100 "
+                                              "(regional part in-sample for the 62 state-labelled titles)"}
+        return out
+
+    def _score_raw(self, model: StateModel, frame: pd.DataFrame, states: list[dict],
+                   content_fit: dict | None = None) -> dict:
         cfg = self.config
         share = np.array([s["expected_share"] for s in states])
         sigma = model.y_scale
@@ -162,7 +213,7 @@ class SuccessModel:
         regional = {"value": 100 * norm.cdf(z["lift"] / sigma), "low": 100 * norm.cdf(z["low"] / sigma),
                     "high": 100 * norm.cdf(z["high"] / sigma),
                     "inputs": {"share_weighted_lift": z["lift"], "lift_spread_sigma": sigma}}
-        measured = {"content_fit": self._content_fit(model, frame), "regional_opportunity": regional,
+        measured = {"content_fit": content_fit or self._content_fit(model, frame), "regional_opportunity": regional,
                     "comparable_performance": self._comparables(model, frame)}
 
         skill = {"content_fit": self.report["loo_spearman"], "comparable_performance": self.report["comparables_loo_spearman"],
