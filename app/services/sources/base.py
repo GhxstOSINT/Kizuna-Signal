@@ -16,6 +16,10 @@ class SourceEvidence:
     metrics: dict[str, float] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
     provenance: dict[str, str] = field(default_factory=dict)
+    # Per-state signals keyed by canonical state name (see app.services.census).
+    regional: dict[str, dict[str, float]] = field(default_factory=dict)
+    # Reference titles discovered by this source (AniList); consumed by find_comparables.
+    comparables: list[dict] = field(default_factory=list)
 
 
 class SourceAdapter(ABC):
