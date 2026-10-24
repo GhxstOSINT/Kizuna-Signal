@@ -86,15 +86,16 @@ def heatmap(lift: pd.DataFrame, path: Path, title: str, subtitle: str, max_group
     for i in range(mat.shape[0]):
         for j in range(mat.shape[1]):
             if sig.values[i, j]:  # label only cells whose interval excludes 1
-                ax.text(j, i, f"{mat.values[i, j]:.1f}", ha="center", va="center", fontsize=7, color=INK,
-                        fontweight="bold")
+                v = mat.values[i, j]
+                ax.text(j, i, f"{v:.1f}", ha="center", va="center", fontsize=7, fontweight="bold",
+                        color="white" if (v > 1.5 or v < 0.65) else INK)
     ax.set_title(title, loc="left", fontsize=12, fontweight="bold", pad=24)
     ax.text(0, 1.04, subtitle, transform=ax.transAxes, fontsize=8.5, color=MUTED)
     ax.tick_params(length=0)
     for sp in ax.spines.values():
         sp.set_visible(False)
     cb = fig.colorbar(im, ax=ax, fraction=0.02, pad=0.01)
-    cb.set_label("interest vs the title's own average (1.0 = average)", color=MUTED)
+    cb.set_label("index (1.0 = average)", color=MUTED, fontsize=8)
     fig.tight_layout()
     fig.savefig(path, dpi=160)
     plt.close(fig)
@@ -177,12 +178,12 @@ def model_charts(report: dict, labels: pd.DataFrame, out: Path):
                edgecolor=MUTED, linewidth=0.6, width=0.55, error_kw={"ecolor": MUTED, "lw": 1, "capsize": 3})
         if key == "top3_hit":
             ax.axhline(chance, color=RED, lw=1, ls="--")
-            ax.text(3.45, chance, "random", color=RED, fontsize=8, va="bottom", ha="right")
+            ax.text(-0.45, chance, "random", color=RED, fontsize=8, va="bottom", ha="left")
         ax.set_title(title, loc="left", fontsize=11, fontweight="bold")
         ax.grid(axis="y", color=GRID, lw=0.6)
         ax.set_axisbelow(True)
         for x, v in enumerate(m):
-            ax.text(x, v, f"{v:.2f}", ha="center", va="bottom", fontsize=8, color=INK)
+            ax.text(x, v + hi[x] + 0.01 * max(m), f"{v:.2f}", ha="center", va="bottom", fontsize=8, color=INK)
     fig.suptitle(f"Held-out titles released from {report['test_release_from']} "
                  f"(n={report['n_test_titles']}; bars show 95% bootstrap interval)", x=0.01, ha="left",
                  fontsize=9, color=MUTED)
@@ -265,7 +266,7 @@ def main() -> int:
 
     state_baseline(labels, args.out / "03_state_baseline.png")
     heatmap(genre_lift, args.out / "01_genre_state_lift.png", "Genre x state: where each genre over- or under-performs",
-            f"Red = above the title's average state, blue = below. Numbers shown only where the 95% interval "
+            f"Blue = above the title's average state, red = below. Numbers shown only where the 95% interval "
             f"excludes 1.0 (genres with >= {MIN_TITLES} titles).")
     heatmap(theme_lift, args.out / "04_theme_state_lift.png", "Tag x state: which themes travel where",
             "Same encoding as the genre chart; the 14 best-supported tags.")
