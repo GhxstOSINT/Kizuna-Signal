@@ -3,6 +3,7 @@ from datetime import date, timedelta
 import pandas as pd
 import pytest
 
+from app.core.config import settings
 from app.adapters.google_trends import QuotaExceeded, RateLimited, TrendsClient, TrendsError
 from app.ml.demand import MIN_VALID_STATES, collect_title, is_eligible, search_term, summarize_state
 from app.ml.features import build_rows
@@ -60,7 +61,7 @@ def test_second_fetch_comes_from_cache(tmp_path):
     a = c.fetch("x anime", "IN-MH", RELEASE - timedelta(weeks=12), RELEASE + timedelta(weeks=52))
     b = c.fetch("x anime", "IN-MH", RELEASE - timedelta(weeks=12), RELEASE + timedelta(weeks=52))
     assert not a["from_cache"] and b["from_cache"] and len(calls) == 1
-    assert a["terms"][1] == "anime"
+    assert a["terms"][1] == settings.trends_anchor
 
 
 def test_rate_limit_backs_off_then_succeeds(tmp_path):
