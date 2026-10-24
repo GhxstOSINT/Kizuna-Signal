@@ -36,7 +36,9 @@ def main() -> int:
     titles = titles_frame(records)
     labels = pd.read_csv(labels_path)
     ids = labels["title_id"].drop_duplicates().head(args.n_titles)
-    report, _, _ = run(titles, labels[labels["title_id"].isin(ids)], PILOT_STATES)
+    demand_path = args.data / "trends_demand.csv"
+    demand = pd.read_csv(demand_path) if demand_path.exists() else None
+    report, _, _ = run(titles, labels[labels["title_id"].isin(ids)], PILOT_STATES, demand=demand)
     save(report, args.out)
     print(json.dumps(report, indent=2))
     return 0

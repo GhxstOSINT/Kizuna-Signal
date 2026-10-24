@@ -11,7 +11,8 @@ from app.ml.split import time_split
 
 
 def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
-        state_context: pd.DataFrame | None = None, test_frac: float = 0.2) -> tuple[dict, dict, ContentEncoder]:
+        state_context: pd.DataFrame | None = None,
+        demand: pd.DataFrame | None = None, test_frac: float = 0.2) -> tuple[dict, dict, ContentEncoder]:
     """`titles` from features.titles_frame; `labels` has title_id, state, share."""
     titles = titles[titles["title_id"].isin(labels["title_id"].unique())].dropna(subset=["release_date"])
     train_ids, test_ids = time_split(titles, test_frac)
@@ -22,7 +23,7 @@ def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
 
     encoder = ContentEncoder().fit(titles[titles["title_id"].isin(train_ids)])
     content = encoder.transform(titles)
-    rows = build_rows(content, labels, states, state_context)
+    rows = build_rows(content, labels, states, state_context, demand)
     cols = feature_columns(rows)
     train, test = rows[rows["title_id"].isin(train_ids)], rows[rows["title_id"].isin(test_ids)]
 

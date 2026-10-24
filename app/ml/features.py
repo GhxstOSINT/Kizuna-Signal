@@ -60,9 +60,21 @@ class ContentEncoder:
 
 
 def build_rows(content: pd.DataFrame, labels: pd.DataFrame, states: list[str],
-               state_context: pd.DataFrame | None = None) -> pd.DataFrame:
-    """One row per (title, state). `labels` has title_id, state, share."""
+               state_context: pd.DataFrame | None = None,
+               demand: pd.DataFrame | None = None) -> pd.DataFrame:
+    """One row per (title, state). `labels` has title_id, state, share.
+
+    `demand` holds pre-release Trends features per (title_id, state); every column
+    other than the keys must start with "pre_" so post-release data cannot enter.
+    """
     rows = labels[labels["state"].isin(states)].merge(content, on="title_id", how="inner")
+    if demand is not None:
+        bad = [c for c in demand.columns if c not in {"title_id", "state"} and not c.startswith("pre_")]
+        if bad:
+            raise ValueError(f"demand features must be pre-release (pre_*): {bad}")
+        rows = rows.merge(demand, on=["title_id", "state"], how="left")
+        rows[[c for c in demand.columns if c.startswith("pre_")]] = rows[
+            [c for c in demand.columns if c.startswith("pre_")]].fillna(0)
     for s in states:
         rows[f"state_{s}"] = (rows["state"] == s).astype(int)
     if state_context is not None:
