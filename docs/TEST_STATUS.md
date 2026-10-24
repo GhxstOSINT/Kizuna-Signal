@@ -55,7 +55,7 @@ ruff format --check app tests scripts
 
 ## Current verified baseline
 
-- Tests: 284 passed, 40 skipped (PostgreSQL), 1 failing: `tests/test_predict_api.py::test_one_request_returns_ranked_states_and_summary` writes to `models/state/`, which is git-ignored and absent on a fresh checkout (it also fails on `origin/main` alone)
+- Tests: 284 passed, 40 skipped (all "no trained state model": `tests/test_predict_cases.py` and `tests/test_reports.py` need a model in `models/state/`), 1 failing: `tests/test_predict_api.py::test_one_request_returns_ranked_states_and_summary` writes to `models/state/`, which is git-ignored and absent on a fresh checkout (it also fails on `origin/main` alone)
 - Application line coverage: 89%, below the 90% CI gate (`origin/main` alone: 87%)
 - Static quality check: failing, not introduced by the backend merge: `ruff check` reports 34 errors and `ruff format --check` flags 50 files, all already present on `origin/main`
 - Dependencies: tests need `pip install -e ".[dev,ml,frontend]"` plus `streamlit` (no extra installs it); `pandas` must be below 3.0 or `app/ml` breaks
