@@ -8,6 +8,12 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://kizuna:kizuna@localhost:5432/kizuna"
     use_fixtures_only: bool = True
     youtube_api_key: str = ""
+    anilist_url: str = "https://graphql.anilist.co"
+    anilist_timeout_s: float = 15.0
+    anilist_max_retries: int = 3
+    anilist_cache_ttl_s: int = 7 * 24 * 3600
+    anilist_page_delay_s: float = 0.8  # AniList allows ~90 requests/minute
+    anilist_raw_dir: str = "data/raw/anilist"
 
 
 settings = Settings()

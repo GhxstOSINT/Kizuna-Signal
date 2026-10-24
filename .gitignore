@@ -7,3 +7,4 @@ models/*
 !models/.gitkeep
 data/raw/
 data/cache/
+data/processed/

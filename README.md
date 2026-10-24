@@ -36,3 +36,9 @@ pytest
 - `app/api/routes`: thin routers; `app/services`: logic; `app/schemas`: request/response validation
 - `app/db/models`: tables; `app/db/session.py`: engine and session
 - Scope here: database, application and API layers. ML, ingestion and UI are added later.
+
+## AniList dataset (ML prep)
+```
+python scripts/build_anilist_dataset.py --pages 20 --start-year-from 2000
+```
+Raw responses go to `data/raw/anilist` (append-only, checksummed, cached 7 days). Output in `data/processed`: `anilist_features.jsonl` (pre-release features only), `anilist_labels.jsonl` (popularity outcomes, joined by `anilist_id`) and `anilist_report.json` (drop counts). Outcomes never appear in the feature table.

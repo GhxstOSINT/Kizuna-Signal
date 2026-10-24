@@ -1,0 +1,46 @@
+"""Initial India state-level training run.
+
+Needs data/processed/titles.jsonl (build_anilist_dataset.py) and
+data/processed/state_labels.csv with columns title_id,state,share (from the Trends step).
+
+    python scripts/train_initial.py --n-titles 100
+"""
+import argparse
+import json
+import sys
+from pathlib import Path
+
+import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from app.ml.features import titles_frame  # noqa: E402
+from app.ml.schema import TitleRecord  # noqa: E402
+from app.ml.states import PILOT_STATES  # noqa: E402
+from app.ml.train import run, save  # noqa: E402
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--data", type=Path, default=Path("data/processed"))
+    ap.add_argument("--n-titles", type=int, default=100)
+    ap.add_argument("--out", type=Path, default=Path("models"))
+    args = ap.parse_args()
+
+    labels_path = args.data / "state_labels.csv"
+    if not labels_path.exists():
+        print(f"missing {labels_path}: run the Google Trends collection first", file=sys.stderr)
+        return 1
+    records = [TitleRecord(**json.loads(line)) for line in
+               (args.data / "titles.jsonl").read_text(encoding="utf-8").splitlines() if line]
+    titles = titles_frame(records)
+    labels = pd.read_csv(labels_path)
+    ids = labels["title_id"].drop_duplicates().head(args.n_titles)
+    report, _, _ = run(titles, labels[labels["title_id"].isin(ids)], PILOT_STATES)
+    save(report, args.out)
+    print(json.dumps(report, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
