@@ -54,6 +54,7 @@ class JobType(StrEnum):
     ANALYSIS = "analysis"
     SCENARIO = "scenario"
     REPORT = "report"
+    SEO = "seo"
 
 
 class JobStatus(StrEnum):

@@ -71,3 +71,17 @@ python scripts/run_worker.py --once     # runs queued analyses with models/state
   (`score` = predicted lift, ranked high to low; `evidence` has the expected share and interval).
   `market_potential` stays empty.
 * States with no Trends geo (Ladakh) are not scored. States with under 10 training titles raise `sparse_state_training`.
+
+## SEO routes and worker (v0)
+
+`POST /api/v1/titles/{id}/seo` (Idempotency-Key supported) queues a job; `GET /api/v1/titles/{id}/seo` returns the
+latest result (404 never requested, 409 not finished). Candidate terms come from the title names plus
+dubbing languages in the assumptions; each is measured against Google Trends for India and ranked.
+When a state analysis exists, the best term is also measured in the top three states.
+
+This is measurement, not a trained model: there is no labelled SEO outcome in the data. It returns relative
+interest only (no search volume, keyword difficulty, rankings or launch timing; see `not_available`).
+
+`scripts/run_worker.py` now runs state analyses, SEO jobs and `/sources/collect` jobs. Collection works for
+`google_trends`; other sources are recorded as `unavailable` with `no_adapter_for_database_titles`.
+`tests/test_e2e_postgres.py` exercises all routes against a throwaway database on the docker-compose Postgres.
