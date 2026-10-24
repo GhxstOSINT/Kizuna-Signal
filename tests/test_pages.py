@@ -159,3 +159,21 @@ def test_partial_outcome_result_renders_with_partial_notice():
                    setup=lambda a: a.session_state.__setitem__("api", at.session_state["api"]))
     assert not res.exception
     assert "limited evidence" in " ".join(m.value for m in res.markdown).lower()
+
+
+@pytest.mark.parametrize("tid", TITLES)
+def test_scenario_lab_renders(tid):
+    at = run_page("views.scenario_lab", tid)
+    assert not at.exception
+    assert [t.value for t in at.title][0].startswith("Scenario Lab")
+
+
+def test_scenario_lab_custom_scenario_adds_column_and_keeps_base_unchanged():
+    at = run_page("views.scenario_lab", "shadow_bloom")
+    at.selectbox(key="lever_shadow_bloom_marketing_budget").select("high")
+    at.run()
+    assert not at.exception
+    names = [m.value for m in at.markdown if m.value.startswith("**")]
+    assert "**Custom scenario**" in names
+    assert not at.session_state["overrides"]["shadow_bloom"]["disabled_sources"]
+    assert "78" in " ".join(str(m.value) for m in at.metric)
