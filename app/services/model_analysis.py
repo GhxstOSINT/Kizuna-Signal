@@ -16,6 +16,24 @@ from app.services.state_frame import make_frame
 
 settings = get_settings()
 
+WARNING_TEXT = {
+    "no_pre_release_demand": "An unreleased title has no Google Trends window before launch, so demand momentum is not scored.",
+    "no_youtube_adapter": "Trailer engagement is not collected yet, so engagement quality is not scored.",
+    "no_comparable_titles": "No comparable titles were found.",
+    "few_comparables": "Fewer than three comparable titles were found.",
+    "unlike_training_titles": "This title is unlike the titles the model was trained on.",
+    "no_franchise_history": "There is no franchise history for this title.",
+    "small_training_set": "The model was trained on a small set of titles, so its results are exploratory.",
+    "sparse_state_training": "Some states have too few training titles for a reliable result.",
+    "synthetic_augmented": "The training data includes synthetic rows.",
+}
+
+
+def readable_warning(warning: str) -> str:
+    """Turn a machine code such as `no_franchise_history` into a sentence."""
+    code = warning.split(":", 1)[0].strip()
+    return WARNING_TEXT.get(code, warning)
+
 
 @dataclass(frozen=True, slots=True)
 class ModelAnalysis:
@@ -168,7 +186,7 @@ def score_title(title: Title, evidence_confidence: float) -> ModelAnalysis:
         regions=_regions(prediction["states"], confidence, title.target_platform),
         positive_drivers=positive,
         negative_drivers=negative,
-        warnings=list(dict.fromkeys(warnings)),
+        warnings=list(dict.fromkeys(readable_warning(w) for w in warnings)),
         model_version=model.version,
         score_meaning=success_score["rating_reference"]["meaning"],
         evaluation=evaluation,
