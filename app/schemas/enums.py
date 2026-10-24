@@ -90,3 +90,6 @@ class DecisionStatus(StrEnum):
 
 class ReportFormat(StrEnum):
     PDF = "pdf"
+    JSON = "json"
+    CSV = "csv"
+    XML = "xml"

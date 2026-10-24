@@ -5,6 +5,11 @@ from sklearn.linear_model import Ridge
 from xgboost import XGBRegressor
 
 
+def _weights(rows: pd.DataFrame):
+    """Sample weights (column w) when present: synthetic rows count less than real ones."""
+    return rows["w"].to_numpy(float) if "w" in rows else None
+
+
 class StateMeanBaseline:
     """Predicts each state's average share across training titles."""
 
@@ -14,8 +19,10 @@ class StateMeanBaseline:
         self.target = target
 
     def fit(self, rows: pd.DataFrame, cols: list[str]):
-        self.means_ = rows.groupby("state")[self.target].mean()
-        self.global_ = rows[self.target].mean()
+        w = rows["w"] if "w" in rows else pd.Series(1.0, index=rows.index)
+        wy = rows[self.target] * w
+        self.means_ = wy.groupby(rows["state"]).sum() / w.groupby(rows["state"]).sum()
+        self.global_ = float(wy.sum() / w.sum())
         return self
 
     def predict(self, rows: pd.DataFrame, cols: list[str]) -> np.ndarray:
@@ -43,7 +50,8 @@ class RidgeModel:
         return np.hstack([s, inter])
 
     def fit(self, rows, cols):
-        self.model_ = Ridge(alpha=self.alpha).fit(self._design(rows, cols), rows[self.target])
+        self.model_ = Ridge(alpha=self.alpha).fit(self._design(rows, cols), rows[self.target],
+                                          sample_weight=_weights(rows))
         return self
 
     def predict(self, rows, cols):
@@ -60,7 +68,7 @@ class XGBModel:
                        "reg_lambda": 5.0, "random_state": 0, **params}
 
     def fit(self, rows, cols):
-        self.model_ = XGBRegressor(**self.params).fit(rows[cols], rows[self.target])
+        self.model_ = XGBRegressor(**self.params).fit(rows[cols], rows[self.target], sample_weight=_weights(rows))
         return self
 
     def predict(self, rows, cols):

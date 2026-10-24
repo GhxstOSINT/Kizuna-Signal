@@ -13,8 +13,10 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.adapters.google_trends import TrendsClient  # noqa: E402
+from app.core.config import settings  # noqa: E402
 from app.db.session import SessionLocal  # noqa: E402
 from app.ml.state_model import StateModel  # noqa: E402
+from app.ml.success import SuccessModel  # noqa: E402
 from app.services import worker  # noqa: E402
 
 
@@ -30,10 +32,11 @@ def main() -> int:
     except FileNotFoundError:
         model = None  # SEO and collection jobs still run; analyses wait for a trained model
     print(f"worker using {model.version if model else 'no state model'}", flush=True)
+    success = SuccessModel.from_csv(model, Path(settings.csv_dir)) if model else None
     trends = TrendsClient()
     while True:
         with SessionLocal() as db:
-            done = worker.process_all(db, model, trends)
+            done = worker.process_all(db, model, trends, success=success)
         if any(done.values()):
             print(f"processed {done}", flush=True)
         if args.once:

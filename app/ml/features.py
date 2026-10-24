@@ -28,6 +28,9 @@ LEAKY_COLUMNS = {"popularity", "favourites", "average_score", "log_popularity", 
                  "log_share", "dlog", "lift", "y"}
 
 
+NON_FEATURE_COLUMNS = {"w", "is_synthetic", "n_content", "n_region"}  # row bookkeeping, never model inputs
+
+
 def titles_frame(records) -> pd.DataFrame:
     return pd.DataFrame([{
         "title_id": r.title_id,
@@ -108,7 +111,7 @@ def build_rows(content: pd.DataFrame, labels: pd.DataFrame, states: list[str],
 
 
 def feature_columns(rows: pd.DataFrame) -> list[str]:
-    cols = [c for c in rows.columns if c not in {"title_id", "state"} | LEAKY_COLUMNS]
+    cols = [c for c in rows.columns if c not in {"title_id", "state"} | LEAKY_COLUMNS | NON_FEATURE_COLUMNS]
     assert_no_leakage(cols)
     return cols
 

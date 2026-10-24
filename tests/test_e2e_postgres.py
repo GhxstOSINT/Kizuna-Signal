@@ -189,3 +189,22 @@ def test_a_crash_inside_a_job_is_recorded_not_raised(client, session_factory, mo
     stored = client.get(f"/api/v1/jobs/{job['id']}").json()
     assert stored["status"] == "failed" and stored["error_code"] == "RuntimeError"
     assert client.get(f"/api/v1/titles/{t}/seo").status_code == 409
+
+
+def test_report_jobs_render_each_format_and_download(client, session_factory, model, trends, ids, tmp_path, monkeypatch):
+    from app.core.config import settings
+    monkeypatch.setattr(settings, "reports_dir", str(tmp_path))
+    aid = client.post(f"/api/v1/titles/{ids['title']}/analyse", headers={"Idempotency-Key": "k1"}).json()["id"]  # replay
+    made = {f: client.post("/api/v1/reports", json={"analysis_id": aid, "format": f}) for f in ("pdf", "json", "csv", "xml")}
+    assert all(r.status_code == 202 for r in made.values())
+    first = made["pdf"].json()["id"]
+    assert client.get(f"/api/v1/reports/{first}/download").status_code == 409  # not rendered yet
+    assert run_worker(session_factory, model, trends)["report"] == 4
+    for fmt, r in made.items():
+        rid = r.json()["id"]
+        assert client.get(f"/api/v1/reports/{rid}").json()["status"] == "succeeded"
+        dl = client.get(f"/api/v1/reports/{rid}/download")
+        assert dl.status_code == 200 and dl.headers["content-disposition"].endswith(f'.{fmt}"')
+    pdf = client.get(f"/api/v1/reports/{first}/download").content
+    assert pdf[:5] == b"%PDF-"
+    assert len(client.get(f"/api/v1/reports/{made['json'].json()['id']}/download").json()["states"]) == len(PILOT_STATES)

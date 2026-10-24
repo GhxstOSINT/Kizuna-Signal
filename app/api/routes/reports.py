@@ -1,8 +1,12 @@
+from pathlib import Path
+
 from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.api.routes.analyses import IdempotencyKey
 from app.db.session import get_db
+from app.reports.render import MEDIA
 from app.schemas.pipeline import JobOut, ReportCreate, ReportOut
 from app.services import analyses as analysis_service
 from app.services import jobs as job_service
@@ -35,6 +39,17 @@ def get_report(report_id: int, db: Session = Depends(get_db)):
     if report is None:
         raise HTTPException(404, "Report not found")
     return report
+
+
+@router.get("/reports/{report_id}/download")
+def download_report(report_id: int, db: Session = Depends(get_db)):
+    report = report_service.get(db, report_id)
+    if report is None:
+        raise HTTPException(404, "Report not found")
+    if report.status != "succeeded" or not report.file_uri or not Path(report.file_uri).exists():
+        raise HTTPException(409, f"Report is {report.status}, no file to download")
+    return FileResponse(report.file_uri, media_type=MEDIA[report.format],
+                        filename=f"kizuna_report_{report.id}.{report.format}")
 
 
 @router.get("/jobs/{job_id}", response_model=JobOut)

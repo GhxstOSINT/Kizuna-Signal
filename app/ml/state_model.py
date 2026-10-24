@@ -30,6 +30,8 @@ from app.ml.intervals import ConformalInterval
 from app.ml.models import EnsembleModel, RidgeModel, StateMeanBaseline, XGBModel
 from app.ml.scoring_config import ConfidenceConfig, as_dict
 from app.ml.split import grouped_time_folds
+from app.ml.synthetic import SyntheticConfig, synthesize
+from app.ml.synthetic import as_dict as synthetic_as_dict
 from app.ml.state_features import add_lift, history_features, state_effect, title_extras, with_dlog
 from app.ml.states import STATES
 
@@ -47,6 +49,23 @@ def _folds(titles: pd.DataFrame, n_folds: int):
     for train_ids, val_ids in grouped_time_folds(titles, n_folds):
         blocked = set(franchise[list(val_ids)])
         yield {t for t in train_ids if franchise[t] not in blocked}, val_ids
+
+
+SPARSE_GROUP = 20  # states with fewer real training titles than this form the "sparse" group in diagnostics
+
+
+def _state_error(val: pd.DataFrame, pred: np.ndarray, y: np.ndarray, state_titles: dict) -> dict:
+    """Held-out lift error per state group. Bias = mean(pred - y) per state, averaged in absolute value."""
+    df = pd.DataFrame({"state": val["state"].to_numpy(), "err": pred - y})
+    per = df.groupby("state")["err"].agg(bias="mean", rmse=lambda e: float(np.sqrt(np.mean(e ** 2))), n="size")
+    sparse = np.array([state_titles.get(s, 0) < SPARSE_GROUP for s in per.index])
+    out = {}
+    for name, mask in (("sparse", sparse), ("dense", ~sparse)):
+        g = per[mask]
+        out[name] = {"states": int(len(g)), "mean_abs_bias": float(g["bias"].abs().mean()) if len(g) else None,
+                     "rmse": float(np.sqrt(np.average(g["rmse"] ** 2, weights=g["n"]))) if len(g) else None}
+    out["per_state"] = {s: {"bias": float(r.bias), "rmse": float(r.rmse), "n": int(r.n)} for s, r in per.iterrows()}
+    return out
 
 
 def _softmax(x: np.ndarray) -> np.ndarray:
@@ -71,6 +90,7 @@ class StateModel:
     state_titles: dict[str, int]
     report: dict = field(default_factory=dict)
     version: str = ""
+    state_synthetic: dict[str, int] = field(default_factory=dict)  # synthetic training rows per state
 
     task = TASK
 
@@ -88,8 +108,14 @@ class StateModel:
     @classmethod
     def train(cls, all_titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
               demand: pd.DataFrame | None = None, state_ctx: pd.DataFrame | None = None,
-              embedder=None, n_folds: int = 3, min_theme_titles: int = 10) -> "StateModel":
-        """`all_titles`: content frame of every known title. `labels`: title_id, state, share."""
+              embedder=None, n_folds: int = 3, min_theme_titles: int = 10,
+              synthetic: SyntheticConfig | None = SyntheticConfig()) -> "StateModel":
+        """`all_titles`: content frame of every known title. `labels`: title_id, state, share.
+
+        `synthetic`: fill the title x state cells Trends left empty (see app/ml/synthetic.py) and train on them
+        at a reduced weight. Validation always uses real rows only, and the report compares the model with
+        and without the synthetic rows on identical folds. None trains on real rows only.
+        """
         labelled = (all_titles[all_titles["title_id"].isin(labels["title_id"].unique())]
                     .dropna(subset=["release_date"]).reset_index(drop=True))
         labels = labels[labels["title_id"].isin(labelled["title_id"]) & labels["state"].isin(states)]
@@ -101,70 +127,114 @@ class StateModel:
         encoder = ContentEncoder(embedder, max_themes=300, min_theme_titles=min_theme_titles).fit(all_titles)
         emb = encoder.embed(labelled)
         rows, _ = cls._rows(encoder, labelled, emb, labels, states, demand, state_ctx, labelled, emb, labels)
+        rows = rows.assign(w=1.0, is_synthetic=0)
         cols = feature_columns(rows)
+        ctx = state_ctx if state_ctx is not None else pd.DataFrame({"state": states})
+        label_cols = ["title_id", "state", "share", "log_share", "dlog"]
+
+        def synthetic_rows(ids: set, eff: pd.Series) -> pd.DataFrame:
+            """Synthetic rows built from the labels of `ids` only (never from validation titles)."""
+            if synthetic is None:
+                return rows.iloc[0:0]
+            keep = labelled["title_id"].isin(ids).to_numpy()
+            sub, sub_emb = labelled[keep].reset_index(drop=True), emb[keep]
+            syn = synthesize(labels[labels["title_id"].isin(ids)], sub, sub_emb, states, ctx, eff, synthetic)
+            if syn.empty:
+                return rows.iloc[0:0]
+            built, _ = cls._rows(encoder, sub, sub_emb, syn[label_cols], states, demand, state_ctx,
+                                 labelled, emb, labels)
+            return built.assign(w=synthetic.weight, is_synthetic=1)
 
         # Out-of-fold predictions: the only honest basis for metrics, blend weights and intervals.
         factories = (lambda: StateMeanBaseline(TARGET), lambda: RidgeModel(target=TARGET),
                      lambda: XGBModel(target=TARGET))
         names = [f().name for f in factories]
-        oof = {n: [] for n in names}
+        variants = ["real_only"] + (["augmented"] if synthetic is not None else [])
+        oof = {v: {n: [] for n in names} for v in variants}
         parts = []
         for train_ids, val_ids in _folds(labelled, n_folds):
             sub = labels[labels["title_id"].isin(train_ids)]
             if sub.empty:
                 continue
             eff = state_effect(sub)  # means from this fold's training titles only
-            fit = add_lift(rows[rows["title_id"].isin(train_ids)], eff)
+            real_fit = add_lift(rows[rows["title_id"].isin(train_ids)], eff)
             val = add_lift(rows[rows["title_id"].isin(val_ids)], eff)
-            if fit.empty or val.empty:
+            if real_fit.empty or val.empty:
                 continue
-            for name, factory in zip(names, factories):
-                oof[name].append(factory().fit(fit, cols).predict(val, cols))
+            syn_fit = add_lift(synthetic_rows(train_ids, eff), eff)
+            for v in variants:
+                fit = pd.concat([real_fit, syn_fit], ignore_index=True) if v == "augmented" else real_fit
+                for name, factory in zip(names, factories):
+                    oof[v][name].append(factory().fit(fit, cols).predict(val, cols))
             parts.append(val)
         if not parts:
             raise ValueError("too few labelled titles to build out-of-fold predictions")
         val_all = pd.concat(parts)
-        oof = {k: np.concatenate(v) for k, v in oof.items()}
+        oof = {v: {k: np.concatenate(p) for k, p in d.items()} for v, d in oof.items()}
+        y = val_all[TARGET].to_numpy()
+        state_titles = labels.groupby("state")["title_id"].nunique().to_dict()
+
+        def blend(o: dict) -> tuple[float, np.ndarray]:
+            a, b = o["ridge_genre_state"], o["xgboost"]
+            grid = np.linspace(0, 1, 11)  # blend weight chosen for ranking quality, the product's use
+            quality = [per_title_metrics(val_all, g * a + (1 - g) * b, target=TARGET)["spearman"].mean() for g in grid]
+            w = float(grid[int(np.nanargmax(quality))])
+            return w, w * a + (1 - w) * b
+
+        blends = {v: blend(oof[v]) for v in variants}
+        by_variant, state_errors = {}, {}
+        for v in variants:
+            m = {n: summarize(per_title_metrics(val_all, p, target=TARGET)) for n, p in oof[v].items()}
+            m["ensemble"] = summarize(per_title_metrics(val_all, blends[v][1], target=TARGET))
+            by_variant[v] = m
+            state_errors[v] = _state_error(val_all, blends[v][1], y, state_titles)
+        main = variants[-1]  # augmented when enabled
+        w, oof_ens = blends[main]
+        metrics = by_variant[main]
+        conformal = ConformalInterval(1 - NOMINAL_COVERAGE, floor_at_zero=False).fit(y, oof_ens)
 
         effect = state_effect(labels)
         full = add_lift(rows, effect)
-        final = {f().name: f().fit(full, cols) for f in factories}
+        syn_full = add_lift(synthetic_rows(set(labelled["title_id"]), effect), effect)
+        fit_all = pd.concat([full, syn_full], ignore_index=True) if main == "augmented" else full
+        final = {f().name: f().fit(fit_all, cols) for f in factories}
         ensemble = EnsembleModel([final["ridge_genre_state"], final["xgboost"]])
-        a, b = oof["ridge_genre_state"], oof["xgboost"]
-        grid = np.linspace(0, 1, 11)  # blend weight chosen for ranking quality, the product's use
-        rank_quality = [per_title_metrics(val_all, g * a + (1 - g) * b, target=TARGET)["spearman"].mean() for g in grid]
-        w = float(grid[int(np.nanargmax(rank_quality))])
         ensemble.weights = [w, 1 - w]
-        oof_ens = w * a + (1 - w) * b
-        y = val_all[TARGET].to_numpy()
-        conformal = ConformalInterval(1 - NOMINAL_COVERAGE, floor_at_zero=False).fit(y, oof_ens)
 
-        metrics = {n: summarize(per_title_metrics(val_all, p, target=TARGET)) for n, p in oof.items()}
-        metrics["ensemble"] = summarize(per_title_metrics(val_all, oof_ens, target=TARGET))
         sizes = val_all.groupby("title_id").size()
         contrib = explain.contributions(final["xgboost"], full, cols)
-        state_titles = labels.groupby("state")["title_id"].nunique().to_dict()
+        state_synth = syn_full.groupby("state").size().to_dict() if len(syn_full) else {}
         report = {
             "task": TASK,
             "target": "lift = log_share - title mean - state mean + grand mean (means from training titles only)",
             "feature_version": FEATURE_VERSION, "embedder": encoder.embedder.name,
             "n_encoder_titles": len(all_titles), "n_labelled_titles": len(labelled),
-            "n_rows": len(rows), "n_features": len(cols), "states": states, "n_folds": n_folds,
+            "n_rows": len(rows), "n_synthetic_rows": len(syn_full) if main == "augmented" else 0,
+            "n_features": len(cols), "states": states, "n_folds": n_folds,
             "oof_titles": int(val_all["title_id"].nunique()), "chance_top3_hit": float(np.mean(3 / sizes)),
-            "evaluation": "out-of-fold, expanding time windows, franchise-separated; final models refit on all titles",
+            "evaluation": "out-of-fold, expanding time windows, franchise-separated, real rows only; "
+                          "final models refit on all titles",
             "metrics_oof": metrics,
+            "state_error_oof": state_errors[main],
             "ensemble_weights": {"ridge": w, "xgboost": 1 - w},
             "intervals": {"nominal": NOMINAL_COVERAGE, "half_width_lift": conformal.q_,
                           "oof_coverage": conformal.coverage(y, oof_ens)},
             "component_importance": explain.global_by_group(contrib),
             "titles_per_state": {s: int(state_titles.get(s, 0)) for s in states},
+            "synthetic_rows_per_state": {s: int(state_synth.get(s, 0)) for s in states},
+            "synthetic": None if synthetic is None else {
+                "config": synthetic_as_dict(synthetic), "used_in_final_model": main == "augmented",
+                "comparison_oof": {v: {**by_variant[v], "state_error": state_errors[v]} for v in variants},
+                "note": "Same folds, same real validation rows; synthetic rows are built from training titles only "
+                        "and only change the training set."},
             "confidence_config": as_dict(ConfidenceConfig()),
             "exploratory": len(labelled) < SMALL_TRAINING_SET,
             "trained_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
         return cls(encoder, final | {ensemble.name: ensemble}, ensemble, conformal, cols, states, labelled, emb,
                    labels, effect, state_ctx, float(np.std(y)),
-                   {s: int(state_titles.get(s, 0)) for s in states}, report)
+                   {s: int(state_titles.get(s, 0)) for s in states}, report,
+                   state_synthetic={s: int(state_synth.get(s, 0)) for s in states})
 
     # --------------------------------------------------------------- prediction
     def predict(self, title: pd.DataFrame, demand: pd.DataFrame | None = None, top_drivers: int = 3) -> dict:
@@ -199,6 +269,7 @@ class StateModel:
             results.append({"state": state, "name": STATES[state], "lift": float(lift[i]), "rank": int(order[i]),
                             "low": float(lo[i]), "high": float(hi[i]), "expected_share": float(share[i]),
                             "train_titles": self.state_titles.get(state, 0),
+                            "synthetic_rows": getattr(self, "state_synthetic", {}).get(state, 0),
                             "drivers": [{"feature": f, "contribution": round(float(row[f]), 5)}
                                         for f in row.abs().nlargest(top_drivers).index]})
         results.sort(key=lambda r: r["rank"])
@@ -229,6 +300,8 @@ class StateModel:
             codes.append("small_training_set")
         if any(self.state_titles.get(s, 0) < SPARSE_STATE_TITLES for s in self.states):
             codes.append("sparse_state_training")
+        if self.report.get("n_synthetic_rows"):
+            codes.append("synthetic_augmented")
         return codes
 
     # -------------------------------------------------------------- persistence

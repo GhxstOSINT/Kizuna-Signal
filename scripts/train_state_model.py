@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.ml import csv_data  # noqa: E402
 from app.ml.embeddings import get_embedder  # noqa: E402
 from app.ml.state_model import StateModel  # noqa: E402
+from app.ml.synthetic import SyntheticConfig  # noqa: E402
 from app.ml.states import STATES  # noqa: E402
 
 
@@ -26,6 +27,9 @@ def main() -> int:
     ap.add_argument("--out", type=Path, default=Path("models"))
     ap.add_argument("--embedder", choices=["auto", "tfidf", "sentence-transformers"], default="auto")
     ap.add_argument("--folds", type=int, default=3)
+    ap.add_argument("--no-synthetic", action="store_true", help="train on real title x state rows only")
+    ap.add_argument("--synthetic-weight", type=float, default=SyntheticConfig.weight,
+                    help="sample weight of synthetic rows (real rows = 1)")
     args = ap.parse_args()
 
     data = csv_data.load(args.csv)
@@ -35,7 +39,8 @@ def main() -> int:
         print("csv failed its consistency checks; not training", file=sys.stderr)
         return 1
     model = StateModel.train(data.titles, data.labels, list(STATES), demand=data.demand, state_ctx=data.state_ctx,
-                             embedder=get_embedder(args.embedder), n_folds=args.folds)
+                             embedder=get_embedder(args.embedder), n_folds=args.folds,
+                             synthetic=None if args.no_synthetic else SyntheticConfig(weight=args.synthetic_weight))
     folder = model.save(args.out)
     print(f"saved {folder}")
     print(json.dumps(model.report, indent=2, default=str))

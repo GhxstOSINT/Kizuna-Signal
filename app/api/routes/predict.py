@@ -1,21 +1,22 @@
 from datetime import date
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 
 from app.adapters.google_trends import TrendsClient
 from app.core.config import settings
 from app.ml.state_model import StateModel
-from app.schemas.predict import IndiaSummary, PredictIn, PredictOut
+from app.ml.success import SuccessModel
+from app.reports import build as report_build
+from app.reports.render import MEDIA, RENDER
+from app.schemas.predict import PredictIn, PredictOut
 from app.seo import rank as seo_rank
 from app.seo.terms import candidates
 from app.services.state_scoring import make_frame
 
 router = APIRouter(tags=["predict"])
-TOP_N = 5
-NOTE = ("There is no single national score: the state model predicts where a title over-performs and each "
-        "state's share of India demand. Read confidence and warnings before relying on the ranking.")
 
 
 @lru_cache(maxsize=1)
@@ -30,29 +31,29 @@ def get_state_model() -> StateModel:
         raise HTTPException(503, "No trained state model found; run scripts/train_state_model.py") from exc
 
 
+_SUCCESS: dict[int, SuccessModel | None] = {}  # one fit per state-model object
+
+
+def get_success_model(model: StateModel = Depends(get_state_model)) -> SuccessModel | None:
+    if id(model) not in _SUCCESS:
+        _SUCCESS[id(model)] = SuccessModel.from_csv(model, Path(settings.csv_dir))
+    return _SUCCESS[id(model)]
+
+
 @lru_cache(maxsize=1)
 def get_trends_client() -> TrendsClient:
     return TrendsClient()
 
 
-@router.post("/predict", response_model=PredictOut)
-def predict(body: PredictIn, model: StateModel = Depends(get_state_model),
-            trends: TrendsClient = Depends(get_trends_client)):
-    """One request in, state-by-state prediction out (synchronous; typically about a second)."""
+def run_prediction(body: PredictIn, model: StateModel, trends: TrendsClient, success: SuccessModel | None) -> dict:
     launch = body.release_date or date.today()
     frame = make_frame(f"predict:{body.name_en}", f"predict:{body.name_en}", body.name_en, body.name_jp,
                        body.genres, body.tags, body.format.value, launch, body.synopsis, body.studio,
                        body.episodes, body.minutes_per_episode)
     result = model.predict(frame)
-    states = [{k: v for k, v in s.items()} for s in result["states"]]
-    out = {
-        "model_version": result["model_version"], "task": result["task"], "title": body.name_en,
-        "india": {"confidence": result["confidence"], "confidence_factors": result["confidence_factors"],
-                  "warnings": result["warnings"], "note": NOTE,
-                  "top_states": [s["state"] for s in states[:TOP_N]],
-                  "bottom_states": [s["state"] for s in states[-TOP_N:]]},
-        "states": states, "comparables": result["comparables"], "seo": None,
-    }
+    states = result["states"]
+    out = report_build.prediction_out(result, body.name_en,
+                                      success.score(model, frame, states) if success is not None else None)
     if body.include_seo:
         cands = candidates(body.name_en, body.name_jp, body.languages,
                            body.localization_mode.value if body.localization_mode else None)
@@ -60,3 +61,24 @@ def predict(body: PredictIn, model: StateModel = Depends(get_state_model),
                  for s in states[:3]]
         out["seo"] = seo_rank.insight(trends, cands, date.today(), focus)
     return out
+
+
+@router.post("/predict", response_model=PredictOut)
+def predict(body: PredictIn, model: StateModel = Depends(get_state_model),
+            success: SuccessModel | None = Depends(get_success_model),
+            trends: TrendsClient = Depends(get_trends_client)):
+    """One request in, state-by-state prediction and India success score out (synchronous)."""
+    return run_prediction(body, model, trends, success)
+
+
+@router.post("/predict/report")
+def predict_report(body: PredictIn, format: Literal["json", "csv", "xml", "pdf"] = "pdf",
+                   model: StateModel = Depends(get_state_model),
+                   success: SuccessModel | None = Depends(get_success_model),
+                   trends: TrendsClient = Depends(get_trends_client)):
+    """The same prediction as a downloadable report: pdf (charts and maths), json, csv (one row per state) or xml."""
+    out = run_prediction(body, model, trends, success)
+    report = report_build.assemble(report_build.title_from_body(body), out, out["success"], model)
+    slug = "".join(c if c.isalnum() else "_" for c in body.name_en).strip("_") or "title"
+    return Response(RENDER[format](report), media_type=MEDIA[format],
+                    headers={"Content-Disposition": f'attachment; filename="kizuna_{slug}.{format}"'})

@@ -38,6 +38,7 @@ class StateResult(BaseModel):
     high: float
     expected_share: float = Field(description="predicted share of India demand; sums to 1 across states")
     train_titles: int
+    synthetic_rows: int = Field(default=0, description="synthetic weighted-average training rows for this state")
     drivers: list[dict[str, Any]]
 
 
@@ -57,4 +58,5 @@ class PredictOut(BaseModel):
     india: IndiaSummary
     states: list[StateResult]
     comparables: list[dict[str, Any]]
+    success: dict[str, Any] | None = Field(default=None, description="India success score and its components; null if csv/ outcomes are missing")
     seo: dict[str, Any] | None = None
