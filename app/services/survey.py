@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from app.services.census import resolve_state
-from app.services.sources.matching import normalise
+from app.services.textmatch import normalise
 
 logger = logging.getLogger(__name__)
 
@@ -148,8 +148,15 @@ class SurveyData:
     def stale_warning(self, now: datetime | None = None) -> str | None:
         years = [row.year for row in self.rows if row.year]
         current = (now or datetime.now(UTC)).year
+        notes = []
         if years and current - max(years) > STALE_AFTER_YEARS:
-            return (
+            notes.append(
                 f"Survey data is from {max(years)} or earlier and may not reflect current viewing."
             )
-        return None
+        undated = len(self.rows) - len(years)
+        if undated:
+            notes.append(
+                f"{undated} of {len(self.rows)} survey rows have no year, so their age cannot be "
+                "checked."
+            )
+        return " ".join(notes) or None

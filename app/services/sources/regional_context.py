@@ -8,6 +8,7 @@ from app.services.sources.base import SourceAdapter, SourceEvidence
 from app.services.survey import SurveyData
 
 LANGUAGE_REACH_TARGET = 0.5  # target languages spoken by half of India count as full reach
+PROXY_MARK = "PROXY"  # survey `source` text marking exploratory, non-representative rows
 MARKET_TARGET = 0.8  # target states/languages covering 80% of urban India count as full
 
 
@@ -73,7 +74,18 @@ class RegionalContextAdapter(SourceAdapter):
                         "survey_n": found.sample_size,
                     }
             if national or regional:
-                quality = 0.9
+                used = set(national.sources if national else ())
+                for state in regional:
+                    found = self.survey.affinity(state, genres, title.content_format)
+                    used |= set(found.sources if found else ())
+                if all(PROXY_MARK in source for source in used):
+                    quality = 0.75
+                    warnings.append(
+                        "Survey signal comes only from rows labelled as exploratory proxies "
+                        "(preference or rating data), not measured viewing rates."
+                    )
+                else:
+                    quality = 0.9
             else:
                 warnings.append("Survey data has no rows for this title's genres or content type.")
             if stale := self.survey.stale_warning():

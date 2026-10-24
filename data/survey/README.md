@@ -8,7 +8,7 @@ purpose — the system reports "No survey data loaded" until you add real files.
 |---|---|---|
 | `state` | yes | Indian state/UT (aliases such as `Delhi NCR` work), or `India` for a national row |
 | `genre` | yes | genre as surveyed (`fantasy`, `action`, `romance`, ...) — matched to the title's genres |
-| `index` | yes | viewing-affinity index, **100 = that state's average viewer**, 150 = 50% over-index |
+| `index` | yes | viewing-affinity index, 100 = average, 150 = 50% over-index. **State rows:** 100 x (% of that state's viewers who watch the genre) / (% of all-India viewers who watch it). **`India` rows:** 100 x (% of all viewers who watch the genre) / (average of that % across all genres surveyed) |
 | `content_type` | no | `anime`, `drama`, `film`, ... — matched against the title's content format; blank = any |
 | `sample_size` | no | respondents behind the row; rows are averaged weighted by it (default 1) |
 | `year` | no | survey year; data older than 3 years triggers a staleness warning |

@@ -1,0 +1,45 @@
+{
+  "source": "data/survey/training_table_title_x_state.csv",
+  "real_rows": 996,
+  "real_titles": 62,
+  "winsor_bounds": [
+    -5.051,
+    5.332
+  ],
+  "rows_winsorised": 7,
+  "synthetic_rows": 100000,
+  "cv": "5-fold GroupKFold by title on real rows only; synthetic data built from train fold",
+  "results": {
+    "global_mean": {
+      "rmse": 1.5367,
+      "r2": -0.0267,
+      "rank": 0.0
+    },
+    "state_mean": {
+      "rmse": 1.591,
+      "r2": -0.1023,
+      "rank": -0.1142
+    },
+    "similarity_weighted": {
+      "rmse": 1.5668,
+      "r2": -0.0665,
+      "rank": 0.0091
+    },
+    "xgb_real": {
+      "rmse": 1.451,
+      "r2": 0.086,
+      "rank": 0.4934
+    },
+    "xgb_real_no_pre": {
+      "rmse": 1.4852,
+      "r2": 0.043,
+      "rank": 0.3672
+    },
+    "xgb_real_synth": {
+      "rmse": 1.4758,
+      "r2": 0.055,
+      "rank": 0.4592
+    }
+  },
+  "shipped_model": "xgb_real"
+}

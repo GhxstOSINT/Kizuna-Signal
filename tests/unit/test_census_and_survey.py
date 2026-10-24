@@ -113,3 +113,41 @@ def test_no_targets_means_not_measured_rather_than_guessed():
 
     assert "addressable_market" not in evidence.metrics
     assert "language_fit" not in evidence.metrics
+
+
+def test_survey_module_imports_standalone_without_circular_import():
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [sys.executable, "-c", "from app.services.survey import SurveyData"],
+        cwd=Path(__file__).resolve().parents[2],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+
+
+def test_rows_without_a_year_are_flagged_instead_of_silently_trusted(tmp_path):
+    (tmp_path / "s.csv").write_text(
+        "state,genre,index,year\nIndia,action,120,\nIndia,comedy,90,\n", encoding="utf-8"
+    )
+
+    warning = SurveyData.from_dir(tmp_path).stale_warning(datetime(2026, 1, 1, tzinfo=UTC))
+
+    assert "2 of 2 survey rows have no year" in warning
+
+
+def test_proxy_only_survey_evidence_is_lower_quality_and_says_so(tmp_path):
+    (tmp_path / "proxy.csv").write_text(
+        "state,genre,index,sample_size,year,source\n"
+        "India,fantasy,130,300,2025,PREFERENCE_PROXY; some convenience sample\n",
+        encoding="utf-8",
+    )
+    proxy = RegionalContextAdapter(SurveyData.from_dir(tmp_path)).collect(make_title())
+    measured = RegionalContextAdapter(SurveyData.from_dir(FIXTURE_DIR)).collect(make_title())
+
+    assert proxy.quality_score == 0.75 < measured.quality_score == 0.9
+    assert any("exploratory proxies" in w for w in proxy.warnings)
+    assert not any("exploratory proxies" in w for w in measured.warnings)
