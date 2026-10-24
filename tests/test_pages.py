@@ -81,3 +81,81 @@ def test_disable_source_recalculates_and_reenable_restores():
     tg.set_value(True)
     at.run()
     assert at.session_state["overrides"]["shadow_bloom"]["disabled_sources"] == []
+
+
+def _fill_required(at):
+    at.text_input(key="na_title").set_value("Test <b>Title</b> テスト")
+    at.text_area(key="na_synopsis").set_value("A synopsis with <script>alert(1)</script>.")
+    at.selectbox(key="na_format").select("Anime series")
+    at.selectbox(key="na_primary_genre").select("Fantasy")
+    at.selectbox(key="na_source_material").select("Original")
+    at.text_input(key="na_release_period").set_value("March 2027")
+    at.selectbox(key="na_target_platform").select("OTT")
+
+
+def test_new_analysis_blocks_submit_until_required_fields_filled():
+    at = run_page("views.new_analysis")
+    assert not at.exception
+    run = next(b for b in at.button if b.label == "Run Market Analysis")
+    assert run.disabled
+    _fill_required(at)
+    at.run()
+    run = next(b for b in at.button if b.label == "Run Market Analysis")
+    assert not run.disabled
+
+
+def test_new_analysis_submit_starts_job():
+    at = run_page("views.new_analysis")
+    _fill_required(at)
+    at.run()
+    next(b for b in at.button if b.label == "Run Market Analysis").click()
+    at.run()
+    assert not at.exception
+    assert at.session_state["na_job"] == "job_1"
+
+
+def _submit(outcome_label):
+    from kizuna.api import MockApi
+
+    at = run_page("views.new_analysis", setup=lambda a: a.session_state.__setitem__("api", MockApi(stage_seconds=0)))
+    _fill_required(at)
+    at.radio(key="na_outcome").set_value(outcome_label)
+    at.run()
+    next(b for b in at.button if b.label == "Run Market Analysis").click()
+    return at.run()
+
+
+def test_failure_outcome_shows_error_state_with_retry_and_cached_actions():
+    at = _submit("Failure (AniList timeout)")
+    assert not at.exception
+    assert any("could not be completed" in e.value for e in at.error)
+    labels = [b.label for b in at.button]
+    assert "Retry" in labels and "Use Cached Data" in labels
+
+
+def test_retry_after_failure_completes_and_creates_project():
+    at = _submit("Failure (AniList timeout)")
+    next(b for b in at.button if b.label == "Retry").click()
+    at.run()
+    assert not at.exception
+    assert any(p["custom"] for p in at.session_state["api"].list_projects())
+    assert at.session_state["active_title"].startswith("custom_")
+
+
+def test_use_cached_data_after_failure_gives_partial_result():
+    at = _submit("Failure (AniList timeout)")
+    next(b for b in at.button if b.label == "Use Cached Data").click()
+    at.run()
+    assert not at.exception
+    tid = at.session_state["active_title"]
+    assert at.session_state["api"].get_analysis(tid)["status"] == "partial"
+
+
+def test_partial_outcome_result_renders_with_partial_notice():
+    at = _submit("Partial data (YouTube unavailable)")
+    assert not at.exception
+    tid = at.session_state["active_title"]
+    res = run_page("views.results", tid,
+                   setup=lambda a: a.session_state.__setitem__("api", at.session_state["api"]))
+    assert not res.exception
+    assert "limited evidence" in " ".join(m.value for m in res.markdown).lower()
