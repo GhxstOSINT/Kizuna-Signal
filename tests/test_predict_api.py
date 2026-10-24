@@ -5,6 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.adapters.google_trends import TrendsClient
+from app.api.routes import predict as predict_routes
 from app.api.routes.predict import get_state_model, get_trends_client
 from app.main import app
 from app.ml.features import titles_frame
@@ -33,7 +34,8 @@ def fetcher(terms, geo, start, end):
 
 
 @pytest.fixture()
-def client(model, tmp_path):
+def client(model, tmp_path, monkeypatch):
+    monkeypatch.setattr(predict_routes.settings, "models_dir", str(tmp_path / "models"))  # keep caches out of the repo
     app.dependency_overrides[get_state_model] = lambda: model
     app.dependency_overrides[get_trends_client] = lambda: TrendsClient(fetcher=fetcher, raw_dir=tmp_path,
                                                                        sleep=lambda s: None)

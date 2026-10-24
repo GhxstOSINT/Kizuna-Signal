@@ -186,6 +186,7 @@ class SuccessModel:
                 continue
         self.reference = np.sort(np.array(scores))
         if path is not None:
+            path.parent.mkdir(parents=True, exist_ok=True)  # an in-memory model has no saved folder yet
             path.write_text(json.dumps({"model_version": model.version, "scores": self.reference.tolist()}),
                             encoding="utf-8")
         return self.reference
