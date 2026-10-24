@@ -1,4 +1,4 @@
-"""Synthetic augmentation + state-affinity model for data/survey/training_table_title_x_state.csv.
+"""Synthetic augmentation + state-affinity model for data/training/training_table_title_x_state.csv.
 
 Steps (all reproducible with a fixed seed):
   1. Winsorise the `lift` target with a robust (median / MAD) bound, so heavy-tail small-state
@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.services.census import resolve_state  # noqa: E402
 
-SOURCE = ROOT / "data/survey/training_table_title_x_state.csv"
+SOURCE = ROOT / "data/training/training_table_title_x_state.csv"
 OUT_DIR = ROOT / "data/training"
 SYNTHETIC_CSV = OUT_DIR / "synthetic_title_x_state.csv"
 MODEL_FILE = OUT_DIR / "regional_lift_xgb.json"

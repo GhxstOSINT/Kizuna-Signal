@@ -30,10 +30,15 @@ back to demo numbers.**
    market score. Every state lists its evidence in `reasons`.
 
 ## What this is not
-* **Nothing is trained.** There is no machine-learning model: the weights, shrinkage factors and
-  scale ceilings are hand-set heuristics (documented in code and above) and are not fitted to
-  outcomes. Training needs labelled outcomes (e.g. historical Indian performance of Japanese titles)
-  that this repo does not have.
+* **The scoring is not machine-learned.** The weights, shrinkage factors and scale ceilings are
+  hand-set heuristics (documented in code and above) and are not fitted to outcomes. Training
+  needs labelled outcomes (e.g. historical Indian performance of Japanese titles) that this repo
+  does not have.
+* **Trained models exist but are not used by the app.** `scripts/train_title_model.py` and
+  `scripts/train_regional_model.py` write XGBoost models and reports to `data/training/`. The title
+  model predicts *global* AniList popularity/score, not India demand. The regional model is fitted
+  to a small table (996 rows, 62 titles) and is weak (R² about 0.09). Nothing under `app/` loads
+  either model. Install their dependencies with `pip install -e ".[ml]"`.
 * Scores measure public interest signals, not revenue or viewership. Google Trends, YouTube and
   Wikimedia are not India-only except Trends.
 * Census figures are from 2011 and describe population, not behaviour.

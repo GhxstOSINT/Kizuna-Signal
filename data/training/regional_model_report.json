@@ -1,5 +1,5 @@
 {
-  "source": "data/survey/training_table_title_x_state.csv",
+  "source": "data/training/training_table_title_x_state.csv",
   "real_rows": 996,
   "real_titles": 62,
   "winsor_bounds": [

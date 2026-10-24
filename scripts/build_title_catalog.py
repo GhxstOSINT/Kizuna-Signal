@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data/training"
 RAW_DIR = OUT_DIR / "raw"
 DATASET = OUT_DIR / "super_training_dataset.csv"
-STATE_TABLE = ROOT / "data/survey/training_table_title_x_state.csv"
+STATE_TABLE = ROOT / "data/training/training_table_title_x_state.csv"
 
 PER_CATEGORY = 500
 ANILIST_URL = "https://graphql.anilist.co"

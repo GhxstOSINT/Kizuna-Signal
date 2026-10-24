@@ -3,7 +3,7 @@ name: backend-quality-gate
 on:
   pull_request:
   push:
-    branches: [main, backend]
+    branches: [main, backend, Initail-API-Layer, "feature/**"]
 
 jobs:
   test:

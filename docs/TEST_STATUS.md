@@ -54,7 +54,7 @@ ruff format --check app tests scripts
 
 ## Current verified baseline
 
-- Tests: 35 passing
+- Tests: 99 passing
 - Application line coverage: 94%
 - Static quality check: passing
 - OpenAPI snapshot: committed at `docs/openapi.json`
