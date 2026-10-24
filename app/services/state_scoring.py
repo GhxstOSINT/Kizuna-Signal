@@ -29,7 +29,8 @@ def to_frame(title: Title, assumption: TitleAssumption | None) -> pd.DataFrame:
         format=FORMATS.get(title.format or "", title.format),
         original_release_date=launch, synopsis=title.synopsis or "",
     )
-    return titles_frame([record])
+    frame = titles_frame([record])
+    return frame.assign(studio=title.studio, has_prequel=False, minutes=0.0)
 
 
 def score(model: StateModel, title: Title, assumption: TitleAssumption | None) -> dict:
@@ -44,9 +45,9 @@ def store(db: Session, analysis: Analysis, result: dict, target_states: list[str
     for row in result["states"]:
         db.add(RegionalScore(
             analysis_id=analysis.id, region_type="state", region_code=row["state"], region_name=row["name"],
-            score=row["interest_index"], rank=row["rank"],
+            score=row["lift"], rank=row["rank"],
             confidence=result["confidence"],
-            evidence=[{"share": row["share"], "interval": [row["low"], row["high"]],
+            evidence=[{"expected_share": row["expected_share"], "interval": [row["low"], row["high"]],
                        "train_titles": row["train_titles"], "in_target": row["state"] in targets,
                        "drivers": row["drivers"]}],
         ))
@@ -57,7 +58,9 @@ def store(db: Session, analysis: Analysis, result: dict, target_states: list[str
     analysis.provenance_summary = {
         "task": result["task"], "model_version": result["model_version"],
         "confidence_factors": result["confidence_factors"], "comparables": result["comparables"],
-        "score_meaning": "interest_index = predicted share of India demand x number of states (1.0 = average)",
+        "history_titles": result["history_titles"],
+        "score_meaning": "lift (log scale): >0 means the title is expected to over-perform in that state "
+                         "versus a typical anime there; ranks are by lift",
     }
     analysis.completed_at = datetime.now(timezone.utc)
 

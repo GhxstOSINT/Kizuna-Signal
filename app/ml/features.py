@@ -13,17 +13,19 @@ FEATURE_VERSION = "content-v2"
 
 # Feature groups map to the architecture's model components.
 GROUP_PREFIXES = {
-    "content": ("genre_", "theme_", "format_", "log_episodes", "has_streaming", "dna_"),
+    "content": ("genre_", "theme_", "format_", "log_episodes", "has_streaming", "dna_", "season_",
+                "release_year", "has_prequel", "minutes"),
     "demand": ("pre_",),
     "regional": ("state_",),
-    "comparable": ("cmp_",),
+    "comparable": ("cmp_", "parent_", "studio_"),
 }
 
 
 def group_columns(cols: list[str], *groups: str) -> list[str]:
     prefixes = tuple(p for g in groups for p in GROUP_PREFIXES[g])
     return [c for c in cols if c.startswith(prefixes)]
-LEAKY_COLUMNS = {"popularity", "favourites", "average_score", "log_popularity", "status", "share"}
+LEAKY_COLUMNS = {"popularity", "favourites", "average_score", "log_popularity", "status", "share",
+                 "log_share", "dlog", "lift", "y"}
 
 
 def titles_frame(records) -> pd.DataFrame:
@@ -43,14 +45,14 @@ def titles_frame(records) -> pd.DataFrame:
 class ContentEncoder:
     """Fit on training titles; transform any title into a numeric row."""
 
-    def __init__(self, embedder=None, dna_dims: int = 12, max_themes: int = 40):
+    def __init__(self, embedder=None, dna_dims: int = 12, max_themes: int = 40, min_theme_titles: int = 1):
         self.embedder = embedder or TfidfSvdEmbedder()
-        self.dna_dims, self.max_themes = dna_dims, max_themes
+        self.dna_dims, self.max_themes, self.min_theme_titles = dna_dims, max_themes, min_theme_titles
 
     def fit(self, titles: pd.DataFrame) -> "ContentEncoder":
         self.genres_ = sorted({g for gs in titles["genres"] for g in gs})
         counts = pd.Series([t for ts in titles["themes"] for t in ts]).value_counts()
-        self.themes_ = list(counts.head(self.max_themes).index)
+        self.themes_ = list(counts[counts >= self.min_theme_titles].head(self.max_themes).index)
         self.formats_ = sorted(titles["format"].unique())
         self.embedder.fit(titles["synopsis"].tolist())
         emb = self.embedder.embed(titles["synopsis"].tolist())

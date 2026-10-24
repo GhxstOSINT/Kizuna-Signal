@@ -44,12 +44,13 @@ class ComparableIndex:
 
 
 def comparable_features(index: ComparableIndex, targets: pd.DataFrame, target_emb: np.ndarray,
-                        labels: pd.DataFrame, states: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Per (title, state): similarity-weighted mean share of the comparables (cmp_share).
+                        labels: pd.DataFrame, states: list[str],
+                        value: str = "share") -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Per (title, state): similarity-weighted mean of `value` over the comparables (column cmp_share).
 
     Also returns per-title stats (cmp_count, cmp_sim) used by the confidence model.
     """
-    share = labels.pivot_table(index="title_id", columns="state", values="share")
+    share = labels.pivot_table(index="title_id", columns="state", values=value)
     rows, stats = [], []
     for pos, (_, t) in enumerate(targets.iterrows()):
         found = index.find(t, target_emb[pos])

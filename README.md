@@ -53,16 +53,21 @@ Writes `models/<version>/{report.json,model.joblib}` and `models/initial_report.
 
 ## State model and analysis worker
 
-The state model predicts how a title's India demand splits across states and UTs. It is one task
-per model package (`models/state/`); SEO and other tasks get their own, never this one.
+The state model predicts where a title over-performs across India's states and UTs. One task per
+model package (`models/state/`); SEO and other tasks get their own, never this one.
 
 ```
-python scripts/train_state_model.py     # trains on every labelled title; saves models/state/<version>/
+python scripts/train_state_model.py     # trains from csv/ (see csv/data_dictionary.csv); saves models/state/<version>/
 python scripts/run_worker.py --once     # runs queued analyses with models/state/LATEST.json
 ```
 
-* Encoder fitted on all AniList titles; comparables from every earlier, other-franchise labelled title.
+* Target is `lift` (the dictionary's recommended label), not raw share: raw share is dominated by each
+  state's baseline. State and grand means are recomputed from training titles only.
+* Features: genres, tags (>=10 titles), format, season/year, sequel flag, length, region zone and language,
+  pre-release Trends demand, and history from earlier titles whose 52-week label window had ended
+  (same franchise, same studio, similar synopsis). Global popularity/score are never loaded.
 * Metrics, blend weight and intervals come from out-of-fold predictions; final models are refit on all titles.
 * `POST /titles/{id}/analyse` queues the job; the worker fills `Analysis` and per-state `RegionalScore` rows
-  (`score` = predicted share x number of states, so 1.0 is average). `market_potential` stays empty.
+  (`score` = predicted lift, ranked high to low; `evidence` has the expected share and interval).
+  `market_potential` stays empty.
 * States with no Trends geo (Ladakh) are not scored. States with under 10 training titles raise `sparse_state_training`.

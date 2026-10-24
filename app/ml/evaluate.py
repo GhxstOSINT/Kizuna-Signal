@@ -4,9 +4,9 @@ import pandas as pd
 from scipy.stats import spearmanr
 
 
-def per_title_metrics(rows: pd.DataFrame, pred: np.ndarray, k: int = 3) -> pd.DataFrame:
+def per_title_metrics(rows: pd.DataFrame, pred: np.ndarray, k: int = 3, target: str = "share") -> pd.DataFrame:
     """For each title: Spearman across states and whether the top-k states overlap the truth."""
-    df = rows[["title_id", "state", "share"]].assign(pred=pred)
+    df = rows[["title_id", "state", target]].rename(columns={target: "share"}).assign(pred=pred)
     out = []
     for tid, g in df.groupby("title_id"):
         if len(g) < k + 1 or g["share"].nunique() < 2:

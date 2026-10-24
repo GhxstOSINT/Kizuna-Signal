@@ -53,7 +53,6 @@ def train_and_plot(data: Path, n_titles: int) -> dict:
     out = {}
     for name, cmd in (("train", [PY, "scripts/train_initial.py", "--states", "all", "--n-titles", "100000",
                                  "--data", str(data), "--embedder", "auto"]),
-                      ("state_model", [PY, "scripts/train_state_model.py", "--data", str(data), "--embedder", "auto"]),
                       ("plots", [PY, "scripts/analyze_regions.py", "--data", str(data)])):
         done = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
         out[name] = done.returncode

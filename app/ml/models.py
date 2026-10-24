@@ -10,9 +10,12 @@ class StateMeanBaseline:
 
     name = "state_mean"
 
+    def __init__(self, target: str = "share"):
+        self.target = target
+
     def fit(self, rows: pd.DataFrame, cols: list[str]):
-        self.means_ = rows.groupby("state")["share"].mean()
-        self.global_ = rows["share"].mean()
+        self.means_ = rows.groupby("state")[self.target].mean()
+        self.global_ = rows[self.target].mean()
         return self
 
     def predict(self, rows: pd.DataFrame, cols: list[str]) -> np.ndarray:
@@ -28,8 +31,8 @@ class RidgeModel:
 
     name = "ridge_genre_state"
 
-    def __init__(self, alpha: float = 5.0):
-        self.alpha = alpha
+    def __init__(self, alpha: float = 5.0, target: str = "share"):
+        self.alpha, self.target = alpha, target
 
     @staticmethod
     def _design(rows, cols) -> np.ndarray:
@@ -40,7 +43,7 @@ class RidgeModel:
         return np.hstack([s, inter])
 
     def fit(self, rows, cols):
-        self.model_ = Ridge(alpha=self.alpha).fit(self._design(rows, cols), rows["share"])
+        self.model_ = Ridge(alpha=self.alpha).fit(self._design(rows, cols), rows[self.target])
         return self
 
     def predict(self, rows, cols):
@@ -50,13 +53,14 @@ class RidgeModel:
 class XGBModel:
     name = "xgboost"
 
-    def __init__(self, **params):
+    def __init__(self, target: str = "share", **params):
+        self.target = target
         self.params = {"n_estimators": 200, "max_depth": 3, "learning_rate": 0.05,
                        "subsample": 0.8, "colsample_bytree": 0.8, "min_child_weight": 5,
                        "reg_lambda": 5.0, "random_state": 0, **params}
 
     def fit(self, rows, cols):
-        self.model_ = XGBRegressor(**self.params).fit(rows[cols], rows["share"])
+        self.model_ = XGBRegressor(**self.params).fit(rows[cols], rows[self.target])
         return self
 
     def predict(self, rows, cols):
