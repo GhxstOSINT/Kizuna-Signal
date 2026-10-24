@@ -1,0 +1,376 @@
+uid,category,name_ja,name_en,actual,predicted
+anilist:16498,anime_series,進撃の巨人,Attack on Titan,6.0294,5.6758
+anilist:21459,anime_series,僕のヒーローアカデミア,My Hero Academia,5.9468,5.3998
+anilist:11061,anime_series,HUNTER×HUNTER (2011),Hunter x Hunter (2011),5.9304,5.5982
+anilist:21087,anime_series,ワンパンマン,One-Punch Man,5.8899,5.2804
+anilist:21,anime_series,ONE PIECE,ONE PIECE,5.8823,5.3942
+anilist:20605,anime_series,東京喰種 トーキョーグール,Tokyo Ghoul,5.8748,5.4941
+anilist:20958,anime_series,進撃の巨人 Season２,Attack on Titan Season 2,5.8712,5.6269
+anilist:99147,anime_series,進撃の巨人 Season３,Attack on Titan Season 3,5.8424,5.5261
+anilist:21856,anime_series,僕のヒーローアカデミア２,My Hero Academia Season 2,5.8211,5.419
+anilist:110277,anime_series,進撃の巨人 The Final Season,Attack on Titan Final Season,5.8141,5.5686
+anilist:104578,anime_series,進撃の巨人 Season３ Part.2,Attack on Titan Season 3 Part 2,5.792,5.5119
+anilist:100166,anime_series,僕のヒーローアカデミア３,My Hero Academia Season 3,5.7833,5.5794
+anilist:101291,anime_series,青春ブタ野郎はバニーガール先輩の夢を見ない,Rascal Does Not Dream of Bunny Girl Senpai,5.7694,5.4401
+anilist:101921,anime_series,かぐや様は告らせたい～天才たちの恋愛頭脳戦～,Kaguya-sama: Love is War,5.7532,5.2905
+anilist:101348,anime_series,ヴィンランド・サガ,Vinland Saga,5.7445,5.495
+anilist:21827,anime_series,ヴァイオレット・エヴァーガーデン,Violet Evergarden,5.7438,5.4048
+anilist:124080,anime_series,ホリミヤ,Horimiya,5.7411,5.3725
+anilist:19815,anime_series,ノーゲーム・ノーライフ,"No Game, No Life",5.7377,5.3431
+anilist:104276,anime_series,僕のヒーローアカデミア４,My Hero Academia Season 4,5.7312,5.564
+anilist:269,anime_series,BLEACH,Bleach,5.7255,5.4289
+anilist:99423,anime_series,ダーリン・イン・ザ・フランキス,DARLING in the FRANXX,5.7048,5.5341
+anilist:97668,anime_series,ワンパンマン 2,One-Punch Man Season 2,5.6748,5.2666
+anilist:151807,anime_series,俺だけレベルアップな件,Solo Leveling,5.6601,5.3085
+anilist:131681,anime_series,進撃の巨人 The Final Season Part 2,Attack on Titan Final Season Part 2,5.6516,5.5128
+anilist:112641,anime_series,かぐや様は告らせたい？～天才たちの恋愛頭脳戦～,Kaguya-sama: Love is War?,5.6432,5.3206
+anilist:10620,anime_series,未来日記,The Future Diary,5.6393,5.6311
+anilist:21311,anime_series,文豪ストレイドッグス,Bungo Stray Dogs,5.6291,5.4136
+anilist:117193,anime_series,僕のヒーローアカデミア５,My Hero Academia Season 5,5.6234,5.4525
+anilist:20850,anime_series,東京喰種[トーキョーグール]√A,Tokyo Ghoul √A,5.6144,5.3648
+anilist:3588,anime_series,ソウルイーター,Soul Eater,5.6009,5.3772
+anilist:9989,anime_series,あの日見た花の名前を僕達はまだ知らない。,Anohana: The Flower We Saw That Day,5.6,5.4265
+anilist:19,anime_series,MONSTER,Monster,5.5419,5.4827
+anilist:5081,anime_series,化物語,Bakemonogatari,5.5394,5.4454
+anilist:20829,anime_series,終わりのセラフ,Seraph of the End: Vampire Reign,5.5223,5.5077
+anilist:99578,anime_series,ヲタクに恋は難しい,Wotakoi: Love is Hard for Otaku,5.5216,5.2611
+anilist:9756,anime_series,魔法少女まどか☆マギカ,Puella Magi Madoka Magica,5.5202,5.4122
+anilist:103572,anime_series,五等分の花嫁,The Quintessential Quintuplets,5.5167,5.4625
+anilist:130298,anime_series,陰の実力者になりたくて！,The Eminence in Shadow,5.5074,5.3583
+anilist:176496,anime_series,俺だけレベルアップな件 Season 2 -Arise from the Shadow-,Solo Leveling Season 2 -Arise from the Shadow-,5.5022,5.2313
+anilist:100240,anime_series,東京喰種-トーキョーグール-:re,Tokyo Ghoul:re,5.4936,5.3295
+anilist:125367,anime_series,かぐや様は告らせたい-ウルトラロマンティック-,Kaguya-sama: Love is War -Ultra Romantic-,5.4722,5.3062
+anilist:151801,anime_series,マッシュル-MASHLE-,MASHLE: MAGIC AND MUSCLES,5.4701,5.3353
+anilist:7054,anime_series,会長はメイド様!,Maid-Sama!,5.4647,5.4547
+anilist:21613,anime_series,幼女戦記,Saga of Tanya the Evil,5.4533,5.2679
+anilist:205,anime_series,サムライチャンプルー,Samurai Champloo,5.4531,5.4203
+anilist:136430,anime_series,ヴィンランド・サガ SEASON2,Vinland Saga Season 2,5.4485,5.38
+anilist:13759,anime_series,さくら荘のペットな彼女,The Pet Girl of Sakurasou,5.4476,5.4521
+anilist:139630,anime_series,僕のヒーローアカデミア６,My Hero Academia Season 6,5.4395,5.3759
+anilist:107660,anime_series,BEASTARS,BEASTARS,5.4162,5.3998
+anilist:6045,anime_series,君に届け,Kimi ni Todoke: From Me to You,5.4064,5.3984
+anilist:20807,anime_series,監獄学園〈プリズンスクール〉,Prison School,5.4009,5.2694
+anilist:21679,anime_series,文豪ストレイドッグス 第2シーズン,Bungo Stray Dogs 2,5.3821,5.4361
+anilist:102351,anime_series,東京喰種-トーキョーグール-:re 2,Tokyo Ghoul:re 2,5.381,5.2425
+anilist:100922,anime_series,ぐらんぶる,Grand Blue Dreaming,5.379,5.2486
+anilist:109261,anime_series,五等分の花嫁∬,The Quintessential Quintuplets 2,5.3751,5.3983
+anilist:21709,anime_series,ユーリ!!! on ICE,Yuri!!! on ICE,5.3686,5.2981
+anilist:177709,anime_series,SAKAMOTO DAYS,SAKAMOTO DAYS,5.3545,5.1574
+anilist:21366,anime_series,３月のライオン,March comes in like a lion,5.335,5.3821
+anilist:131646,anime_series,ヴァニタスの手記,The Case Study of Vanitas,5.3291,5.3943
+anilist:116674,anime_series,BLEACH 千年血戦篇,BLEACH: Thousand-Year Blood War,5.3269,5.434
+anilist:20910,anime_series,下ネタという概念が存在しない退屈な世界,SHIMONETA: A Boring World Where the Concept of Dirty Jokes Doesn’t Exist,5.322,5.3059
+anilist:21421,anime_series,キズナイーバー,Kiznaiver,5.3111,5.4578
+anilist:100977,anime_series,はたらく細胞,Cells at Work!,5.3091,5.2943
+anilist:105156,anime_series,慎重勇者～この勇者が俺ＴＵＥＥＥくせに慎重すぎる～,Cautious Hero: The Hero Is Overpowered but Overly Cautious,5.3076,5.4085
+anilist:21711,anime_series,91Days,91 Days,5.3031,5.427
+anilist:20631,anime_series,トリニティセブン,TRINITY SEVEN,5.3014,5.2258
+anilist:20993,anime_series,終わりのセラフ　名古屋決戦編,Seraph of the End: Battle in Nagoya,5.3012,5.4589
+anilist:161964,anime_series,陰の実力者になりたくて！ 2nd season,The Eminence in Shadow Season 2,5.3011,5.2571
+anilist:103223,anime_series,文豪ストレイドッグス 第3シーズン,Bungo Stray Dogs 3,5.3011,5.3309
+anilist:11843,anime_series,男子高校生の日常,Daily Lives of High School Boys,5.2916,5.3405
+anilist:105228,anime_series,ドロヘドロ,Dorohedoro,5.2865,5.4233
+anilist:4654,anime_series,とある魔術の禁書目録,A Certain Magical Index,5.286,5.2893
+anilist:11887,anime_series,ココロコネクト,Kokoro Connect,5.2855,5.4503
+anilist:114232,anime_series,ひげを剃る。そして女子高生を拾う。,"Higehiro: After Being Rejected, I Shaved and Took in a High School Runaway",5.2786,5.3633
+anilist:163139,anime_series,僕のヒーローアカデミア 7,My Hero Academia Season 7,5.2777,5.3269
+anilist:11597,anime_series,偽物語,Nisemonogatari,5.2738,5.3882
+anilist:166610,anime_series,マッシュル-MASHLE- 神覚者候補選抜試験編,MASHLE: MAGIC AND MUSCLES Season 2,5.2705,5.2972
+anilist:128546,anime_series,Vivy -Fluorite Eye’s Song-,Vivy -Fluorite Eye's Song-,5.2623,5.3776
+anilist:20657,anime_series,冴えない彼女の育てかた,Saekano: How to Raise a Boring Girlfriend,5.2568,5.3003
+anilist:13125,anime_series,新世界より,From the New World,5.2558,5.4374
+anilist:249,anime_series,犬夜叉,InuYasha,5.2435,5.4323
+anilist:17074,anime_series,〈物語〉シリーズ セカンドシーズン,Monogatari Series Second Season,5.2388,5.4455
+anilist:14713,anime_series,神様はじめました,Kamisama Kiss,5.2376,5.3013
+anilist:107693,anime_series,魔入りました！入間くん,Welcome to Demon School! Iruma-kun,5.2347,5.4457
+anilist:141014,anime_series,トモダチゲーム,Tomodachi Game,5.2294,5.3273
+anilist:99426,anime_series,宇宙よりも遠い場所,A Place Further Than the Universe,5.2278,5.3974
+anilist:163132,anime_series,ホリミヤ -piece-,Horimiya: The Missing Pieces,5.2256,5.2412
+anilist:20602,anime_series,甘城ブリリアントパーク,Amagi Brilliant Park,5.2222,5.2679
+anilist:116566,anime_series,アクダマドライブ,Akudama Drive,5.2207,5.3906
+anilist:114888,anime_series,富豪刑事 Balance:UNLIMITED,The Millionaire Detective - Balance: UNLIMITED,5.2173,5.2014
+anilist:125426,anime_series,極主夫道,The Way of the Househusband,5.2079,4.9761
+anilist:98491,anime_series,異世界はスマートフォンとともに。,In Another World With My Smartphone,5.2005,5.2535
+anilist:128705,anime_series,ブルーピリオド,Blue Period,5.1944,5.2027
+anilist:6213,anime_series,とある科学の超電磁砲,A Certain Scientific Railgun,5.1939,5.4553
+anilist:103871,anime_series,ゾンビランドサガ,ZOMBIE LAND SAGA,5.1933,5.226
+anilist:153800,anime_series,ワンパンマン３,One-Punch Man Season 3,5.1913,5.2151
+anilist:170942,anime_series,アオのハコ,Blue Box,5.1902,5.2917
+anilist:153845,anime_series,異世界でチート能力を手にした俺は、現実世界をも無双する ～レベルアップは人生を変えた～,"I Got a Cheat Skill in Another World and Became Unrivaled in The Real World, Too",5.1866,5.1982
+anilist:15689,anime_series,猫物語（黒）,Nekomonogatari Black,5.1816,5.1871
+anilist:151384,anime_series,かぐや様は告らせたい -ファーストキッスは終わらない-,Kaguya-sama: Love is War -The First Kiss That Never Ends-,5.1786,5.1458
+anilist:104647,anime_series,乙女ゲームの破滅フラグしかない悪役令嬢に転生してしまった…,My Next Life as a Villainess: All Routes Lead to Doom!,5.1747,5.3271
+anilist:270,anime_series,HELLSING,Hellsing,5.1694,5.3128
+anilist:159322,anime_series,BLEACH 千年血戦篇-訣別譚-,BLEACH: Thousand-Year Blood War - The Separation,5.1694,5.2893
+anilist:263,anime_series,はじめの一歩 THE FIGHTING!,Hajime no Ippo: The Fighting!,5.1685,5.3881
+anilist:21290,anime_series,ネトゲの嫁は女の子じゃないと思った?,And you thought there is never a girl online?,5.1682,5.2236
+anilist:1887,anime_series,らき☆すた,Lucky☆Star,5.1677,5.2938
+anilist:97832,anime_series,citrus,Citrus,5.1631,5.2359
+anilist:3455,anime_series,To LOVEる -とらぶる-,To Love Ru,5.1555,5.382
+anilist:117612,anime_series,現実主義勇者の王国再建記,How a Realist Hero Rebuilt the Kingdom,5.1532,5.2192
+anilist:104464,anime_series,俺を好きなのはお前だけかよ,ORESUKI: Are you the only one who loves me?,5.1509,5.3037
+anilist:114194,anime_series,BEASTARS 第2期,BEASTARS Season 2,5.1508,5.4023
+anilist:2034,anime_series,ラブ★コン,Lovely Complex,5.1444,5.3243
+anilist:182896,anime_series,僕のヒーローアカデミア FINAL SEASON,My Hero Academia FINAL SEASON,5.1408,5.2439
+anilist:11499,anime_series,さんかれあ,Sankarea: Undying Love,5.1353,5.3598
+anilist:8525,anime_series,神のみぞ知るセカイ,The World God Only Knows,5.1352,5.3621
+anilist:136,anime_series,HUNTER×HUNTER,Hunter x Hunter,5.135,5.4059
+anilist:21123,anime_series,DRIFTERS,DRIFTERS,5.1321,5.3411
+anilist:171457,anime_series,負けヒロインが多すぎる！,Makeine: Too Many Losing Heroines!,5.1299,5.2792
+anilist:127399,anime_series,終末のワルキューレ,Record of Ragnarok,5.1263,5.2197
+anilist:137908,anime_series,治癒魔法の間違った使い方,The Wrong Way to Use Healing Magic,5.1201,5.1978
+anilist:21262,anime_series,終物語,Owarimonogatari,5.1181,5.3729
+anilist:98478,anime_series,３月のライオン 第2シリーズ,March comes in like a lion Season 2,5.1175,5.4118
+anilist:110354,anime_series,BNA ビー・エヌ・エー,BNA,5.1171,5.232
+anilist:118375,anime_series,俺だけ入れる隠しダンジョン,The Hidden Dungeon Only I Can Enter,5.1153,5.2282
+anilist:16417,anime_series,たまこまーけっと,Tamako Market,5.1139,5.307
+anilist:199,anime_movie,千と千尋の神隠し,Spirited Away,5.6873,5.0993
+anilist:104157,anime_movie,青春ブタ野郎はゆめみる少女の夢を見ない,Rascal Does Not Dream of a Dreaming Girl,5.4224,4.9863
+anilist:437,anime_movie,PERFECT BLUE,Perfect Blue,5.3961,4.6837
+anilist:21875,anime_movie,ノーゲーム・ノーライフ ゼロ,"No Game, No Life Zero",5.3665,4.8713
+anilist:100723,anime_movie,僕のヒーローアカデミア THE MOVIE 〜2人の英雄〜,My Hero Academia: Two Heroes,5.3513,4.7751
+anilist:142770,anime_movie,すずめの戸締まり,Suzume,5.312,4.7859
+anilist:103047,anime_movie,劇場版 ヴァイオレット・エヴァーガーデン,Violet Evergarden: the Movie,5.3091,4.9527
+anilist:2890,anime_movie,崖の上のポニョ,Ponyo,5.28,4.9145
+anilist:113596,anime_movie,ジョゼと虎と魚たち,"Josee, the Tiger and the Fish",5.2772,4.8421
+anilist:108553,anime_movie,僕のヒーローアカデミア THE MOVIE ヒーローズ:ライジング,My Hero Academia: Heroes Rising,5.2473,4.772
+anilist:9260,anime_movie,傷物語〈Ⅰ鉄血篇〉,Kizumonogatari Part 1: Tekketsu,5.227,4.7325
+anilist:21400,anime_movie,傷物語〈Ⅲ冷血篇〉,Kizumonogatari Part 3: Reiketsu,5.1743,4.7513
+anilist:109190,anime_movie,ヴァイオレット・エヴァーガーデン 外伝~永遠と自動手記人形~,Violet Evergarden: Eternity and the Auto Memory Doll,5.1683,4.6885
+anilist:21399,anime_movie,傷物語〈Ⅱ熱血篇〉,Kizumonogatari Part 2: Nekketsu,5.1607,4.7347
+anilist:20519,anime_movie,たまこラブストーリー,Tamako -love story-,5.0857,4.5201
+anilist:11981,anime_movie,劇場版 魔法少女まどか☆マギカ 叛逆の物語,Puella Magi Madoka Magica the Movie -Rebellion-,5.0834,4.8677
+anilist:131520,anime_movie,映画 五等分の花嫁,The Quintessential Quintuplets Movie,5.0759,4.9274
+anilist:6675,anime_movie,REDLINE,Redline,5.059,4.5755
+anilist:16662,anime_movie,風立ちぬ,The Wind Rises,5.058,4.925
+anilist:142769,anime_movie,夏へのトンネル、さよならの出口,"The Tunnel to Summer, the Exit of Goodbyes",5.0579,4.8693
+anilist:100878,anime_movie,劇場版 幼女戦記,Saga of Tanya the Evil - the Movie -,5.0211,4.5885
+anilist:105018,anime_movie,きみと、波にのれたら,Ride Your Wave,5.0202,4.8641
+anilist:126659,anime_movie,僕のヒーローアカデミア THE MOVIE ワールド ヒーローズ ミッション,My Hero Academia: World Heroes' Mission,5.0199,4.798
+anilist:106240,anime_movie,HELLO WORLD,,4.9929,4.8414
+anilist:154967,anime_movie,青春ブタ野郎はおでかけシスターの夢を見ない,Rascal Does Not Dream of a Sister Venturing Out,4.9602,4.5826
+anilist:98384,anime_movie,文豪ストレイドッグス DEAD APPLE,Bungo Stray Dogs: DEAD APPLE,4.9544,4.5597
+anilist:161474,anime_movie,青春ブタ野郎はランドセルガールの夢を見ない,Rascal Does Not Dream of a Knapsack Kid,4.9458,4.7534
+anilist:141902,anime_movie,ONE PIECE FILM RED,One Piece Film: Red,4.901,4.693
+anilist:416,anime_movie,紅の豚,Porco Rosso,4.8935,4.8882
+anilist:2418,anime_movie,ストレンヂア -無皇刃譚-,Sword of the Stranger,4.8872,4.5549
+anilist:15039,anime_movie,劇場版 あの日見た花の名前を僕達はまだ知らない。,Anohana the Movie: The Flower We Saw That Day,4.8778,4.9989
+anilist:21296,anime_movie,ずっと前から好きでした。～告白実行委員会～,I've Always Liked You,4.8575,4.4697
+anilist:109979,anime_movie,君たちはどう生きるか,The Boy and the Heron,4.8317,4.9044
+anilist:13271,anime_movie,劇場版 HUNTER×HUNTER 緋色の幻影（ファントム・ルージュ）,Hunter x Hunter: Phantom Rouge,4.8162,4.6713
+anilist:12859,anime_movie,ONE PIECE FILM Z,One Piece Film: Z,4.8142,4.467
+anilist:105143,anime_movie,ONE PIECE STAMPEDE,One Piece: Stampede,4.7978,4.6608
+anilist:139310,anime_movie,僕が愛したすべての君へ,To Every You I’ve Loved Before,4.7719,4.5813
+anilist:21335,anime_movie,ONE PIECE FILM GOLD,One Piece Film: Gold,4.769,4.5178
+anilist:4155,anime_movie,ONE PIECE FILM STRONG WORLD,One Piece Film: Strong World,4.7497,4.4838
+anilist:103221,anime_movie,海獣の子供,Children of the Sea,4.7396,4.6261
+anilist:11977,anime_movie,劇場版 魔法少女まどか☆マギカ 始まりの物語,Puella Magi Madoka Magica the Movie Part 1: Beginnings,4.7385,4.6943
+anilist:11979,anime_movie,劇場版 魔法少女まどか☆マギカ 永遠の物語,Puella Magi Madoka Magica the Movie Part 2: Eternal,4.7319,4.7557
+anilist:19951,anime_movie,劇場版 HUNTER×HUNTER THE LAST MISSION,Hunter x Hunter: The Last Mission,4.7282,4.6739
+anilist:21874,anime_movie,劇場版 トリニティセブン -悠久図書館と錬金術少女-,Trinity Seven: Eternal Library & Alchemic Girl,4.7168,4.4317
+anilist:100749,anime_movie,未来のミライ,Mirai,4.7134,4.5963
+anilist:133007,anime_movie,劇場版 魔法少女まどか☆マギカ〈ワルプルギスの廻天〉,Puella Magi Madoka Magica the Movie -Walpurgisnacht: Rising-,4.7036,4.6055
+anilist:171952,anime_movie,劇場版 陰の実力者になりたくて！ 残響編,,4.7019,4.3029
+anilist:108577,anime_movie,空の青さを知る人よ,Her Blue Sky,4.6968,4.672
+anilist:1686,anime_movie,BLEACH MEMORIES OF NOBODY,Bleach the Movie: Memories of Nobody,4.6904,4.6069
+anilist:177687,anime_movie,ひゃくえむ。,100 METERS,4.6596,4.7084
+anilist:8247,anime_movie,BLEACH 地獄篇,Bleach the Movie: Hell Verse,4.658,4.6088
+anilist:168013,anime_movie,僕のヒーローアカデミア THE MOVIE: ユア ネクスト,My Hero Academia: You’re Next,4.6569,4.5679
+anilist:2889,anime_movie,BLEACH The DiamondDust Rebellion もう一つの氷輪丸,Bleach the Movie: The DiamondDust Rebellion,4.6344,4.6119
+anilist:4835,anime_movie,BLEACH Fade to Black 君の名を呼ぶ,Bleach the Movie: Fade to Black,4.6266,4.6757
+anilist:14669,anime_movie,AURA～魔竜院光牙最後の闘い～,Aura,4.5953,4.6105
+anilist:103631,anime_movie,劇場版トリニティセブン -天空図書館と真紅の魔王,Trinity Seven: Heavens Library & Crimson Lord,4.5835,4.4572
+anilist:8888,anime_movie,コードギアス 亡国のアキト 第1章 翼竜は舞い降りた,Code Geass: Akito the Exiled - The Wyvern Arrives,4.5725,4.6056
+anilist:21757,anime_movie,好きになるその瞬間を。～告白実行委員会～,The Moment You Fall in Love,4.5626,4.4754
+anilist:16528,anime_movie,ハル,Hal,4.5615,4.4701
+anilist:459,anime_movie,ONE PIECE (Movie),ONE PIECE: The Movie,4.5542,4.3952
+anilist:119113,anime_movie,進撃の巨人 〜クロニクル〜,Attack on Titan ~Chronicle~,4.546,4.8532
+anilist:6372,anime_movie,東のエデン 劇場版I The King of Eden,Eden of the East the Movie I: The King of Eden,4.5423,4.6111
+anilist:199340,anime_movie,青春ブタ野郎はディアフレンドの夢を見ない,Rascal Does Not Dream of a Dear Friend,4.5364,4.5837
+anilist:464,anime_movie,ONE PIECE THE MOVIE オマツリ男爵と秘密の島,One Piece: Baron Omatsuri and the Secret Island,4.5333,4.753
+anilist:128207,anime_movie,THE FIRST SLAM DUNK,THE FIRST SLAM DUNK,4.519,4.6142
+anilist:20692,anime_movie,劇場版「進撃の巨人」後編～自由の翼～,Attack on Titan Part II: Wings of Freedom,4.5085,4.4748
+anilist:116756,anime_movie,Fate/Grand Order -終局特異点 冠位時間神殿ソロモン-,Fate/Grand Order Final Singularity - Grand Temple of Time: Solomon,4.4984,4.6151
+anilist:3087,anime_movie,センコロール,,4.4957,4.4868
+anilist:138425,anime_movie,劇場版 からかい上手の高木さん,Teasing Master Takagi-san: The Movie,4.4943,4.5878
+anilist:109125,anime_movie,思い、思われ、ふり、ふられ,,4.4918,4.6192
+anilist:20691,anime_movie,劇場版「進撃の巨人」前編～紅蓮の弓矢～,Attack on Titan Part I: Crimson Bow and Arrow,4.4883,4.7844
+anilist:117074,anime_movie,異世界かるてっと ～あなざーわーるど～,Isekai Quartet The Movie: Another World,4.4879,4.4696
+anilist:875,anime_movie,マインド・ゲーム,Mind Game,4.4873,4.7201
+anilist:98656,anime_movie,ユーリ!!! on ICE 劇場版 : ICE ADOLESCENCE,,4.4871,4.2447
+anilist:184694,anime_movie,俺だけレベルアップな件 -ReAwakening-,Solo Leveling -ReAwakening-,4.4793,4.384
+anilist:15197,anime_movie,コードギアス 亡国のアキト 第2章 引き裂かれし翼竜,Code Geass: Akito the Exiled - The Wyvern Divided,4.475,4.6037
+anilist:6637,anime_movie,東のエデン 劇場版II Paradise Lost,Eden of the East the Movie II: Paradise Lost,4.4635,4.5327
+anilist:13391,anime_movie,楽園追放 -Expelled From Paradise-,Expelled From Paradise,4.4505,4.5113
+anilist:158166,anime_movie,きみの色,The Colors Within,4.4424,4.4793
+anilist:460,anime_movie,ONE PIECE ねじまき島の冒険,One Piece: Clockwork Island Adventure,4.4335,4.3747
+anilist:15199,anime_movie,コードギアス 亡国のアキト 第3章 輝くもの天より墮つ,Code Geass: Akito the Exiled - The Brightness Falls,4.4268,4.6108
+anilist:100465,anime_movie,劇場版「進撃の巨人」Season 2～覚醒の咆哮～,Attack on Titan: The Roar of Awakening,4.421,4.5592
+anilist:2961,anime_movie,デジモンアドベンチャー (Movie),Digimon Adventure (Movie),4.4119,4.5487
+anilist:462,anime_movie,ONE PIECE THE MOVIE デッドエンドの冒険,One Piece The Movie: The Dead End Adventure,4.4103,4.4296
+anilist:140499,anime_movie,BLUE GIANT,Blue Giant,4.4045,4.4597
+anilist:213846,anime_movie,俺だけレベルアップな件 - Beyond the System -,Solo Leveling: Beyond the System,4.3989,4.3026
+anilist:15201,anime_movie,コードギアス 亡国のアキト 第4章 憎しみの記憶から,Code Geass: Akito the Exiled - Memories of Hatred,4.3934,4.3821
+anilist:21178,anime_movie,コードギアス 亡国のアキト 最終章 愛シキモノタチヘ,Code Geass: Akito the Exiled - To Beloved Ones,4.3672,4.3821
+anilist:5365,anime_movie,つみきのいえ,La Maison en Petits Cubes,4.3651,4.6969
+anilist:461,anime_movie,ONE PIECE 珍獣島のチョッパー王国,One Piece: Chopper’s Kingdom on the Island of Strange Animals,4.365,4.4013
+anilist:100248,anime_movie,ニンジャバットマン,Batman Ninja,4.3374,4.5785
+anilist:463,anime_movie,ONE PIECE 呪われた聖剣,One Piece: The Curse of the Sacred Sword,4.3357,4.4634
+anilist:113024,anime_movie,劇場版 少女☆歌劇 レヴュースタァライト,Revue Starlight: The Movie,4.3319,4.7867
+anilist:465,anime_movie,ONE PIECE THE MOVIE カラクリ城のメカ巨兵,One Piece: Mega Mecha Soldier of Karakuri Castle,4.3005,4.4706
+anilist:1095,anime_movie,機動警察パトレイバー 劇場版,Patlabor: The Movie,4.2895,4.5512
+anilist:146609,anime_movie,デッドデッドデーモンズデデデデデストラクション　前章,,4.2802,4.7292
+anilist:452,anime_movie,犬夜叉 時代を越える想い,InuYasha the Movie: Affections Touching Across Time,4.2802,4.5975
+anilist:205081,anime_movie,かぐや様は告らせたい 完結編,,4.27,4.3218
+anilist:100268,anime_movie,劇場版 夏目友人帳 ～うつせみに結ぶ～,Natsume's Book of Friends the Movie: Ephemeral Bond,4.2676,4.499
+anilist:450,anime_movie,犬夜叉 鏡の中の夢幻城,InuYasha the Movie 2: The Castle Beyond the Looking Glass,4.2643,4.5934
+anilist:20908,anime_movie,花とアリス 殺人事件,The Case of Hana & Alice,4.2598,4.5608
+anilist:2107,anime_movie,ONE PIECE エピソードオブアラバスタ 砂漠の王女と海賊たち,"One Piece: The Desert Princess and the Pirates, Adventures in Alabasta",4.2527,4.5512
+anilist:6610,anime_movie,いばらの王 -King of Thorn-,King of Thorn,4.2524,4.6286
+anilist:187892,anime_movie,ALL YOU NEED IS KILL,ALL YOU NEED IS KILL,4.2458,4.492
+anilist:451,anime_movie,犬夜叉 天下覇道の剣,InuYasha the Movie 3: Swords of an Honorable Ruler,4.2433,4.5442
+anilist:1824,anime_movie,はだしのゲン,Barefoot Gen,4.2311,4.6045
+anilist:3848,anime_movie,ONE PIECE THE MOVIE エピソードオブチョッパー+ 冬に咲く、奇跡の桜,One Piece: Episode Of Chopper +: The Miracle Winter Cherry Blossom,4.2263,4.4909
+anilist:449,anime_movie,犬夜叉 紅蓮の蓬莱島,InuYasha the Movie 4: Fire on the Mystic Island,4.223,4.497
+anilist:6772,anime_movie,ブレイク ブレイド 覚醒ノ刻,Broken Blade,4.2203,4.4918
+anilist:1096,anime_movie,機動警察パトレイバー2 the Movie,Mobile Police Patlabor 2: The Movie,4.204,4.578
+anilist:21266,anime_movie,ポケモン・ザ・ムービーXY 光輪の超魔神 フーパ,Pokémon the Movie: Hoopa and the Clash of Ages,4.1993,4.3333
+anilist:2000,anime_movie,老人Ｚ,Roujin Z,4.1977,4.5303
+anilist:6408,anime_movie,文学少女,,4.1903,4.567
+anilist:21771,anime_movie,planetarian～星の人～,Planetarian: Storyteller of the Stars,4.187,4.4993
+anilist:4983,anime_movie,ヘルズ,Hells,4.1729,4.7567
+anilist:9999,anime_movie,ONE PIECE 3D 麦わらチェイス,One Piece 3D: Mugiwara Chase,4.1641,4.4157
+anilist:100744,anime_movie,劇場版ポケットモンスター みんなの物語,Pokémon the Movie: The Power of Us,4.1624,4.4756
+anilist:1364,anime_movie,名探偵コナン 天国へのカウントダウン,Detective Conan: Countdown to Heaven,4.1594,4.2871
+anilist:20515,anime_movie,STAND BY ME ドラえもん,STAND BY ME Doraemon,4.149,4.4544
+anilist:9488,anime_movie,センコロール2,,4.1352,4.4211
+anilist:207327,anime_movie,どこよりも遠い場所にいる君へ,To You in the Beyond,4.1248,4.4133
+anilist:21788,anime_movie,ひるね姫　～知らないワタシの物語～,Napping Princess,4.1221,4.4277
+anilist:20842,anime_movie,新劇場版 頭文字[イニシャル]D Legend1-覚醒-,Initial D Legend 1: Awakening,4.114,4.3844
+anilist:132545,anime_movie,劇場版 抱かれたい男1位に脅されています。～スペイン編～,DAKAICHI -I'm being harassed by the sexiest man of the year- the Movie: Spain Arc,4.1081,4.3991
+anilist:2006,anime_movie,遊☆戯☆王 (Movie),,4.1025,4.384
+anilist:30013,manga,ONE PIECE,One Piece,5.372,4.7598
+anilist:53390,manga,進撃の巨人,Attack on Titan,5.3584,5.0667
+anilist:63327,manga,東京喰種 トーキョーグール,Tokyo Ghoul,5.2984,4.7112
+anilist:85486,manga,僕のヒーローアカデミア,My Hero Academia,5.2534,4.9966
+anilist:74347,manga,ワンパンマン,One-Punch Man,5.2433,4.545
+anilist:30642,manga,ヴィンランド・サガ,Vinland Saga,5.1459,4.9264
+anilist:72451,manga,ホリミヤ,Horimiya,5.0932,4.5036
+anilist:30012,manga,BLEACH,Bleach,5.0884,5.0333
+anilist:86635,manga,かぐや様は告らせたい～天才たちの恋愛頭脳戦～,Kaguya-sama: Love is War,5.0803,4.5356
+anilist:30026,manga,HUNTER×HUNTER,Hunter x Hunter,5.0439,4.7685
+anilist:30001,manga,MONSTER,Monster,5.0358,4.6535
+anilist:85611,manga,東京喰種-トーキョーグール-:re,Tokyo Ghoul:re,5.0228,4.9241
+anilist:125828,manga,SAKAMOTO DAYS,Sakamoto Days,4.9541,4.6897
+anilist:31133,manga,ドロヘドロ,Dorohedoro,4.9507,4.7918
+anilist:146983,manga,さよなら絵梨,"Goodbye, Eri",4.9386,4.5442
+anilist:107237,manga,ブルーピリオド,Blue Period,4.8898,4.5661
+anilist:30051,manga,SLAM DUNK,Slam Dunk,4.8751,4.5265
+anilist:37375,manga,孤高の人,The Climber,4.8687,4.7677
+anilist:100230,manga,五等分の花嫁,The Quintessential Quintuplets,4.8482,4.5885
+anilist:30908,manga,ソウルイーター,Soul Eater,4.8444,4.7738
+anilist:87395,manga,ぐらんぶる,Grand Blue Dreaming,4.8393,4.415
+anilist:107098,manga,終末のワルキューレ,Record of Ragnarok,4.8381,4.5277
+anilist:101233,manga,極主夫道,The Way of the Househusband,4.8359,4.4364
+anilist:86717,manga,ヲタクに恋は難しい,Wotakoi: Love is Hard for Otaku,4.8158,4.4267
+anilist:114960,manga,マッシュル-MASHLE-,Mashle: Magic and Muscles,4.7814,4.3936
+anilist:33031,manga,パンドラハーツ,Pandora Hearts,4.7633,4.8
+anilist:132182,manga,アオのハコ,Blue Box,4.7496,4.5065
+anilist:98587,manga,BEASTARS,BEASTARS,4.6924,4.7378
+anilist:106758,manga,陰の実力者になりたくて！,The Eminence in Shadow,4.6823,4.3895
+anilist:85215,manga,All You Need Is Kill,All You Need Is Kill,4.6724,4.4202
+anilist:85307,manga,文豪ストレイドッグス,Bungo Stray Dogs,4.6711,4.7779
+anilist:73661,manga,終わりのセラフ,Seraph of the End: Vampire Reign,4.6511,4.5207
+anilist:39711,manga,バクマン。,Bakuman。,4.6509,4.4527
+anilist:85911,manga,トモダチゲーム,Tomodachi Game,4.632,4.4876
+anilist:85316,manga,デッドデッドデーモンズデデデデデストラクション,Dead Dead Demon's Dededede Destruction,4.6193,4.5764
+anilist:99324,manga,魔入りました！入間くん,Welcome to Demon School! Iruma-kun,4.5852,4.4367
+anilist:55297,manga,監獄学園,Prison School,4.5839,4.4755
+anilist:33378,manga,君に届け,Kimi ni Todoke: From Me to You,4.5812,4.4181
+anilist:32921,manga,会長はメイド様！,Maid-sama!,4.5716,4.4001
+anilist:86568,manga,ヴァニタスの手記,The Case Study of Vanitas,4.5595,4.6714
+anilist:30007,manga,はじめの一歩,Hajime no Ippo: Fighting Spirit!,4.5564,4.3511
+anilist:85165,manga,イノサン,Innocent,4.5547,4.5932
+anilist:47465,manga,おもいでエマノン,Memories of Emanon,4.5444,4.4675
+anilist:31224,manga,3月のライオン,March Comes in Like a Lion,4.5415,4.5739
+anilist:80145,manga,citrus,Citrus,4.5168,4.3688
+anilist:115122,manga,DEATH NOTE 特別読切,Death Note: a-Kira,4.4989,4.4953
+anilist:41734,manga,私たちの幸せな時間,,4.4948,4.4106
+anilist:101315,manga,やんちゃギャルの安城さん,Anjo the Mischievous Gal,4.478,4.4526
+anilist:100557,manga,幸色のワンルーム,One Room of Happiness,4.4618,4.4525
+anilist:107559,manga,履いてください、鷹峰さん,"Please Put Them On, Takamine-san",4.4552,4.3743
+anilist:30267,manga,HELLSING,HELLSING,4.4453,4.5991
+anilist:105263,manga,大ダーク,Dai Dark,4.4416,4.5004
+anilist:105332,manga,あせとせっけん,Sweat and Soap,4.4386,4.3544
+anilist:30909,manga,ギョ,Gyo,4.4147,4.4476
+anilist:37519,manga,神のみぞ知るセカイ,,4.4116,4.662
+anilist:111403,manga,道産子ギャルはなまらめんこい,Hokkaido Gals Are Super Adorable!,4.4104,4.5753
+anilist:105791,manga,ひげを剃る。そして女子高生を拾う。,"Higehiro: After Being Rejected, I Shaved and Took In a High School Runaway",4.3947,4.4452
+anilist:38157,manga,神様はじめました,Kamisama Kiss,4.3863,4.4387
+anilist:85247,manga,双星の陰陽師,Twin Star Exorcists,4.3854,4.6238
+anilist:114383,manga,カッコウの許嫁,A Couple of Cuckoos,4.3849,4.368
+anilist:103082,manga,パンプキンナイト,Pumpkin Night,4.3753,4.5309
+anilist:30584,manga,未来日記,Future Diary,4.368,4.5211
+anilist:101311,manga,化物語,Bakemonogatari,4.3475,4.6349
+anilist:97842,manga,ヴィジランテ -僕のヒーローアカデミア ILLEGALS-,My Hero Academia: Vigilantes,4.3463,4.4614
+anilist:104241,manga,付き合ってあげてもいいかな,How Do We Relationship?,4.3459,4.5504
+anilist:48597,manga,さんかれあ,Sankarea: Undying Love,4.3442,4.4375
+anilist:101434,manga,今まで一度も女扱いされたことがない女騎士を女扱いする漫画,How to Treat a Lady Knight Right,4.344,4.3436
+anilist:85235,manga,がっこうぐらし!,School-Live!,4.3337,4.4521
+anilist:100937,manga,ダーリン・イン・ザ・フランキス,DARLING in the FRANXX,4.3298,4.4207
+anilist:58361,manga,HIDEOUT,HIDEOUT,4.3237,4.3489
+anilist:40552,manga,惑星のさみだれ,Lucifer and the Biscuit Hammer,4.3208,4.5686
+anilist:85495,manga,Re:Monster -リ・モンスター,Re:Monster,4.3196,4.373
+anilist:101625,manga,暴食のベルセルク～俺だけレベルという概念を突破する～ THE COMIC,Berserk of Gluttony,4.3138,4.302
+anilist:112544,manga,九龍ジェネリックロマンス,Kowloon Generic Romance,4.3125,4.4141
+anilist:171729,manga,ラブ・バレット,Love Bullet,4.3035,4.4377
+anilist:106454,manga,先生は恋を教えられない,,4.298,4.3127
+anilist:151194,manga,フツーに聞いてくれ,Just Listen to the Song,4.2898,4.2779
+anilist:35293,manga,Doubt,Doubt,4.2867,4.3509
+anilist:30671,manga,To LOVEる -とらぶる-,To Love Ru,4.2829,4.3647
+anilist:68105,manga,加瀬さんシリーズ,Kase-san and...,4.2796,4.3577
+anilist:31131,manga,フリージア,,4.2792,4.4832
+anilist:85139,manga,実は私は,"My Monster Secret: Actually, I Am…",4.2785,4.3918
+anilist:30904,manga,子連れ狼,Lone Wolf and Cub,4.2738,4.4204
+anilist:35255,manga,電撃デイジー,Dengeki Daisy,4.2731,4.38
+anilist:30031,manga,ラブ★コン,Love★Com,4.2694,4.335
+anilist:85978,manga,THE NEW GATE,The New Gate,4.2671,4.422
+anilist:85566,manga,恋と嘘,Love & Lies,4.2668,4.3944
+anilist:30081,manga,ARIA,Aria,4.2652,4.4416
+anilist:31061,manga,名探偵コナン,Detective Conan,4.2641,4.3812
+anilist:85198,manga,累－かさね－,Kasane,4.2621,4.6533
+anilist:87217,manga,イノサン Rouge,Innocent Rouge,4.2611,4.3542
+anilist:99775,manga,治癒魔法の間違った使い方 ~戦場を駆ける回復要員~,The Wrong Way to Use Healing Magic,4.2541,4.2856
+anilist:128896,manga,ウィッチウォッチ,WITCH WATCH,4.252,4.5459
+anilist:98014,manga,転生したら剣でした,Reincarnated as a Sword,4.2476,4.3294
+anilist:97701,manga,町田くんの世界,,4.2443,4.3704
+anilist:30676,manga,犬夜叉,InuYasha,4.2422,4.5907
+anilist:108196,manga,マイホームヒーロー,My Home Hero,4.2396,4.4777
+anilist:107485,manga,ド直球彼氏×彼女,,4.2379,4.2597
+anilist:47904,manga,海月姫,Princess Jellyfish,4.2359,4.4111
+anilist:154349,manga,幼稚園WARS,Kindergarten Wars,4.229,4.4567
+anilist:101754,manga,パシリな僕と恋する番長さん,I Belong to the Baddest Girl at School,4.2279,4.3727
+anilist:30070,manga,Übel Blatt ～ユーベルブラット～,Ubel Blatt,4.2204,4.4961
+anilist:105747,manga,また、同じ夢を見ていた,I Had That Same Dream Again,4.2171,4.5196
+anilist:85199,manga,進撃の巨人 外伝 悔いなき選択,Attack on Titan: No Regrets,4.2131,4.5464
+anilist:30610,manga,スキップ・ビート！,Skip Beat!,4.2128,4.2983
+anilist:101521,manga,最果てのパラディン,The Faraway Paladin,4.2125,4.5159
+anilist:66099,manga,GREEN BLOOD-グリーン・ブラッド,,4.2123,4.3151
+anilist:103655,manga,暗殺者である俺のステータスが勇者よりも明らかに強いのだが,My Status as an Assassin Obviously Exceeds the Hero’s,4.2117,4.3363
+anilist:78347,manga,ボールルームへようこそ,Welcome to the Ballroom,4.2091,4.3725
+anilist:85213,manga,ボクガール,,4.203,4.4256
+anilist:116062,manga,異世界でチート能力（スキル）を手にした俺は、現実世界をも無双する ～レベルアップは人生を変えた～,"I Got a Cheat Skill in Another World and Became Unrivaled in The Real World, Too",4.2023,4.3386
+anilist:115790,manga,adabana-徒花-,Adabana,4.1981,4.4128
+anilist:85310,manga,結婚指輪物語,Tales of Wedding Rings,4.1968,4.4467
+anilist:30015,manga,魔法先生ネギま!,Negima! Magister Negi Magi,4.1941,4.5558
+anilist:54308,manga,NO.6 [ナンバーシックス],No. 6,4.1914,4.471
+anilist:45805,manga,黄昏乙女×アムネジア,Dusk Maiden of Amnesia,4.1847,4.3634
+anilist:30054,manga,遊☆戯☆王,Yu-Gi-Oh!,4.182,4.5454
+anilist:116822,manga,ヤンキーJKクズハナちゃん,Yankee JK Kuzuhana-chan,4.1809,4.3834
+anilist:30705,manga,真月譚 月姫,Lunar Legend Tsukihime,4.1795,4.4056
+anilist:148082,manga,クラスで２番目に可愛い女の子と友だちになった,I Made Friends with the Second Prettiest Girl in My Class,4.1787,4.263
+anilist:114003,manga,かけおちガール,"Run Away With Me, Girl",4.1775,4.3914
+anilist:85413,manga,湯神くんには友達がいない,,4.1769,4.3328
+anilist:128160,manga,甘神さんちの縁結び,Tying the Knot with an Amagami Sister,4.1754,4.3745
+anilist:124621,manga,焼いてるふたり,How to Grill Our Love,4.1721,4.3874
+anilist:97216,manga,幼女戦記,The Saga of Tanya the Evil,4.1711,4.4517

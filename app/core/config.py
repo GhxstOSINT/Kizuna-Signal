@@ -20,6 +20,21 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./kizuna.db"
     cors_origins: list[str] = ["http://localhost:8501", "http://localhost:3000"]
     demo_mode: bool = True
+    source_timeout_seconds: float = 10.0
+    source_user_agent: str = (
+        "KizunaSignal/0.1 (https://github.com/hexbyte-work; hackathon prototype)"
+    )
+    wikimedia_lookback_days: int = 90
+    trends_geo: str = "IN"
+    trends_benchmark: str = "One Piece"
+    trends_cache_ttl_seconds: int = 6 * 3600
+    trends_cooldown_seconds: int = 15 * 60
+    anilist_cache_ttl_seconds: int = 24 * 3600
+    anilist_cooldown_seconds: int = 60
+    # Simulated rows, flagged PROXY. Set to data/survey to use only real survey rows.
+    survey_dir: str = "data/synthetic"
+    youtube_api_key: str = ""
+    youtube_cache_ttl_seconds: int = 6 * 3600
     log_level: str = "INFO"
     model_version: str = "kizuna-baseline-0.1.0"
     feature_version: str = "public-signals-0.1.0"

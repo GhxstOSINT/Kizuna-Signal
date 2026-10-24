@@ -1,0 +1,55 @@
+# EXPLORATORY PROXIES: preference surveys and observed movie ratings, NOT representative viewing rates.
+# Broad preference rows have blank content_type; film rating rows are not anime evidence.
+# State ratios use the SAME rating sample pooled across India, dominated by Delhi; not population estimates.
+# Blank year means collection year unreported; these sources include old data despite no automatic stale warning.
+# Research archive only; do not load as a viewing survey. See ../survey_compilation.md.
+state,genre,content_type,index,sample_size,year,source
+India,action,,92.0,,2019,PREFERENCE_PROXY; 2019; approximately 7500 overall; item base unknown; https://www.momagic.com/index.php/portfolio/55-of-indians-prefer-ott-platforms-vs-41-that-still-prefer-dth-momagic-survey/
+India,action,,92.7114,343,,PREFERENCE_PROXY; published 2024; survey year unreported; convenience sample; https://data.mendeley.com/datasets/vcp7w8t2kg/1
+India,comedy,,180.0,,2019,PREFERENCE_PROXY; 2019; approximately 7500 overall; item base unknown; https://www.momagic.com/index.php/portfolio/55-of-indians-prefer-ott-platforms-vs-41-that-still-prefer-dth-momagic-survey/
+India,comedy,,118.9504,343,,PREFERENCE_PROXY; published 2024; survey year unreported; convenience sample; https://data.mendeley.com/datasets/vcp7w8t2kg/1
+India,crime thrillers,,232.6531,343,,PREFERENCE_PROXY; published 2024; survey year unreported; convenience sample; https://data.mendeley.com/datasets/vcp7w8t2kg/1
+India,drama,,76.0,,2019,PREFERENCE_PROXY; 2019; approximately 7500 overall; item base unknown; https://www.momagic.com/index.php/portfolio/55-of-indians-prefer-ott-platforms-vs-41-that-still-prefer-dth-momagic-survey/
+India,drama,,52.4781,343,,PREFERENCE_PROXY; published 2024; survey year unreported; convenience sample; https://data.mendeley.com/datasets/vcp7w8t2kg/1
+India,horror,,52.0,,2019,PREFERENCE_PROXY; 2019; approximately 7500 overall; item base unknown; https://www.momagic.com/index.php/portfolio/55-of-indians-prefer-ott-platforms-vs-41-that-still-prefer-dth-momagic-survey/
+India,non-fiction,,40.2332,343,,PREFERENCE_PROXY; published 2024; survey year unreported; convenience sample; https://data.mendeley.com/datasets/vcp7w8t2kg/1
+India,romance,,62.9738,343,,PREFERENCE_PROXY; published 2024; survey year unreported; convenience sample; https://data.mendeley.com/datasets/vcp7w8t2kg/1
+India,action,film,194.4666,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,adventure,film,142.7881,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,animation,film,10.4552,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,biography,film,117.9943,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,comedy,film,214.4808,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,crime,film,185.8037,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,drama,film,224.6373,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,family,film,138.0085,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,fantasy,film,50.1849,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,history,film,91.1095,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,horror,film,1.7923,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,music,film,44.2105,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,musical,film,163.6984,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,mystery,film,81.2518,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,news,film,0.2987,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,romance,film,194.7653,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,sci-fi,film,5.377,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,sport,film,49.8862,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,thriller,film,144.8791,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+India,war,film,43.9118,754,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,action,film,101.3178,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,adventure,film,100.4845,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,animation,film,89.9248,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,biography,film,102.1985,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,comedy,film,100.6304,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,crime,film,101.8616,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,drama,film,99.902,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,family,film,100.7063,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,fantasy,film,98.5589,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,history,film,100.0518,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,horror,film,45.614,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,music,film,100.7824,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,musical,film,99.635,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,mystery,film,101.1223,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,romance,film,101.3723,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,sci-fi,film,76.0234,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,sport,film,104.0656,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,thriller,film,105.2415,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203
+Delhi,war,film,99.6062,551,,RATING_PROXY; 2017 release/2018 paper; Delhi-heavy respondent pool; https://arxiv.org/abs/1801.02203

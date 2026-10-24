@@ -1,0 +1,141 @@
+{
+  "dataset": "data/training/super_training_dataset.csv",
+  "rows_total": 2500,
+  "rows_modelled": 1500,
+  "split": {
+    "train": 1875,
+    "test": 625
+  },
+  "test_fraction": 0.25,
+  "note": "Target is GLOBAL AniList audience size, restricted to each category's top-500 titles (range-restricted), not India-specific demand.",
+  "targets": {
+    "log10_popularity": {
+      "rows": {
+        "train": 1125,
+        "test": 375
+      },
+      "chosen_params": {
+        "max_depth": 5,
+        "min_child_weight": 10,
+        "n_estimators": 150
+      },
+      "cv_rmse_train_only": 0.2357,
+      "test": {
+        "xgboost": {
+          "r2": 0.7784,
+          "rmse": 0.2388,
+          "mae": 0.191,
+          "spearman_within_category": 0.5728,
+          "skill_vs_category_median": 0.4413
+        },
+        "ridge": {
+          "r2": 0.7555,
+          "rmse": 0.2509,
+          "mae": 0.2017,
+          "spearman_within_category": 0.5563,
+          "skill_vs_category_median": 0.3834
+        },
+        "category_median": {
+          "r2": 0.6034,
+          "rmse": 0.3195,
+          "mae": 0.2427,
+          "spearman_within_category": 0.0,
+          "skill_vs_category_median": 0.0
+        },
+        "shuffled_label_control": {
+          "r2": -0.0664,
+          "rmse": 0.5239,
+          "mae": 0.4621,
+          "spearman_within_category": -0.0247,
+          "skill_vs_category_median": -1.6888
+        }
+      },
+      "bootstrap_xgboost": {
+        "r2_95ci": [
+          0.742,
+          0.81
+        ],
+        "skill_95ci": [
+          0.344,
+          0.51
+        ]
+      },
+      "top_features": {
+        "format:TV": 0.2659,
+        "category:anime_series": 0.2474,
+        "episodes": 0.0568,
+        "format:MOVIE": 0.013,
+        "studio:Studio Ghibli": 0.0103,
+        "duration_min": 0.0101,
+        "tag:Time Skip": 0.0093,
+        "tag:Anthropomorphism": 0.0092,
+        "tag:Body Horror": 0.0076,
+        "n_tags": 0.0068
+      }
+    },
+    "average_score": {
+      "rows": {
+        "train": 1117,
+        "test": 372
+      },
+      "chosen_params": {
+        "max_depth": 3,
+        "min_child_weight": 3,
+        "n_estimators": 400
+      },
+      "cv_rmse_train_only": 4.9843,
+      "test": {
+        "xgboost": {
+          "r2": 0.4028,
+          "rmse": 5.218,
+          "mae": 4.0193,
+          "spearman_within_category": 0.6176,
+          "skill_vs_category_median": 0.3839
+        },
+        "ridge": {
+          "r2": 0.3214,
+          "rmse": 5.5621,
+          "mae": 4.3489,
+          "spearman_within_category": 0.5428,
+          "skill_vs_category_median": 0.3
+        },
+        "category_median": {
+          "r2": 0.0306,
+          "rmse": 6.648,
+          "mae": 5.3038,
+          "spearman_within_category": 0.0,
+          "skill_vs_category_median": 0.0
+        },
+        "shuffled_label_control": {
+          "r2": -0.0356,
+          "rmse": 6.8713,
+          "mae": 5.5313,
+          "spearman_within_category": 0.0526,
+          "skill_vs_category_median": -0.0683
+        }
+      },
+      "bootstrap_xgboost": {
+        "r2_95ci": [
+          0.273,
+          0.504
+        ],
+        "skill_95ci": [
+          0.26,
+          0.487
+        ]
+      },
+      "top_features": {
+        "format:MANGA": 0.0294,
+        "tag:Philosophy": 0.0266,
+        "tag:Coming of Age": 0.0263,
+        "tag:Tragedy": 0.0228,
+        "tag:Female Harem": 0.0189,
+        "n_tags": 0.0178,
+        "genre:Ecchi": 0.0173,
+        "genre:Drama": 0.0169,
+        "genre:Action": 0.0139,
+        "studio:Toei Animation": 0.0139
+      }
+    }
+  }
+}

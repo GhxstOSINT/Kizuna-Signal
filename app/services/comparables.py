@@ -4,6 +4,7 @@ import re
 
 from app.db.models import Title
 from app.schemas.analysis import ComparableTitle
+from app.services.sources.base import SourceEvidence
 
 CATALOG = [
     {
@@ -64,7 +65,29 @@ def normalize_terms(values: list[str]) -> set[str]:
     return result
 
 
-def find_comparables(title: Title, limit: int = 5) -> list[ComparableTitle]:
+def find_comparables(
+    title: Title,
+    limit: int = 5,
+    evidence: list[SourceEvidence] | None = None,
+    allow_catalog: bool = True,
+) -> list[ComparableTitle]:
+    """Reference titles: discovered by AniList evidence when present, else the demo catalogue.
+
+    The catalogue's signals are invented demo numbers, so live analyses pass allow_catalog=False
+    and get no comparables (an unmeasured component) rather than fabricated ones.
+    """
+    discovered = [
+        ComparableTitle(**item)
+        for entry in evidence or []
+        if entry.status != "unavailable"
+        for item in entry.comparables
+    ]
+    if discovered:
+        return sorted(
+            discovered, key=lambda item: (item.similarity, item.market_signal), reverse=True
+        )[:limit]
+    if not allow_catalog:
+        return []
     title_genres = normalize_terms([title.primary_genre, *title.genres])
     title_themes = normalize_terms(title.themes)
     synopsis_terms = normalize_terms([title.synopsis])
