@@ -193,3 +193,22 @@ def test_sequel_suffix_is_stripped_from_query():
     assert search_term(title(english_title="My Hero Academia 2nd Season"))[0] == "My Hero Academia"
     assert search_term(title(english_title="Mushoku Tensei: Jobless Reincarnation Season 2"))[0] == "Mushoku Tensei anime"
     assert search_term(title(english_title="Mob Psycho 100"))[0] == "Mob Psycho 100"
+
+
+def test_unsupported_geo_is_skipped_once_and_title_still_collected(tmp_path):
+    from app.adapters.google_trends import GeoUnsupported
+    calls = []
+    good = fake_fetcher(calls=calls)
+
+    def fetcher(terms, geo, start, end):
+        if geo == PILOT_STATES[0]:
+            calls.append(geo)
+            raise GeoUnsupported(geo)
+        return good(terms, geo, start, end)
+
+    c = client(tmp_path, fetcher)
+    _, labels, rep = collect_title(c, title(), PILOT_STATES)
+    assert rep["error"] is None and rep["unsupported_geos"] == [PILOT_STATES[0]]
+    assert len(labels) == len(PILOT_STATES) - 1
+    collect_title(c, title(title_id="anilist:2", english_title="Other Show Name Long"), PILOT_STATES)
+    assert calls.count(PILOT_STATES[0]) == 1  # remembered: no second request for the bad geo

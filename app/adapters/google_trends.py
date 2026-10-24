@@ -22,6 +22,10 @@ class RateLimited(TrendsError):
     pass
 
 
+class GeoUnsupported(TrendsError):
+    """Google answers HTTP 400 for this region code; retrying cannot help."""
+
+
 class QuotaExceeded(TrendsError):
     pass
 
@@ -45,6 +49,8 @@ class PytrendsFetcher:
         except Exception as exc:  # pytrends raises ResponseError / requests errors
             if "429" in str(exc):
                 raise RateLimited(str(exc)) from exc
+            if "code 400" in str(exc):
+                raise GeoUnsupported(geo) from exc
             raise TrendsError(str(exc)) from exc
         if frame.empty:
             return []
@@ -65,6 +71,7 @@ class TrendsClient:
         self.raw_dir = Path(raw_dir or settings.trends_raw_dir)
         self.max_requests = settings.trends_max_requests if max_requests is None else max_requests
         self.live_requests = 0
+        self.unsupported: set[str] = set()
         self.rate_limit_hits = 0  # consecutive 429s; resets on success
         self._sleep = sleep
 
@@ -102,6 +109,8 @@ class TrendsClient:
         self._sleep(settings.trends_delay_s * random.uniform(0.7, 1.6))
 
     def _fetch_with_retry(self, terms, geo, start, end) -> list[dict]:
+        if geo in self.unsupported:
+            raise GeoUnsupported(geo)
         if self.live_requests >= self.max_requests:
             raise QuotaExceeded(f"request budget of {self.max_requests} used; resume later (cache is kept)")
         last: Exception | None = None
@@ -112,6 +121,10 @@ class TrendsClient:
                 self.rate_limit_hits = 0
                 self._pause()
                 return rows
+            except GeoUnsupported:
+                self.unsupported.add(geo)
+                self._pause()
+                raise
             except RateLimited as exc:
                 last = exc
                 self.rate_limit_hits += 1

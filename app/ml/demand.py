@@ -12,7 +12,7 @@ from datetime import date, timedelta
 import numpy as np
 import pandas as pd
 
-from app.adapters.google_trends import TrendsClient, TrendsError
+from app.adapters.google_trends import GeoUnsupported, TrendsClient, TrendsError
 from app.ml.schema import TitleRecord
 
 _SEQUEL_SUFFIX = re.compile(r"\s+(\d+(st|nd|rd|th)\s+)?(season|part|cour)(\s.*)?$", re.I)
@@ -98,6 +98,9 @@ def collect_title(client: TrendsClient, title: TitleRecord, states: list[str]):
     for geo in states:
         try:
             env = client.fetch(term, geo, start, end)
+        except GeoUnsupported:
+            report.setdefault("unsupported_geos", []).append(geo)
+            continue
         except TrendsError as exc:
             report["error"] = str(exc)
             break

@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app.ml.embeddings import get_embedder  # noqa: E402
 from app.ml.features import titles_frame  # noqa: E402
 from app.ml.schema import TitleRecord  # noqa: E402
-from app.ml.states import PILOT_STATES  # noqa: E402
+from app.ml.states import PILOT_STATES, STATES  # noqa: E402
 from app.ml.train import run, save  # noqa: E402
 
 
@@ -26,6 +26,7 @@ def main() -> int:
     ap.add_argument("--data", type=Path, default=Path("data/processed"))
     ap.add_argument("--n-titles", type=int, default=100)
     ap.add_argument("--out", type=Path, default=Path("models"))
+    ap.add_argument("--states", choices=["pilot", "all"], default="pilot")
     ap.add_argument("--embedder", choices=["auto", "tfidf", "sentence-transformers"], default="auto")
     args = ap.parse_args()
 
@@ -38,9 +39,10 @@ def main() -> int:
     titles = titles_frame(records)
     labels = pd.read_csv(labels_path)
     ids = labels["title_id"].drop_duplicates().head(args.n_titles)
+    states = PILOT_STATES if args.states == "pilot" else list(STATES)
     demand_path = args.data / "trends_demand.csv"
     demand = pd.read_csv(demand_path) if demand_path.exists() else None
-    report, objects, _ = run(titles, labels[labels["title_id"].isin(ids)], PILOT_STATES, demand=demand,
+    report, objects, _ = run(titles, labels[labels["title_id"].isin(ids)], states, demand=demand,
                              embedder=get_embedder(args.embedder))
     folder = save(report, args.out, objects)
     print(f"saved model to {folder}")
