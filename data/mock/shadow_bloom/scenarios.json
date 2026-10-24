@@ -1,0 +1,40 @@
+{
+  "base": {
+    "label": "Base strategy",
+    "levers": {
+      "localization": "subs_hindi",
+      "distribution": "ott",
+      "geography": "national",
+      "release_window": "mar_apr",
+      "marketing_budget": "medium"
+    },
+    "cost_points": 1.0,
+    "reach_points": 3.0
+  },
+  "presets": [
+    {
+      "id": "regional_dub",
+      "label": "Hindi dub + regional-first",
+      "levers": {
+        "localization": "dub_hindi_subs_regional",
+        "distribution": "ott",
+        "geography": "regional_first",
+        "release_window": "mar_apr",
+        "marketing_budget": "medium"
+      },
+      "summary": "OTT release with a Hindi dub and Tamil/Telugu subtitles, rolled out region by region."
+    },
+    {
+      "id": "full_multilingual",
+      "label": "Multilingual dub + high marketing",
+      "levers": {
+        "localization": "multilingual_dub",
+        "distribution": "ott",
+        "geography": "national",
+        "release_window": "mar_apr",
+        "marketing_budget": "high"
+      },
+      "summary": "Full Hindi, Tamil and Telugu dubs with a high national campaign budget."
+    }
+  ]
+}

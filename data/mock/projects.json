@@ -1,0 +1,19 @@
+{
+  "projects": [
+    {
+      "title_id": "shadow_bloom",
+      "status": "complete",
+      "last_analysis": "2026-10-22"
+    },
+    {
+      "title_id": "hollow_tide",
+      "status": "complete",
+      "last_analysis": "2026-10-21"
+    },
+    {
+      "title_id": "kitsune_circuit",
+      "status": "partial",
+      "last_analysis": "2026-10-23"
+    }
+  ]
+}

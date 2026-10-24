@@ -1,0 +1,639 @@
+{
+  "regions": [
+    {
+      "state": "Andaman & Nicobar",
+      "score": 38,
+      "confidence": 15,
+      "evidence_strength": 16,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 6,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Andhra Pradesh",
+      "score": 64,
+      "confidence": 64,
+      "evidence_strength": 67,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Telugu",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 66,
+      "reasons": [
+        "Telugu localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Arunachal Pradesh",
+      "score": 43,
+      "confidence": 23,
+      "evidence_strength": 24,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 10,
+      "reasons": [
+        "English localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Assam",
+      "score": 52,
+      "confidence": 41,
+      "evidence_strength": 43,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "Assamese",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 45,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Bihar",
+      "score": 67,
+      "confidence": 52,
+      "evidence_strength": 55,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 70,
+      "reasons": [
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Chandigarh",
+      "score": 53,
+      "confidence": 49,
+      "evidence_strength": 51,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "Punjabi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 34,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Chhattisgarh",
+      "score": 54,
+      "confidence": 40,
+      "evidence_strength": 42,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 42,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Dadra and Nagar Haveli and Daman and Diu",
+      "score": 40,
+      "confidence": 28,
+      "evidence_strength": 29,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "Gujarati",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 14,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Delhi",
+      "score": 80,
+      "confidence": 85,
+      "evidence_strength": 89,
+      "demand_momentum": "Strong",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 88,
+      "reasons": [
+        "Large addressable audience (market index 88)",
+        "Strong fantasy-anime search growth",
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Goa",
+      "score": 49,
+      "confidence": 54,
+      "evidence_strength": 57,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 30,
+      "reasons": [
+        "English localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Gujarat",
+      "score": 67,
+      "confidence": 69,
+      "evidence_strength": 72,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "Gujarati",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 75,
+      "reasons": [
+        "Large addressable audience (market index 75)",
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Haryana",
+      "score": 63,
+      "confidence": 63,
+      "evidence_strength": 66,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 60,
+      "reasons": [
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Himachal Pradesh",
+      "score": 49,
+      "confidence": 41,
+      "evidence_strength": 43,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 28,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Jammu & Kashmir",
+      "score": 52,
+      "confidence": 37,
+      "evidence_strength": 39,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 32,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Jharkhand",
+      "score": 57,
+      "confidence": 44,
+      "evidence_strength": 46,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 48,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Karnataka",
+      "score": 82,
+      "confidence": 81,
+      "evidence_strength": 85,
+      "demand_momentum": "Strong",
+      "recommended_language": "Hindi",
+      "secondary_language": "Kannada",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 85,
+      "reasons": [
+        "Large addressable audience (market index 85)",
+        "Strong fantasy-anime search growth",
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Kerala",
+      "score": 61,
+      "confidence": 73,
+      "evidence_strength": 77,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "Malayalam",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 62,
+      "reasons": [
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Ladakh",
+      "score": 39,
+      "confidence": 14,
+      "evidence_strength": 14,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 5,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Lakshadweep",
+      "score": 40,
+      "confidence": 8,
+      "evidence_strength": 8,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "Malayalam",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 3,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Madhya Pradesh",
+      "score": 63,
+      "confidence": 53,
+      "evidence_strength": 56,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 64,
+      "reasons": [
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Maharashtra",
+      "score": 86,
+      "confidence": 84,
+      "evidence_strength": 88,
+      "demand_momentum": "Strong",
+      "recommended_language": "Hindi",
+      "secondary_language": "Marathi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 95,
+      "reasons": [
+        "Large addressable audience (market index 95)",
+        "Strong fantasy-anime search growth",
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Manipur",
+      "score": 44,
+      "confidence": 27,
+      "evidence_strength": 28,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 16,
+      "reasons": [
+        "English localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Meghalaya",
+      "score": 42,
+      "confidence": 29,
+      "evidence_strength": 30,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 16,
+      "reasons": [
+        "English localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Mizoram",
+      "score": 40,
+      "confidence": 25,
+      "evidence_strength": 26,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 10,
+      "reasons": [
+        "English localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Nagaland",
+      "score": 40,
+      "confidence": 24,
+      "evidence_strength": 25,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 12,
+      "reasons": [
+        "English localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Odisha",
+      "score": 57,
+      "confidence": 44,
+      "evidence_strength": 46,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "Odia",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 50,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Puducherry",
+      "score": 46,
+      "confidence": 41,
+      "evidence_strength": 43,
+      "demand_momentum": "Weak",
+      "recommended_language": "Tamil",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 24,
+      "reasons": [
+        "Tamil localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Punjab",
+      "score": 60,
+      "confidence": 58,
+      "evidence_strength": 61,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "Punjabi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 55,
+      "reasons": [
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Rajasthan",
+      "score": 64,
+      "confidence": 62,
+      "evidence_strength": 65,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Young urban 16-26, tier-2 cities",
+      "market_index": 68,
+      "reasons": [
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Sikkim",
+      "score": 39,
+      "confidence": 31,
+      "evidence_strength": 32,
+      "demand_momentum": "Weak",
+      "recommended_language": "English",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 8,
+      "reasons": [
+        "English localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Tamil Nadu",
+      "score": 78,
+      "confidence": 80,
+      "evidence_strength": 84,
+      "demand_momentum": "Strong",
+      "recommended_language": "Tamil",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 82,
+      "reasons": [
+        "Large addressable audience (market index 82)",
+        "Strong fantasy-anime search growth",
+        "Tamil localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Telangana",
+      "score": 76,
+      "confidence": 78,
+      "evidence_strength": 82,
+      "demand_momentum": "Strong",
+      "recommended_language": "Telugu",
+      "secondary_language": "Hindi",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 76,
+      "reasons": [
+        "Large addressable audience (market index 76)",
+        "Strong fantasy-anime search growth",
+        "Telugu localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Tripura",
+      "score": 42,
+      "confidence": 26,
+      "evidence_strength": 27,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "Bengali",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 18,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "Uttar Pradesh",
+      "score": 71,
+      "confidence": 73,
+      "evidence_strength": 77,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 90,
+      "reasons": [
+        "Large addressable audience (market index 90)",
+        "Hindi localization has the strongest affinity here"
+      ]
+    },
+    {
+      "state": "Uttarakhand",
+      "score": 54,
+      "confidence": 49,
+      "evidence_strength": 51,
+      "demand_momentum": "Weak",
+      "recommended_language": "Hindi",
+      "secondary_language": "English",
+      "preferred_platform": "OTT",
+      "audience_segment": "Emerging OTT-first viewers 16-24",
+      "market_index": 36,
+      "reasons": [
+        "Hindi localization has the strongest affinity here",
+        "Limited regional evidence; interpret with caution"
+      ]
+    },
+    {
+      "state": "West Bengal",
+      "score": 69,
+      "confidence": 70,
+      "evidence_strength": 74,
+      "demand_momentum": "Moderate",
+      "recommended_language": "Hindi",
+      "secondary_language": "Bengali",
+      "preferred_platform": "OTT",
+      "audience_segment": "Urban 16-30",
+      "market_index": 78,
+      "reasons": [
+        "Large addressable audience (market index 78)",
+        "Hindi localization has the strongest affinity here"
+      ]
+    }
+  ],
+  "language_affinity": [
+    {
+      "language": "Hindi",
+      "affinity": 88,
+      "confidence": 86
+    },
+    {
+      "language": "English",
+      "affinity": 70,
+      "confidence": 80
+    },
+    {
+      "language": "Tamil",
+      "affinity": 78,
+      "confidence": 80
+    },
+    {
+      "language": "Telugu",
+      "affinity": 74,
+      "confidence": 76
+    },
+    {
+      "language": "Kannada",
+      "affinity": 66,
+      "confidence": 66
+    },
+    {
+      "language": "Malayalam",
+      "affinity": 58,
+      "confidence": 60
+    },
+    {
+      "language": "Bengali",
+      "affinity": 48,
+      "confidence": 38
+    },
+    {
+      "language": "Marathi",
+      "affinity": 62,
+      "confidence": 64
+    },
+    {
+      "language": "Gujarati",
+      "affinity": 50,
+      "confidence": 52
+    },
+    {
+      "language": "Punjabi",
+      "affinity": 46,
+      "confidence": 48
+    },
+    {
+      "language": "Odia",
+      "affinity": 34,
+      "confidence": 30
+    },
+    {
+      "language": "Assamese",
+      "affinity": 30,
+      "confidence": 26
+    }
+  ]
+}

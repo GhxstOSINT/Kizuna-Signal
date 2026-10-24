@@ -1,0 +1,131 @@
+{
+  "comparables": [
+    {
+      "id": "jujutsu_kaisen",
+      "title": "Jujutsu Kaisen",
+      "year": 2020,
+      "format": "Anime series",
+      "similarity": 0.88,
+      "indian_demand": "High",
+      "genre_match": "Strong",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 84,
+      "reason": "Supernatural action, youth audience, ensemble characters and urban fantasy."
+    },
+    {
+      "id": "demon_slayer",
+      "title": "Demon Slayer",
+      "year": 2019,
+      "format": "Anime series",
+      "similarity": 0.84,
+      "indian_demand": "High",
+      "genre_match": "Strong",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 88,
+      "reason": "Folklore-driven fantasy action with a sibling bond at its core."
+    },
+    {
+      "id": "solo_leveling",
+      "title": "Solo Leveling",
+      "year": 2024,
+      "format": "Anime series",
+      "similarity": 0.79,
+      "indian_demand": "High",
+      "genre_match": "Strong",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 80,
+      "reason": "Dark fantasy action with a power-growth arc popular with gaming audiences."
+    },
+    {
+      "id": "frieren",
+      "title": "Frieren: Beyond Journey's End",
+      "year": 2023,
+      "format": "Anime series",
+      "similarity": 0.74,
+      "indian_demand": "Medium",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 70,
+      "reason": "Reflective fantasy about relationships and time; strong critical reception."
+    },
+    {
+      "id": "chainsaw_man",
+      "title": "Chainsaw Man",
+      "year": 2022,
+      "format": "Anime series",
+      "similarity": 0.72,
+      "indian_demand": "Medium",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 74,
+      "reason": "Dark action with a strong youth fandom; edgier tone."
+    },
+    {
+      "id": "naruto",
+      "title": "Naruto",
+      "year": 2002,
+      "format": "Anime series",
+      "similarity": 0.7,
+      "indian_demand": "High",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 91,
+      "reason": "Long-running coming-of-age action with deep Indian TV fandom."
+    },
+    {
+      "id": "blue_exorcist",
+      "title": "Blue Exorcist",
+      "year": 2011,
+      "format": "Anime series",
+      "similarity": 0.68,
+      "indian_demand": "Medium",
+      "genre_match": "Strong",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 58,
+      "reason": "Supernatural action with a reluctant hero; older release, lower reach."
+    },
+    {
+      "id": "dororo",
+      "title": "Dororo",
+      "year": 2019,
+      "format": "Anime series",
+      "similarity": 0.62,
+      "indian_demand": "Low",
+      "genre_match": "Moderate",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 52,
+      "reason": "Folklore-based dark fantasy; niche appeal outside fandom."
+    }
+  ],
+  "sets": {
+    "expected": [
+      "jujutsu_kaisen",
+      "demon_slayer",
+      "solo_leveling",
+      "frieren",
+      "chainsaw_man"
+    ],
+    "optimistic": [
+      "demon_slayer",
+      "naruto",
+      "jujutsu_kaisen",
+      "solo_leveling",
+      "chainsaw_man"
+    ],
+    "conservative": [
+      "frieren",
+      "blue_exorcist",
+      "dororo",
+      "chainsaw_man",
+      "solo_leveling"
+    ]
+  }
+}

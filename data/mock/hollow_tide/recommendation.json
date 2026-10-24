@@ -1,0 +1,61 @@
+{
+  "headline": "Do not commit launch investment yet. Collect more evidence first.",
+  "platform": "Digital-first test (no theatrical commitment)",
+  "priority_markets": [
+    "Maharashtra",
+    "Delhi",
+    "Karnataka"
+  ],
+  "localization": [
+    "Hindi subtitles",
+    "English subtitles retained"
+  ],
+  "target_audience": [
+    "Urban adult animation and arthouse viewers"
+  ],
+  "launch_window": "Decide after the evidence check (earliest June 2027)",
+  "positioning": "Quiet, character-led mystery for viewers of emotional adult animation.",
+  "campaign": [
+    "Publish a teaser with a distinctive search keyword",
+    "Run a festival or screening test in Mumbai and Delhi",
+    "Re-run the analysis once trailer and search data exist"
+  ],
+  "risks": [
+    {
+      "risk": "Ambiguous title term",
+      "mitigation": "Add a distinctive keyword or alternate title to campaign materials."
+    },
+    {
+      "risk": "No trailer data",
+      "mitigation": "Publish a teaser and wait two to four weeks for engagement data."
+    },
+    {
+      "risk": "Overspending on theatrical",
+      "mitigation": "Defer theatrical spend until confidence reaches at least 60%."
+    }
+  ],
+  "items": [
+    {
+      "id": "r1",
+      "topic": "Evidence",
+      "decision": "Gather trailer, search and comparable data before committing budget.",
+      "expected_benefit": "The potential score is high, but confidence is only 43%.",
+      "evidence": [
+        "Confidence factors: all below 55"
+      ],
+      "confidence": 43,
+      "principal_risk": "Waiting delays a festive-season window."
+    },
+    {
+      "id": "r2",
+      "topic": "Platform",
+      "decision": "Test digitally before theatrical release.",
+      "expected_benefit": "Theatrical shows a lower score and higher cost than digital-first.",
+      "evidence": [
+        "Distribution lever"
+      ],
+      "confidence": 45,
+      "principal_risk": "A digital test may under-represent arthouse demand."
+    }
+  ]
+}

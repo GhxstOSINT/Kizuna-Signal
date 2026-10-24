@@ -2,3 +2,4 @@ streamlit>=1.50
 plotly>=6.0
 pandas>=2.2
 fpdf2>=2.8
+pytest>=8.0
