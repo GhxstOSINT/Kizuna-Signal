@@ -6,7 +6,7 @@ from kizuna.theme import esc, html
 
 
 def _row(d, sources_by_id, comp_labels):
-    c = st.columns([1, 6, 3, 1.4], vertical_alignment="center")
+    c = st.columns([1, 5, 3, 2.2], vertical_alignment="center")
     color = theme.GOOD if d["points"] > 0 else theme.BAD
     if not d["active"]:
         color = theme.MUTED

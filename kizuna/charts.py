@@ -79,8 +79,9 @@ def choropleth(ranking, selected=None):
             geojson=geo, featureidkey=GEO_KEY, locations=[selected], z=[0], showscale=False,
             colorscale=[[0, "rgba(0,0,0,0)"], [1, "rgba(0,0,0,0)"]],
             marker=dict(line=dict(color=INK, width=2.5)), hoverinfo="skip"))
-    fig.update_geos(fitbounds="locations", visible=False)
-    fig.update_layout(height=560, margin=dict(l=0, r=0, t=0, b=0), paper_bgcolor="rgba(0,0,0,0)",
+    # Fixed mainland-India window: fitbounds would zoom out to include the far island territories.
+    fig.update_geos(visible=False, lonaxis_range=[68, 98], lataxis_range=[7, 37.5], projection_type="mercator")
+    fig.update_layout(height=600, margin=dict(l=0, r=0, t=0, b=0), paper_bgcolor="rgba(0,0,0,0)",
                       clickmode="event+select", dragmode=False)
     return fig
 

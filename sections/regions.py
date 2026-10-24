@@ -48,11 +48,16 @@ def render(data, tid):
     if ranking["top"]:
         cols = st.columns(3)
         for col, r in zip(cols, ranking["top"][:3]):
-            col.metric(f"#{r['rank']} {r['state']}", f"{r['score']}/100", f"{r['confidence']}% confidence",
-                       delta_color="off")
+            with col:
+                html(f'<div class="kz-card" style="padding:12px 16px;">'
+                     f'<div class="kz-label">#{r["rank"]} {esc(r["state"])}</div>'
+                     f'<div class="kz-big" style="font-size:2rem;">{r["score"]}<small> / 100</small></div>'
+                     f'<div class="kz-sub" style="margin-top:4px;">Confidence {r["confidence"]}% &middot; '
+                     f'{esc(r["recommended_language"])}</div></div>')
     else:
         html(theme.note("No region has enough evidence to be ranked.", "bad"))
 
+    st.write("")
     all_states = ranking["ranked"] + ranking["suppressed"]
     options = [r["state"] for r in all_states]
     key = f"sel_{tid}"

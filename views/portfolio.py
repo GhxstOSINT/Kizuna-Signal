@@ -16,7 +16,7 @@ def _card(p, data, reco, aff):
     conf_kind = theme.confidence_kind(view["confidence"])
     lo, hi = view["interval"]
     html(f"""
-<div class="kz-card">
+<div class="kz-card tall">
   {theme.poster(meta['title'], meta.get('accent', theme.PRIMARY))}
   <div class="kz-title">{esc(meta['title'])}</div>
   <div class="kz-sub">{esc(meta['format'])} &middot; {esc(', '.join(meta['genres'][:2]))}</div>

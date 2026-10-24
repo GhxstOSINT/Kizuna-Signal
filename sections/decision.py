@@ -39,6 +39,7 @@ def _hero(data, tid):
                 html(theme.note(f"Potential score {view['overall']}, but confidence is only {view['confidence']}%. "
                                 "More evidence is required before making a high-investment launch decision.", "bad"))
             html(f'<div class="kz-reco">{esc(data["reco"]["headline"])}</div>')
+        html('<div style="height:6px"></div>')
 
 
 def _status_notes(data, tid):

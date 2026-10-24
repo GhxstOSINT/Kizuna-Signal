@@ -13,8 +13,9 @@ def _metrics(col, name, r, is_base, cfg):
     with col:
         with st.container(border=True):
             st.markdown(f"**{name}**")
-            st.metric("Market potential", r["score"], None if is_base else f"{r['delta_score']:+d}")
-            st.metric("Confidence", f"{r['confidence']}%", None if is_base else f"{r['delta_confidence']:+d}")
+            st.metric("Market potential", r["score"], None if is_base or not r["delta_score"] else f"{r['delta_score']:+d}")
+            st.metric("Confidence", f"{r['confidence']}%",
+                      None if is_base or not r["delta_confidence"] else f"{r['delta_confidence']:+d}")
             html(theme.row("Expected range", f"{r['interval'][0]}-{r['interval'][1]}")
                  + theme.row("Estimated cost", r["cost_level"])
                  + theme.row("Regional reach", r["reach_level"])

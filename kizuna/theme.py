@@ -21,7 +21,8 @@ DECISION_KIND = {
 
 CSS = f"""
 <style>
-.kz-card {{border:1px solid {LINE}; border-radius:12px; padding:16px; background:#fff; height:100%;}}
+.kz-card {{border:1px solid {LINE}; border-radius:12px; padding:16px; background:#fff;}}
+.kz-card.tall {{min-height:500px;}}
 .kz-poster {{height:84px; border-radius:8px; display:flex; align-items:center; justify-content:center;
   color:#fff; font-weight:700; font-size:1.5rem; letter-spacing:.04em; margin-bottom:12px;}}
 .kz-title {{font-size:1.15rem; font-weight:700; color:{INK}; margin:0 0 2px 0;}}
