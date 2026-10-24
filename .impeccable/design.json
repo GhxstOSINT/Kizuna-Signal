@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T20:00:00+05:30",
+  "title": "Design System: Kizuna Signal",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Graphite Ink", "canonical": "#171817", "tonalRamp": ["#171817", "#2f302f", "#4b4d4b", "#696c69", "#919491", "#b8bab7", "#dfe0de", "#f4f4f2"] },
+      "mineral-paper": { "role": "neutral", "displayName": "Mineral Paper", "canonical": "#f4f4f2", "tonalRamp": ["#252624", "#454743", "#696c67", "#91948e", "#b8bbb5", "#d5d7d2", "#e8e9e6", "#f4f4f2"] },
+      "evidence-green": { "role": "secondary", "displayName": "Evidence Green", "canonical": "#168765", "tonalRamp": ["#08271f", "#0d4233", "#116048", "#168765", "#3ea484", "#73c1a5", "#b4dfd0", "#e6f5ef"] },
+      "caution-amber": { "role": "tertiary", "displayName": "Caution Amber", "canonical": "#a86a18", "tonalRamp": ["#2d1b07", "#4f300a", "#74470f", "#a86a18", "#c68c42", "#deb270", "#efd6a9", "#faf0dd"] },
+      "risk-red": { "role": "tertiary", "displayName": "Risk Red", "canonical": "#b44536", "tonalRamp": ["#32110d", "#561d17", "#7e2e25", "#b44536", "#cc6b5e", "#df988f", "#efc7c1", "#f9ebe8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Editorial Display", "purpose": "Page names, major scores, and consequential conclusions." },
+      "body": { "displayName": "Operational Body", "purpose": "Controls, descriptions, and readable decision guidance." },
+      "label": { "displayName": "Evidence Label", "purpose": "Versions, ranks, source state, and provenance." }
+    },
+    "shadows": [
+      { "name": "floating-action", "value": "0 8px 20px rgba(0,0,0,.12)", "purpose": "Primary pill actions only." }
+    ],
+    "motion": [
+      { "name": "page-settle", "value": "450ms cubic-bezier(.16,1,.3,1)", "purpose": "Short opacity and vertical route settle." },
+      { "name": "control-state", "value": "200ms ease", "purpose": "Hover and focus feedback." },
+      { "name": "spectral-travel", "value": "5s linear", "purpose": "Live evidence trace; disabled by reduced-motion preference." }
+    ],
+    "breakpoints": [
+      { "name": "wide-adjust", "value": "1100px" },
+      { "name": "top-navigation", "value": "820px" },
+      { "name": "single-column", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary workflow action with compact pill geometry.",
+      "html": "<button class=\"ds-btn-primary\">ANALYSE NEW TITLE</button>",
+      "css": ".ds-btn-primary{border:0;border-radius:999px;background:#171817;color:#fafaf8;padding:12px 17px;font:600 13px 'DM Sans',Arial,sans-serif;box-shadow:0 8px 20px rgba(0,0,0,.12);transition:transform .2s,background .2s}.ds-btn-primary:hover{background:#30322f;transform:translateY(-1px)}.ds-btn-primary:focus-visible{outline:2px solid #3b7cff;outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary navigation and non-destructive action.",
+      "html": "<button class=\"ds-btn-ghost\">SCENARIO LAB</button>",
+      "css": ".ds-btn-ghost{border:1px solid #d5d7d4;border-radius:999px;background:#fafaf8;color:#171817;padding:12px 17px;font:600 13px 'DM Sans',Arial,sans-serif;transition:transform .2s,background .2s}.ds-btn-ghost:hover{background:#f0f0ee;transform:translateY(-1px)}.ds-btn-ghost:focus-visible{outline:2px solid #3b7cff;outline-offset:3px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Quiet evidence-intake field.",
+      "html": "<input class=\"ds-input\" value=\"Project Hikari\" aria-label=\"Original title\">",
+      "css": ".ds-input{width:100%;min-height:46px;border:1px solid #d5d7d4;border-radius:9px;background:#fafaf8;color:#171817;padding:0 14px;font:400 14px 'DM Sans',Arial,sans-serif}.ds-input:focus{border-color:#929691;outline:2px solid #3b7cff;outline-offset:2px}.ds-input:disabled{opacity:.45}"
+    },
+    {
+      "name": "Active Navigation",
+      "kind": "nav",
+      "description": "Filled neutral route indicator for the operating rail.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link ds-active\" href=\"#\">Portfolio</a><a class=\"ds-nav-link\" href=\"#\">New analysis</a></nav>",
+      "css": ".ds-nav{display:grid;gap:5px;width:210px;font:400 14px 'DM Sans',Arial,sans-serif}.ds-nav-link{padding:11px 12px;border-radius:9px;color:#5f625f;text-decoration:none}.ds-nav-link:hover{color:#171817;background:#dddedc}.ds-nav-link:focus-visible{outline:2px solid #3b7cff;outline-offset:2px}.ds-nav-link.ds-active{background:#d6d8d5;color:#171817;font-weight:600}"
+    },
+    {
+      "name": "Signal Rail",
+      "kind": "custom",
+      "description": "Live evidence and workflow status with the Kizuna spectral signature.",
+      "html": "<div class=\"ds-signal\"><span class=\"ds-dot\"></span><span>LIVE API</span><i></i><span>EXPLAINABLE SCORING</span></div>",
+      "css": ".ds-signal{position:relative;display:flex;align-items:center;gap:13px;min-height:37px;overflow:hidden;border-radius:9px;background:#171817;color:#f2f3f0;padding:0 16px;font:400 10px/1 'IBM Plex Mono',Consolas,monospace;letter-spacing:.05em;white-space:nowrap}.ds-signal:after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,#ff7148,#ffd65c,#4ce0ad,#5ba7ff,#a776ff,transparent);opacity:.48}.ds-dot{width:6px;height:6px;border-radius:50%;background:#69e0b1;box-shadow:0 0 10px rgba(105,224,177,.8)}.ds-signal i{width:1px;height:11px;background:#666}"
+    },
+    {
+      "name": "Evidence Surface",
+      "kind": "card",
+      "description": "Flat bounded surface for scores, assumptions, and grouped evidence.",
+      "html": "<section class=\"ds-surface\"><strong>71 / 100</strong><p>Market potential</p></section>",
+      "css": ".ds-surface{border:1px solid #d5d7d4;border-radius:14px;background:#fafaf8;color:#171817;padding:24px}.ds-surface strong{font:400 44px/1 'Instrument Serif',Georgia,serif}.ds-surface p{margin:12px 0 0;color:#696c69;font:400 10px 'IBM Plex Mono',Consolas,monospace;text-transform:uppercase;letter-spacing:.05em}.ds-surface:focus-within{outline:2px solid #3b7cff;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Signal Plane",
+    "overview": "Kizuna Signal is an editorial intelligence instrument: quiet enough for consequential reading, precise enough for dense evidence, and memorable through one live spectral signal that represents evidence moving through the system. It is restrained rather than decorative; dense decision content is progressively disclosed without disguising uncertainty or unsupported capabilities.",
+    "keyCharacteristics": [
+      "Editorial serif conclusions paired with neutral interface typography.",
+      "Flat mineral surfaces separated by rules instead of stacked shadows.",
+      "One spectral evidence rail as the recurring signature.",
+      "Monospaced labels for versions, measurements, and provenance.",
+      "Responsive reading order that preserves evidence before decoration."
+    ],
+    "rules": [
+      { "name": "The Evidence Color Rule", "body": "Semantic color must describe a state; it is never used as general decoration.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Serif communicates conclusions; sans and mono communicate interaction and evidence.", "section": "typography" },
+      { "name": "The Flat-by-Default Rule", "body": "If a surface can be separated by spacing, tone, or a hairline, it does not receive a shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do show provenance, warnings, and scoring versions next to decision outputs.",
+      "Do use semantic color together with readable status text.",
+      "Do preserve large editorial moments around the score and final decision.",
+      "Do keep incomplete model and dataset capabilities explicitly labelled."
+    ],
+    "donts": [
+      "Don't copy Octolane logos, proprietary copy, assets, or distinctive brand marks.",
+      "Don't turn every section into a floating card or use gradients as generic decoration.",
+      "Don't present confidence as prediction accuracy or public demand proxies as guaranteed revenue.",
+      "Don't label deterministic metadata or scoring as AI-generated until a real inference endpoint is connected."
+    ]
+  }
+}

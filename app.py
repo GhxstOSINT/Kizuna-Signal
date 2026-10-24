@@ -26,7 +26,12 @@ state.register_pages(PAGES)
 with st.sidebar:
     st.markdown(f"### {APP_NAME}")
     st.caption("Pre-release intelligence for Japanese media in India")
-    projects = state.get_api().list_projects()
+    api = state.get_api()
+    if hasattr(api, "base_url"):
+        st.success("Live backend connected", icon="🟢")
+    else:
+        st.info("Offline demo data", icon="🔵")
+    projects = api.list_projects()
     ids = [p["title_id"] for p in projects]
     names = {p["title_id"]: p["title"] for p in projects}
     active = state.active_title()

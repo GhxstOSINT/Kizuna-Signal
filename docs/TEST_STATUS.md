@@ -33,7 +33,7 @@ This document maps the comprehensive test library to what is executable in the c
 - Malformed live-source response and timeout tests: require real provider adapters plus a common retry/timeout wrapper.
 - Post-release leakage enforcement: requires timestamped raw evidence and a feature cutoff model.
 - PostgreSQL integration tests: Docker configuration exists, but CI/service provisioning is not yet wired.
-- Frontend polling, refresh recovery and generated-TypeScript compilation: require the frontend repository.
+- Dashboard polling, refresh recovery and generated-TypeScript compilation: require the dashboard app.
 - Duplicate-click idempotency under concurrency: requires an idempotency key or database uniqueness strategy.
 - Durable restart/recovery tests: require an external worker queue rather than in-process background tasks.
 - Authentication and organization isolation: authentication/RBAC is intentionally not part of the current demo build.

@@ -1,13 +1,10 @@
 services:
-  frontend:
+  dashboard:
     build:
       context: .
-      dockerfile: Dockerfile.frontend
-    environment:
-      KIZUNA_FRONTEND_MODE: live
-      KIZUNA_API_URL: http://api:8000/api/v1
+      dockerfile: Dockerfile.dashboard
     ports:
-      - "8501:8501"
+      - "${KIZUNA_DASHBOARD_PORT:-3000}:80"
     depends_on:
       api:
         condition: service_healthy
@@ -17,9 +14,9 @@ services:
     environment:
       KIZUNA_DATABASE_URL: postgresql+psycopg://kizuna:kizuna@postgres:5432/kizuna
       KIZUNA_DEMO_MODE: "true"
-      KIZUNA_CORS_ORIGINS: http://localhost:8501,http://localhost:3000
+      KIZUNA_CORS_ORIGINS: '["http://localhost:3000","http://localhost:3002","http://localhost:4173","http://127.0.0.1:4173"]'
     ports:
-      - "8000:8000"
+      - "${KIZUNA_API_PORT:-8000}:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,7 +33,7 @@ services:
       POSTGRES_USER: kizuna
       POSTGRES_PASSWORD: kizuna
     ports:
-      - "5432:5432"
+      - "${KIZUNA_POSTGRES_PORT:-5432}:5432"
     volumes:
       - kizuna-postgres:/var/lib/postgresql/data
     healthcheck:

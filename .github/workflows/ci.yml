@@ -28,5 +28,5 @@ jobs:
         run: pytest --cov=app --cov-report=term-missing --cov-fail-under=90
       - name: Build container
         run: docker build -t kizuna-signal-backend:test .
-      - name: Build frontend container
-        run: docker build -f Dockerfile.frontend -t kizuna-signal-frontend:test .
+      - name: Build dashboard container
+        run: docker build -f Dockerfile.dashboard -t kizuna-signal-dashboard:test .

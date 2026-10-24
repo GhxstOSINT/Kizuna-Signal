@@ -2,7 +2,7 @@
 import streamlit as st
 
 from kizuna import charts, engine, state, theme
-from kizuna.theme import esc, html
+from kizuna.theme import html
 
 
 def _lever_text(cfg, levers):
@@ -43,19 +43,67 @@ def render():
     with st.expander("Build a custom scenario", expanded=True):
         cols = st.columns(len(cfg["levers"]))
         custom = {}
-        for col, (lever, spec) in zip(cols, cfg["levers"].items()):
+        for col, (lever, spec) in zip(cols, cfg["levers"].items(), strict=False):
             options = list(spec["options"])
             base_opt = sc["base"]["levers"][lever]
             custom[lever] = col.selectbox(spec["label"], options, index=options.index(base_opt),
                                           format_func=lambda o, s=spec: s["options"][o]["label"],
                                           key=f"lever_{tid}_{lever}")
 
+        api = state.get_api()
+        if hasattr(api, "create_scenario"):
+            if st.button("Evaluate with live backend", type="primary", key=f"eval_scenario_{tid}"):
+                localization = {
+                    "subs_hindi": "subtitles",
+                    "dub_hindi_subs_regional": "dub",
+                    "multilingual_dub": "multilingual_dub",
+                    "english_subs_only": "subtitles",
+                }[custom["localization"]]
+                platform = {
+                    "ott": "OTT", "theatrical": "Theatrical", "tv": "Television",
+                    "digital_first": "Digital-first", "hybrid": "Hybrid (OTT + theatrical)",
+                }[custom["distribution"]]
+                regions = data["regions"]["ranked"]
+                states = [row.get("state") for row in regions[:5] if row.get("state")]
+                languages = list(dict.fromkeys(
+                    row.get("recommended_language") for row in regions[:5]
+                    if row.get("recommended_language")
+                ))
+                payload = {
+                    "name": f"Streamlit scenario: {custom['localization']} / {custom['distribution']}",
+                    "target_platform": platform,
+                    "localization_mode": localization,
+                    "marketing_budget": custom["marketing_budget"],
+                    "target_states": states if custom["geography"] != "national" else None,
+                    "target_languages": languages if custom["geography"] != "national" else None,
+                    "disabled_sources": state.get_overrides(tid)["disabled_sources"],
+                }
+                try:
+                    st.session_state[f"backend_scenario_{tid}"] = api.create_scenario(tid, payload)
+                    st.success("Scenario evaluated and saved by the backend.")
+                except (RuntimeError, KeyError) as exc:
+                    st.error(f"Could not evaluate scenario: {exc}")
+
+            backend_scenario = st.session_state.get(f"backend_scenario_{tid}")
+            if backend_scenario:
+                result = backend_scenario["result"]
+                st.subheader("Backend-evaluated scenario")
+                metric_cols = st.columns(4)
+                metric_cols[0].metric("Market potential", f"{result['scenario_score']:.0f}",
+                                      f"{result['score_delta']:+.1f}")
+                metric_cols[1].metric("Confidence", f"{result['scenario_confidence']:.0f}%",
+                                      f"{result['confidence_delta']:+.1f}%")
+                metric_cols[2].metric("Estimated cost", result["cost_level"].title())
+                metric_cols[3].metric("Regional reach", result["reach_level"].title())
+                st.caption("Release-window choice is not included in the current backend scenario contract.")
+                st.write("**Backend recommendation:**", result["recommendation"]["decision"])
+
     results = engine.scenario_results(view, sc, cfg)
     if custom != sc["base"]["levers"] and custom not in [p["levers"] for p in sc["presets"]]:
         results.append(("Custom scenario", engine.scenario_result(view, sc, custom, cfg)))
 
     cols = st.columns(len(results))
-    for col, (name, r) in zip(cols, results):
+    for col, (name, r) in zip(cols, results, strict=False):
         _metrics(col, name, r, name == "Base strategy", cfg)
 
     c1, c2 = st.columns(2)

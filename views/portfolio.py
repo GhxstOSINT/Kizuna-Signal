@@ -38,7 +38,7 @@ def render():
     api = state.get_api()
     head, action = st.columns([4, 1], vertical_alignment="center")
     head.title("Portfolio")
-    head.caption("Which Japanese title, state, language and platform deserves investment in India?")
+    head.caption("Pre-release intelligence for Japanese media entering India.")
     if action.button("Analyse New Title", type="primary", icon=":material/add:", use_container_width=True):
         state.goto("new_analysis")
 
@@ -61,14 +61,50 @@ def render():
         st.info("No titles match your search or filter.")
         return
 
+    snapshots = []
+    for project in shown:
+        title_id = project["title_id"]
+        data = state.load(title_id)
+        snapshots.append({
+            "project": project,
+            "data": data,
+            "recommendation": api.get_recommendation(title_id),
+            "language_affinity": api.get_regions(title_id)["language_affinity"],
+        })
+
+    scores = [snapshot["data"]["view"]["overall"] for snapshot in snapshots]
+    confidences = [snapshot["data"]["view"]["confidence"] for snapshot in snapshots]
+    priority_states = {
+        row["state"]
+        for snapshot in snapshots
+        for row in snapshot["data"]["regions"]["top"]
+    }
+    avg_score = round(sum(scores) / len(scores))
+    avg_confidence = round(sum(confidences) / len(confidences))
+    mode = "LIVE API" if hasattr(api, "base_url") else "OFFLINE DEMO"
+    theme.html(f"""
+<div class="kz-ticker"><span class="dot"></span><span>{mode}</span><span class="sep">/</span>
+<span>{len(shown)} titles in view</span><span class="sep">/</span>
+<span>Explainable scoring</span><span class="sep">/</span><span>India regional intelligence</span></div>
+<section class="kz-portfolio-hero">
+  <div class="kz-eyebrow">Kizuna Signal &nbsp;/&nbsp; Market intelligence</div>
+  <h2>See the next signal before launch.</h2>
+  <p>Compare market potential, evidence confidence and regional opportunity—then turn the strongest signals into a launch plan.</p>
+</section>
+<div class="kz-hero-stats">
+  <div class="kz-hero-stat"><strong>{len(shown)}</strong><span>Titles in view</span></div>
+  <div class="kz-hero-stat"><strong>{avg_score}<small style="font:400 .82rem Arial,sans-serif;color:#70747a;"> / 100</small></strong><span>Average potential</span></div>
+  <div class="kz-hero-stat"><strong>{avg_confidence}%</strong><span>Average confidence</span></div>
+  <div class="kz-hero-stat"><strong>{len(priority_states)}</strong><span>Priority states</span></div>
+</div>""")
+    st.subheader("Analysis portfolio")
+
     cols = st.columns(3)
-    for i, p in enumerate(shown):
+    for i, snapshot in enumerate(snapshots):
+        p = snapshot["project"]
         tid = p["title_id"]
-        data = state.load(tid)
-        reco = api.get_recommendation(tid)
-        aff = api.get_regions(tid)["language_affinity"]
         with cols[i % 3]:
-            _card(p, data, reco, aff)
+            _card(p, snapshot["data"], snapshot["recommendation"], snapshot["language_affinity"])
             if st.button("Open results", key=f"open_{tid}", use_container_width=True):
                 state.set_active_title(tid)
                 state.goto("results")

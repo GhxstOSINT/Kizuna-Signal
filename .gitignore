@@ -10,6 +10,14 @@ htmlcov/
 *.db
 *.sqlite3
 dist/
+dashboard/node_modules/
+dashboard/dist/
+dashboard/*.tsbuildinfo
+dashboard/vite.config.js
+dashboard/vite.config.d.ts
+frontend/
+.integration-pip-tmp/
+.impeccable/review/
 build/
 *.egg-info/
 .idea/

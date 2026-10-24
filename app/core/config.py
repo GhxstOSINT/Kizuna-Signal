@@ -18,7 +18,11 @@ class Settings(BaseSettings):
     environment: str = "development"
     api_v1_prefix: str = "/api/v1"
     database_url: str = "sqlite:///./kizuna.db"
-    cors_origins: list[str] = ["http://localhost:8501", "http://localhost:3000"]
+    cors_origins: list[str] = [
+        "http://localhost:3000",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+    ]
     demo_mode: bool = True
     log_level: str = "INFO"
     model_version: str = "kizuna-baseline-0.1.0"

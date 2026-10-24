@@ -9,7 +9,7 @@ import json
 import time
 from copy import deepcopy
 from datetime import datetime
-from functools import lru_cache
+from functools import cache
 
 import httpx
 
@@ -19,7 +19,7 @@ from .config import API_URL, FRONTEND_MODE, MOCK_DIR, STAGE_SECONDS
 FAIL_STAGE = 3  # stage index that fails when the simulated outcome is "failure"
 
 
-@lru_cache(maxsize=None)
+@cache
 def _load(rel_path):
     with open(MOCK_DIR / rel_path, encoding="utf-8") as fh:
         return json.load(fh)
@@ -137,7 +137,7 @@ class MockApi:
         progress = 100 if status in ("complete", "partial") else round(100 * min(done, len(stages)) / len(stages))
         return {
             "job_id": job_id, "title_id": job["title_id"], "status": status, "progress": progress,
-            "stages": [{"name": n, "state": s} for n, s in zip(stages, states)],
+            "stages": [{"name": n, "state": s} for n, s in zip(stages, states, strict=False)],
             "sources": self._job_sources(job["title_id"], outcome, status),
             "error": "Comparable-title retrieval failed: AniList request timed out." if failed else None,
         }
@@ -414,10 +414,16 @@ class BackendApi:
             )
         by_language = {}
         for row in rows:
-            by_language.setdefault(row["recommended_language"], []).append(row["score"])
+            by_language.setdefault(row["recommended_language"], []).append(row)
         affinity = [
-            {"language": language, "affinity": round(sum(values) / len(values))}
-            for language, values in by_language.items()
+            {
+                "language": language,
+                "affinity": round(sum(row["score"] for row in language_rows) / len(language_rows)),
+                "confidence": round(
+                    sum(row["confidence"] for row in language_rows) / len(language_rows)
+                ),
+            }
+            for language, language_rows in by_language.items()
         ]
         return {"regions": rows, "language_affinity": affinity}
 
@@ -483,9 +489,18 @@ class BackendApi:
             "items": [],
         }
 
-    def get_scenarios(self, _title_id):
-        # The current UI lever model is preserved until its controls post the backend scenario contract.
+    def get_scenarios(self, title_id):
+        # Static strategy presets still drive the local comparison charts.
         return _fresh("shadow_bloom/scenarios.json")
+
+    def list_backend_scenarios(self, title_id):
+        analysis_id = self._analysis(title_id)["id"]
+        return self._request("GET", f"/analyses/{analysis_id}/scenarios")
+
+    def create_scenario(self, title_id, payload):
+        """Evaluate and persist a what-if scenario against the selected frozen analysis."""
+        analysis_id = self._analysis(title_id)["id"]
+        return self._request("POST", f"/analyses/{analysis_id}/scenarios", json=payload)
 
     def start_analysis(self, payload, outcome="normal"):
         del outcome  # Failure simulation belongs to MockApi only.

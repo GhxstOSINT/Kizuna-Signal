@@ -1,0 +1,35 @@
+.signal-rail {
+  scrollbar-width: none;
+}
+
+.signal-rail::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .nav-link {
+    gap: 6px;
+    padding-inline: 8px;
+    font-size: 13px;
+  }
+
+  .signal-rail {
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 28px), transparent 100%);
+  }
+
+  .signal-rail > span:not(.signal-dot) {
+    scroll-snap-align: start;
+  }
+
+  .badge,
+  .region-rank,
+  .comparable-row > span,
+  .source-row dt,
+  .source-row dd,
+  .source-row > p {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+}

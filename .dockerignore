@@ -8,3 +8,8 @@ __pycache__
 *.db
 *.pyc
 tests
+dashboard/node_modules
+dashboard/dist
+frontend
+.impeccable/review
+.integration-pip-tmp

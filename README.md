@@ -1,6 +1,6 @@
 # Kizuna Signal
 
-Kizuna Signal is an explainable pre-release intelligence system for Japanese media entering India. The integration branch combines the FastAPI backend, persistence and scoring pipeline with the Streamlit decision dashboard. The UI automatically uses the live API when it is healthy and retains its deterministic mock mode for an offline demonstration.
+Kizuna Signal is an explainable pre-release intelligence system for Japanese media entering India. The integration combines the FastAPI backend, persistence and scoring pipeline with a dedicated React and TypeScript dashboard. The previous Streamlit prototype remains in the repository as migration reference only and is not used by the current dashboard or Docker deployment.
 
 ## What is implemented
 
@@ -33,24 +33,25 @@ Open:
 - API documentation: `http://localhost:8000/docs`
 - Readiness: `http://localhost:8000/health/ready`
 
+Run the dedicated website in a second terminal:
+
+```powershell
+cd dashboard
+npm install
+npm run dev
+```
+
+Open `http://127.0.0.1:4173`.
+
 ## Docker
 
 ```powershell
 docker compose up --build
 ```
 
-Open the integrated application at `http://localhost:8501` and the API documentation at `http://localhost:8000/docs`.
+Open the integrated dashboard at `http://localhost:3000` and the API documentation at `http://localhost:8000/docs`. Override `KIZUNA_DASHBOARD_PORT`, `KIZUNA_API_PORT`, and `KIZUNA_POSTGRES_PORT` when those host ports are already in use.
 
-To run the Streamlit UI outside Docker:
-
-```powershell
-python -m pip install -e ".[frontend]"
-$env:KIZUNA_FRONTEND_MODE="live"
-$env:KIZUNA_API_URL="http://localhost:8000/api/v1"
-streamlit run app.py
-```
-
-Set `KIZUNA_FRONTEND_MODE=mock` for the fully offline seeded prototype. `auto` selects the live backend when its readiness endpoint succeeds and otherwise falls back to mock mode.
+The website does not fabricate an offline result when the API is unavailable. It shows an explicit recovery state. The backend itself can still operate with its deterministic offline-safe adapters until authenticated live providers and the trained model runtime are supplied.
 
 ## Run tests
 
@@ -58,7 +59,7 @@ Set `KIZUNA_FRONTEND_MODE=mock` for the fully offline seeded prototype. `auto` s
 pytest
 ```
 
-See `docs/TEST_STATUS.md` for backend coverage and the verified behaviors. The cross-stack adapter tests are included in the integration branch; the full Streamlit UI suite is run by GitHub Actions.
+See `docs/TEST_STATUS.md` for backend coverage and verified behavior. Build the dashboard with `npm run build` from `dashboard`.
 
 Refresh the committed API contract after an intentional schema change:
 
