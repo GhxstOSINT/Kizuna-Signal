@@ -5,15 +5,6 @@ from kizuna import charts, engine, state, theme
 from kizuna.theme import esc, html
 
 
-def scenario_results(data):
-    """[(name, result)] for the base-relative presets, plus the base itself first."""
-    view, sc, cfg = data["view"], data["scenarios"], data["cfg"]
-    out = [("Base strategy", engine.scenario_result(view, sc, sc["base"]["levers"], cfg))]
-    for p in sc["presets"]:
-        out.append((p["label"], engine.scenario_result(view, sc, p["levers"], cfg)))
-    return out
-
-
 def _lever_text(cfg, levers):
     return [(cfg["levers"][k]["label"], cfg["levers"][k]["options"][v]["label"]) for k, v in levers.items()]
 
@@ -58,7 +49,7 @@ def render():
                                           format_func=lambda o, s=spec: s["options"][o]["label"],
                                           key=f"lever_{tid}_{lever}")
 
-    results = scenario_results(data)
+    results = engine.scenario_results(view, sc, cfg)
     if custom != sc["base"]["levers"] and custom not in [p["levers"] for p in sc["presets"]]:
         results.append(("Custom scenario", engine.scenario_result(view, sc, custom, cfg)))
 

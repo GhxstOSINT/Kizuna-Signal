@@ -220,3 +220,11 @@ def recommend_scenario(results, cfg):
 def scenario_label(cfg, lever, option):
     return cfg["levers"][lever]["options"][option]["label"]
 
+
+
+def scenario_results(view, scenarios, cfg):
+    """[(name, result)]: the base strategy first, then each preset scenario."""
+    out = [("Base strategy", scenario_result(view, scenarios, scenarios["base"]["levers"], cfg))]
+    for p in scenarios["presets"]:
+        out.append((p["label"], scenario_result(view, scenarios, p["levers"], cfg)))
+    return out

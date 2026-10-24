@@ -3,7 +3,7 @@ import streamlit as st
 
 from kizuna import state, theme
 from kizuna.config import APP_NAME
-from views import new_analysis, portfolio, results, scenario_lab
+from views import methodology, new_analysis, playbook_export, portfolio, results, scenario_lab
 
 st.set_page_config(page_title=APP_NAME, page_icon=":material/radar:", layout="wide")
 theme.inject_css()
@@ -16,6 +16,10 @@ PAGES = {
     "results": st.Page(results.render, title="Results", icon=":material/insights:", url_path="results"),
     "scenario_lab": st.Page(scenario_lab.render, title="Scenario Lab", icon=":material/science:",
                             url_path="scenario-lab"),
+    "playbook": st.Page(playbook_export.render, title="Playbook & Export", icon=":material/rocket_launch:",
+                        url_path="playbook"),
+    "methodology": st.Page(methodology.render, title="Methodology", icon=":material/menu_book:",
+                           url_path="methodology"),
 }
 state.register_pages(PAGES)
 

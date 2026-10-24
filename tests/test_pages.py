@@ -177,3 +177,54 @@ def test_scenario_lab_custom_scenario_adds_column_and_keeps_base_unchanged():
     assert "**Custom scenario**" in names
     assert not at.session_state["overrides"]["shadow_bloom"]["disabled_sources"]
     assert "78" in " ".join(str(m.value) for m in at.metric)
+
+
+def test_methodology_renders():
+    at = run_page("views.methodology")
+    assert not at.exception
+
+
+def _dl_buttons(at):
+    return [e for e in at.get("download_button")]
+
+
+def test_exports_locked_until_accept_then_unlocked():
+    at = run_page("views.playbook_export", "shadow_bloom")
+    assert not at.exception
+    dls = _dl_buttons(at)
+    assert len(dls) == 5 and all(d.proto.disabled for d in dls)
+    next(b for b in at.button if b.key == "accept_shadow_bloom").click()
+    at.run()
+    assert not at.exception
+    assert at.session_state["approvals"]["shadow_bloom"]["status"] == "accepted"
+    assert all(not d.proto.disabled for d in _dl_buttons(at))
+
+
+def test_reject_requires_reason():
+    at = run_page("views.playbook_export", "shadow_bloom")
+    reject = next(b for b in at.button if b.key == "reject_shadow_bloom")
+    assert reject.disabled
+    at.text_area(key="appr_reason_shadow_bloom").set_value("Needs more evidence")
+    at.run()
+    reject = next(b for b in at.button if b.key == "reject_shadow_bloom")
+    assert not reject.disabled
+    reject.click()
+    at.run()
+    assert at.session_state["approvals"]["shadow_bloom"]["status"] == "rejected"
+    assert all(d.proto.disabled for d in _dl_buttons(at))
+
+
+def test_changing_inputs_after_accept_clears_approval():
+    from kizuna import state
+
+    at = run_page("views.playbook_export", "shadow_bloom")
+    next(b for b in at.button if b.key == "accept_shadow_bloom").click()
+    at.run()
+    assert at.session_state["approvals"]["shadow_bloom"]["status"] == "accepted"
+    res = run_page("views.results", "shadow_bloom",
+                   setup=lambda a: (a.session_state.__setitem__("approvals", at.session_state["approvals"]),
+                                    a.session_state.__setitem__("audit_log", [])))
+    next(t for t in res.toggle if t.key == "src_shadow_bloom_google_trends").set_value(False)
+    res.run()
+    assert "shadow_bloom" not in res.session_state["approvals"]
+    assert res.session_state["audit_log"][-1]["action"] == "approval_reset"
