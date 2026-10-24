@@ -20,6 +20,16 @@ from app.ml.schema import TitleRecord  # noqa: E402
 from app.ml.states import PILOT_STATES, STATES  # noqa: E402
 
 
+def save(data: Path, demand, labels, reports, client) -> dict:
+    pd.DataFrame(demand).to_csv(data / "trends_demand.csv", index=False)
+    pd.DataFrame(labels).to_csv(data / "state_labels.csv", index=False)
+    summary = {"attempted": len(reports), "kept": len({r["title_id"] for r in labels}),
+               "dropped": {r["title_id"]: r["error"] for r in reports if r["error"]},
+               "live_requests": client.live_requests}
+    (data / "trends_report.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    return summary
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, default=Path("data/processed"))
@@ -43,16 +53,11 @@ def main() -> int:
             labels += l
             reports.append(rep)
             print(rep["title_id"], rep["states_ok"], rep["error"] or "ok", flush=True)
+            save(args.data, demand, labels, reports, client)  # survive an interrupted run
     except QuotaExceeded as exc:
         print(f"stopped: {exc}", file=sys.stderr)
 
-    pd.DataFrame(demand).to_csv(args.data / "trends_demand.csv", index=False)
-    pd.DataFrame(labels).to_csv(args.data / "state_labels.csv", index=False)
-    kept = len({r["title_id"] for r in labels})
-    summary = {"attempted": len(reports), "kept": kept,
-               "dropped": {r["title_id"]: r["error"] for r in reports if r["error"]},
-               "live_requests": client.live_requests}
-    (args.data / "trends_report.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    summary = save(args.data, demand, labels, reports, client)
     print(json.dumps({k: v for k, v in summary.items() if k != "dropped"}, indent=2))
     return 0
 
