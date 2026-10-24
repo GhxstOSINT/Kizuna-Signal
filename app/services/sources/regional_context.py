@@ -82,7 +82,7 @@ class RegionalContextAdapter(SourceAdapter):
                     quality = 0.75
                     warnings.append(
                         "Survey signal comes only from rows labelled as exploratory proxies "
-                        "(preference or rating data), not measured viewing rates."
+                        "(preference, rating or synthetic data), not measured viewing rates."
                     )
                 else:
                     quality = 0.9

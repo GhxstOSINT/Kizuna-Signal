@@ -19,3 +19,5 @@ reported in the analysis warnings instead of failing the run.
 
 How it is used: state rows feed each state's score (20% weight) and its confidence; national rows
 feed the `genre_affinity` metric, which adjusts `content_fit` (35%) and `regional_opportunity`.
+
+Simulated demo data is **not** loaded from here; it lives in `data/synthetic/` (see its README). Keep this folder for real survey rows only.
