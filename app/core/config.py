@@ -31,7 +31,8 @@ class Settings(BaseSettings):
     trends_cooldown_seconds: int = 15 * 60
     anilist_cache_ttl_seconds: int = 24 * 3600
     anilist_cooldown_seconds: int = 60
-    survey_dir: str = "data/survey"
+    survey_dir: str = "data/survey"  # live mode: real survey rows only
+    demo_survey_dir: str = "data/synthetic"  # demo mode: simulated rows, flagged as PROXY
     youtube_api_key: str = ""
     youtube_cache_ttl_seconds: int = 6 * 3600
     log_level: str = "INFO"

@@ -106,6 +106,10 @@ class SourceRegistry:
             return DemoAdapter(name, "unavailable").collect(title)
         mode = self.mode_for(name)
         if mode == "demo":
+            if name == "regional_context":  # offline Census + the labelled synthetic survey
+                return RegionalContextAdapter(
+                    SurveyData.from_dir(self.settings.demo_survey_dir)
+                ).collect(title)
             return DemoAdapter(name).collect(title)
         if mode == "unconfigured":
             return self._unavailable(name, title, f"{name} is not configured; no data was used.")

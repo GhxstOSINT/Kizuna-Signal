@@ -54,3 +54,51 @@ def test_a_crashing_adapter_degrades_instead_of_failing_the_analysis(monkeypatch
     assert evidence.status == "unavailable"
     assert "failed unexpectedly" in evidence.warnings[0]
     assert "kaboom" not in evidence.warnings[0]  # exception text stays in the server log
+
+
+def regional_title():
+    return SimpleNamespace(
+        name="Shadow Bloom",
+        english_title="Shadow Bloom",
+        primary_genre="fantasy",
+        genres=["fantasy", "action"],
+        themes=[],
+        target_languages=["Tamil"],
+        target_states=["Kerala"],
+        content_format="anime_series",
+    )
+
+
+def collect_regional(settings):
+    return SourceRegistry(settings)._collect_one(
+        "regional_context", regional_title(), client=None, disabled_sources=set()
+    )
+
+
+def test_demo_mode_reads_the_synthetic_survey_and_flags_it_as_proxy():
+    evidence = collect_regional(Settings(demo_mode=True))
+
+    assert int(evidence.provenance["survey_rows"]) > 0
+    assert "genre_affinity" in evidence.metrics
+    assert evidence.regional
+    assert "PROXY synthetic" in evidence.provenance["survey_sources"]
+    assert any("exploratory proxies" in warning for warning in evidence.warnings)
+
+
+def test_demo_mode_without_the_synthetic_folder_still_works_without_survey_signal(tmp_path):
+    evidence = collect_regional(Settings(demo_mode=True, demo_survey_dir=str(tmp_path / "none")))
+
+    assert evidence.status == "available"
+    assert evidence.provenance["survey_rows"] == "0"
+    assert "genre_affinity" not in evidence.metrics
+    assert any("No survey data loaded" in warning for warning in evidence.warnings)
+
+
+def test_live_mode_never_reads_the_synthetic_survey(tmp_path):
+    evidence = collect_regional(
+        Settings(demo_mode=False, survey_dir=str(tmp_path), demo_survey_dir="data/synthetic")
+    )
+
+    assert evidence.provenance["survey_rows"] == "0"
+    assert "genre_affinity" not in evidence.metrics
+    assert not evidence.regional
