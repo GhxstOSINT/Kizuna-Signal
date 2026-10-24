@@ -17,8 +17,14 @@ def cfg(api):
 
 
 def view(api, cfg, tid, overrides=None, optional=False):
-    return engine.compute_view(api.get_analysis(tid), api.get_sources(tid), api.get_comparables(tid),
-                               cfg, overrides, include_optional=optional)
+    return engine.compute_view(
+        api.get_analysis(tid),
+        api.get_sources(tid),
+        api.get_comparables(tid),
+        cfg,
+        overrides,
+        include_optional=optional,
+    )
 
 
 def test_reference_titles_hit_target_numbers(api, cfg):
@@ -31,7 +37,9 @@ def test_reference_titles_hit_target_numbers(api, cfg):
 def test_overall_equals_weighted_sum_of_primary_components(api, cfg):
     for tid in TITLES:
         v = view(api, cfg, tid)
-        raw = sum(c["weight"] / 100 * v["components"][c["id"]] for c in cfg["components"] if c["primary"])
+        raw = sum(
+            c["weight"] / 100 * v["components"][c["id"]] for c in cfg["components"] if c["primary"]
+        )
         assert v["overall"] == int(raw + 0.5)
 
 
@@ -88,8 +96,8 @@ def test_unavailable_source_override_is_ignored(api, cfg):
 def test_driver_inactive_only_when_all_its_sources_disabled(api, cfg):
     v = view(api, cfg, "shadow_bloom", {"disabled_sources": ["google_trends", "census"]})
     by_label = {d["label"]: d["active"] for d in v["drivers"]}
-    assert by_label["Limited awareness outside major cities"] is False   # trends + census
-    assert by_label["Growing Indian search momentum"] is True            # trends + wikimedia
+    assert by_label["Limited awareness outside major cities"] is False  # trends + census
+    assert by_label["Growing Indian search momentum"] is True  # trends + wikimedia
 
 
 def test_base_analysis_is_not_mutated(api, cfg):
@@ -106,8 +114,13 @@ def test_excluding_and_adding_comparables(api, cfg):
     assert fewer["factors"]["comparable_quality"] < base["factors"]["comparable_quality"]
     better = view(api, cfg, "shadow_bloom", {"included_comps": comps["sets"]["optimistic"]})
     worse = view(api, cfg, "shadow_bloom", {"included_comps": comps["sets"]["conservative"]})
-    assert better["components"]["comparable_performance"] > base["components"]["comparable_performance"]
-    assert worse["components"]["comparable_performance"] < base["components"]["comparable_performance"]
+    assert (
+        better["components"]["comparable_performance"]
+        > base["components"]["comparable_performance"]
+    )
+    assert (
+        worse["components"]["comparable_performance"] < base["components"]["comparable_performance"]
+    )
     same = view(api, cfg, "shadow_bloom", {"included_comps": list(expected)})
     assert same["overall"] == base["overall"]
 
@@ -115,7 +128,9 @@ def test_excluding_and_adding_comparables(api, cfg):
 def test_rank_regions_suppresses_weak_evidence(api, cfg):
     r = engine.rank_regions(api.get_regions("shadow_bloom")["regions"], cfg)
     assert [x["state"] for x in r["top"]][:3] == ["Maharashtra", "Karnataka", "Delhi"]
-    assert all(x["evidence_strength"] >= cfg["regional"]["suppress_below_evidence"] for x in r["ranked"])
+    assert all(
+        x["evidence_strength"] >= cfg["regional"]["suppress_below_evidence"] for x in r["ranked"]
+    )
     assert r["suppressed"] and all(x["suppressed"] for x in r["suppressed"])
     assert [x["rank"] for x in r["ranked"]] == list(range(1, len(r["ranked"]) + 1))
     assert len(r["ranked"]) + len(r["suppressed"]) == 36
@@ -160,5 +175,11 @@ def test_scenario_values_are_clamped(api, cfg):
 
 
 def test_recommend_returns_none_when_nothing_beats_base(cfg):
-    worse = {"delta_score": -2, "delta_confidence": 0, "delta_cost": 1.0, "cost_level": "Low", "reach_level": "Low"}
+    worse = {
+        "delta_score": -2,
+        "delta_confidence": 0,
+        "delta_cost": 1.0,
+        "cost_level": "Low",
+        "reach_level": "Low",
+    }
     assert engine.recommend_scenario([("x", worse)], cfg)[0] is None

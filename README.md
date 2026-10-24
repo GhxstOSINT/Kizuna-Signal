@@ -1,6 +1,6 @@
-# Kizuna Signal Backend
+# Kizuna Signal
 
-Kizuna Signal is an explainable pre-release intelligence system for Japanese media entering India. This repository contains the API, persistence model, deterministic offline demo pipeline, confidence calculation, comparable-title retrieval, scenario simulation and launch recommendation logic.
+Kizuna Signal is an explainable pre-release intelligence system for Japanese media entering India. The integration branch combines the FastAPI backend, persistence and scoring pipeline with the Streamlit decision dashboard. The UI automatically uses the live API when it is healthy and retains its deterministic mock mode for an offline demonstration.
 
 ## What is implemented
 
@@ -39,13 +39,26 @@ Open:
 docker compose up --build
 ```
 
+Open the integrated application at `http://localhost:8501` and the API documentation at `http://localhost:8000/docs`.
+
+To run the Streamlit UI outside Docker:
+
+```powershell
+python -m pip install -e ".[frontend]"
+$env:KIZUNA_FRONTEND_MODE="live"
+$env:KIZUNA_API_URL="http://localhost:8000/api/v1"
+streamlit run app.py
+```
+
+Set `KIZUNA_FRONTEND_MODE=mock` for the fully offline seeded prototype. `auto` selects the live backend when its readiness endpoint succeeds and otherwise falls back to mock mode.
+
 ## Run tests
 
 ```powershell
 pytest
 ```
 
-The integration gate currently contains 35 automated tests with 94% application line coverage. See `docs/TEST_STATUS.md` for the verified behaviors and the production-only gaps that are intentionally not claimed as passing.
+See `docs/TEST_STATUS.md` for backend coverage and the verified behaviors. The cross-stack adapter tests are included in the integration branch; the full Streamlit UI suite is run by GitHub Actions.
 
 Refresh the committed API contract after an intentional schema change:
 
@@ -80,6 +93,9 @@ Frontend work should fail review if `docs/openapi.json` changes unexpectedly.
 Copy `.env.example` to `.env`. Environment variables use the `KIZUNA_` prefix.
 
 ## Production evolution
+
+The detailed branch map, verified cross-stack flow, and prioritized remaining work
+are maintained in `docs/INTEGRATION_STATUS.md`.
 
 - Replace demo adapters with authenticated API clients and immutable raw-response storage.
 - Move background execution to a durable queue.

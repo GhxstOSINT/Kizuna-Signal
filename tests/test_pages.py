@@ -1,4 +1,5 @@
 """Smoke tests: every page renders for every seed title without an exception."""
+
 import pytest
 from streamlit.testing.v1 import AppTest
 
@@ -117,7 +118,10 @@ def test_new_analysis_submit_starts_job():
 def _submit(outcome_label):
     from kizuna.api import MockApi
 
-    at = run_page("views.new_analysis", setup=lambda a: a.session_state.__setitem__("api", MockApi(stage_seconds=0)))
+    at = run_page(
+        "views.new_analysis",
+        setup=lambda a: a.session_state.__setitem__("api", MockApi(stage_seconds=0)),
+    )
     _fill_required(at)
     at.radio(key="na_outcome").set_value(outcome_label)
     at.run()
@@ -155,8 +159,11 @@ def test_partial_outcome_result_renders_with_partial_notice():
     at = _submit("Partial data (YouTube unavailable)")
     assert not at.exception
     tid = at.session_state["active_title"]
-    res = run_page("views.results", tid,
-                   setup=lambda a: a.session_state.__setitem__("api", at.session_state["api"]))
+    res = run_page(
+        "views.results",
+        tid,
+        setup=lambda a: a.session_state.__setitem__("api", at.session_state["api"]),
+    )
     assert not res.exception
     assert "limited evidence" in " ".join(m.value for m in res.markdown).lower()
 
@@ -215,15 +222,18 @@ def test_reject_requires_reason():
 
 
 def test_changing_inputs_after_accept_clears_approval():
-    from kizuna import state
-
     at = run_page("views.playbook_export", "shadow_bloom")
     next(b for b in at.button if b.key == "accept_shadow_bloom").click()
     at.run()
     assert at.session_state["approvals"]["shadow_bloom"]["status"] == "accepted"
-    res = run_page("views.results", "shadow_bloom",
-                   setup=lambda a: (a.session_state.__setitem__("approvals", at.session_state["approvals"]),
-                                    a.session_state.__setitem__("audit_log", [])))
+    res = run_page(
+        "views.results",
+        "shadow_bloom",
+        setup=lambda a: (
+            a.session_state.__setitem__("approvals", at.session_state["approvals"]),
+            a.session_state.__setitem__("audit_log", []),
+        ),
+    )
     next(t for t in res.toggle if t.key == "src_shadow_bloom_google_trends").set_value(False)
     res.run()
     assert "shadow_bloom" not in res.session_state["approvals"]

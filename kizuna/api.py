@@ -11,8 +11,10 @@ from copy import deepcopy
 from datetime import datetime
 from functools import lru_cache
 
+import httpx
+
 from . import engine, intake
-from .config import MOCK_DIR, STAGE_SECONDS
+from .config import API_URL, FRONTEND_MODE, MOCK_DIR, STAGE_SECONDS
 
 FAIL_STAGE = 3  # stage index that fails when the simulated outcome is "failure"
 
@@ -234,3 +236,411 @@ class MockApi:
                 st, note = "Cached data used", ""
             out.append({"name": s["name"], "status": st, "note": note})
         return out
+
+
+class BackendApi:
+    """HTTP adapter that translates the versioned FastAPI contract for the Streamlit views."""
+
+    def __init__(self, base_url=API_URL, timeout=8.0, transport=None):
+        self.base_url = base_url.rstrip("/")
+        self.client = httpx.Client(base_url=self.base_url, timeout=timeout, transport=transport)
+        self._titles = {}
+        self._analysis_ids = {}
+        self._job_aliases = {}
+        self._project_id = None
+
+    def close(self):
+        self.client.close()
+
+    def is_available(self):
+        try:
+            return self.client.get("/health/ready").status_code == 200
+        except httpx.HTTPError:
+            return False
+
+    def _request(self, method, path, **kwargs):
+        response = self.client.request(method, path, **kwargs)
+        if response.is_error:
+            try:
+                error = response.json().get("error", {})
+                message = error.get("message") or response.text
+            except ValueError:
+                message = response.text
+            raise RuntimeError(f"Backend request failed ({response.status_code}): {message}")
+        return response.json()
+
+    def get_config(self):
+        return _fresh("config.json")
+
+    def list_projects(self):
+        rows = []
+        for project in self._request("GET", "/projects"):
+            for title in self._request("GET", f"/projects/{project['id']}/titles"):
+                self._titles[title["id"]] = title
+                analyses = self._request("GET", f"/titles/{title['id']}/analyses")
+                usable = [item for item in analyses if item["result"] is not None]
+                if not usable:
+                    continue
+                latest = usable[0]
+                self._analysis_ids[title["id"]] = latest["id"]
+                rows.append(
+                    {
+                        "title_id": title["id"],
+                        "status": self._ui_status(latest["status"]),
+                        "last_analysis": latest["created_at"][:10],
+                        "title": title["name"],
+                        "format": title["content_format"],
+                        "custom": True,
+                    }
+                )
+        return rows
+
+    def _find_title(self, title_id):
+        if title_id not in self._titles:
+            self.list_projects()
+        if title_id not in self._titles:
+            raise KeyError(f"Unknown title: {title_id}")
+        return self._titles[title_id]
+
+    def get_title(self, title_id):
+        title = self._find_title(title_id)
+        return {
+            "title_id": title["id"],
+            "title": title["name"],
+            "title_jp": title["name"] if any(ord(ch) > 127 for ch in title["name"]) else "",
+            "english_title": title.get("english_title") or "",
+            "synopsis": title["synopsis"],
+            "format": title["content_format"],
+            "genres": [title["primary_genre"], *title.get("genres", [])],
+            "themes": title.get("themes", []),
+            "source_material": title["source_material"],
+            "release_period": title["expected_release_period"],
+            "target_platform": title["target_platform"],
+            "target_languages": title.get("target_languages", []),
+            "target_states": title.get("target_states", []),
+            "budget_band": title.get("marketing_budget", "medium").title(),
+            "studio": title.get("studio") or "",
+            "franchise_status": title.get("franchise_status") or "",
+            "age_rating": "",
+            "accent": "#5A4FCF",
+            "completeness": 100,
+        }
+
+    def _analysis(self, title_id):
+        if title_id not in self._analysis_ids:
+            analyses = self._request("GET", f"/titles/{title_id}/analyses")
+            usable = [item for item in analyses if item["result"] is not None]
+            if not usable:
+                raise RuntimeError("No completed analysis exists for this title.")
+            self._analysis_ids[title_id] = usable[0]["id"]
+        return self._request("GET", f"/analyses/{self._analysis_ids[title_id]}")
+
+    def _result(self, title_id):
+        return self._analysis(title_id)["result"]
+
+    def get_analysis(self, title_id):
+        record = self._analysis(title_id)
+        result = record["result"]
+        title = self._find_title(title_id)
+        confidence = result["confidence_score"]
+        similarities = [item["similarity"] * 100 for item in result["comparable_titles"]]
+        regional_conf = [item["confidence"] for item in result["regional_scores"]]
+        freshness = [item["freshness_score"] * 100 for item in result["source_status"]]
+        factors = {
+            "data_completeness": confidence,
+            "source_agreement": confidence,
+            "comparable_quality": sum(similarities) / len(similarities) if similarities else confidence,
+            "regional_evidence": sum(regional_conf) / len(regional_conf) if regional_conf else confidence,
+            "data_freshness": sum(freshness) / len(freshness) if freshness else confidence,
+        }
+        source_ids = [item["source"] for item in result["source_status"]]
+        drivers = []
+        for index, item in enumerate(
+            [*result["positive_drivers"], *result["negative_drivers"]], 1
+        ):
+            sign = 1 if item["direction"] == "positive" else -1
+            drivers.append(
+                {
+                    "id": f"backend_driver_{index}",
+                    "label": item["name"],
+                    "points": sign * item["contribution"],
+                    "component": self._driver_component(item["name"]),
+                    "source_ids": source_ids,
+                    "why": item["evidence"],
+                }
+            )
+        label = result["decision_classification"].replace("_", " ").title()
+        return {
+            "analysis_id": result["analysis_id"],
+            "title_id": title_id,
+            "status": self._ui_status(record["status"]),
+            "result_version": result["feature_version"],
+            "scoring_config_version": result["scoring_version"],
+            "model_version": result["model_version"],
+            "model_used": "primary",
+            "feature_snapshot_id": result["feature_version"],
+            "created_at": record["created_at"],
+            "components": {**result["component_scores"], "localization_readiness": 50},
+            "confidence_factors": factors,
+            "content_dna": self._content_dna(title),
+            "drivers": drivers,
+            "warnings": [
+                {"code": "data_quality", "severity": "warning", "message": message}
+                for message in result["data_quality_warnings"]
+            ],
+            "limitations": [
+                "Public demand proxies only; no guaranteed revenue or viewership outcomes."
+            ],
+            "_authoritative": {
+                "score": round(result["market_potential_score"]),
+                "confidence": round(confidence),
+                "interval": [round(value) for value in result["confidence_interval"]],
+                "label": label,
+            },
+        }
+
+    def get_regions(self, title_id):
+        rows = []
+        for item in self._result(title_id)["regional_scores"]:
+            rows.append(
+                {
+                    **item,
+                    "evidence_strength": item["confidence"],
+                    "demand_momentum": self._strength(item["score"]),
+                    "secondary_language": "English",
+                    "audience_segment": "Young urban Japanese-content viewers",
+                    "market_index": round(item["score"]),
+                }
+            )
+        by_language = {}
+        for row in rows:
+            by_language.setdefault(row["recommended_language"], []).append(row["score"])
+        affinity = [
+            {"language": language, "affinity": round(sum(values) / len(values))}
+            for language, values in by_language.items()
+        ]
+        return {"regions": rows, "language_affinity": affinity}
+
+    def get_comparables(self, title_id):
+        title_format = self._find_title(title_id)["content_format"]
+        rows = []
+        for index, item in enumerate(self._result(title_id)["comparable_titles"]):
+            rows.append(
+                {
+                    "id": f"backend_comparable_{index}",
+                    "title": item["title"],
+                    "year": "-",
+                    "format": title_format,
+                    "similarity": item["similarity"],
+                    "indian_demand": self._strength(item["market_signal"]),
+                    "genre_match": self._match(item["similarity"]),
+                    "audience_match": self._match(item["similarity"]),
+                    "format_match": "Exact",
+                    "india_performance": item["market_signal"],
+                    "reason": "; ".join(item["reasons"]),
+                }
+            )
+        ids = [item["id"] for item in rows]
+        return {
+            "comparables": rows,
+            "sets": {"expected": ids, "optimistic": ids, "conservative": ids},
+        }
+
+    def get_sources(self, title_id):
+        rows = []
+        for item in self._result(title_id)["source_status"]:
+            cached = item["status"] == "cached"
+            rows.append(
+                {
+                    "id": item["source"],
+                    "name": item["source"].replace("_", " ").title(),
+                    "status": "available" if cached else item["status"],
+                    "mode": "cached" if cached else "live" if item["status"] == "available" else "none",
+                    "last_collected": item["provenance"].get("collected_at"),
+                    "note": " ".join(item["warnings"]),
+                    "caveat": "Evidence supplied by the backend analysis snapshot.",
+                    "toggleable": False,
+                    "effect_if_disabled": {},
+                }
+            )
+        return rows
+
+    def get_recommendation(self, title_id):
+        recommendation = self._result(title_id)["recommendation"]
+        return {
+            "headline": recommendation["decision"],
+            "platform": recommendation["platform"],
+            "priority_markets": recommendation["priority_markets"],
+            "localization": recommendation["localization"],
+            "target_audience": recommendation["target_audience"],
+            "launch_window": recommendation["launch_window"],
+            "positioning": recommendation["marketing_positioning"],
+            "campaign": recommendation["campaign_actions"],
+            "risks": [
+                {"risk": risk, "mitigation": "Validate this risk during the controlled regional pilot."}
+                for risk in recommendation["risks"]
+            ],
+            "items": [],
+        }
+
+    def get_scenarios(self, _title_id):
+        # The current UI lever model is preserved until its controls post the backend scenario contract.
+        return _fresh("shadow_bloom/scenarios.json")
+
+    def start_analysis(self, payload, outcome="normal"):
+        del outcome  # Failure simulation belongs to MockApi only.
+        errors = intake.validate(payload)
+        if errors:
+            raise ValueError("; ".join(errors))
+        if self._project_id is None:
+            project = self._request(
+                "POST",
+                "/projects",
+                json={
+                    "name": "Streamlit Analysis Workspace",
+                    "description": "Titles submitted from the integrated Streamlit interface.",
+                },
+            )
+            self._project_id = project["id"]
+        title = self._request(
+            "POST",
+            f"/projects/{self._project_id}/titles",
+            json=self._title_payload(payload),
+        )
+        self._titles[title["id"]] = title
+        started = self._request("POST", f"/titles/{title['id']}/analyses", json={})
+        self._analysis_ids[title["id"]] = started["analysis_id"]
+        return started["job_id"]
+
+    def get_job(self, job_id):
+        effective_id = self._job_aliases.get(job_id, job_id)
+        job = self._request("GET", f"/jobs/{effective_id}")
+        status = self._ui_status(job["status"])
+        stages = self.get_config()["pipeline_stages"]
+        complete_count = min(len(stages), int(job["progress"] / 100 * len(stages)))
+        stage_rows = [
+            {
+                "name": name,
+                "state": "done"
+                if index < complete_count
+                else "failed"
+                if status == "failed" and index == complete_count
+                else "running"
+                if status == "running" and index == complete_count
+                else "pending",
+            }
+            for index, name in enumerate(stages)
+        ]
+        return {
+            "job_id": job_id,
+            "title_id": self._request("GET", f"/analyses/{job['analysis_id']}")["title_id"],
+            "status": status,
+            "progress": job["progress"],
+            "stages": stage_rows,
+            "sources": [],
+            "error": job.get("error_message"),
+        }
+
+    def retry_job(self, job_id):
+        job = self._request("GET", f"/jobs/{self._job_aliases.get(job_id, job_id)}")
+        analysis = self._request("GET", f"/analyses/{job['analysis_id']}")
+        started = self._request("POST", f"/titles/{analysis['title_id']}/analyses", json={})
+        self._job_aliases[job_id] = started["job_id"]
+        self._analysis_ids[analysis["title_id"]] = started["analysis_id"]
+
+    def use_cached_data(self, job_id):
+        self.retry_job(job_id)
+
+    @staticmethod
+    def _ui_status(status):
+        return {
+            "completed": "complete",
+            "partially_completed": "partial",
+            "queued": "running",
+        }.get(status, status)
+
+    @staticmethod
+    def _strength(value):
+        return "High" if value >= 75 else "Medium" if value >= 55 else "Low"
+
+    @staticmethod
+    def _match(value):
+        return "Strong" if value >= 0.75 else "Moderate" if value >= 0.55 else "Weak"
+
+    @staticmethod
+    def _driver_component(name):
+        lowered = name.lower()
+        return next(
+            (
+                key
+                for key in (
+                    "content_fit",
+                    "demand_momentum",
+                    "regional_opportunity",
+                    "engagement_quality",
+                    "comparable_performance",
+                )
+                if key.replace("_", " ") in lowered
+            ),
+            "content_fit",
+        )
+
+    @staticmethod
+    def _content_dna(title):
+        genres = [title["primary_genre"], *title.get("genres", [])]
+        themes = title.get("themes", [])
+        return {
+            "genres": [
+                {"name": value, "weight": max(0.5, 0.9 - index * 0.1)}
+                for index, value in enumerate(dict.fromkeys(genres))
+            ],
+            "themes": [
+                {"name": value, "weight": max(0.5, 0.85 - index * 0.1)}
+                for index, value in enumerate(themes)
+            ],
+            "archetypes": [],
+            "audience_fit": {"Target-market alignment": 70},
+            "sensitivity_flags": [],
+        }
+
+    @staticmethod
+    def _title_payload(payload):
+        trailer = (payload.get("trailer_url") or "").strip() or None
+        return {
+            "name": payload["title"].strip(),
+            "english_title": (payload.get("english_title") or "").strip() or None,
+            "synopsis": payload["synopsis"].strip(),
+            "content_format": payload["format"],
+            "primary_genre": payload["primary_genre"],
+            "genres": payload.get("secondary_genres") or [],
+            "themes": payload.get("themes") or [],
+            "source_material": payload["source_material"],
+            "expected_release_period": payload["release_period"],
+            "target_platform": payload["target_platform"],
+            "target_languages": payload.get("target_languages") or [],
+            "target_states": payload.get("target_states") or [],
+            "marketing_budget": (payload.get("budget_band") or "medium").lower(),
+            "studio": (payload.get("studio") or "").strip() or None,
+            "franchise_status": payload.get("franchise_status") or None,
+            "trailer_url": trailer,
+            "metadata_extra": {
+                "director": payload.get("director"),
+                "cast": payload.get("cast") or [],
+                "age_rating": payload.get("age_rating"),
+                "intended_audience": payload.get("intended_audience"),
+            },
+        }
+
+
+def build_api(mode=None):
+    """Choose live integration when configured/healthy, with a deterministic mock fallback."""
+    selected = (mode or FRONTEND_MODE or "auto").lower()
+    if selected == "mock":
+        return MockApi()
+    backend = BackendApi()
+    if selected == "live":
+        return backend
+    if backend.is_available():
+        return backend
+    backend.close()
+    return MockApi()

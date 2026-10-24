@@ -18,13 +18,25 @@ def ctx_for(tid, approval=True, title_override=None):
     title = api.get_title(tid)
     if title_override:
         title["title"] = title_override
-    data = {"title": title, "analysis": analysis, "sources": sources, "comparables": comps, "view": view,
-            "regions": engine.rank_regions(api.get_regions(tid)["regions"], cfg), "cfg": cfg,
-            "reco": api.get_recommendation(tid), "scenarios": api.get_scenarios(tid),
-            "language_affinity": api.get_regions(tid)["language_affinity"]}
+    data = {
+        "title": title,
+        "analysis": analysis,
+        "sources": sources,
+        "comparables": comps,
+        "view": view,
+        "regions": engine.rank_regions(api.get_regions(tid)["regions"], cfg),
+        "cfg": cfg,
+        "reco": api.get_recommendation(tid),
+        "scenarios": api.get_scenarios(tid),
+        "language_affinity": api.get_regions(tid)["language_affinity"],
+    }
     results = engine.scenario_results(view, data["scenarios"], cfg)
     rec = engine.recommend_scenario(results[1:], cfg)
-    appr = {"status": "accepted", "by": "Tester", "reason": "", "time": "2026-10-24 10:00:00"} if approval else None
+    appr = (
+        {"status": "accepted", "by": "Tester", "reason": "", "time": "2026-10-24 10:00:00"}
+        if approval
+        else None
+    )
     return report.make_context(data, results, rec, appr, [])
 
 

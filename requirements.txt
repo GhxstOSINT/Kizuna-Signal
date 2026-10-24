@@ -1,5 +1,3 @@
-streamlit>=1.66
-plotly>=6.0
-pandas>=2.2
-fpdf2>=2.8
-pytest>=8.0
+# Compatibility entry point for contributors who use requirements.txt.
+# pyproject.toml remains the single source of dependency versions.
+-e .[frontend]

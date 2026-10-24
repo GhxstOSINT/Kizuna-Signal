@@ -93,7 +93,9 @@ def compute_view(analysis, sources, comparables, cfg, overrides=None, include_op
     if included is None:
         included = default_comparable_ids(comparables)
 
-    base = _headline(analysis["components"], analysis["confidence_factors"], cfg)
+    base = analysis.get("_authoritative") or _headline(
+        analysis["components"], analysis["confidence_factors"], cfg
+    )
 
     comps = dict(analysis["components"])
     facs = dict(analysis["confidence_factors"])
@@ -106,7 +108,8 @@ def compute_view(analysis, sources, comparables, cfg, overrides=None, include_op
     comps["comparable_performance"] = _clamp(comps["comparable_performance"] + d_perf)
     facs["comparable_quality"] = _clamp(facs["comparable_quality"] + d_quality)
 
-    cur = _headline(comps, facs, cfg)
+    no_overrides = not disabled and overrides.get("included_comps") is None
+    cur = base if no_overrides and analysis.get("_authoritative") else _headline(comps, facs, cfg)
     drivers = []
     for d in analysis["drivers"]:
         active = not set(d["source_ids"]).issubset(disabled)

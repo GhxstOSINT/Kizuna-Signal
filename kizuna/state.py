@@ -4,12 +4,12 @@ from datetime import datetime
 import streamlit as st
 
 from . import engine
-from .api import MockApi
+from .api import build_api
 
 
 def get_api():
     if "api" not in st.session_state:
-        st.session_state["api"] = MockApi()
+        st.session_state["api"] = build_api()
     return st.session_state["api"]
 
 

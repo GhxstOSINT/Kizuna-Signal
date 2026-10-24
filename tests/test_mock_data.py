@@ -20,7 +20,15 @@ def geo_names():
 
 def test_files_exist_for_every_title():
     for tid in TITLES:
-        for name in ["title", "analysis", "regions", "comparables", "sources", "scenarios", "recommendation"]:
+        for name in [
+            "title",
+            "analysis",
+            "regions",
+            "comparables",
+            "sources",
+            "scenarios",
+            "recommendation",
+        ]:
             assert (MOCK_DIR / tid / f"{name}.json").exists()
 
 
@@ -78,8 +86,15 @@ def test_project_list_has_three_seed_titles(api):
     assert [p["title_id"] for p in api.list_projects()] == TITLES
 
 
-VALID = {"title": "Test", "synopsis": "Something", "format": "Anime series", "primary_genre": "Fantasy",
-         "source_material": "Original", "release_period": "March 2027", "target_platform": "OTT"}
+VALID = {
+    "title": "Test",
+    "synopsis": "Something",
+    "format": "Anime series",
+    "primary_genre": "Fantasy",
+    "source_material": "Original",
+    "release_period": "March 2027",
+    "target_platform": "OTT",
+}
 
 
 def test_intake_validation_and_completeness():
