@@ -1,10 +1,10 @@
 # Data sources and evidence flow
 
 `KIZUNA_DEMO_MODE=true` (default) keeps every source offline and deterministic so tests and
-the hackathon demo never touch the network. In demo mode the regional source is real Census data
-plus the labelled synthetic survey in `data/synthetic/`; the other four sources are canned. `KIZUNA_DEMO_MODE=false` switches the whole pipeline
+the hackathon demo never touch the network. The regional source (Census plus the survey folder) is the same in both modes; the other four sources are canned in demo mode. `KIZUNA_DEMO_MODE=false` switches the whole pipeline
 to real evidence. **In live mode a source is either real or reported unavailable — it never falls
-back to demo numbers.**
+back to demo numbers.** The one deliberate exception is the survey folder, which defaults to
+simulated rows (flagged as proxy); point `KIZUNA_SURVEY_DIR` at `data/survey` to avoid them.
 
 | Source | Live mode | Granularity | Notes |
 |---|---|---|---|
@@ -14,7 +14,7 @@ back to demo numbers.**
 | AniList GraphQL | the title's community strength + metadata; genre comparables | global | 30 req/min currently; cached 24h |
 | Census 2011 (static table) | population, urban share, state language | **state** | `app/data/india_states_census2011.csv`; urban % entered by hand, re-verify |
 | Survey CSVs (optional) | genre / content-type affinity by state | **state** | `data/survey/README.md`; absent => stated in warnings |
-| Synthetic survey (demo only) | simulated affinity rows, labelled `PROXY synthetic` | **state** | `data/synthetic/README.md`; not measured data. **Demo mode reads it by default** (`KIZUNA_DEMO_SURVEY_DIR`); live mode never does |
+| Synthetic survey (demo only) | simulated affinity rows, labelled `PROXY synthetic` | **state** | `data/synthetic/README.md`; not measured data. **The default `KIZUNA_SURVEY_DIR`, in demo and live mode**; every analysis using it carries a proxy warning |
 
 ## Flow of one analysis
 1. All five sources are collected in parallel (`SourceRegistry`).

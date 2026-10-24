@@ -15,14 +15,12 @@ to 0.75 and warns that the signal is not measured viewing.
 
 ## Using it
 
-**Demo mode (the default, `KIZUNA_DEMO_MODE=true`) reads this folder** through
-`KIZUNA_DEMO_SURVEY_DIR` (default `data/synthetic`). The regional source then uses the offline Census
-tables plus these rows, and every analysis carries the proxy warning.
+**This folder is the app's default survey folder (`KIZUNA_SURVEY_DIR=data/synthetic`) in both demo
+and live mode.** The regional source uses the Census tables plus these rows, and every analysis
+carries the proxy warning and a lowered source quality (0.75). To exclude simulated rows, set
+`KIZUNA_SURVEY_DIR=data/survey` (real rows only). Do **not** copy these files into `data/survey/`.
 
-**Live mode never reads it.** It reads `KIZUNA_SURVEY_DIR` (default `data/survey`), which is for
-real survey rows only, so simulated rows cannot enter a real analysis. Do **not** copy these files
-into `data/survey/`. The
-respondent file sits in `microdata/` because the loader reads every `*.csv` directly inside its
+The respondent file sits in `microdata/` because the loader reads every `*.csv` directly inside its
 folder and rejects files without `state`, `genre` and `index` columns.
 
 Regenerate (deterministic for a given seed) or scale up:

@@ -75,30 +75,31 @@ def collect_regional(settings):
     )
 
 
-def test_demo_mode_reads_the_synthetic_survey_and_flags_it_as_proxy():
-    evidence = collect_regional(Settings(demo_mode=True))
+@pytest.mark.parametrize("demo_mode", [True, False])
+def test_default_survey_is_the_synthetic_data_in_both_modes_and_flagged_as_proxy(demo_mode):
+    evidence = collect_regional(Settings(demo_mode=demo_mode))
 
     assert int(evidence.provenance["survey_rows"]) > 0
     assert "genre_affinity" in evidence.metrics
     assert evidence.regional
     assert "PROXY synthetic" in evidence.provenance["survey_sources"]
+    assert evidence.quality_score == 0.75
     assert any("exploratory proxies" in warning for warning in evidence.warnings)
 
 
-def test_demo_mode_without_the_synthetic_folder_still_works_without_survey_signal(tmp_path):
-    evidence = collect_regional(Settings(demo_mode=True, demo_survey_dir=str(tmp_path / "none")))
+@pytest.mark.parametrize("demo_mode", [True, False])
+def test_pointing_survey_dir_elsewhere_excludes_the_synthetic_data(demo_mode, tmp_path):
+    evidence = collect_regional(Settings(demo_mode=demo_mode, survey_dir=str(tmp_path)))
 
     assert evidence.status == "available"
     assert evidence.provenance["survey_rows"] == "0"
     assert "genre_affinity" not in evidence.metrics
+    assert not evidence.regional
     assert any("No survey data loaded" in warning for warning in evidence.warnings)
 
 
-def test_live_mode_never_reads_the_synthetic_survey(tmp_path):
-    evidence = collect_regional(
-        Settings(demo_mode=False, survey_dir=str(tmp_path), demo_survey_dir="data/synthetic")
-    )
+def test_missing_survey_folder_degrades_without_failing():
+    evidence = collect_regional(Settings(demo_mode=True, survey_dir="data/does-not-exist"))
 
+    assert evidence.status == "available"
     assert evidence.provenance["survey_rows"] == "0"
-    assert "genre_affinity" not in evidence.metrics
-    assert not evidence.regional

@@ -108,7 +108,7 @@ class SourceRegistry:
         if mode == "demo":
             if name == "regional_context":  # offline Census + the labelled synthetic survey
                 return RegionalContextAdapter(
-                    SurveyData.from_dir(self.settings.demo_survey_dir)
+                    SurveyData.from_dir(self.settings.survey_dir)
                 ).collect(title)
             return DemoAdapter(name).collect(title)
         if mode == "unconfigured":
