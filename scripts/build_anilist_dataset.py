@@ -23,10 +23,19 @@ def main() -> int:
     ap.add_argument("--pages", type=int, default=20)
     ap.add_argument("--per-page", type=int, default=50)
     ap.add_argument("--start-year-from", type=int, help="keep titles starting in or after this year")
+    ap.add_argument("--start-year-to", type=int, help="keep titles starting in or before this year")
+    ap.add_argument("--sort", choices=["id", "popularity"], default="id",
+                    help="popularity = most popular first (titles with India search signal)")
     ap.add_argument("--out", type=Path, default=Path("data/processed"))
     args = ap.parse_args()
 
-    filters = {"startDateGreater": args.start_year_from * 10000 - 1} if args.start_year_from else {}
+    filters = {"status": "FINISHED"}
+    if args.start_year_from:
+        filters["startDateGreater"] = args.start_year_from * 10000 - 1
+    if args.start_year_to:
+        filters["startDateLesser"] = (args.start_year_to + 1) * 10000
+    if args.sort == "popularity":
+        filters["sort"] = ["POPULARITY_DESC"]
     records, live, cached = [], 0, 0
     try:
         for env in AniListClient().iter_pages(args.pages, args.per_page, **filters):

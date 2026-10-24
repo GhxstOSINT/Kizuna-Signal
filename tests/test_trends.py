@@ -149,3 +149,40 @@ def test_build_rows_rejects_non_pre_demand_columns():
     assert "pre_level" in build_rows(content, labels, ["IN-MH"], demand=ok).columns
     with pytest.raises(ValueError, match="pre-release"):
         build_rows(content, labels, ["IN-MH"], demand=ok.assign(post_ratio=0.5))
+
+
+def test_no_national_signal_skips_title_after_one_request(tmp_path):
+    calls = []
+    c = client(tmp_path, fake_fetcher({"IN": 0}, calls=calls))
+    demand, labels, rep = collect_title(c, title(), PILOT_STATES)
+    assert labels == [] and rep["error"] == "no_national_signal"
+    assert calls == ["IN"]  # saved the per-state requests
+
+
+def test_circuit_breaker_stops_run_after_consecutive_429s(tmp_path):
+    attempts = {"n": 0}
+
+    def blocked(*a):
+        attempts["n"] += 1
+        raise RateLimited("429")
+
+    c = client(tmp_path, blocked)
+    with pytest.raises(QuotaExceeded, match="blocked by Google"):
+        c.fetch("x anime", "IN-MH", RELEASE - timedelta(weeks=12), RELEASE + timedelta(weeks=52))
+    assert attempts["n"] == settings.trends_circuit_breaker
+
+
+def test_anilist_sort_is_passed_through(tmp_path):
+    import httpx
+    from app.adapters.anilist import AniListClient
+    seen = {}
+
+    def handler(req):
+        import json
+        seen.update(json.loads(req.content)["variables"])
+        return httpx.Response(200, json={"data": {"Page": {"pageInfo": {"hasNextPage": False}, "media": []}}})
+
+    c = AniListClient(raw_dir=tmp_path, client=httpx.Client(transport=httpx.MockTransport(handler)),
+                      sleep=lambda s: None)
+    c.fetch_page(1, sort=["POPULARITY_DESC"], status="FINISHED")
+    assert seen["sort"] == ["POPULARITY_DESC"] and seen["status"] == "FINISHED"

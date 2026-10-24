@@ -16,10 +16,11 @@ import httpx
 from app.core.config import settings
 
 QUERY = """
-query ($page: Int, $perPage: Int, $startDateGreater: FuzzyDateInt, $startDateLesser: FuzzyDateInt) {
+query ($page: Int, $perPage: Int, $sort: [MediaSort], $status: MediaStatus,
+       $startDateGreater: FuzzyDateInt, $startDateLesser: FuzzyDateInt) {
   Page(page: $page, perPage: $perPage) {
     pageInfo { currentPage hasNextPage }
-    media(type: ANIME, isAdult: false, sort: ID,
+    media(type: ANIME, isAdult: false, sort: $sort, status: $status,
           startDate_greater: $startDateGreater, startDate_lesser: $startDateLesser) {
       id
       idMal
@@ -97,7 +98,7 @@ class AniListClient:
 
     def fetch_page(self, page: int, per_page: int = 50, **filters) -> dict:
         """One page of media, from cache when fresh. Returns the raw envelope."""
-        variables = {"page": page, "perPage": per_page, **filters}
+        variables = {"page": page, "perPage": per_page, "sort": ["ID"], **filters}
         key = self._key({**variables, "q": hashlib.sha256(QUERY.encode()).hexdigest()[:8]})
         hit = self._cached(key)
         if hit is not None:

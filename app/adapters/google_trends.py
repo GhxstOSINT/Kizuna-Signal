@@ -6,6 +6,7 @@ across titles. Search interest is curiosity, not consumption.
 """
 import hashlib
 import json
+import random
 import time
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -64,6 +65,7 @@ class TrendsClient:
         self.raw_dir = Path(raw_dir or settings.trends_raw_dir)
         self.max_requests = settings.trends_max_requests if max_requests is None else max_requests
         self.live_requests = 0
+        self.rate_limit_hits = 0  # consecutive 429s; resets on success
         self._sleep = sleep
 
     @staticmethod
@@ -95,6 +97,10 @@ class TrendsClient:
         (folder / f"{envelope['checksum']}.json").write_text(json.dumps(envelope), encoding="utf-8")
         return {**envelope, "from_cache": False}
 
+    def _pause(self) -> None:
+        """Jittered spacing looks less like a bot than a fixed beat."""
+        self._sleep(settings.trends_delay_s * random.uniform(0.7, 1.6))
+
     def _fetch_with_retry(self, terms, geo, start, end) -> list[dict]:
         if self.live_requests >= self.max_requests:
             raise QuotaExceeded(f"request budget of {self.max_requests} used; resume later (cache is kept)")
@@ -103,14 +109,20 @@ class TrendsClient:
             self.live_requests += 1
             try:
                 rows = self.fetcher(terms, geo, start, end)
-                self._sleep(settings.trends_delay_s)
+                self.rate_limit_hits = 0
+                self._pause()
                 return rows
             except RateLimited as exc:
                 last = exc
+                self.rate_limit_hits += 1
+                if self.rate_limit_hits >= settings.trends_circuit_breaker:
+                    raise QuotaExceeded(
+                        f"blocked by Google after {self.rate_limit_hits} consecutive 429s; "
+                        "stop and resume later (cache is kept)") from exc
                 self._sleep(settings.trends_backoff_s * 2**attempt)
             except TrendsError as exc:
                 last = exc
-                self._sleep(settings.trends_delay_s)
+                self._pause()
             if self.live_requests >= self.max_requests:
                 break
         raise TrendsError(f"Google Trends unavailable for geo={geo}: {last}")

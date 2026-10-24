@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     trends_delay_s: float = 6.0
     trends_backoff_s: float = 30.0
     trends_max_retries: int = 3
+    trends_circuit_breaker: int = 4  # consecutive 429s before the run stops
     trends_max_requests: int = 1000  # per run; Google blocks heavy callers
 
 

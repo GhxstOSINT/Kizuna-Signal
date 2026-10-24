@@ -81,6 +81,16 @@ def collect_title(client: TrendsClient, title: TitleRecord, states: list[str]):
         return [], [], report
     term, _ = query
     start, end = window_bounds(release)
+    # One national request first: a title with no India signal would waste one request per state.
+    try:
+        nat = client.fetch(term, "IN", start, end)
+    except TrendsError as exc:
+        report["error"] = str(exc)
+        return [], [], report
+    report["from_cache"] += nat["from_cache"]
+    if summarize_state(nat["rows"], term, nat["terms"][1], release) is None:
+        report["error"] = "no_national_signal"
+        return [], [], report
     per_state = {}
     for geo in states:
         try:
