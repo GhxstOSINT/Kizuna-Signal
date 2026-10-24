@@ -53,6 +53,7 @@ def train_and_plot(data: Path, n_titles: int) -> dict:
     out = {}
     for name, cmd in (("train", [PY, "scripts/train_initial.py", "--states", "all", "--n-titles", "100000",
                                  "--data", str(data), "--embedder", "auto"]),
+                      ("state_model", [PY, "scripts/train_state_model.py", "--data", str(data), "--embedder", "auto"]),
                       ("plots", [PY, "scripts/analyze_regions.py", "--data", str(data)])):
         done = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
         out[name] = done.returncode
@@ -73,7 +74,7 @@ def main() -> int:
     ap.add_argument("--min-titles", type=int, default=30)
     args = ap.parse_args()
     data = args.data
-    env = {**os.environ, "TRENDS_DELAY_S": args.delay, "TRENDS_BACKOFF_S": "60"}
+    env = {**os.environ, "OPENBLAS_NUM_THREADS": "1", "TRENDS_DELAY_S": args.delay, "TRENDS_BACKOFF_S": "60"}
 
     procs: dict[int, subprocess.Popen | None] = {i: None for i in range(args.shards)}
     next_start = {i: 0.0 for i in range(args.shards)}

@@ -10,9 +10,11 @@ Search interest is curiosity, not viewership.
 """
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")  # avoid allocation failures beside the collectors
 import matplotlib
 
 matplotlib.use("Agg")

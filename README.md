@@ -50,3 +50,19 @@ python scripts/collect_trends.py --n-titles 150 --max-requests 200   # resumable
 python scripts/train_initial.py --n-titles 100
 ```
 Writes `models/<version>/{report.json,model.joblib}` and `models/initial_report.json`. Sentence Transformers are used when installed, otherwise TF-IDF+SVD (`--embedder`). Engagement quality (YouTube) is not collected yet.
+
+## State model and analysis worker
+
+The state model predicts how a title's India demand splits across states and UTs. It is one task
+per model package (`models/state/`); SEO and other tasks get their own, never this one.
+
+```
+python scripts/train_state_model.py     # trains on every labelled title; saves models/state/<version>/
+python scripts/run_worker.py --once     # runs queued analyses with models/state/LATEST.json
+```
+
+* Encoder fitted on all AniList titles; comparables from every earlier, other-franchise labelled title.
+* Metrics, blend weight and intervals come from out-of-fold predictions; final models are refit on all titles.
+* `POST /titles/{id}/analyse` queues the job; the worker fills `Analysis` and per-state `RegionalScore` rows
+  (`score` = predicted share x number of states, so 1.0 is average). `market_potential` stays empty.
+* States with no Trends geo (Ladakh) are not scored. States with under 10 training titles raise `sparse_state_training`.

@@ -7,9 +7,11 @@ data/processed/state_labels.csv with columns title_id,state,share (from the Tren
 """
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")  # avoid allocation failures beside the collectors
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
