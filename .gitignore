@@ -4,3 +4,26 @@ __pycache__/
 *.pyc
 .DS_Store
 claude/
+
+# local config and secrets
+.env
+
+# caches, coverage and local databases
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.db
+*.sqlite3
+
+# editor settings
+.vscode/
+.idea/
+
+# generated data (regenerate with the scripts on the backend branch)
+data/training/synthetic_title_x_state.csv
+data/training/raw/
+data/synthetic/microdata/
+
+# raw survey downloads: may contain respondent identifiers, keep local only
+data/research/survey_sources/
