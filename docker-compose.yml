@@ -1,0 +1,37 @@
+services:
+  api:
+    build: .
+    environment:
+      KIZUNA_DATABASE_URL: postgresql+psycopg://kizuna:kizuna@postgres:5432/kizuna
+      KIZUNA_DEMO_MODE: "true"
+      KIZUNA_CORS_ORIGINS: http://localhost:8501,http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/live')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: kizuna
+      POSTGRES_USER: kizuna
+      POSTGRES_PASSWORD: kizuna
+    ports:
+      - "5432:5432"
+    volumes:
+      - kizuna-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kizuna -d kizuna"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  kizuna-postgres:
+

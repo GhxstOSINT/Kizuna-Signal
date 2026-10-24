@@ -1,0 +1,22 @@
+{
+  "name": "架空の物語",
+  "english_title": "Kizuna Signal Demo Title",
+  "synopsis": "A mock unreleased Japanese anime film used for deterministic offline demonstration of market potential in India.",
+  "content_format": "film",
+  "primary_genre": "fantasy",
+  "genres": ["fantasy", "youth"],
+  "themes": ["friendship", "regional identity", "music"],
+  "source_material": "original",
+  "expected_release_period": "2026-Q4",
+  "target_platform": "OTT",
+  "target_languages": ["Hindi", "Tamil", "Telugu"],
+  "target_states": ["Maharashtra", "Tamil Nadu", "Telangana"],
+  "marketing_budget": "medium",
+  "studio": "Mock Studio",
+  "franchise_status": "standalone",
+  "trailer_url": "https://example.com/trailer/demo",
+  "metadata_extra": {
+    "demo_mode": true,
+    "offline_fixture": true
+  }
+}
