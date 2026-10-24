@@ -151,7 +151,7 @@ outside live survey loading. `data/survey/viewing_affinity.csv` remains header-o
 Reproduce the CSV and audit with the downloaded originals present:
 
 ```sh
-.venv/bin/python scripts/compile_regional_genre_evidence.py
+.venv/bin/python backend/scripts/data/compile_regional_genre_evidence.py
 ```
 
 Downloaded originals stay in the gitignored `survey_sources/` directory. The

@@ -1,0 +1,351 @@
+/* New analysis: intake form, SEO sheet, running/progress state. */
+.intake-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 32px;
+  margin-top: 26px;
+}
+.form-plane {
+  background: #f9f9f7;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+.form-section {
+  padding: 30px;
+}
+.form-section + .form-section {
+  border-top: 1px solid var(--rule);
+}
+.form-section h2,
+.scenario-form h2 {
+  font: 400 29px "Instrument Serif";
+  margin: 0 0 24px;
+}
+.field-grid {
+  display: grid;
+  gap: 14px;
+}
+.field-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+.field-grid.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+.release-period-trigger {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 7px;
+  padding: 12px 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.release-period-trigger:hover {
+  border-color: #969a96;
+}
+.release-dialog {
+  width: min(680px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(82vh, 760px);
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+}
+.release-dialog::backdrop {
+  background: rgba(20, 23, 21, 0.5);
+  backdrop-filter: blur(3px);
+}
+.release-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 25px 27px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.release-dialog-head .eyebrow {
+  color: var(--muted);
+  font: 10px/1.4 "IBM Plex Mono", monospace;
+  letter-spacing: 0.1em;
+}
+.release-dialog-head h3 {
+  margin: 7px 0 5px;
+  font: 400 30px/1.05 "Instrument Serif", serif;
+}
+.release-dialog-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.release-dialog-close {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+.release-years {
+  max-height: min(62vh, 560px);
+  overflow: auto;
+  padding: 6px 27px 22px;
+}
+.release-year {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--soft);
+}
+.release-year:last-child {
+  border-bottom: 0;
+}
+.release-year h4 {
+  margin: 0;
+  font: 400 21px "Instrument Serif", serif;
+}
+.release-quarter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.release-quarter-grid button {
+  min-height: 42px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.release-quarter-grid button:hover {
+  border-color: var(--ink);
+}
+.release-quarter-grid button.selected {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+label,
+fieldset {
+  font-size: 12px;
+  color: #5f625f;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--rule);
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 13px;
+  color: var(--ink);
+  outline: 0;
+  margin-top: 7px;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #6f7370;
+  box-shadow: 0 0 0 3px rgba(40, 50, 45, 0.07);
+}
+textarea {
+  min-height: 126px;
+  resize: vertical;
+}
+.form-section > label {
+  display: block;
+  margin-top: 14px;
+}
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 22px 0 0;
+}
+legend {
+  margin-bottom: 10px;
+}
+.choice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+}
+.choice-grid label {
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--rule);
+  background: #fff;
+  padding: 9px 32px;
+  border-radius: 7px;
+  cursor: pointer;
+  min-height: 44px;
+  text-align: center;
+}
+.choice-grid label:has(input:focus-visible) {
+  outline: 2px solid #3b7cff;
+  outline-offset: 3px;
+}
+.choice-grid input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.choice-checkbox {
+  position: absolute;
+  left: 10px;
+  width: 15px;
+  height: 15px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #b8bcb8;
+  border-radius: 4px;
+  color: transparent;
+}
+.choice-grid label.selected {
+  background: #1f211f;
+  color: #fff;
+  border-color: #1f211f;
+}
+.choice-grid label.selected .choice-checkbox {
+  border-color: #fff;
+  background: #fff;
+  color: var(--ink);
+}
+.intake-aside {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+.seo-sheet {
+  min-height: 486px;
+  background: #181918;
+  color: #f7f7f4;
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.aside-title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.aside-title h2 {
+  font: 400 28px "Instrument Serif";
+  margin: 0;
+}
+.seo-sheet > p {
+  color: #aeb2ae;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.seo-sheet dl {
+  margin: 25px 0 0;
+}
+.seo-sheet dl div {
+  border-top: 1px solid #3b3d3b;
+  padding: 13px 0;
+}
+.seo-sheet dt {
+  font: 9px "IBM Plex Mono";
+  text-transform: uppercase;
+  color: #8f948f;
+}
+.seo-sheet dd {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.intake-aside > .button {
+  margin-top: 14px;
+}
+.submission-note {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  padding: 0 5px;
+}
+.form-error {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f3deda;
+  color: #842f24;
+  font-size: 12px;
+  margin-top: 12px;
+}
+.running-plane {
+  min-height: 480px;
+  margin-top: 22px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: center;
+  gap: 50px;
+  padding: 70px;
+  background: #f7f7f5;
+}
+.job-orbit {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #c9cbc8;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.job-orbit:before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 1px dashed #aeb1ad;
+}
+.job-orbit span {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: conic-gradient(#52d0a7 var(--progress), transparent 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0);
+}
+.job-orbit strong {
+  font: 400 53px "Instrument Serif";
+}
+.running-plane h2 {
+  font: 400 47px/1 "Instrument Serif";
+  margin: 0 0 13px;
+}
+.running-plane p {
+  color: var(--muted);
+}
+.progress-track {
+  height: 3px;
+  background: #d8dad7;
+  margin: 30px 0 14px;
+}
+.progress-track span {
+  height: 100%;
+  display: block;
+  background: #191a19;
+  transform-origin: left center;
+  transition: transform 0.4s;
+}
+.running-plane small {
+  color: #5f625f;
+}

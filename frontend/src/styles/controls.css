@@ -1,0 +1,137 @@
+/* Buttons, filters, search, the signal rail and spectral line. */
+.button {
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 17px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  min-height: 44px;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    color 0.2s;
+}
+.button:hover {
+  transform: translateY(-1px);
+}
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+.button.dark {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.button.dark:hover {
+  background: #30322f;
+}
+.button.ghost {
+  background: #fff;
+  border: 1px solid var(--rule);
+}
+.button.wide {
+  width: 100%;
+}
+.action-pair {
+  display: flex;
+  gap: 8px;
+}
+.filter-row {
+  display: grid;
+  grid-template-columns: 1fr 190px;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0 14px;
+  color: #777;
+}
+.search:focus-within {
+  border-color: #929691;
+}
+.search input,
+.filter-row select {
+  border: 0;
+  background: #fff;
+  min-height: 46px;
+  width: 100%;
+  outline: 0;
+  color: var(--ink);
+}
+.filter-row select {
+  border-radius: 10px;
+  padding: 0 14px;
+}
+.signal-rail {
+  position: relative;
+  overflow: hidden;
+  background: #171817;
+  color: #f2f3f0;
+  min-height: 37px;
+  border-radius: 9px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font:
+    10px/1 "IBM Plex Mono",
+    monospace;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.signal-rail i {
+  width: 1px;
+  height: 11px;
+  background: #666;
+}
+.signal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a3aaa5;
+}
+.signal-rail.is-live .signal-dot {
+  background: #69e0b1;
+  box-shadow: 0 0 10px rgba(105, 224, 177, 0.8);
+}
+.spectral-line {
+  position: absolute;
+  inset: auto -20% 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 10%,
+    #ff7148 28%,
+    #ffd65c 38%,
+    #4ce0ad 49%,
+    #5ba7ff 61%,
+    #a776ff 73%,
+    transparent 90%
+  );
+  opacity: 0.48;
+  filter: blur(0.2px);
+}
+.is-live .spectral-line {
+  animation: signal-travel 5s linear infinite;
+}
+@keyframes signal-travel {
+  from {
+    transform: translateX(-12%);
+  }
+  to {
+    transform: translateX(12%);
+  }
+}

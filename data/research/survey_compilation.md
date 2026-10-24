@@ -128,8 +128,8 @@ redistribution rights to all reports.
 From the repository root, with the downloaded originals present:
 
 ```sh
-.venv/bin/python scripts/compile_public_survey.py
-.venv/bin/python -m pytest tests/unit/test_census_and_survey.py
+.venv/bin/python backend/scripts/data/compile_public_survey.py
+.venv/bin/python -m pytest backend/tests/unit/test_census_and_survey.py
 ```
 
 The compiler checks the six segmentation counts, emits the archived CSV, reads it

@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kizuna-signal-backend"
+version = "0.1.0"
+description = "Explainable Indian market-potential intelligence for Japanese media."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "uvicorn[standard]>=0.32,<1.0",
+  "sqlalchemy>=2.0,<3.0",
+  "pydantic-settings>=2.6,<3.0",
+  "python-multipart>=0.0.17,<1.0",
+  "httpx[http2]>=0.27,<1.0",
+  "pytrends>=4.9,<5.0",
+]
+
+[project.optional-dependencies]
+ml = [
+  "numpy>=2.0",
+  "pandas>=2.2,<3.0",
+  "scipy>=1.13",
+  "scikit-learn>=1.5",
+  "xgboost>=2.1",
+  "joblib>=1.4",
+  "matplotlib>=3.8",
+  "pytrends>=4.9",
+]
+postgres = [
+  "psycopg[binary]>=3.2,<4.0",
+  "pgvector>=0.3,<1.0",
+]
+dev = [
+  "pytest>=8.3,<9.0",
+  "pytest-cov>=6.0,<7.0",
+  "ruff>=0.8,<1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q --disable-warnings"
+markers = [
+  "unit: isolated domain tests",
+  "api: HTTP API tests",
+  "contract: OpenAPI and schema compatibility tests",
+  "integration: database and service integration tests",
+  "postgres: tests requiring PostgreSQL",
+  "sqlite: tests using SQLite",
+  "adapters: source adapter tests",
+  "security: security and information-disclosure tests",
+  "chaos: dependency failure and recovery tests",
+  "performance: latency and concurrency tests",
+  "e2e: complete user journey tests",
+  "demo: hackathon demo rehearsal tests",
+  "slow: long-running tests",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".packages", ".venv", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = [
+  "B008", # FastAPI dependency injection intentionally calls Depends in defaults.
+  "E501", # Ruff formatter preserves long URLs, strings, and declarative records.
+]
+

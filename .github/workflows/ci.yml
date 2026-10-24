@@ -3,7 +3,7 @@ name: backend-quality-gate
 on:
   pull_request:
   push:
-    branches: [main, backend, integration, Initail-API-Layer, "feature/**"]
+    branches: [main, backend, integration, Initail-API-Layer, "feature/**", "restructure/**"]
 
 jobs:
   test:
@@ -14,19 +14,37 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: backend/pyproject.toml
       - name: Install dependencies
-        run: python -m pip install -e ".[dev,frontend,ml]"
+        run: python -m pip install -e "backend[dev,ml]"
       - name: Lint
-        run: ruff check app tests scripts
+        run: ruff check backend/app backend/tests backend/scripts
       - name: Format check
-        run: ruff format --check app tests scripts
+        run: ruff format --check backend/app backend/tests backend/scripts
       - name: Verify OpenAPI snapshot
         run: |
-          python scripts/export_openapi.py
+          python backend/scripts/dev/export_openapi.py
           git diff --exit-code -- docs/openapi.json
       - name: Test with coverage gate
-        run: pytest --cov=app --cov-report=term-missing --cov-fail-under=90
-      - name: Build container
-        run: docker build -t kizuna-signal-backend:test .
-      - name: Build dashboard container
-        run: docker build -f Dockerfile.dashboard -t kizuna-signal-dashboard:test .
+        run: pytest backend --cov=app --cov-report=term-missing --cov-fail-under=90
+      - name: Build backend container
+        run: docker build -f backend/Dockerfile -t kizuna-signal-backend:test .
+      - name: Build frontend container
+        run: docker build -f frontend/Dockerfile -t kizuna-signal-dashboard:test .
+
+  legacy-streamlit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            backend/pyproject.toml
+            legacy/streamlit/requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r legacy/streamlit/requirements.txt
+      - name: Test the prototype
+        run: pytest
+        working-directory: legacy/streamlit

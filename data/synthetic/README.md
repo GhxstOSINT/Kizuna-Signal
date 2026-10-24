@@ -26,8 +26,8 @@ folder and rejects files without `state`, `genre` and `index` columns.
 Regenerate (deterministic for a given seed) or scale up:
 
 ```sh
-python scripts/generate_synthetic_survey.py                    # about 300,000 respondents
-python scripts/generate_synthetic_survey.py --respondents 1000000 --seed 7
+python backend/scripts/data/generate_synthetic_survey.py                    # about 300,000 respondents
+python backend/scripts/data/generate_synthetic_survey.py --respondents 1000000 --seed 7
 ```
 
 ## How it is generated

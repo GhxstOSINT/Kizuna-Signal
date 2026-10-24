@@ -1,0 +1,226 @@
+/* Methodology: formulas, capability list, dataset grid, source logos, governance. */
+.method-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  min-height: 290px;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+.method-hero > div {
+  display: flex;
+  gap: 18px;
+  align-items: start;
+}
+.method-hero h2 {
+  font: 400 clamp(45px, 5vw, 72px) / 0.95 "Instrument Serif";
+  margin: 0;
+}
+.method-hero p {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.formula {
+  display: grid;
+  grid-template-columns: 1.35fr repeat(5, 1fr);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.formula > span {
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 400 25px "Instrument Serif";
+  background: #191a19;
+  color: #fff;
+  text-align: center;
+}
+.formula > div {
+  min-height: 150px;
+  padding: 18px 12px;
+  border-left: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.formula strong {
+  font: 400 48px/1 "Instrument Serif";
+}
+.formula p {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 10px 0 0;
+}
+.method-rows {
+  display: none;
+}
+.capability-list {
+  border-top: 1px solid var(--rule);
+}
+.capability {
+  display: grid;
+  grid-template-columns: 28px 1fr 28px;
+  gap: 14px;
+  align-items: center;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.capability strong {
+  font-size: 14px;
+}
+.capability p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 4px 0 0;
+}
+.capability > svg {
+  color: var(--amber);
+}
+.capability .cap-check {
+  color: var(--green);
+}
+.dataset-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.dataset-grid article {
+  min-height: 215px;
+  background: #f8f8f6;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+.source-logo {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 2px;
+}
+.youtube-logo svg {
+  width: 40px;
+  height: 30px;
+}
+.youtube-logo rect {
+  fill: #ff0033;
+}
+.youtube-logo path {
+  fill: #fff;
+}
+.trends-logo {
+  position: relative;
+  width: 48px;
+}
+.trends-logo > span {
+  color: #4285f4;
+  font-size: 31px;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+.trends-logo svg {
+  position: absolute;
+  right: -3px;
+  bottom: 5px;
+  width: 25px;
+  height: 20px;
+  overflow: visible;
+  fill: none;
+  stroke: #34a853;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+.wikimedia-logo svg {
+  width: 42px;
+  height: 42px;
+  fill: none;
+  stroke: #006699;
+  stroke-linecap: round;
+  stroke-width: 2.2;
+}
+.anilist-logo {
+  border-radius: 13px;
+  background: #02a9ff;
+  color: #fff;
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: -0.08em;
+}
+.regional-logo {
+  position: relative;
+  color: #187b57;
+}
+.regional-logo i {
+  position: absolute;
+  top: 16px;
+  color: #d78132;
+  font: 700 8px "IBM Plex Mono", monospace;
+}
+.dataset-grid article > div {
+  display: grid;
+  gap: 4px;
+}
+.dataset-grid strong {
+  text-transform: capitalize;
+}
+.dataset-grid span {
+  font: 9px "IBM Plex Mono";
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dataset-grid .source-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font: 9px "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+}
+.source-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #31a078;
+}
+.source-status.is-unavailable i {
+  background: #cb8b3a;
+}
+.dataset-grid p {
+  max-width: 220px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.governance-plane {
+  margin-top: 55px;
+  background: #181918;
+  color: #f6f7f4;
+  border-radius: var(--radius);
+  padding: 30px;
+  display: flex;
+  gap: 20px;
+}
+.governance-plane h2 {
+  font: 400 31px "Instrument Serif";
+  margin: 0;
+}
+.governance-plane p {
+  color: #afb3af;
+  line-height: 1.5;
+  margin: 8px 0 0;
+  max-width: 850px;
+}

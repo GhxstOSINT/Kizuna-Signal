@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Delegated: React, TypeScript and Vite for the dedicated `dashboard/` website, connected to the existing FastAPI `/api/v1` contract. The local FastAPI service remains the system of record. Ditto's local capture of Octolane is the visual-reference input, not a source of Octolane branding or copy.
+Delegated: React, TypeScript and Vite for the dedicated `frontend/` website, connected to the existing FastAPI `/api/v1` contract. The local FastAPI service remains the system of record. Ditto's local capture of Octolane is the visual-reference input, not a source of Octolane branding or copy.
 
 ## Users
 
@@ -42,7 +42,7 @@ Kizuna Signal combines India-specific regional and language planning with eviden
 - SEO assistance may optimize public-facing title, synopsis, keywords and metadata suggestions, but it must never overwrite the submitted canonical title without explicit user acceptance.
 - Source evidence must be permitted, timestamped and attributable. Missing sources produce an unavailable state and confidence penalty rather than fabricated live observations.
 - Current repository evidence contains deterministic demo adapters and an embedded comparable catalogue. No trained-model artifact, inference module or production dataset connector is currently present in the repository. The website must surface that configuration truth until those assets are supplied.
-- Existing Streamlit files remain legacy reference code during the migration; the dedicated React website in `dashboard/` is the forward interface.
+- Existing Streamlit files remain legacy reference code during the migration; the dedicated React website in `frontend/` is the forward interface.
 
 ## Brand Commitments
 

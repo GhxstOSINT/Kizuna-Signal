@@ -2,6 +2,21 @@
 
 Kizuna Signal is an explainable pre-release intelligence system for Japanese media entering India. The integration combines the FastAPI backend, persistence and scoring pipeline with a dedicated React and TypeScript dashboard. The previous Streamlit prototype remains in the repository as migration reference only and is not used by the current dashboard or Docker deployment.
 
+## Repository layout
+
+```
+backend/            FastAPI service, scoring pipeline, ML layer, tests, scripts   -> backend/README.md
+frontend/           React + TypeScript dashboard (Vite)                           -> frontend/README.md
+legacy/streamlit/   First Streamlit prototype, kept as migration reference only   -> legacy/streamlit/README.md
+data/               Datasets only: tables/, synthetic/, survey/, research/, training/
+models/             Trained model artifacts (models/state/<version>/, LATEST.json)
+docs/               Architecture, contract and status docs, docs/openapi.json, docs/reports/
+docker-compose.yml  API + dashboard + PostgreSQL
+AGENTS.md           Orientation for AI agents and new contributors: map, commands, gotchas
+```
+
+Everything below is run from the repository root.
+
 ## What is implemented
 
 - Versioned FastAPI routes under `/api/v1`
@@ -24,19 +39,21 @@ Kizuna Signal is an explainable pre-release intelligence system for Japanese med
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev]"
-uvicorn app.main:app --reload
+python -m pip install -e "backend[dev]"
+uvicorn app.main:app --app-dir backend --reload
 ```
+
+(`backend/scripts/dev/setup.ps1` and `start.ps1` do the same from any directory.)
 
 Open:
 
 - API documentation: `http://localhost:8000/docs`
-- Readiness: `http://localhost:8000/health/ready`
+- Readiness: `http://localhost:8000/api/v1/health/ready`
 
 Run the dedicated website in a second terminal:
 
 ```powershell
-cd dashboard
+cd frontend
 npm install
 npm run dev
 ```
@@ -56,19 +73,21 @@ The website does not fabricate an offline result when the API is unavailable. It
 ## Run tests
 
 ```powershell
-pytest
+pytest backend                                       # API, domain and ML tests (coverage gate: 90%)
+cd frontend; npm run build                           # type-checks and builds the dashboard
+cd legacy/streamlit; pip install -r requirements.txt; pytest   # legacy prototype, optional
 ```
 
-See `docs/TEST_STATUS.md` for backend coverage and verified behavior. Build the dashboard with `npm run build` from `dashboard`.
+See `docs/TEST_STATUS.md` for backend coverage and verified behavior.
 
-The model-training scripts in `scripts/` are optional and not needed to run the API or the tests. They need the extra dependencies: `python -m pip install -e ".[ml]"`.
+The scripts in `backend/scripts/` (`train/`, `data/`, `dev/`) are optional and not needed to run the API or the tests. The training and data ones need the extra dependencies: `python -m pip install -e "backend[ml]"`.
 
 The survey source defaults to simulated data in `data/synthetic/` (rows labelled `PROXY synthetic`); see `data/synthetic/README.md` and set `KIZUNA_SURVEY_DIR=data/survey` to use only real rows.
 
 Refresh the committed API contract after an intentional schema change:
 
 ```powershell
-python scripts/export_openapi.py
+python backend/scripts/dev/export_openapi.py
 ```
 
 Frontend work should fail review if `docs/openapi.json` changes unexpectedly.
@@ -115,15 +134,15 @@ are maintained in `docs/INTEGRATION_STATUS.md`.
 
 ## AniList dataset (ML prep)
 ```
-python scripts/build_anilist_dataset.py --pages 20 --start-year-from 2000
+python backend/scripts/data/build_anilist_dataset.py --pages 20 --start-year-from 2000
 ```
 Raw responses go to `data/raw/anilist` (append-only, checksummed, cached 7 days). Output in `data/processed`: `anilist_features.jsonl` (pre-release features only), `anilist_labels.jsonl` (popularity outcomes, joined by `anilist_id`) and `anilist_report.json` (drop counts). Outcomes never appear in the feature table.
 
 ## India state-level model (initial training)
 ```
-python scripts/build_anilist_dataset.py --pages 6 --sort popularity --start-year-from 2016 --start-year-to 2023
-python scripts/collect_trends.py --n-titles 150 --max-requests 200   # resumable; repeat daily
-python scripts/train_initial.py --n-titles 100
+python backend/scripts/data/build_anilist_dataset.py --pages 6 --sort popularity --start-year-from 2016 --start-year-to 2023
+python backend/scripts/data/collect_trends.py --n-titles 150 --max-requests 200   # resumable; repeat daily
+python backend/scripts/train/train_initial.py --n-titles 100
 ```
 Writes `models/<version>/{report.json,model.joblib}` and `models/initial_report.json`. Sentence Transformers are used when installed, otherwise TF-IDF+SVD (`--embedder`). Engagement quality (YouTube) is not collected yet.
 
@@ -133,7 +152,7 @@ The state model predicts where a title over-performs across India's states and U
 model package (`models/state/`); SEO and other tasks get their own, never this one.
 
 ```
-python scripts/train_state_model.py     # trains from csv/ (see csv/data_dictionary.csv); saves models/state/<version>/
+python backend/scripts/train/train_state_model.py     # trains from data/tables/ (see data/tables/data_dictionary.csv); saves models/state/<version>/
 python scripts/run_worker.py --once     # runs queued analyses with models/state/LATEST.json
 ```
 
@@ -174,12 +193,12 @@ It loads `models/state/LATEST.json` once; restart the API after retraining. Ther
 
 `/predict` now also returns `success`: the architecture's Market Potential, 0-100 where 50 is a typical anime in the
 training set (not a revenue forecast). `S = sum(w_i c_i) / sum(w_i)` over components that are measured **and validated**
-(weights in `app/ml/scoring_config.py`; maths in `app/ml/success.py`).
+(weights in `backend/app/ml/scoring_config.py`; maths in `backend/app/ml/success.py`).
 
 | Component (weight) | Status for an unreleased title |
 |---|---|
 | Regional opportunity (20%) | measured: `100 * Phi(sum_s share_s * lift_s / sigma)` from the state model |
-| Content fit (25%), comparable performance (15%) | measured against global popularity (the only outcome in csv/), shown but excluded when held-out Spearman < 0.1 |
+| Content fit (25%), comparable performance (15%) | measured against global popularity (the only outcome in data/tables/), shown but excluded when held-out Spearman < 0.1 |
 | Demand momentum (25%), engagement quality (15%) | unavailable (no pre-release Trends window; no YouTube adapter) |
 
 `POST /api/v1/predict/report?format=pdf|json|csv|xml` takes the same body as `/predict` and returns a download:
@@ -188,25 +207,25 @@ limitations; matplotlib only), JSON (full report), CSV (one row per state, title
 The stored-title route works too: `POST /api/v1/reports {"analysis_id", "format": "pdf|json|csv|xml"}` queues a job,
 `scripts/run_worker.py` renders it into `data/reports/` (`REPORTS_DIR`), and `GET /api/v1/reports/{id}/download` serves
 the file (409 until it is rendered). Stored titles have no tags or episode count, so those features are empty there.
-Every renderer reads one dict built by `app/reports/build.py`. The report also lists `limitations` and model evaluation.
+Every renderer reads one dict built by `backend/app/reports/build.py`. The report also lists `limitations` and model evaluation.
 
 ## Synthetic fill for sparse states, model card
 
 Google Trends returns nothing for most titles in small states (Lakshadweep: 10 of 62 titles), so those states rest on
-few, selected rows. `app/ml/synthetic.py` fills each missing title x state cell with a weighted average of (a) the lift
+few, selected rows. `backend/app/ml/synthetic.py` fills each missing title x state cell with a weighted average of (a) the lift
 of the most similar training titles that have data in that state and (b) the title's own lift in states sharing its
 language/zone, shrunk towards 0 by `n/(n+k)`; thinly supported cells are skipped. Synthetic rows train at weight 0.3,
 are built from training-fold titles only, never validate, and never feed history features.
 
 ```
-python scripts/train_state_model.py                 # synthetic on (default); --no-synthetic, --synthetic-weight 0.5
-python scripts/model_report.py                      # results/MODEL_REPORT.md, state_coverage.csv, 08_*.png, 09_*.png
+python backend/scripts/train/train_state_model.py                 # synthetic on (default); --no-synthetic, --synthetic-weight 0.5
+python backend/scripts/train/model_report.py                      # docs/reports/MODEL_REPORT.md, state_coverage.csv, 08_*.png, 09_*.png
 ```
 `GET /api/v1/model` returns the model card (data counts, held-out accuracy with and without synthetic rows, per-state
 real/synthetic coverage and held-out bias, success-model validation). `/predict` states carry `synthetic_rows`; the
 `synthetic_augmented` warning and an extra limitation appear when the model used them. The PDF evaluation page shows the
 with/without comparison.
 
-The India success score's content-fit and comparables now learn from all 300 titles in `csv/` (global popularity needs
+The India success score's content-fit and comparables now learn from all 300 titles in `data/tables/` (global popularity needs
 no state labels), not the 62 state-labelled ones: content-fit held-out Spearman -0.34 -> 0.39, so 60% of the score weight
 is counted instead of 20%.

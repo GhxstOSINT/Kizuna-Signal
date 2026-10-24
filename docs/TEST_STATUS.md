@@ -48,17 +48,17 @@ pytest
 pytest -m "unit or api or contract"
 pytest -m "integration or e2e"
 pytest --cov=app --cov-report=term-missing
-python scripts/export_openapi.py
+python backend/scripts/dev/export_openapi.py
 ruff check app tests scripts
 ruff format --check app tests scripts
 ```
 
 ## Current verified baseline
 
-- Tests: 290 passed, 40 skipped, 0 failing. The 40 skips are `tests/test_predict_cases.py` and `tests/test_reports.py`, which need a trained model in `models/state/` (git-ignored, so absent on a fresh checkout and in CI); `tests/test_reports_synthetic.py` covers the same report routes on a synthetic model
+- Tests: 290 passed, 40 skipped, 0 failing. The 40 skips are `backend/tests/api/test_predict_cases.py` and `backend/tests/reports/test_reports.py`, which need a trained model in `models/state/` (git-ignored, so absent on a fresh checkout and in CI); `backend/tests/reports/test_reports_synthetic.py` covers the same report routes on a synthetic model
 - Application line coverage: 95%
 - Static quality check: passing (`ruff check` and `ruff format --check`)
-- Dependencies: tests need `pip install -e ".[dev,frontend,ml]"`; `pandas` must be below 3.0 or `app/ml` breaks
+- Dependencies: tests need `pip install -e "backend[dev,ml]"`; `pandas` must be below 3.0 or `backend/app/ml` breaks
 - OpenAPI snapshot: committed at `docs/openapi.json`, no drift
 - Golden mode: deterministic and independent of live credentials
 - CI: lint, format, OpenAPI diff, 90% coverage gate and container build configured

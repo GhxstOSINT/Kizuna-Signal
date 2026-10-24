@@ -1,0 +1,129 @@
+/* Playbook: decision statement, campaign, risk, approval, version footer. */
+.decision-statement {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.decision-statement h2 {
+  font: 400 clamp(55px, 7vw, 100px) / 0.9 "Instrument Serif";
+  letter-spacing: -0.035em;
+  max-width: 1100px;
+  margin: 0;
+}
+.decision-statement p {
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 720px;
+  color: var(--muted);
+  margin: 30px 0 0;
+}
+.playbook-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+}
+.decision-list {
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+.decision-list > div {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.decision-list dd {
+  margin: 0;
+}
+.ruled-item {
+  border-top: 1px solid var(--rule);
+  margin: 0;
+  padding: 16px 0;
+}
+.campaign-sequence {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+.campaign-sequence li {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--rule);
+  font: 400 25px "Instrument Serif";
+}
+.campaign-sequence li span {
+  font: 10px "IBM Plex Mono";
+  color: var(--muted);
+}
+.campaign-sequence p {
+  margin: 0;
+}
+.risk-plane {
+  margin-top: 55px;
+  background: #ece2dc;
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.risk-plane .section-heading {
+  margin-top: 0;
+}
+.risk-plane > div:not(.section-heading) {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #d4c4bb;
+}
+.risk-plane p {
+  margin: 0;
+  font-size: 13px;
+}
+.approval-plane {
+  margin-top: 28px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+.approval-plane > div {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.approval-plane h2 {
+  font: 400 28px "Instrument Serif";
+  margin: 0;
+}
+.approval-plane p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+.approval-mark {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid #989c98;
+}
+.approval-plane.accepted {
+  background: #dfede6;
+  border-color: #bad4c8;
+}
+.version-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid var(--rule);
+  font: 9px "IBM Plex Mono";
+  color: var(--muted);
+  text-transform: uppercase;
+}

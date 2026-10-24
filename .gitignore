@@ -10,12 +10,11 @@ htmlcov/
 *.db
 *.sqlite3
 dist/
-dashboard/node_modules/
-dashboard/dist/
-dashboard/*.tsbuildinfo
-dashboard/vite.config.js
-dashboard/vite.config.d.ts
-frontend/
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
 .integration-pip-tmp/
 .impeccable/review/
 build/

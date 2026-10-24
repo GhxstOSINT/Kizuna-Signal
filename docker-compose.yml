@@ -2,7 +2,7 @@ services:
   dashboard:
     build:
       context: .
-      dockerfile: Dockerfile.dashboard
+      dockerfile: frontend/Dockerfile
     ports:
       - "${KIZUNA_DASHBOARD_PORT:-3000}:80"
     depends_on:
@@ -10,7 +10,9 @@ services:
         condition: service_healthy
 
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     environment:
       KIZUNA_DATABASE_URL: postgresql+psycopg://kizuna:kizuna@postgres:5432/kizuna
       KIZUNA_DEMO_MODE: "true"

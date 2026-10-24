@@ -1,3 +1,0 @@
-# Compatibility entry point for contributors who use requirements.txt.
-# pyproject.toml remains the single source of dependency versions.
--e .[frontend,ml,dev]
