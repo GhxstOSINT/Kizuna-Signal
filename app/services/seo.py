@@ -46,33 +46,13 @@ def _state_focus(db: Session, title_id: int) -> list[RegionalScore]:
 def compute(db: Session, title: Title, assumption: TitleAssumption | None, client: TrendsClient, today: date) -> dict:
     cands = candidates(title.name_en, title.name_jp, list(assumption.languages) if assumption else [],
                        assumption.localization_mode if assumption else None)
-    ranked = seo_rank.rank(client, cands, today)
-    ok = [r for r in ranked if r["status"] == "ok"]
-    best = ok[0]["term"] if ok else None
-    warnings = []
-    if not ok:
-        warnings.append("no_signal_any_term")
-    if any(r["status"] == "blocked" for r in ranked):
-        warnings.append("trends_blocked_partial_results")
+    focus = [{"state": s.region_code, "name": s.region_name, "lift": s.score,
+              "expected_share": s.evidence[0]["expected_share"] if s.evidence else None}
+             for s in _state_focus(db, title.id)]
+    result = seo_rank.insight(client, cands, today, focus)
     if title.is_unreleased:
-        warnings.append("unreleased_title_interest_is_for_the_name_only")
-
-    focus = []
-    for score in _state_focus(db, title.id):
-        entry = {"state": score.region_code, "name": score.region_name, "lift": score.score,
-                 "expected_share": score.evidence[0]["expected_share"] if score.evidence else None,
-                 "term_ratio": None}
-        if best:
-            measured = seo_rank.score_term(client, best, score.region_code, today)
-            entry["term_ratio"] = measured.get("ratio") if measured["status"] == "ok" else None
-            entry["term_status"] = measured["status"]
-        focus.append(entry)
-    if not focus:
-        warnings.append("no_completed_state_analysis")
-    return {"title_id": title.id, "method": seo_rank.METHOD, "as_of": str(today), "best_term": best,
-            "best_by_variant": seo_rank.best_by_variant(ranked), "candidates": ranked,
-            "state_focus": focus, "warnings": warnings,
-            "not_available": ["search volume", "keyword difficulty", "rankings", "launch timing"]}
+        result["warnings"].append("unreleased_title_interest_is_for_the_name_only")
+    return {"title_id": title.id, **result}
 
 
 def run(db: Session, job: Job, client: TrendsClient, today: date | None = None) -> Job:

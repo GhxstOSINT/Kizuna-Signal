@@ -18,19 +18,23 @@ from app.services import jobs as job_service
 FORMATS = {"anime_series": "TV", "anime_film": "MOVIE"}
 
 
-def to_frame(title: Title, assumption: TitleAssumption | None) -> pd.DataFrame:
-    """One-row title frame. The DB has no themes or episode count, so those features are empty."""
-    launch = (assumption.planned_launch_date if assumption else None) or title.release_date or date.today()
+def make_frame(title_id: str, franchise_id: str, name_en: str, name_jp: str | None, genres: list[str],
+               themes: list[str], fmt: str | None, launch: date, synopsis: str, studio: str | None = None,
+               episodes: int | None = None, minutes: float | None = None, has_prequel: bool = False) -> pd.DataFrame:
+    """One-row content frame for a title that is not in the training data."""
     record = TitleRecord(
-        title_id=f"db:{title.id}",
-        franchise_id=f"db:{title.franchise or title.id}",
-        english_title=title.name_en, japanese_title=title.name_jp,
-        genres=list(title.genres or []), themes=[],
-        format=FORMATS.get(title.format or "", title.format),
-        original_release_date=launch, synopsis=title.synopsis or "",
+        title_id=title_id, franchise_id=franchise_id, english_title=name_en, japanese_title=name_jp,
+        genres=genres, themes=themes, format=FORMATS.get(fmt or "", fmt), original_release_date=launch,
+        synopsis=synopsis, runtime_or_episode_count={"episodes": episodes},
     )
-    frame = titles_frame([record])
-    return frame.assign(studio=title.studio, has_prequel=False, minutes=0.0)
+    return titles_frame([record]).assign(studio=studio, has_prequel=has_prequel, minutes=minutes or 0.0)
+
+
+def to_frame(title: Title, assumption: TitleAssumption | None) -> pd.DataFrame:
+    """The DB has no themes or episode count, so those features are empty for stored titles."""
+    launch = (assumption.planned_launch_date if assumption else None) or title.release_date or date.today()
+    return make_frame(f"db:{title.id}", f"db:{title.franchise or title.id}", title.name_en, title.name_jp,
+                      list(title.genres or []), [], title.format, launch, title.synopsis or "", title.studio)
 
 
 def score(model: StateModel, title: Title, assumption: TitleAssumption | None) -> dict:

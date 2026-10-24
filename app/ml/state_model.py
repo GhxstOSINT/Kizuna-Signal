@@ -203,7 +203,9 @@ class StateModel:
                                         for f in row.abs().nlargest(top_drivers).index]})
         results.sort(key=lambda r: r["rank"])
         f = conf.iloc[0]
-        comparables = [{"title_id": self.pool.iloc[i]["title_id"], "similarity": round(float(masked[i]), 4)}
+        names = self.pool["name_en"] if "name_en" in self.pool else None
+        comparables = [{"title_id": self.pool.iloc[i]["title_id"], "similarity": round(float(masked[i]), 4),
+                        **({"name": names.iloc[i]} if names is not None else {})}
                        for i in np.argsort(-masked)[:5] if np.isfinite(masked[i])]
         history = {k: int(rows[k].max()) for k in ("parent_n", "studio_n")}
         return {"model_version": self.version, "task": TASK, "states": results,

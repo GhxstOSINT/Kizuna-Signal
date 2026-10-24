@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 
-from app.api.routes import analyses, projects, reports, seo, sources, titles
+from app.api.routes import analyses, predict, projects, reports, seo, sources, titles
 from app.core.config import settings
 
 app = FastAPI(title="Kizuna Signal API", version=settings.api_version)
-for module in (projects, titles, sources, analyses, reports, seo):
+for module in (projects, titles, sources, analyses, reports, seo, predict):
     app.include_router(module.router, prefix="/api/v1")
 
 

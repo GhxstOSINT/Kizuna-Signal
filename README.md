@@ -85,3 +85,11 @@ interest only (no search volume, keyword difficulty, rankings or launch timing; 
 `scripts/run_worker.py` now runs state analyses, SEO jobs and `/sources/collect` jobs. Collection works for
 `google_trends`; other sources are recorded as `unavailable` with `no_adapter_for_database_titles`.
 `tests/test_e2e_postgres.py` exercises all routes against a throwaway database on the docker-compose Postgres.
+
+## One-shot prediction
+
+`POST /api/v1/predict` takes a title and returns the state-by-state prediction in one response (no project,
+title row or job). Fields: `name_en`, `genres`, `synopsis` (50+ chars), optional `tags`, `studio`, `release_date`,
+`episodes`, `languages`, `localization_mode`, `include_seo` (live Trends, slow). Response: `india` (confidence,
+warnings, top/bottom states), `states` (rank, lift, 80% interval, expected share, drivers), `comparables`, `seo`.
+It loads `models/state/LATEST.json` once; restart the API after retraining. There is no single national score.

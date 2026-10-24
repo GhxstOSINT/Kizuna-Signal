@@ -35,7 +35,7 @@ def load(folder: Path = Path("csv")) -> CsvData:
     demand = read("title_state_demand_PRE_RELEASE.csv")
 
     titles = pd.DataFrame({
-        "title_id": feats["title_id"], "franchise_id": feats["franchise_id"],
+        "title_id": feats["title_id"], "name_en": feats["name_en"], "franchise_id": feats["franchise_id"],
         "release_date": pd.to_datetime(feats["original_release_date"]),
         "format": feats["format"].fillna("UNKNOWN"),
         "genres": feats["genres"].map(_split), "themes": feats["tags"].map(_split),

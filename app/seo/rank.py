@@ -48,3 +48,28 @@ def best_by_variant(ranked: list[dict]) -> dict[str, str]:
         if r["status"] == "ok":
             out.setdefault(r["variant"].split(":")[0], r["term"])
     return out
+
+
+def insight(client: TrendsClient, cands: list[Candidate], today: date, focus: list[dict]) -> dict:
+    """Ranked terms plus the best term measured in each `focus` state (dicts with state/name/lift/expected_share)."""
+    ranked = rank(client, cands, today)
+    ok = [r for r in ranked if r["status"] == "ok"]
+    best = ok[0]["term"] if ok else None
+    warnings = []
+    if not ok:
+        warnings.append("no_signal_any_term")
+    if any(r["status"] == "blocked" for r in ranked):
+        warnings.append("trends_blocked_partial_results")
+    measured_focus = []
+    for entry in focus:
+        entry = {**entry, "term_ratio": None}
+        if best:
+            m = score_term(client, best, entry["state"], today)
+            entry["term_ratio"] = m.get("ratio") if m["status"] == "ok" else None
+            entry["term_status"] = m["status"]
+        measured_focus.append(entry)
+    if not focus:
+        warnings.append("no_completed_state_analysis")
+    return {"method": METHOD, "as_of": str(today), "best_term": best, "best_by_variant": best_by_variant(ranked),
+            "candidates": ranked, "state_focus": measured_focus, "warnings": warnings,
+            "not_available": ["search volume", "keyword difficulty", "rankings", "launch timing"]}

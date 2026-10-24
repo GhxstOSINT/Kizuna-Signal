@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     anilist_cache_ttl_s: int = 7 * 24 * 3600
     anilist_page_delay_s: float = 0.8  # AniList allows ~90 requests/minute
     anilist_raw_dir: str = "data/raw/anilist"
+    models_dir: str = "models"
     trends_raw_dir: str = "data/raw/google_trends"
     trends_anchor: str = "Death Note"  # mid-scale: "anime" is too large, titles round to 0
     trends_delay_s: float = 6.0
