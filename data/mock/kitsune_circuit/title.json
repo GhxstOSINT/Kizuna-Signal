@@ -1,0 +1,37 @@
+{
+  "title": "Kitsune Circuit",
+  "title_jp": "キツネ・サーキット",
+  "english_title": "Kitsune Circuit",
+  "synopsis": "A struggling robotics student discovers her late grandfather's workshop hides a fox spirit bound to a prototype racer, and an underground league that wants both.",
+  "format": "Anime series",
+  "genres": [
+    "Sci-Fi",
+    "Comedy",
+    "Sports"
+  ],
+  "age_rating": "10+",
+  "release_period": "November 2027",
+  "source_material": "Manga",
+  "episodes": 24,
+  "studio": "Kumo Animation",
+  "franchise_status": "Manga adaptation",
+  "themes": [
+    "Family",
+    "Technology",
+    "Competition"
+  ],
+  "intended_audience": "Youth and family",
+  "target_platform": "OTT",
+  "target_languages": [
+    "Hindi",
+    "Telugu"
+  ],
+  "target_states": [],
+  "budget_band": "Low",
+  "director": "R. Takeda",
+  "cast": [],
+  "accent": "#B5452F",
+  "trailer_url": "https://www.youtube.com/watch?v=mock-kitsune-circuit",
+  "completeness": 84,
+  "title_id": "kitsune_circuit"
+}

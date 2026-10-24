@@ -1,0 +1,131 @@
+{
+  "comparables": [
+    {
+      "id": "your_name",
+      "title": "Your Name",
+      "year": 2016,
+      "format": "Animated film",
+      "similarity": 0.76,
+      "indian_demand": "High",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 86,
+      "reason": "Mystery-tinged drama with a memory theme and broad urban appeal."
+    },
+    {
+      "id": "a_silent_voice",
+      "title": "A Silent Voice",
+      "year": 2016,
+      "format": "Animated film",
+      "similarity": 0.74,
+      "indian_demand": "Medium",
+      "genre_match": "Strong",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 66,
+      "reason": "Emotional drama about guilt and redemption."
+    },
+    {
+      "id": "perfect_blue",
+      "title": "Perfect Blue",
+      "year": 1997,
+      "format": "Animated film",
+      "similarity": 0.7,
+      "indian_demand": "Medium",
+      "genre_match": "Strong",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 58,
+      "reason": "Psychological thriller with a cult following."
+    },
+    {
+      "id": "paprika",
+      "title": "Paprika",
+      "year": 2006,
+      "format": "Animated film",
+      "similarity": 0.68,
+      "indian_demand": "Medium",
+      "genre_match": "Strong",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 60,
+      "reason": "Dreamlike mystery; mostly known through festivals."
+    },
+    {
+      "id": "weathering_with_you",
+      "title": "Weathering With You",
+      "year": 2019,
+      "format": "Animated film",
+      "similarity": 0.64,
+      "indian_demand": "High",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 78,
+      "reason": "Urban teenage drama with a fantastical element."
+    },
+    {
+      "id": "suzume",
+      "title": "Suzume",
+      "year": 2022,
+      "format": "Animated film",
+      "similarity": 0.6,
+      "indian_demand": "High",
+      "genre_match": "Weak",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 82,
+      "reason": "Large-scale film; much bigger marketing than Hollow Tide."
+    },
+    {
+      "id": "garden_of_words",
+      "title": "The Garden of Words",
+      "year": 2013,
+      "format": "Animated film",
+      "similarity": 0.58,
+      "indian_demand": "Low",
+      "genre_match": "Moderate",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 40,
+      "reason": "Quiet romance; limited reach."
+    },
+    {
+      "id": "spirited_away",
+      "title": "Spirited Away",
+      "year": 2001,
+      "format": "Animated film",
+      "similarity": 0.55,
+      "indian_demand": "High",
+      "genre_match": "Weak",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 90,
+      "reason": "Landmark film, not a close genre match."
+    }
+  ],
+  "sets": {
+    "expected": [
+      "your_name",
+      "a_silent_voice",
+      "perfect_blue",
+      "paprika",
+      "weathering_with_you"
+    ],
+    "optimistic": [
+      "your_name",
+      "suzume",
+      "spirited_away",
+      "weathering_with_you",
+      "a_silent_voice"
+    ],
+    "conservative": [
+      "perfect_blue",
+      "paprika",
+      "garden_of_words",
+      "a_silent_voice",
+      "your_name"
+    ]
+  }
+}

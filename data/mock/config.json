@@ -1,0 +1,473 @@
+{
+  "scoring_config_version": "sc-2026.10-a",
+  "components": [
+    {
+      "id": "content_fit",
+      "label": "Content Fit",
+      "weight": 25,
+      "primary": true
+    },
+    {
+      "id": "demand_momentum",
+      "label": "Demand Momentum",
+      "weight": 25,
+      "primary": true
+    },
+    {
+      "id": "regional_opportunity",
+      "label": "Regional Opportunity",
+      "weight": 20,
+      "primary": true
+    },
+    {
+      "id": "engagement_quality",
+      "label": "Engagement Quality",
+      "weight": 15,
+      "primary": true
+    },
+    {
+      "id": "comparable_performance",
+      "label": "Comparable Performance",
+      "weight": 15,
+      "primary": true
+    },
+    {
+      "id": "localization_readiness",
+      "label": "Localization Readiness",
+      "weight": 0,
+      "primary": false
+    }
+  ],
+  "confidence_factors": [
+    {
+      "id": "data_completeness",
+      "label": "Data completeness",
+      "weight": 0.2
+    },
+    {
+      "id": "source_agreement",
+      "label": "Source agreement",
+      "weight": 0.25
+    },
+    {
+      "id": "comparable_quality",
+      "label": "Comparable quality",
+      "weight": 0.2
+    },
+    {
+      "id": "regional_evidence",
+      "label": "Regional evidence",
+      "weight": 0.2
+    },
+    {
+      "id": "data_freshness",
+      "label": "Data freshness",
+      "weight": 0.15
+    }
+  ],
+  "interval": {
+    "base": 2,
+    "slope": 0.22
+  },
+  "decision": {
+    "insufficient_below_confidence": 50,
+    "insufficient_label": "Insufficient evidence",
+    "bands": [
+      {
+        "min_score": 75,
+        "label": "Strong opportunity"
+      },
+      {
+        "min_score": 65,
+        "label": "Promising opportunity"
+      },
+      {
+        "min_score": 50,
+        "label": "Test before investing"
+      },
+      {
+        "min_score": 0,
+        "label": "Limited opportunity"
+      }
+    ]
+  },
+  "regional": {
+    "suppress_below_evidence": 40,
+    "limited_below_evidence": 55,
+    "top_n": 5
+  },
+  "min_comparables": 2,
+  "languages": [
+    "Hindi",
+    "English",
+    "Tamil",
+    "Telugu",
+    "Kannada",
+    "Malayalam",
+    "Bengali",
+    "Marathi",
+    "Gujarati",
+    "Punjabi",
+    "Odia",
+    "Assamese"
+  ],
+  "states": {
+    "Andaman & Nicobar": {
+      "language": "Hindi",
+      "market_index": 6
+    },
+    "Andhra Pradesh": {
+      "language": "Telugu",
+      "market_index": 66
+    },
+    "Arunachal Pradesh": {
+      "language": "English",
+      "market_index": 10
+    },
+    "Assam": {
+      "language": "Assamese",
+      "market_index": 45
+    },
+    "Bihar": {
+      "language": "Hindi",
+      "market_index": 70
+    },
+    "Chandigarh": {
+      "language": "Punjabi",
+      "market_index": 34
+    },
+    "Chhattisgarh": {
+      "language": "Hindi",
+      "market_index": 42
+    },
+    "Dadra and Nagar Haveli and Daman and Diu": {
+      "language": "Gujarati",
+      "market_index": 14
+    },
+    "Delhi": {
+      "language": "Hindi",
+      "market_index": 88
+    },
+    "Goa": {
+      "language": "English",
+      "market_index": 30
+    },
+    "Gujarat": {
+      "language": "Gujarati",
+      "market_index": 75
+    },
+    "Haryana": {
+      "language": "Hindi",
+      "market_index": 60
+    },
+    "Himachal Pradesh": {
+      "language": "Hindi",
+      "market_index": 28
+    },
+    "Jammu & Kashmir": {
+      "language": "Hindi",
+      "market_index": 32
+    },
+    "Jharkhand": {
+      "language": "Hindi",
+      "market_index": 48
+    },
+    "Karnataka": {
+      "language": "Kannada",
+      "market_index": 85
+    },
+    "Kerala": {
+      "language": "Malayalam",
+      "market_index": 62
+    },
+    "Ladakh": {
+      "language": "Hindi",
+      "market_index": 5
+    },
+    "Lakshadweep": {
+      "language": "Malayalam",
+      "market_index": 3
+    },
+    "Madhya Pradesh": {
+      "language": "Hindi",
+      "market_index": 64
+    },
+    "Maharashtra": {
+      "language": "Marathi",
+      "market_index": 95
+    },
+    "Manipur": {
+      "language": "English",
+      "market_index": 16
+    },
+    "Meghalaya": {
+      "language": "English",
+      "market_index": 16
+    },
+    "Mizoram": {
+      "language": "English",
+      "market_index": 10
+    },
+    "Nagaland": {
+      "language": "English",
+      "market_index": 12
+    },
+    "Odisha": {
+      "language": "Odia",
+      "market_index": 50
+    },
+    "Puducherry": {
+      "language": "Tamil",
+      "market_index": 24
+    },
+    "Punjab": {
+      "language": "Punjabi",
+      "market_index": 55
+    },
+    "Rajasthan": {
+      "language": "Hindi",
+      "market_index": 68
+    },
+    "Sikkim": {
+      "language": "English",
+      "market_index": 8
+    },
+    "Tamil Nadu": {
+      "language": "Tamil",
+      "market_index": 82
+    },
+    "Telangana": {
+      "language": "Telugu",
+      "market_index": 76
+    },
+    "Tripura": {
+      "language": "Bengali",
+      "market_index": 18
+    },
+    "Uttar Pradesh": {
+      "language": "Hindi",
+      "market_index": 90
+    },
+    "Uttarakhand": {
+      "language": "Hindi",
+      "market_index": 36
+    },
+    "West Bengal": {
+      "language": "Bengali",
+      "market_index": 78
+    }
+  },
+  "levers": {
+    "localization": {
+      "label": "Localization",
+      "options": {
+        "subs_hindi": {
+          "label": "Hindi subtitles",
+          "score": 0,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "dub_hindi_subs_regional": {
+          "label": "Hindi dub + Tamil/Telugu subtitles",
+          "score": 4,
+          "confidence": -1,
+          "cost": 1,
+          "reach": 2
+        },
+        "multilingual_dub": {
+          "label": "Multilingual dub (Hindi, Tamil, Telugu)",
+          "score": 6,
+          "confidence": -3,
+          "cost": 2.5,
+          "reach": 3
+        },
+        "english_subs_only": {
+          "label": "English subtitles only",
+          "score": -5,
+          "confidence": 0,
+          "cost": -0.5,
+          "reach": -1
+        }
+      }
+    },
+    "distribution": {
+      "label": "Distribution",
+      "options": {
+        "ott": {
+          "label": "OTT",
+          "score": 0,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "theatrical": {
+          "label": "Theatrical",
+          "score": -3,
+          "confidence": -2,
+          "cost": 2,
+          "reach": 0
+        },
+        "tv": {
+          "label": "Television",
+          "score": -5,
+          "confidence": -1,
+          "cost": 1.5,
+          "reach": 1
+        },
+        "digital_first": {
+          "label": "Digital-first",
+          "score": 1,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "hybrid": {
+          "label": "Hybrid (OTT + theatrical)",
+          "score": 2,
+          "confidence": -1,
+          "cost": 2,
+          "reach": 1
+        }
+      }
+    },
+    "geography": {
+      "label": "Geography",
+      "options": {
+        "national": {
+          "label": "National launch",
+          "score": 0,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "regional_first": {
+          "label": "Regional-first rollout",
+          "score": 1,
+          "confidence": 1,
+          "cost": -0.5,
+          "reach": -1
+        },
+        "selected_states": {
+          "label": "Selected-state focus",
+          "score": 1,
+          "confidence": 2,
+          "cost": -1,
+          "reach": -2
+        }
+      }
+    },
+    "release_window": {
+      "label": "Release window",
+      "options": {
+        "mar_apr": {
+          "label": "March-April",
+          "score": 0,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "jun_jul": {
+          "label": "June-July",
+          "score": -1,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "oct_nov_festive": {
+          "label": "October-November (festive season)",
+          "score": 2,
+          "confidence": -1,
+          "cost": 0.5,
+          "reach": 0
+        },
+        "jan_feb": {
+          "label": "January-February",
+          "score": -1,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        }
+      }
+    },
+    "marketing_budget": {
+      "label": "Marketing budget",
+      "options": {
+        "low": {
+          "label": "Low",
+          "score": -3,
+          "confidence": 0,
+          "cost": -1,
+          "reach": -1
+        },
+        "medium": {
+          "label": "Medium",
+          "score": 0,
+          "confidence": 0,
+          "cost": 0,
+          "reach": 0
+        },
+        "high": {
+          "label": "High",
+          "score": 3,
+          "confidence": -1,
+          "cost": 1.5,
+          "reach": 1
+        }
+      }
+    }
+  },
+  "scenario_objective": {
+    "score": 1.0,
+    "confidence": 0.3,
+    "cost": -1.5
+  },
+  "cost_levels": [
+    {
+      "below": 1.5,
+      "label": "Low"
+    },
+    {
+      "below": 3.5,
+      "label": "Medium"
+    },
+    {
+      "below": 999,
+      "label": "High"
+    }
+  ],
+  "reach_levels": [
+    {
+      "below": 2,
+      "label": "Limited"
+    },
+    {
+      "below": 4,
+      "label": "Moderate"
+    },
+    {
+      "below": 6,
+      "label": "High"
+    },
+    {
+      "below": 999,
+      "label": "Very high"
+    }
+  ],
+  "pipeline_stages": [
+    "Title metadata validated",
+    "Public demand signals collected",
+    "Content DNA generated",
+    "Comparable titles identified",
+    "Calculating regional opportunity",
+    "Generating launch recommendation"
+  ],
+  "content_formats": [
+    "Anime series",
+    "Animated film",
+    "Live-action film",
+    "Television series",
+    "Manga adaptation",
+    "Character IP"
+  ]
+}

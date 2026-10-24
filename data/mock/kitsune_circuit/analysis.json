@@ -1,0 +1,167 @@
+{
+  "analysis_id": "an_kitsune_circuit_001",
+  "title_id": "kitsune_circuit",
+  "status": "partial",
+  "result_version": "1.3.0",
+  "scoring_config_version": "sc-2026.10-a",
+  "model_version": "xgb-0.9-r2",
+  "model_used": "primary",
+  "feature_snapshot_id": "fs_kitsune_circuit_20261022",
+  "created_at": "2026-10-23T14:05:00+05:30",
+  "components": {
+    "content_fit": 70,
+    "demand_momentum": 64,
+    "regional_opportunity": 68,
+    "engagement_quality": 58,
+    "comparable_performance": 66,
+    "localization_readiness": 62
+  },
+  "confidence_factors": {
+    "data_completeness": 70,
+    "source_agreement": 66,
+    "comparable_quality": 62,
+    "regional_evidence": 58,
+    "data_freshness": 66
+  },
+  "content_dna": {
+    "genres": [
+      {
+        "name": "Sci-Fi",
+        "weight": 0.7
+      },
+      {
+        "name": "Comedy",
+        "weight": 0.85
+      },
+      {
+        "name": "Sports",
+        "weight": 0.65
+      }
+    ],
+    "themes": [
+      {
+        "name": "Family",
+        "weight": 0.8
+      },
+      {
+        "name": "Technology",
+        "weight": 0.7
+      },
+      {
+        "name": "Competition",
+        "weight": 0.6
+      }
+    ],
+    "archetypes": [
+      "Underdog engineer",
+      "Spirit companion",
+      "Underground league"
+    ],
+    "audience_fit": {
+      "Youth 16-30": 64,
+      "Fandom intensity": 56,
+      "Mainstream crossover": 70,
+      "Family suitability": 82,
+      "Premium-market suitability": 48
+    },
+    "sensitivity_flags": [
+      "Competitive/gambling-adjacent league (check platform policy)"
+    ]
+  },
+  "drivers": [
+    {
+      "id": "d1",
+      "label": "Family-friendly comedy affinity",
+      "points": 7.1,
+      "component": "content_fit",
+      "source_ids": [
+        "anilist",
+        "google_trends"
+      ],
+      "why": "Comedy anime with family appeal travels well across Hindi-belt audiences."
+    },
+    {
+      "id": "d2",
+      "label": "Strong Hindi dub potential",
+      "points": 5.0,
+      "component": "regional_opportunity",
+      "source_ids": [
+        "census",
+        "google_trends"
+      ],
+      "why": "Large Hindi-speaking addressable market."
+    },
+    {
+      "id": "d3",
+      "label": "Comparable performance",
+      "points": 4.2,
+      "component": "comparable_performance",
+      "source_ids": [
+        "anilist"
+      ],
+      "why": "Similar sports-comedy titles performed above average."
+    },
+    {
+      "id": "d4",
+      "label": "Manga source material interest",
+      "points": 3.1,
+      "component": "demand_momentum",
+      "source_ids": [
+        "wikimedia"
+      ],
+      "why": "Manga page views are growing steadily."
+    },
+    {
+      "id": "d5",
+      "label": "No trailer engagement data (YouTube unavailable)",
+      "points": -5.7,
+      "component": "engagement_quality",
+      "source_ids": [
+        "youtube"
+      ],
+      "why": "Engagement is estimated from other signals only."
+    },
+    {
+      "id": "d6",
+      "label": "Weak regional evidence outside metros",
+      "points": -3.4,
+      "component": "regional_opportunity",
+      "source_ids": [
+        "google_trends",
+        "census"
+      ],
+      "why": "Sparse regional query data."
+    },
+    {
+      "id": "d7",
+      "label": "Low budget limits campaign reach",
+      "points": -2.2,
+      "component": "demand_momentum",
+      "source_ids": [
+        "google_trends"
+      ],
+      "why": "Low marketing band restricts awareness building."
+    }
+  ],
+  "warnings": [
+    {
+      "code": "youtube_unavailable",
+      "severity": "warning",
+      "message": "YouTube data is temporarily unavailable. The analysis continued with the remaining sources."
+    },
+    {
+      "code": "partial_analysis",
+      "severity": "info",
+      "message": "Four of five public sources were available. Confidence has been adjusted."
+    },
+    {
+      "code": "regional_sparse",
+      "severity": "warning",
+      "message": "Regional evidence is limited for several north-eastern states."
+    }
+  ],
+  "limitations": [
+    "Public demand proxies only; no revenue or viewership outcomes.",
+    "Scores are a calibrated market-potential estimate, not a revenue forecast."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "headline": "Proceed with a controlled regional-first multilingual OTT launch.",
+  "platform": "OTT-first release",
+  "priority_markets": [
+    "Maharashtra",
+    "Karnataka",
+    "Delhi",
+    "Tamil Nadu",
+    "Telangana"
+  ],
+  "localization": [
+    "Hindi dub",
+    "Tamil and Telugu subtitles",
+    "English subtitles retained"
+  ],
+  "target_audience": [
+    "Urban viewers aged 16-30",
+    "Fantasy and action anime fans",
+    "Existing manga and gaming communities"
+  ],
+  "launch_window": "March-April 2027",
+  "positioning": "Character-driven supernatural action with emotion, friendship and folklore-adjacent themes.",
+  "campaign": [
+    "Launch a subtitled teaser first",
+    "Test Hindi and Tamil trailer variants",
+    "Partner with anime and gaming creators",
+    "Run fan screenings in Mumbai, Bengaluru and Delhi",
+    "Increase campaign investment only after engagement validation"
+  ],
+  "risks": [
+    {
+      "risk": "Limited awareness outside major cities",
+      "mitigation": "Start with metro-focused creator partnerships and expand on validated engagement."
+    },
+    {
+      "risk": "Weak Bengali-language evidence",
+      "mitigation": "Treat West Bengal as a later-phase market; collect Bengali trailer feedback first."
+    },
+    {
+      "risk": "High dubbing cost",
+      "mitigation": "Dub Hindi first; keep Tamil and Telugu as subtitles until demand is proven."
+    }
+  ],
+  "items": [
+    {
+      "id": "r1",
+      "topic": "Localization",
+      "decision": "Release with a Hindi dub and Tamil/Telugu subtitles.",
+      "expected_benefit": "Expected score uplift in Maharashtra, Tamil Nadu and Telangana outweighs the added localization cost.",
+      "evidence": [
+        "Scenario lab: regional dub vs. Hindi subtitles",
+        "Language affinity: Hindi 88, Tamil 78, Telugu 74"
+      ],
+      "confidence": 80,
+      "principal_risk": "Dubbing cost may not be recovered if engagement is below forecast."
+    },
+    {
+      "id": "r2",
+      "topic": "Platform",
+      "decision": "Launch OTT-first.",
+      "expected_benefit": "Every top-five state prefers OTT; theatrical shows a lower score and higher cost.",
+      "evidence": [
+        "Distribution lever: theatrical -3 score, +2 cost"
+      ],
+      "confidence": 84,
+      "principal_risk": "OTT platform commitments are not yet contracted."
+    },
+    {
+      "id": "r3",
+      "topic": "Timing",
+      "decision": "Target March-April 2027.",
+      "expected_benefit": "Seasonality is neutral and avoids examination periods.",
+      "evidence": [
+        "Release-window lever"
+      ],
+      "confidence": 70,
+      "principal_risk": "Seasonality assumptions are illustrative."
+    }
+  ]
+}

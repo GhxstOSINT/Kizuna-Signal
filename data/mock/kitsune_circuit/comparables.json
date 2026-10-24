@@ -1,0 +1,131 @@
+{
+  "comparables": [
+    {
+      "id": "spy_family",
+      "title": "Spy x Family",
+      "year": 2022,
+      "format": "Anime series",
+      "similarity": 0.78,
+      "indian_demand": "High",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 82,
+      "reason": "Family-centred comedy with broad crossover appeal."
+    },
+    {
+      "id": "dr_stone",
+      "title": "Dr. Stone",
+      "year": 2019,
+      "format": "Anime series",
+      "similarity": 0.75,
+      "indian_demand": "Medium",
+      "genre_match": "Strong",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 72,
+      "reason": "Science-driven adventure comedy with youth and family fans."
+    },
+    {
+      "id": "kaguya_sama",
+      "title": "Kaguya-sama: Love Is War",
+      "year": 2019,
+      "format": "Anime series",
+      "similarity": 0.68,
+      "indian_demand": "Medium",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 66,
+      "reason": "Competitive comedy built on rivalry."
+    },
+    {
+      "id": "one_punch_man",
+      "title": "One-Punch Man",
+      "year": 2015,
+      "format": "Anime series",
+      "similarity": 0.66,
+      "indian_demand": "High",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 78,
+      "reason": "Parody action comedy with a large global base."
+    },
+    {
+      "id": "mob_psycho",
+      "title": "Mob Psycho 100",
+      "year": 2016,
+      "format": "Anime series",
+      "similarity": 0.62,
+      "indian_demand": "Medium",
+      "genre_match": "Moderate",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 64,
+      "reason": "Supernatural comedy with a youth following."
+    },
+    {
+      "id": "dandadan",
+      "title": "Dandadan",
+      "year": 2024,
+      "format": "Anime series",
+      "similarity": 0.6,
+      "indian_demand": "Medium",
+      "genre_match": "Moderate",
+      "audience_match": "Strong",
+      "format_match": "Exact",
+      "india_performance": 70,
+      "reason": "Sci-fi/supernatural comedy; recent release."
+    },
+    {
+      "id": "konosuba",
+      "title": "KonoSuba",
+      "year": 2016,
+      "format": "Anime series",
+      "similarity": 0.54,
+      "indian_demand": "Low",
+      "genre_match": "Weak",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 48,
+      "reason": "Comedy fantasy; narrower appeal."
+    },
+    {
+      "id": "gintama",
+      "title": "Gintama",
+      "year": 2006,
+      "format": "Anime series",
+      "similarity": 0.52,
+      "indian_demand": "Low",
+      "genre_match": "Weak",
+      "audience_match": "Moderate",
+      "format_match": "Exact",
+      "india_performance": 44,
+      "reason": "Long-running parody; limited Indian reach."
+    }
+  ],
+  "sets": {
+    "expected": [
+      "spy_family",
+      "dr_stone",
+      "kaguya_sama",
+      "one_punch_man",
+      "mob_psycho"
+    ],
+    "optimistic": [
+      "spy_family",
+      "one_punch_man",
+      "dr_stone",
+      "dandadan",
+      "mob_psycho"
+    ],
+    "conservative": [
+      "kaguya_sama",
+      "mob_psycho",
+      "konosuba",
+      "gintama",
+      "dr_stone"
+    ]
+  }
+}

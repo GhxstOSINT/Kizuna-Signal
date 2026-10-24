@@ -1,0 +1,160 @@
+{
+  "analysis_id": "an_hollow_tide_001",
+  "title_id": "hollow_tide",
+  "status": "complete",
+  "result_version": "1.3.0",
+  "scoring_config_version": "sc-2026.10-a",
+  "model_version": "xgb-0.9-r2",
+  "model_used": "primary",
+  "feature_snapshot_id": "fs_hollow_tide_20261022",
+  "created_at": "2026-10-21T14:05:00+05:30",
+  "components": {
+    "content_fit": 89,
+    "demand_momentum": 82,
+    "regional_opportunity": 79,
+    "engagement_quality": 70,
+    "comparable_performance": 78,
+    "localization_readiness": 61
+  },
+  "confidence_factors": {
+    "data_completeness": 45,
+    "source_agreement": 40,
+    "comparable_quality": 42,
+    "regional_evidence": 38,
+    "data_freshness": 52
+  },
+  "content_dna": {
+    "genres": [
+      {
+        "name": "Mystery",
+        "weight": 0.9
+      },
+      {
+        "name": "Psychological",
+        "weight": 0.8
+      },
+      {
+        "name": "Drama",
+        "weight": 0.7
+      }
+    ],
+    "themes": [
+      {
+        "name": "Memory",
+        "weight": 0.9
+      },
+      {
+        "name": "Grief",
+        "weight": 0.7
+      },
+      {
+        "name": "Community",
+        "weight": 0.5
+      }
+    ],
+    "archetypes": [
+      "Unreliable witness",
+      "Small-town secret",
+      "Quiet investigator"
+    ],
+    "audience_fit": {
+      "Youth 16-30": 66,
+      "Fandom intensity": 52,
+      "Mainstream crossover": 44,
+      "Family suitability": 22,
+      "Premium-market suitability": 82
+    },
+    "sensitivity_flags": [
+      "Mature psychological themes",
+      "Grief and loss"
+    ]
+  },
+  "drivers": [
+    {
+      "id": "d1",
+      "label": "Strong mystery-drama affinity",
+      "points": 8.9,
+      "component": "content_fit",
+      "source_ids": [
+        "anilist"
+      ],
+      "why": "Mystery and psychological films over-index with urban arthouse audiences."
+    },
+    {
+      "id": "d2",
+      "label": "Comparable film performance",
+      "points": 5.2,
+      "component": "comparable_performance",
+      "source_ids": [
+        "anilist"
+      ],
+      "why": "Similar animated films performed strongly in metros."
+    },
+    {
+      "id": "d3",
+      "label": "Premium-market suitability",
+      "points": 3.6,
+      "component": "regional_opportunity",
+      "source_ids": [
+        "census"
+      ],
+      "why": "Matches a high-spending urban segment."
+    },
+    {
+      "id": "d4",
+      "label": "Sparse search evidence (ambiguous title)",
+      "points": -6.4,
+      "component": "demand_momentum",
+      "source_ids": [
+        "google_trends"
+      ],
+      "why": "The title term mixes with unrelated queries; demand signals are unreliable."
+    },
+    {
+      "id": "d5",
+      "label": "No trailer engagement data",
+      "points": -5.1,
+      "component": "engagement_quality",
+      "source_ids": [
+        "youtube"
+      ],
+      "why": "No trailer is public, so engagement cannot be estimated."
+    },
+    {
+      "id": "d6",
+      "label": "Few direct comparables",
+      "points": -3.3,
+      "component": "comparable_performance",
+      "source_ids": [
+        "anilist"
+      ],
+      "why": "Few titles match the mystery-drama film profile."
+    }
+  ],
+  "warnings": [
+    {
+      "code": "low_confidence",
+      "severity": "critical",
+      "message": "Evidence is too thin for a high-investment decision."
+    },
+    {
+      "code": "trends_ambiguous",
+      "severity": "warning",
+      "message": "Google Trends data is sparse because the title term is ambiguous."
+    },
+    {
+      "code": "no_trailer",
+      "severity": "warning",
+      "message": "No trailer is available, so engagement is unmeasured."
+    },
+    {
+      "code": "regional_sparse",
+      "severity": "warning",
+      "message": "Most states have insufficient evidence; only large metros are ranked."
+    }
+  ],
+  "limitations": [
+    "Public demand proxies only; no revenue or viewership outcomes.",
+    "Scores are a calibrated market-potential estimate, not a revenue forecast."
+  ]
+}

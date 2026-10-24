@@ -1,0 +1,158 @@
+{
+  "sources": [
+    {
+      "id": "anilist",
+      "name": "AniList",
+      "status": "available",
+      "mode": "live",
+      "last_collected": "2026-10-22T14:02:00+05:30",
+      "quota": null,
+      "note": "Limited metadata.",
+      "caveat": "Popularity is a historical outcome; post-release data is blocked for the predicted title.",
+      "feeds": [
+        "content_fit",
+        "comparable_performance"
+      ],
+      "toggleable": true,
+      "effect_if_disabled": {
+        "components": {
+          "content_fit": -6,
+          "comparable_performance": -3
+        },
+        "confidence_factors": {
+          "data_completeness": -10,
+          "comparable_quality": -4
+        }
+      }
+    },
+    {
+      "id": "google_trends",
+      "name": "Google Trends",
+      "status": "available",
+      "mode": "live",
+      "last_collected": "2026-10-22T14:02:00+05:30",
+      "quota": null,
+      "note": "Sparse: the title term is ambiguous (common English phrase).",
+      "caveat": "Values are relative interest (0-100 normalised), not search volume.",
+      "feeds": [
+        "demand_momentum",
+        "regional_opportunity"
+      ],
+      "toggleable": true,
+      "effect_if_disabled": {
+        "components": {
+          "demand_momentum": -9,
+          "regional_opportunity": -4
+        },
+        "confidence_factors": {
+          "data_completeness": -12,
+          "data_freshness": -4,
+          "source_agreement": -3
+        }
+      }
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "status": "available",
+      "mode": "live",
+      "last_collected": "2026-10-22T14:02:00+05:30",
+      "quota": null,
+      "note": "No trailer published; no engagement data.",
+      "caveat": "Trailer statistics are global, not India-only.",
+      "feeds": [
+        "engagement_quality",
+        "demand_momentum"
+      ],
+      "toggleable": true,
+      "effect_if_disabled": {
+        "components": {
+          "engagement_quality": -10,
+          "demand_momentum": -2
+        },
+        "confidence_factors": {
+          "data_completeness": -8,
+          "source_agreement": 2
+        }
+      }
+    },
+    {
+      "id": "wikimedia",
+      "name": "Wikimedia",
+      "status": "available",
+      "mode": "live",
+      "last_collected": "2026-10-22T14:02:00+05:30",
+      "quota": null,
+      "note": "No dedicated page yet.",
+      "caveat": "Page views indicate curiosity, not consumption.",
+      "feeds": [
+        "demand_momentum"
+      ],
+      "toggleable": true,
+      "effect_if_disabled": {
+        "components": {
+          "demand_momentum": -3
+        },
+        "confidence_factors": {
+          "data_completeness": -5,
+          "source_agreement": -1
+        }
+      }
+    },
+    {
+      "id": "census",
+      "name": "Census India",
+      "status": "available",
+      "mode": "live",
+      "last_collected": "2026-10-22T14:02:00+05:30",
+      "quota": null,
+      "note": "",
+      "caveat": "Demographic table year is older than current behaviour.",
+      "feeds": [
+        "regional_opportunity"
+      ],
+      "toggleable": true,
+      "effect_if_disabled": {
+        "components": {
+          "regional_opportunity": -5
+        },
+        "confidence_factors": {
+          "regional_evidence": -8,
+          "data_completeness": -3
+        }
+      }
+    },
+    {
+      "id": "datameet",
+      "name": "DataMeet (boundaries)",
+      "status": "available",
+      "mode": "cached",
+      "last_collected": "2026-09-30T09:00:00+05:30",
+      "quota": null,
+      "note": "Static boundary file.",
+      "caveat": "State-name mapping validated against the boundary file.",
+      "feeds": [],
+      "toggleable": false,
+      "effect_if_disabled": {
+        "components": {},
+        "confidence_factors": {}
+      }
+    },
+    {
+      "id": "partner_csv",
+      "name": "Partner data",
+      "status": "not_connected",
+      "mode": "none",
+      "last_collected": null,
+      "quota": null,
+      "note": "Coming later (pilot phase).",
+      "caveat": "Licensing, spend and outcome data require a contracted schema.",
+      "feeds": [],
+      "toggleable": false,
+      "effect_if_disabled": {
+        "components": {},
+        "confidence_factors": {}
+      }
+    }
+  ]
+}

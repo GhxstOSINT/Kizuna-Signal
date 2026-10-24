@@ -1,0 +1,40 @@
+{
+  "base": {
+    "label": "Base strategy",
+    "levers": {
+      "localization": "subs_hindi",
+      "distribution": "theatrical",
+      "geography": "selected_states",
+      "release_window": "jun_jul",
+      "marketing_budget": "medium"
+    },
+    "cost_points": 3.0,
+    "reach_points": 1.0
+  },
+  "presets": [
+    {
+      "id": "digital_first",
+      "label": "Digital-first test release",
+      "levers": {
+        "localization": "subs_hindi",
+        "distribution": "digital_first",
+        "geography": "selected_states",
+        "release_window": "jun_jul",
+        "marketing_budget": "low"
+      },
+      "summary": "Test demand on a digital platform with a small budget before any theatrical commitment."
+    },
+    {
+      "id": "hybrid_metro",
+      "label": "Hybrid metro release",
+      "levers": {
+        "localization": "dub_hindi_subs_regional",
+        "distribution": "hybrid",
+        "geography": "selected_states",
+        "release_window": "oct_nov_festive",
+        "marketing_budget": "medium"
+      },
+      "summary": "Limited theatrical in metros plus OTT, timed to the festive season."
+    }
+  ]
+}
