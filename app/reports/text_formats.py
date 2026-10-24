@@ -1,4 +1,5 @@
 """JSON, CSV and XML renderers for the report dict."""
+
 import csv
 import io
 import json
@@ -6,14 +7,39 @@ import re
 import xml.etree.ElementTree as ET
 
 CSV_COLUMNS = [
-    "title", "success_rating", "success_score", "success_low", "success_high", "success_band", "success_coverage",
-    "confidence", "state_code", "state_name", "rank", "lift", "lift_low", "lift_high",
-    "expected_share", "train_titles", "top_drivers",
+    "title",
+    "success_rating",
+    "success_score",
+    "success_low",
+    "success_high",
+    "success_band",
+    "success_coverage",
+    "confidence",
+    "state_code",
+    "state_name",
+    "rank",
+    "lift",
+    "lift_low",
+    "lift_high",
+    "expected_share",
+    "train_titles",
+    "top_drivers",
 ]
 # repeated-element names for lists in the XML output
-SINGULAR = {"states": "state", "components": "component", "comparables": "comparable", "formulas": "formula",
-            "warnings": "warning", "limitations": "limitation", "drivers": "driver", "genres": "genre",
-            "tags": "tag", "top_states": "state", "bottom_states": "state", "candidates": "candidate"}
+SINGULAR = {
+    "states": "state",
+    "components": "component",
+    "comparables": "comparable",
+    "formulas": "formula",
+    "warnings": "warning",
+    "limitations": "limitation",
+    "drivers": "driver",
+    "genres": "genre",
+    "tags": "tag",
+    "top_states": "state",
+    "bottom_states": "state",
+    "candidates": "candidate",
+}
 
 
 def to_json(report: dict) -> bytes:
@@ -23,19 +49,36 @@ def to_json(report: dict) -> bytes:
 def to_csv(report: dict) -> bytes:
     """One row per state. Title-level scores repeat on every row so the file stands alone in a spreadsheet."""
     s = report["success"] or {}
-    head = {"title": report["title"]["name_en"], "success_rating": s.get("rating"), "success_score": s.get("score"), "success_low": s.get("low"),
-            "success_high": s.get("high"), "success_band": s.get("band"), "success_coverage": s.get("coverage"),
-            "confidence": report["india"]["confidence"]}
+    head = {
+        "title": report["title"]["name_en"],
+        "success_rating": s.get("rating"),
+        "success_score": s.get("score"),
+        "success_low": s.get("low"),
+        "success_high": s.get("high"),
+        "success_band": s.get("band"),
+        "success_coverage": s.get("coverage"),
+        "confidence": report["india"]["confidence"],
+    }
     buf = io.StringIO()
     w = csv.DictWriter(buf, CSV_COLUMNS, lineterminator="\n")
     w.writeheader()
     for st in report["states"]:
-        w.writerow(head | {
-            "state_code": st["state"], "state_name": st["name"], "rank": st["rank"],
-            "lift": round(st["lift"], 4), "lift_low": round(st["low"], 4), "lift_high": round(st["high"], 4),
-            "expected_share": round(st["expected_share"], 5), "train_titles": st["train_titles"],
-            "top_drivers": "; ".join(f"{d['feature']}={d['contribution']:+.4f}" for d in st["drivers"]),
-        })
+        w.writerow(
+            head
+            | {
+                "state_code": st["state"],
+                "state_name": st["name"],
+                "rank": st["rank"],
+                "lift": round(st["lift"], 4),
+                "lift_low": round(st["low"], 4),
+                "lift_high": round(st["high"], 4),
+                "expected_share": round(st["expected_share"], 5),
+                "train_titles": st["train_titles"],
+                "top_drivers": "; ".join(
+                    f"{d['feature']}={d['contribution']:+.4f}" for d in st["drivers"]
+                ),
+            }
+        )
     return ("﻿" + buf.getvalue()).encode("utf-8")  # BOM so Excel reads Japanese titles correctly
 
 

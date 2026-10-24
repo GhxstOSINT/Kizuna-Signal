@@ -1,7 +1,8 @@
 """Collect AniList anime, clean it, and write a training-ready feature/label dataset.
 
-    python scripts/build_anilist_dataset.py --pages 20 --out data/processed
+python scripts/build_anilist_dataset.py --pages 20 --out data/processed
 """
+
 import argparse
 import json
 import sys
@@ -15,17 +16,25 @@ from app.ml.titles import to_title_records  # noqa: E402
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n", encoding="utf-8")
+    path.write_text(
+        "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n", encoding="utf-8"
+    )
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--pages", type=int, default=20)
     ap.add_argument("--per-page", type=int, default=50)
-    ap.add_argument("--start-year-from", type=int, help="keep titles starting in or after this year")
+    ap.add_argument(
+        "--start-year-from", type=int, help="keep titles starting in or after this year"
+    )
     ap.add_argument("--start-year-to", type=int, help="keep titles starting in or before this year")
-    ap.add_argument("--sort", choices=["id", "popularity"], default="id",
-                    help="popularity = most popular first (titles with India search signal)")
+    ap.add_argument(
+        "--sort",
+        choices=["id", "popularity"],
+        default="id",
+        help="popularity = most popular first (titles with India search signal)",
+    )
     ap.add_argument("--out", type=Path, default=Path("data/processed"))
     args = ap.parse_args()
 
@@ -55,9 +64,16 @@ def main() -> int:
     args.out.mkdir(parents=True, exist_ok=True)
     write_jsonl(args.out / "anilist_features.jsonl", features)
     write_jsonl(args.out / "anilist_labels.jsonl", labels)
-    write_jsonl(args.out / "titles.jsonl", [t.model_dump(mode="json") for t in to_title_records(kept)])
-    report = {"fetched": len(records), "kept": len(kept), "dropped": dropped,
-              "pages_live": live, "pages_cached": cached}
+    write_jsonl(
+        args.out / "titles.jsonl", [t.model_dump(mode="json") for t in to_title_records(kept)]
+    )
+    report = {
+        "fetched": len(records),
+        "kept": len(kept),
+        "dropped": dropped,
+        "pages_live": live,
+        "pages_cached": cached,
+    }
     (args.out / "anilist_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
     return 0

@@ -9,11 +9,20 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 
-pytestmark = pytest.mark.skipif(not Path("models/state/LATEST.json").exists(), reason="no trained state model")
+pytestmark = pytest.mark.skipif(
+    not Path("models/state/LATEST.json").exists(), reason="no trained state model"
+)
 
-BODY = {"name_en": "Blue Amber", "name_jp": "ブルーアンバー", "genres": ["Comedy", "Fantasy"], "tags": ["Magic"],
-        "synopsis": "A gang of misfit young mages stumbles through comic misadventures while guarding a blue amber.",
-        "format": "anime_series", "release_date": "2026-10-24", "episodes": 12}
+BODY = {
+    "name_en": "Blue Amber",
+    "name_jp": "ブルーアンバー",
+    "genres": ["Comedy", "Fantasy"],
+    "tags": ["Magic"],
+    "synopsis": "A gang of misfit young mages stumbles through comic misadventures while guarding a blue amber.",
+    "format": "anime_series",
+    "release_date": "2026-10-24",
+    "episodes": 12,
+}
 
 
 @pytest.fixture(scope="module")
@@ -33,7 +42,9 @@ def test_success_score_bounds_and_gating(client):
     counted = [c for c in s["components"] if c["status"] == "ok"]
     assert s["coverage"] == pytest.approx(sum(c["weight"] for c in counted))
     assert all(c["value"] is None for c in s["components"] if c["status"] == "unavailable")
-    assert all(c["validation_spearman"] < 0.1 for c in s["components"] if c["status"] == "unvalidated")
+    assert all(
+        c["validation_spearman"] < 0.1 for c in s["components"] if c["status"] == "unvalidated"
+    )
 
 
 def test_json_and_csv_agree(client):
@@ -47,7 +58,9 @@ def test_json_and_csv_agree(client):
 def test_xml_parses_and_pdf_is_a_pdf(client):
     root = ET.fromstring(_get(client, "xml").content)
     assert root.tag == "kizunaReport"
-    assert len(root.findall("./states/state")) == len(json.loads(_get(client, "json").content)["states"])
+    assert len(root.findall("./states/state")) == len(
+        json.loads(_get(client, "json").content)["states"]
+    )
     pdf = _get(client, "pdf")
     assert pdf.content[:5] == b"%PDF-" and pdf.headers["content-disposition"].endswith('.pdf"')
 

@@ -1,0 +1,42 @@
+# Census of India 2011, state / UT population and urban share. Entered by hand from the published
+# primary census abstract; figures should be re-checked against censusindia.gov.in before any
+# external use. Names follow Google Trends' region names so the two datasets join directly.
+# Jammu & Kashmir includes Ladakh (not split in 2011). Andhra Pradesh and Telangana use the
+# post-2014 boundaries (2011 census figures re-tabulated).
+state,population,urban_pct,language,aliases
+Uttar Pradesh,199812341,22.3,Hindi,UP
+Maharashtra,112374333,45.2,Marathi,
+Bihar,104099452,11.3,Hindi,
+West Bengal,91276115,31.9,Bengali,Bengal
+Madhya Pradesh,72626809,27.6,Hindi,MP
+Tamil Nadu,72147030,48.4,Tamil,
+Rajasthan,68548437,24.9,Hindi,
+Karnataka,61095297,38.7,Kannada,
+Gujarat,60439692,42.6,Gujarati,
+Andhra Pradesh,49577103,29.6,Telugu,AP
+Odisha,41974218,16.7,Odia,Orissa
+Telangana,35003674,38.9,Telugu,
+Kerala,33406061,47.7,Malayalam,
+Jharkhand,32988134,24.0,Hindi,
+Assam,31205576,14.1,Assamese,
+Punjab,27743338,37.5,Punjabi,
+Chhattisgarh,25545198,23.2,Hindi,
+Haryana,25351462,34.9,Hindi,
+Delhi,16787941,97.5,Hindi,Delhi NCR|NCR|New Delhi|NCT of Delhi
+Jammu & Kashmir,12541302,27.2,Urdu,Jammu and Kashmir|J&K|Ladakh
+Uttarakhand,10086292,30.2,Hindi,Uttaranchal
+Himachal Pradesh,6864602,10.0,Hindi,HP
+Tripura,3673917,26.2,Bengali,
+Meghalaya,2966889,20.1,English,
+Manipur,2855794,32.4,Manipuri,
+Nagaland,1978502,28.9,English,
+Goa,1458545,62.2,Konkani,
+Arunachal Pradesh,1383727,22.9,English,
+Puducherry,1247953,68.3,Tamil,Pondicherry
+Mizoram,1097206,52.1,Mizo,
+Chandigarh,1055450,97.2,Hindi,
+Sikkim,610577,25.0,Nepali,
+Andaman and Nicobar Islands,380581,37.7,Hindi,Andaman & Nicobar Islands|A&N
+Dadra and Nagar Haveli,343709,46.7,Gujarati,Dadra & Nagar Haveli
+Daman and Diu,243247,75.2,Gujarati,Daman & Diu
+Lakshadweep,64473,78.1,Malayalam,

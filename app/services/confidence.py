@@ -4,6 +4,7 @@ import statistics
 
 from app.db.models import Title
 from app.schemas.analysis import ComparableTitle
+from app.services.scoring import WEIGHTS
 from app.services.sources.base import SourceEvidence
 
 
@@ -15,6 +16,7 @@ def calculate_confidence(
     title: Title,
     evidence: list[SourceEvidence],
     comparables: list[ComparableTitle],
+    unmeasured: set[str] | None = None,
 ) -> tuple[float, str, list[str]]:
     required = [
         title.name,
@@ -26,7 +28,10 @@ def calculate_confidence(
     ]
     completeness = sum(bool(item) for item in required) / len(required)
     available = [item for item in evidence if item.status != "unavailable"]
-    coverage = len(available) / max(1, len(evidence))
+    source_coverage = len(available) / max(1, len(evidence))
+    # Components with no evidence at all weigh on confidence in proportion to their score weight.
+    measured_weight = 1 - sum(WEIGHTS[key] for key in (unmeasured or set()))
+    coverage = 0.5 * source_coverage + 0.5 * measured_weight
     freshness = statistics.mean([item.freshness_score for item in available]) if available else 0
     quality = statistics.mean([item.quality_score for item in available]) if available else 0
     comparable_quality = (
@@ -43,7 +48,13 @@ def calculate_confidence(
     warnings: list[str] = []
     for item in evidence:
         warnings.extend(item.warnings)
-    if coverage < 1:
+    if unmeasured:
+        warnings.append(
+            "Not measured, so excluded from the score: "
+            + ", ".join(sorted(key.replace("_", " ") for key in unmeasured))
+            + "."
+        )
+    if source_coverage < 1:
         missing = [item.source for item in evidence if item.status == "unavailable"]
         warnings.append(f"Analysis completed without: {', '.join(missing)}.")
     if not title.target_languages:
@@ -52,6 +63,20 @@ def calculate_confidence(
         )
     if len(title.themes) < 2:
         warnings.append("Limited theme metadata reduces comparable-title specificity.")
+
+    # Demand and engagement are the only components that evidence this particular title's
+    # traction; without them the result rests on priors and must read as low confidence.
+    traction = ("demand_momentum", "engagement_quality")
+    traction_total = sum(WEIGHTS[key] for key in traction)
+    traction_share = 1 - sum(WEIGHTS[key] for key in traction if key in (unmeasured or set())) / (
+        traction_total
+    )
+    score *= 0.5 + 0.5 * traction_share
+    if traction_share == 0:
+        warnings.append(
+            "No title-specific demand or engagement evidence was found; the score reflects "
+            "content fit and genre benchmarks only."
+        )
 
     final_score = clamp(score)
     level = "high" if final_score >= 75 else "medium" if final_score >= 50 else "low"

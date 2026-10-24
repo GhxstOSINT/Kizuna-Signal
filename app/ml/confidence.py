@@ -3,17 +3,26 @@
 Factors (each 0-1): data completeness, comparable quality/count, interval width,
 and out-of-distribution distance. Output is 0-100 with the factors exposed.
 """
+
 import numpy as np
 import pandas as pd
 
 from app.ml.scoring_config import ConfidenceConfig
 
 
-def title_confidence(rows: pd.DataFrame, pred: np.ndarray, width: np.ndarray, n_states: int,
-                     cmp_stats: pd.DataFrame, max_train_sim: dict[str, float],
-                     cfg: ConfidenceConfig = ConfidenceConfig(), scale: float | None = None,
-                     inputs: float | None = None, history: float | None = None,
-                     disagreement: np.ndarray | None = None) -> pd.DataFrame:
+def title_confidence(
+    rows: pd.DataFrame,
+    pred: np.ndarray,
+    width: np.ndarray,
+    n_states: int,
+    cmp_stats: pd.DataFrame,
+    max_train_sim: dict[str, float],
+    cfg: ConfidenceConfig = ConfidenceConfig(),
+    scale: float | None = None,
+    inputs: float | None = None,
+    history: float | None = None,
+    disagreement: np.ndarray | None = None,
+) -> pd.DataFrame:
     """`scale` replaces the mean prediction as the yardstick for interval width (needed when the
     target is centred on zero, where the mean prediction says nothing about size).
 
@@ -26,8 +35,13 @@ def title_confidence(rows: pd.DataFrame, pred: np.ndarray, width: np.ndarray, n_
         df["pre"] = rows["pre_has_data"].to_numpy()
     else:
         df["pre"] = 0.0
-    g = df.groupby("title_id").agg(n=("pred", "size"), pred=("pred", "mean"), width=("width", "mean"),
-                                   pre=("pre", "mean")).reset_index()
+    g = (
+        df.groupby("title_id")
+        .agg(
+            n=("pred", "size"), pred=("pred", "mean"), width=("width", "mean"), pre=("pre", "mean")
+        )
+        .reset_index()
+    )
     g = g.merge(cmp_stats, on="title_id", how="left").fillna({"cmp_count": 0, "cmp_sim": 0})
     if inputs is None:
         completeness = 0.5 * (g["n"] / n_states).clip(0, 1) + 0.5 * g["pre"]
@@ -38,11 +52,30 @@ def title_confidence(rows: pd.DataFrame, pred: np.ndarray, width: np.ndarray, n_
     if disagreement is None:
         agreement = interval
     else:
-        gap = pd.Series(np.abs(disagreement), index=rows.index).groupby(rows["title_id"].to_numpy()).mean()
-        agreement = g["title_id"].map(gap).astype(float).pipe(lambda d: 1 / (1 + d / (scale or 1.0)))
+        gap = (
+            pd.Series(np.abs(disagreement), index=rows.index)
+            .groupby(rows["title_id"].to_numpy())
+            .mean()
+        )
+        agreement = (
+            g["title_id"].map(gap).astype(float).pipe(lambda d: 1 / (1 + d / (scale or 1.0)))
+        )
     ood = g["title_id"].map(max_train_sim).fillna(0).clip(0, 1)
-    score = (cfg.completeness * completeness + cfg.comparables * comparables + cfg.agreement * agreement
-             + cfg.interval * interval + cfg.out_of_distribution * ood)
-    return pd.DataFrame({"title_id": g["title_id"], "confidence": (100 * score).round(1),
-                         "completeness": completeness, "comparables": comparables, "agreement": agreement,
-                         "interval": interval, "ood": ood})
+    score = (
+        cfg.completeness * completeness
+        + cfg.comparables * comparables
+        + cfg.agreement * agreement
+        + cfg.interval * interval
+        + cfg.out_of_distribution * ood
+    )
+    return pd.DataFrame(
+        {
+            "title_id": g["title_id"],
+            "confidence": (100 * score).round(1),
+            "completeness": completeness,
+            "comparables": comparables,
+            "agreement": agreement,
+            "interval": interval,
+            "ood": ood,
+        }
+    )

@@ -3,12 +3,13 @@
 AniList supplies synopsis, genres, tags, studio and format (pre-release features)
 and popularity/favourites/score (historical outcomes only, never features).
 """
+
 import hashlib
 import html
 import json
 import re
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -80,14 +81,14 @@ class AniListClient:
         if not files:
             return None
         envelope = json.loads(files[-1].read_text(encoding="utf-8"))
-        age = (datetime.now(timezone.utc) - datetime.fromisoformat(envelope["collected_at"])).total_seconds()
+        age = (datetime.now(UTC) - datetime.fromisoformat(envelope["collected_at"])).total_seconds()
         return envelope if age < settings.anilist_cache_ttl_s else None
 
     def _store(self, key: str, variables: dict, body: bytes) -> dict:
         envelope = {
             "source": "anilist",
             "variables": variables,
-            "collected_at": datetime.now(timezone.utc).isoformat(),
+            "collected_at": datetime.now(UTC).isoformat(),
             "checksum": hashlib.sha256(body).hexdigest(),
             "response": json.loads(body),
         }
@@ -181,11 +182,17 @@ def normalize(media: dict, collected_at: str, checksum: str) -> dict:
             "synonyms": media.get("synonyms") or [],
             "episodes": media.get("episodes"),
             "duration": media.get("duration"),
-            "streaming": sorted({l["site"] for l in media.get("externalLinks") or []
-                                 if l.get("type") == "STREAMING"}),
+            "streaming": sorted(
+                {
+                    link["site"]
+                    for link in media.get("externalLinks") or []
+                    if link.get("type") == "STREAMING"
+                }
+            ),
             "start": [start.get("year"), start.get("month"), start.get("day")],
-            "related_ids": sorted({e["node"]["id"] for e in edges
-                                   if e["node"].get("type") == "ANIME"}),
+            "related_ids": sorted(
+                {e["node"]["id"] for e in edges if e["node"].get("type") == "ANIME"}
+            ),
         },
         "provenance": {"source": "anilist", "collected_at": collected_at, "raw_checksum": checksum},
     }

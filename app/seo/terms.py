@@ -4,11 +4,21 @@ Built from the names and the localization assumptions already on the title, so e
 can be traced to something the user entered. Nothing here knows search volume: that is measured
 (app/seo/rank.py), never guessed.
 """
+
 import re
 from dataclasses import dataclass
 
-LANGUAGES = {"hi": "Hindi", "ta": "Tamil", "te": "Telugu", "bn": "Bengali", "mr": "Marathi",
-             "ml": "Malayalam", "kn": "Kannada", "gu": "Gujarati", "pa": "Punjabi"}
+LANGUAGES = {
+    "hi": "Hindi",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "bn": "Bengali",
+    "mr": "Marathi",
+    "ml": "Malayalam",
+    "kn": "Kannada",
+    "gu": "Gujarati",
+    "pa": "Punjabi",
+}
 _SEQUEL_SUFFIX = re.compile(r"\s+(\d+(st|nd|rd|th)\s+)?(season|part|cour)(\s.*)?$", re.I)
 MAX_CANDIDATES = 6
 
@@ -24,7 +34,9 @@ def base_name(name: str) -> str:
     return _SEQUEL_SUFFIX.sub("", name.split(":")[0].strip())[:60].strip()
 
 
-def candidates(name_en: str, name_jp: str | None, languages: list[str], localization_mode: str | None) -> list[Candidate]:
+def candidates(
+    name_en: str, name_jp: str | None, languages: list[str], localization_mode: str | None
+) -> list[Candidate]:
     out: list[Candidate] = []
 
     def add(term: str, variant: str) -> None:

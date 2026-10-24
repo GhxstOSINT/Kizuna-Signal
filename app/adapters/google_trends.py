@@ -4,11 +4,12 @@ Values are relative search interest (0-100) *within one request*, so every reque
 pairs the title with a fixed anchor term; ratios to the anchor are comparable
 across titles. Search interest is curiosity, not consumption.
 """
+
 import hashlib
 import json
 import random
 import time
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 from app.core.config import settings
@@ -65,8 +66,13 @@ class PytrendsFetcher:
 
 
 class TrendsClient:
-    def __init__(self, fetcher=None, raw_dir: Path | None = None, max_requests: int | None = None,
-                 sleep=time.sleep):
+    def __init__(
+        self,
+        fetcher=None,
+        raw_dir: Path | None = None,
+        max_requests: int | None = None,
+        sleep=time.sleep,
+    ):
         self.fetcher = fetcher or PytrendsFetcher()
         self.raw_dir = Path(raw_dir or settings.trends_raw_dir)
         self.max_requests = settings.trends_max_requests if max_requests is None else max_requests
@@ -93,9 +99,12 @@ class TrendsClient:
 
         rows = self._fetch_with_retry(terms, geo, start, end)
         envelope = {
-            "source": "google_trends", "terms": terms, "geo": geo,
-            "start": str(start), "end": str(end),
-            "collected_at": datetime.now(timezone.utc).isoformat(),
+            "source": "google_trends",
+            "terms": terms,
+            "geo": geo,
+            "start": str(start),
+            "end": str(end),
+            "collected_at": datetime.now(UTC).isoformat(),
             "checksum": hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest(),
             "scale": "relative 0-100 within request; anchor-normalised downstream",
             "rows": rows,
@@ -112,7 +121,9 @@ class TrendsClient:
         if geo in self.unsupported:
             raise GeoUnsupported(geo)
         if self.live_requests >= self.max_requests:
-            raise QuotaExceeded(f"request budget of {self.max_requests} used; resume later (cache is kept)")
+            raise QuotaExceeded(
+                f"request budget of {self.max_requests} used; resume later (cache is kept)"
+            )
         last: Exception | None = None
         for attempt in range(settings.trends_max_retries + 1):
             self.live_requests += 1
@@ -131,7 +142,8 @@ class TrendsClient:
                 if self.rate_limit_hits >= settings.trends_circuit_breaker:
                     raise QuotaExceeded(
                         f"blocked by Google after {self.rate_limit_hits} consecutive 429s; "
-                        "stop and resume later (cache is kept)") from exc
+                        "stop and resume later (cache is kept)"
+                    ) from exc
                 self._sleep(settings.trends_backoff_s * 2**attempt)
             except TrendsError as exc:
                 last = exc

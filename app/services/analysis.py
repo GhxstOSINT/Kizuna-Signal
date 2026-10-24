@@ -12,17 +12,25 @@ from app.schemas.analysis import AnalysisResult, SourceStatus
 from app.services.comparables import find_comparables
 from app.services.confidence import calculate_confidence, confidence_interval
 from app.services.recommendations import build_recommendation
+from app.services.regional import calculate_regional_scores_live, has_regional_evidence
 from app.services.scoring import (
     build_drivers,
     calculate_component_scores,
     calculate_market_score,
     calculate_regional_scores,
     decision_classification,
+    unmeasured_components,
 )
-from app.services.sources import DemoSourceRegistry
+from app.services.sources import SourceRegistry
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
+
+# Exception text can carry SQL, paths or other internals, so the API only ever sees this message;
+# the full traceback goes to the server log.
+PUBLIC_FAILURE_MESSAGE = (
+    "Analysis failed unexpectedly. Please retry; if it persists, contact support."
+)
 
 
 def utcnow() -> datetime:
@@ -52,7 +60,7 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
         analysis.status = "running"
         update_job(db, job, 10, "collecting public evidence")
 
-        evidence = DemoSourceRegistry().collect(title, set(disabled_sources or []))
+        evidence = SourceRegistry(settings).collect(title, set(disabled_sources or []))
         analysis.source_snapshot = {
             item.source: {
                 "status": item.status,
@@ -61,22 +69,29 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
                 "metrics": item.metrics,
                 "warnings": item.warnings,
                 "provenance": item.provenance,
+                **({"regional": item.regional} if item.regional else {}),
             }
             for item in evidence
         }
         db.commit()
 
         update_job(db, job, 35, "building content profile and comparable titles")
-        comparables = find_comparables(title)
+        comparables = find_comparables(title, evidence=evidence, allow_catalog=settings.demo_mode)
 
         update_job(db, job, 55, "calculating market and regional potential")
         component_scores = calculate_component_scores(title, evidence, comparables)
-        market_score = calculate_market_score(component_scores)
-        confidence, confidence_level, warnings = calculate_confidence(title, evidence, comparables)
-        regions = calculate_regional_scores(title, market_score, confidence)
+        unmeasured = unmeasured_components(title, evidence, comparables)
+        market_score = calculate_market_score(component_scores, unmeasured)
+        confidence, confidence_level, warnings = calculate_confidence(
+            title, evidence, comparables, unmeasured
+        )
+        if has_regional_evidence(evidence):
+            regions = calculate_regional_scores_live(title, market_score, confidence, evidence)
+        else:
+            regions = calculate_regional_scores(title, market_score, confidence)
 
         update_job(db, job, 75, "generating explanations and confidence interval")
-        positive, negative = build_drivers(component_scores, title, evidence)
+        positive, negative = build_drivers(component_scores, title, evidence, unmeasured)
         interval = confidence_interval(market_score, confidence)
         classification = decision_classification(market_score, confidence)
 
@@ -130,16 +145,16 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
         job.stage = "analysis completed"
         job.updated_at = utcnow()
         db.commit()
-    except Exception as exc:
+    except Exception:
         db.rollback()
         analysis = db.get(Analysis, analysis_id)
         if analysis is not None:
             analysis.status = "failed"
-            analysis.error_message = str(exc)
+            analysis.error_message = PUBLIC_FAILURE_MESSAGE
             if analysis.job is not None:
                 analysis.job.status = "failed"
                 analysis.job.stage = "analysis failed"
-                analysis.job.error_message = str(exc)
+                analysis.job.error_message = PUBLIC_FAILURE_MESSAGE
                 analysis.job.updated_at = utcnow()
             db.commit()
         logger.exception("analysis_failed")

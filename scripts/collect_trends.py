@@ -9,6 +9,7 @@ several processes can collect in parallel (see scripts/run_pipeline.py, which me
 
 Exit code 0 = all assigned titles done, 3 = stopped early (blocked or request budget used).
 """
+
 import argparse
 import json
 import sys
@@ -34,10 +35,14 @@ def save(data: Path, shard, demand, labels, reports, client, assigned: int, comp
     demand_f, labels_f, report_f = names(shard)
     pd.DataFrame(demand).to_csv(data / demand_f, index=False)
     pd.DataFrame(labels).to_csv(data / labels_f, index=False)
-    summary = {"assigned": assigned, "attempted": len(reports), "complete": complete,
-               "kept": len({r["title_id"] for r in labels}),
-               "dropped": {r["title_id"]: r["error"] for r in reports if r["error"]},
-               "live_requests": client.live_requests}
+    summary = {
+        "assigned": assigned,
+        "attempted": len(reports),
+        "complete": complete,
+        "kept": len({r["title_id"] for r in labels}),
+        "dropped": {r["title_id"]: r["error"] for r in reports if r["error"]},
+        "live_requests": client.live_requests,
+    }
     (data / report_f).write_text(json.dumps(summary, indent=2), encoding="utf-8")
     return summary
 
@@ -52,10 +57,13 @@ def main() -> int:
     ap.add_argument("--of", type=int, default=1, help="number of shards")
     args = ap.parse_args()
 
-    titles = [TitleRecord(**json.loads(line)) for line in
-              (args.data / "titles.jsonl").read_text(encoding="utf-8").splitlines() if line]
+    titles = [
+        TitleRecord(**json.loads(line))
+        for line in (args.data / "titles.jsonl").read_text(encoding="utf-8").splitlines()
+        if line
+    ]
     eligible = [t for t in titles if is_eligible(t, date.today())][: args.n_titles]
-    mine = eligible[args.shard::args.of] if args.shard is not None else eligible
+    mine = eligible[args.shard :: args.of] if args.shard is not None else eligible
     print(f"shard {args.shard}: {len(mine)} titles of {len(eligible)}", flush=True)
 
     states = PILOT_STATES if args.states == "pilot" else list(STATES)
@@ -64,9 +72,9 @@ def main() -> int:
     stopped = False
     try:
         for title in mine:
-            d, l, rep = collect_title(client, title, states)
+            d, lab, rep = collect_title(client, title, states)
             demand += d
-            labels += l
+            labels += lab
             reports.append(rep)
             print(rep["title_id"], rep["states_ok"], rep["error"] or "ok", flush=True)
             save(args.data, args.shard, demand, labels, reports, client, len(mine), False)

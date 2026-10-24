@@ -1,4 +1,5 @@
 """Canonical title record used by the ML pipeline (one row per title)."""
+
 from datetime import date
 
 from pydantic import BaseModel, Field

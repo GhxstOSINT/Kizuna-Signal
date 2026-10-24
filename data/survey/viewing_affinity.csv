@@ -1,0 +1,4 @@
+# No verified state/genre/content-type viewing measurements are available yet.
+# Exploratory preference and rating rows were archived in data/research/proxies/.
+# Do not substitute preferences, catalogue composition or inferred collection years.
+state,genre,content_type,index,sample_size,year,source

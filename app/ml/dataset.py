@@ -1,4 +1,5 @@
 """Clean AniList records and split them into a leak-safe feature table and label table."""
+
 import math
 
 MIN_SYNOPSIS_CHARS = 40
@@ -33,7 +34,10 @@ def clean(records: list[dict]) -> tuple[list[dict], dict[str, int]]:
         elif r["anilist_id"] in kept:
             drop("duplicate")
             # keep the most recently collected copy
-            if r["provenance"]["collected_at"] > kept[r["anilist_id"]]["provenance"]["collected_at"]:
+            if (
+                r["provenance"]["collected_at"]
+                > kept[r["anilist_id"]]["provenance"]["collected_at"]
+            ):
                 kept[r["anilist_id"]] = r
         else:
             kept[r["anilist_id"]] = r
@@ -48,17 +52,21 @@ def split(records: list[dict]) -> tuple[list[dict], list[dict]]:
     """
     features, labels = [], []
     for r in records:
-        features.append({
-            "anilist_id": r["anilist_id"],
-            "name_en": r["name_en"],
-            **r["features"],
-            "raw_checksum": r["provenance"]["raw_checksum"],
-        })
-        labels.append({
-            "anilist_id": r["anilist_id"],
-            "log_popularity": round(math.log1p(r["outcome"]["popularity"]), 4),
-            **r["outcome"],
-        })
+        features.append(
+            {
+                "anilist_id": r["anilist_id"],
+                "name_en": r["name_en"],
+                **r["features"],
+                "raw_checksum": r["provenance"]["raw_checksum"],
+            }
+        )
+        labels.append(
+            {
+                "anilist_id": r["anilist_id"],
+                "log_popularity": round(math.log1p(r["outcome"]["popularity"]), 4),
+                **r["outcome"],
+            }
+        )
     return features, labels
 
 

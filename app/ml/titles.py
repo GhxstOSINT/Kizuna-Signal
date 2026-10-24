@@ -1,4 +1,5 @@
 """Build TitleRecord rows from normalized AniList records."""
+
 from datetime import date
 
 from app.ml.schema import TitleRecord
@@ -35,20 +36,25 @@ def to_title_records(records: list[dict]) -> list[TitleRecord]:
         source_ids: dict[str, str | int] = {"anilist": r["anilist_id"]}
         if x["mal_id"]:
             source_ids["mal"] = x["mal_id"]
-        out.append(TitleRecord(
-            title_id=f"anilist:{r['anilist_id']}",
-            franchise_id=f"anilist:{roots[r['anilist_id']]}",
-            original_title=r["name_jp"],
-            english_title=r["name_en"],
-            japanese_title=r["name_jp"],
-            romanized_title=r["name_romaji"],
-            source_ids=source_ids,
-            genres=f["genres"],
-            themes=f["tags"],
-            format=f["format"],
-            runtime_or_episode_count={"episodes": x["episodes"], "minutes_per_episode": x["duration"]},
-            original_release_date=_date(x["start"]),
-            platform_or_distributor=x["streaming"],
-            synopsis=f["synopsis"],
-        ))
+        out.append(
+            TitleRecord(
+                title_id=f"anilist:{r['anilist_id']}",
+                franchise_id=f"anilist:{roots[r['anilist_id']]}",
+                original_title=r["name_jp"],
+                english_title=r["name_en"],
+                japanese_title=r["name_jp"],
+                romanized_title=r["name_romaji"],
+                source_ids=source_ids,
+                genres=f["genres"],
+                themes=f["tags"],
+                format=f["format"],
+                runtime_or_episode_count={
+                    "episodes": x["episodes"],
+                    "minutes_per_episode": x["duration"],
+                },
+                original_release_date=_date(x["start"]),
+                platform_or_distributor=x["streaming"],
+                synopsis=f["synopsis"],
+            )
+        )
     return out
