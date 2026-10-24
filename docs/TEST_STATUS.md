@@ -55,10 +55,10 @@ ruff format --check app tests scripts
 
 ## Current verified baseline
 
-- Tests: 284 passed, 40 skipped (all "no trained state model": `tests/test_predict_cases.py` and `tests/test_reports.py` need a model in `models/state/`), 1 failing: `tests/test_predict_api.py::test_one_request_returns_ranked_states_and_summary` writes to `models/state/`, which is git-ignored and absent on a fresh checkout (it also fails on `origin/main` alone)
-- Application line coverage: 89%, below the 90% CI gate (`origin/main` alone: 87%)
-- Static quality check: failing, not introduced by the backend merge: `ruff check` reports 34 errors and `ruff format --check` flags 50 files, all already present on `origin/main`
-- Dependencies: tests need `pip install -e ".[dev,ml,frontend]"` plus `streamlit` (no extra installs it); `pandas` must be below 3.0 or `app/ml` breaks
-- OpenAPI snapshot: committed at `docs/openapi.json`
+- Tests: 290 passed, 40 skipped, 0 failing. The 40 skips are `tests/test_predict_cases.py` and `tests/test_reports.py`, which need a trained model in `models/state/` (git-ignored, so absent on a fresh checkout and in CI); `tests/test_reports_synthetic.py` covers the same report routes on a synthetic model
+- Application line coverage: 95%
+- Static quality check: passing (`ruff check` and `ruff format --check`)
+- Dependencies: tests need `pip install -e ".[dev,frontend,ml]"`; `pandas` must be below 3.0 or `app/ml` breaks
+- OpenAPI snapshot: committed at `docs/openapi.json`, no drift
 - Golden mode: deterministic and independent of live credentials
 - CI: lint, format, OpenAPI diff, 90% coverage gate and container build configured
