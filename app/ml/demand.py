@@ -6,6 +6,7 @@ Windows are anchored on the title's release date:
   sustained  release+8w .. release+52w   -> LABEL
 Post-release data never becomes a feature.
 """
+import re
 from datetime import date, timedelta
 
 import numpy as np
@@ -13,6 +14,8 @@ import pandas as pd
 
 from app.adapters.google_trends import TrendsClient, TrendsError
 from app.ml.schema import TitleRecord
+
+_SEQUEL_SUFFIX = re.compile(r"\s+(\d+(st|nd|rd|th)\s+)?(season|part|cour)(\s.*)?$", re.I)
 
 PRE_WEEKS, LAUNCH_WEEKS, TOTAL_POST_WEEKS = 12, 8, 52
 MIN_POST_SUM = 5  # below this a state has too little signal (Trends rounds small values to 0)
@@ -23,7 +26,7 @@ def search_term(title: TitleRecord) -> tuple[str, str] | None:
     """Query text and which title variant was used (query variants are tracked)."""
     for variant, name in (("english", title.english_title), ("romanized", title.romanized_title)):
         if name:
-            name = name.split(":")[0].strip()[:60]
+            name = _SEQUEL_SUFFIX.sub("", name.split(":")[0].strip())[:60]
             return (f"{name} anime" if len(name.split()) <= 2 else name), variant
     return None
 

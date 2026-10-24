@@ -186,3 +186,10 @@ def test_anilist_sort_is_passed_through(tmp_path):
                       sleep=lambda s: None)
     c.fetch_page(1, sort=["POPULARITY_DESC"], status="FINISHED")
     assert seen["sort"] == ["POPULARITY_DESC"] and seen["status"] == "FINISHED"
+
+
+def test_sequel_suffix_is_stripped_from_query():
+    assert search_term(title(english_title="Attack on Titan Season 2"))[0] == "Attack on Titan"
+    assert search_term(title(english_title="My Hero Academia 2nd Season"))[0] == "My Hero Academia"
+    assert search_term(title(english_title="Mushoku Tensei: Jobless Reincarnation Season 2"))[0] == "Mushoku Tensei anime"
+    assert search_term(title(english_title="Mob Psycho 100"))[0] == "Mob Psycho 100"
