@@ -7,7 +7,7 @@ from app.db.models import Title
 from app.schemas.analysis import RegionalScore
 from app.services import census
 from app.services.sources.base import SourceEvidence
-from app.services.sources.matching import normalise
+from app.services.textmatch import normalise
 
 # Signal weights for a state's composite; absent signals are dropped and the rest renormalised.
 WEIGHTS = {"demand": 0.35, "size": 0.20, "urban": 0.10, "targeting": 0.15, "survey": 0.20}

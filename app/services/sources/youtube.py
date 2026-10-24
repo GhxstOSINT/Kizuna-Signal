@@ -11,7 +11,7 @@ import httpx
 
 from app.db.models import Title
 from app.services.sources.base import SourceAdapter, SourceEvidence
-from app.services.sources.matching import normalise as _normalise
+from app.services.textmatch import normalise as _normalise
 
 logger = logging.getLogger(__name__)
 

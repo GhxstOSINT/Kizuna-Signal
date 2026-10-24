@@ -26,6 +26,12 @@ from app.services.sources import SourceRegistry
 logger = logging.getLogger(__name__)
 settings = get_settings()
 
+# Exception text can carry SQL, paths or other internals, so the API only ever sees this message;
+# the full traceback goes to the server log.
+PUBLIC_FAILURE_MESSAGE = (
+    "Analysis failed unexpectedly. Please retry; if it persists, contact support."
+)
+
 
 def utcnow() -> datetime:
     return datetime.now(UTC)
@@ -139,16 +145,16 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
         job.stage = "analysis completed"
         job.updated_at = utcnow()
         db.commit()
-    except Exception as exc:
+    except Exception:
         db.rollback()
         analysis = db.get(Analysis, analysis_id)
         if analysis is not None:
             analysis.status = "failed"
-            analysis.error_message = str(exc)
+            analysis.error_message = PUBLIC_FAILURE_MESSAGE
             if analysis.job is not None:
                 analysis.job.status = "failed"
                 analysis.job.stage = "analysis failed"
-                analysis.job.error_message = str(exc)
+                analysis.job.error_message = PUBLIC_FAILURE_MESSAGE
                 analysis.job.updated_at = utcnow()
             db.commit()
         logger.exception("analysis_failed")

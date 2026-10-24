@@ -10,7 +10,7 @@ import httpx
 
 from app.db.models import Title
 from app.services.sources.base import SourceAdapter, SourceEvidence
-from app.services.sources.matching import match_score, normalise
+from app.services.textmatch import match_score, normalise
 
 logger = logging.getLogger(__name__)
 

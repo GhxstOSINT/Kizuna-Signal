@@ -61,3 +61,24 @@ def test_scenario_reports_score_and_confidence_deltas(client, created_title):
     assert result["cost_level"] == "high"
     assert result["reach_level"] == "high"
     assert result["recommendation"]["localization"]
+
+
+def test_failed_analysis_does_not_leak_exception_details(client, created_title, monkeypatch):
+    secret = "INSERT INTO internal_table VALUES ('s3cr3t') failed at /srv/app/db.py"
+
+    def explode(self, title, disabled_sources=None):
+        raise RuntimeError(secret)
+
+    monkeypatch.setattr("app.services.analysis.SourceRegistry.collect", explode)
+    started = client.post(f"/api/v1/titles/{created_title['id']}/analyses", json=None)
+    assert started.status_code == 202, started.text
+    identifiers = started.json()
+
+    job = client.get(f"/api/v1/jobs/{identifiers['job_id']}").json()
+    analysis = client.get(f"/api/v1/analyses/{identifiers['analysis_id']}").json()
+    assert job["status"] == "failed"
+    assert analysis["status"] == "failed"
+    for payload in (job, analysis):
+        assert payload["error_message"]
+        assert "s3cr3t" not in str(payload)
+        assert "internal_table" not in str(payload)
