@@ -1,0 +1,197 @@
+{
+  "analysis_id": "an_shadow_bloom_001",
+  "title_id": "shadow_bloom",
+  "status": "complete",
+  "result_version": "1.3.0",
+  "scoring_config_version": "sc-2026.10-a",
+  "model_version": "xgb-0.9-r2",
+  "model_used": "primary",
+  "feature_snapshot_id": "fs_shadow_bloom_20261022",
+  "created_at": "2026-10-22T14:05:00+05:30",
+  "components": {
+    "content_fit": 83,
+    "demand_momentum": 76,
+    "regional_opportunity": 82,
+    "engagement_quality": 71,
+    "comparable_performance": 77,
+    "localization_readiness": 73
+  },
+  "confidence_factors": {
+    "data_completeness": 88,
+    "source_agreement": 82,
+    "comparable_quality": 84,
+    "regional_evidence": 74,
+    "data_freshness": 85
+  },
+  "content_dna": {
+    "genres": [
+      {
+        "name": "Fantasy",
+        "weight": 0.9
+      },
+      {
+        "name": "Action",
+        "weight": 0.8
+      },
+      {
+        "name": "Coming of Age",
+        "weight": 0.6
+      }
+    ],
+    "themes": [
+      {
+        "name": "Friendship",
+        "weight": 0.85
+      },
+      {
+        "name": "Folklore",
+        "weight": 0.7
+      },
+      {
+        "name": "Sacrifice",
+        "weight": 0.55
+      }
+    ],
+    "archetypes": [
+      "Reluctant guardian",
+      "Found family",
+      "Ancient curse"
+    ],
+    "audience_fit": {
+      "Youth 16-30": 88,
+      "Fandom intensity": 74,
+      "Mainstream crossover": 58,
+      "Family suitability": 52,
+      "Premium-market suitability": 70
+    },
+    "sensitivity_flags": [
+      "Mild supernatural violence",
+      "Religious/shrine imagery (check regional sensitivity)"
+    ]
+  },
+  "drivers": [
+    {
+      "id": "d1",
+      "label": "Strong fantasy-action affinity",
+      "points": 8.2,
+      "component": "content_fit",
+      "source_ids": [
+        "anilist",
+        "google_trends"
+      ],
+      "why": "Fantasy-action titles over-index on Indian anime streaming interest."
+    },
+    {
+      "id": "d2",
+      "label": "Growing Indian search momentum",
+      "points": 6.7,
+      "component": "demand_momentum",
+      "source_ids": [
+        "google_trends",
+        "wikimedia"
+      ],
+      "why": "Relative search interest for the franchise terms rose over the last 12 weeks."
+    },
+    {
+      "id": "d3",
+      "label": "Strong performance of similar titles",
+      "points": 5.4,
+      "component": "comparable_performance",
+      "source_ids": [
+        "anilist"
+      ],
+      "why": "Five closest comparables show high Indian demand."
+    },
+    {
+      "id": "d4",
+      "label": "High youth-audience fit",
+      "points": 4.1,
+      "component": "content_fit",
+      "source_ids": [
+        "census",
+        "anilist"
+      ],
+      "why": "Target audience aligns with the large 16-30 urban segment."
+    },
+    {
+      "id": "d5",
+      "label": "Existing interest in the source material",
+      "points": 3.8,
+      "component": "demand_momentum",
+      "source_ids": [
+        "wikimedia",
+        "youtube"
+      ],
+      "why": "Studio and folklore themes show sustained information-seeking."
+    },
+    {
+      "id": "d6",
+      "label": "Limited awareness outside major cities",
+      "points": -4.8,
+      "component": "regional_opportunity",
+      "source_ids": [
+        "google_trends",
+        "census"
+      ],
+      "why": "Tier-2 and smaller markets show sparse query data."
+    },
+    {
+      "id": "d7",
+      "label": "Weak Bengali-language evidence",
+      "points": -2.9,
+      "component": "regional_opportunity",
+      "source_ids": [
+        "google_trends",
+        "census"
+      ],
+      "why": "Few Bengali-language signals; West Bengal interval is wider."
+    },
+    {
+      "id": "d8",
+      "label": "High dubbing requirement",
+      "points": -2.3,
+      "component": "content_fit",
+      "source_ids": [
+        "anilist"
+      ],
+      "why": "Multilingual dubbing raises cost and delays regional reach."
+    },
+    {
+      "id": "d9",
+      "label": "Limited franchise recognition",
+      "points": -1.7,
+      "component": "demand_momentum",
+      "source_ids": [
+        "wikimedia",
+        "anilist"
+      ],
+      "why": "New IP with no existing manga or game base."
+    }
+  ],
+  "warnings": [
+    {
+      "code": "youtube_global",
+      "severity": "warning",
+      "message": "YouTube statistics are global, not India-only."
+    },
+    {
+      "code": "regional_sparse",
+      "severity": "warning",
+      "message": "Regional evidence is limited for Assam and Odisha."
+    },
+    {
+      "code": "trends_relative",
+      "severity": "info",
+      "message": "Google Trends values represent relative interest."
+    },
+    {
+      "code": "revenue_missing",
+      "severity": "info",
+      "message": "Revenue data was not available."
+    }
+  ],
+  "limitations": [
+    "Public demand proxies only; no revenue or viewership outcomes.",
+    "Scores are a calibrated market-potential estimate, not a revenue forecast."
+  ]
+}

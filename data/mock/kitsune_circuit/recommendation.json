@@ -1,0 +1,61 @@
+{
+  "headline": "Proceed with a limited OTT test release in Hindi and Telugu, then refresh the data.",
+  "platform": "OTT-first, limited test",
+  "priority_markets": [
+    "Delhi",
+    "Maharashtra",
+    "Karnataka",
+    "Telangana",
+    "Uttar Pradesh"
+  ],
+  "localization": [
+    "Hindi dub",
+    "Telugu subtitles",
+    "English subtitles retained"
+  ],
+  "target_audience": [
+    "Families and youth aged 10-25",
+    "Sports-anime and robotics fans"
+  ],
+  "launch_window": "November 2027 (festive season)",
+  "positioning": "Warm family comedy about a robotics underdog and her fox spirit.",
+  "campaign": [
+    "Refresh YouTube data before finalising the campaign",
+    "Launch a Hindi-dub teaser with family-oriented messaging",
+    "Partner with school robotics clubs and family creators"
+  ],
+  "risks": [
+    {
+      "risk": "Missing YouTube engagement data",
+      "mitigation": "Re-run the analysis once the YouTube quota resets."
+    },
+    {
+      "risk": "Low marketing budget",
+      "mitigation": "Focus on organic creator partnerships in the top five markets."
+    }
+  ],
+  "items": [
+    {
+      "id": "r1",
+      "topic": "Localization",
+      "decision": "Hindi dub with Telugu subtitles.",
+      "expected_benefit": "Hindi and Telugu show the highest language affinity.",
+      "evidence": [
+        "Language affinity: Hindi 80, Telugu 72"
+      ],
+      "confidence": 68,
+      "principal_risk": "Dub cost against a low marketing budget."
+    },
+    {
+      "id": "r2",
+      "topic": "Timing",
+      "decision": "Release in the festive window.",
+      "expected_benefit": "Festive season adds a positive seasonality effect.",
+      "evidence": [
+        "Release-window lever: +2 score"
+      ],
+      "confidence": 60,
+      "principal_risk": "Seasonality effect is illustrative."
+    }
+  ]
+}

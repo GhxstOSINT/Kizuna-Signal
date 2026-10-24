@@ -1,0 +1,40 @@
+{
+  "base": {
+    "label": "Base strategy",
+    "levers": {
+      "localization": "subs_hindi",
+      "distribution": "ott",
+      "geography": "national",
+      "release_window": "jan_feb",
+      "marketing_budget": "low"
+    },
+    "cost_points": 0.5,
+    "reach_points": 2.5
+  },
+  "presets": [
+    {
+      "id": "festive_dub",
+      "label": "Hindi dub + festive window",
+      "levers": {
+        "localization": "dub_hindi_subs_regional",
+        "distribution": "ott",
+        "geography": "regional_first",
+        "release_window": "oct_nov_festive",
+        "marketing_budget": "low"
+      },
+      "summary": "Hindi dub with Telugu subtitles, released in the festive season."
+    },
+    {
+      "id": "multilingual_hybrid",
+      "label": "Multilingual dub + hybrid",
+      "levers": {
+        "localization": "multilingual_dub",
+        "distribution": "hybrid",
+        "geography": "national",
+        "release_window": "oct_nov_festive",
+        "marketing_budget": "medium"
+      },
+      "summary": "Multilingual dubs with a hybrid release and a medium campaign."
+    }
+  ]
+}
