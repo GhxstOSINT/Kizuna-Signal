@@ -3,7 +3,7 @@ import streamlit as st
 
 from kizuna import state, theme
 from kizuna.config import APP_NAME
-from views import portfolio
+from views import portfolio, results
 
 st.set_page_config(page_title=APP_NAME, page_icon=":material/radar:", layout="wide")
 theme.inject_css()
@@ -11,6 +11,7 @@ theme.inject_css()
 PAGES = {
     "portfolio": st.Page(portfolio.render, title="Portfolio", icon=":material/dashboard:",
                          url_path="portfolio", default=True),
+    "results": st.Page(results.render, title="Results", icon=":material/insights:", url_path="results"),
 }
 state.register_pages(PAGES)
 

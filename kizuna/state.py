@@ -59,6 +59,11 @@ def get_overrides(title_id):
     return store.setdefault(title_id, {"disabled_sources": [], "included_comps": None})
 
 
+def has_overrides(title_id):
+    ov = get_overrides(title_id)
+    return bool(ov["disabled_sources"]) or ov["included_comps"] is not None
+
+
 def log(action, title_id, previous, new, reason=""):
     st.session_state.setdefault("audit_log", []).append({
         "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "user": analyst_name(),
@@ -131,4 +136,6 @@ def load(title_id):
                                include_optional=show_optional())
     regions = engine.rank_regions(api.get_regions(title_id)["regions"], cfg)
     return {"title": api.get_title(title_id), "analysis": analysis, "sources": sources,
-            "comparables": comparables, "view": view, "regions": regions, "cfg": cfg}
+            "comparables": comparables, "view": view, "regions": regions, "cfg": cfg,
+            "reco": api.get_recommendation(title_id), "scenarios": api.get_scenarios(title_id),
+            "language_affinity": api.get_regions(title_id)["language_affinity"]}
