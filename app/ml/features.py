@@ -5,10 +5,24 @@ Versioned: bump FEATURE_VERSION whenever a definition changes. Everything fitted
 """
 import numpy as np
 import pandas as pd
-from sklearn.decomposition import TruncatedSVD
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.decomposition import PCA
 
-FEATURE_VERSION = "content-v1"
+from app.ml.embeddings import TfidfSvdEmbedder
+
+FEATURE_VERSION = "content-v2"
+
+# Feature groups map to the architecture's model components.
+GROUP_PREFIXES = {
+    "content": ("genre_", "theme_", "format_", "log_episodes", "has_streaming", "dna_"),
+    "demand": ("pre_",),
+    "regional": ("state_",),
+    "comparable": ("cmp_",),
+}
+
+
+def group_columns(cols: list[str], *groups: str) -> list[str]:
+    prefixes = tuple(p for g in groups for p in GROUP_PREFIXES[g])
+    return [c for c in cols if c.startswith(prefixes)]
 LEAKY_COLUMNS = {"popularity", "favourites", "average_score", "log_popularity", "status", "share"}
 
 
@@ -29,19 +43,23 @@ def titles_frame(records) -> pd.DataFrame:
 class ContentEncoder:
     """Fit on training titles; transform any title into a numeric row."""
 
-    def __init__(self, svd_dims: int = 12, max_themes: int = 40):
-        self.svd_dims, self.max_themes = svd_dims, max_themes
+    def __init__(self, embedder=None, dna_dims: int = 12, max_themes: int = 40):
+        self.embedder = embedder or TfidfSvdEmbedder()
+        self.dna_dims, self.max_themes = dna_dims, max_themes
 
     def fit(self, titles: pd.DataFrame) -> "ContentEncoder":
         self.genres_ = sorted({g for gs in titles["genres"] for g in gs})
         counts = pd.Series([t for ts in titles["themes"] for t in ts]).value_counts()
         self.themes_ = list(counts.head(self.max_themes).index)
         self.formats_ = sorted(titles["format"].unique())
-        self.tfidf_ = TfidfVectorizer(stop_words="english", min_df=2, max_features=2000)
-        matrix = self.tfidf_.fit_transform(titles["synopsis"])
-        dims = max(1, min(self.svd_dims, matrix.shape[0] - 1, matrix.shape[1] - 1))
-        self.svd_ = TruncatedSVD(dims, random_state=0).fit(matrix)
+        self.embedder.fit(titles["synopsis"].tolist())
+        emb = self.embedder.embed(titles["synopsis"].tolist())
+        self.pca_ = PCA(max(1, min(self.dna_dims, emb.shape[0] - 1, emb.shape[1])), random_state=0).fit(emb)
         return self
+
+    def embed(self, titles: pd.DataFrame) -> np.ndarray:
+        """Unit vectors used for comparable retrieval."""
+        return self.embedder.embed(titles["synopsis"].tolist())
 
     def transform(self, titles: pd.DataFrame) -> pd.DataFrame:
         cols = {"title_id": titles["title_id"].values}
@@ -53,15 +71,16 @@ class ContentEncoder:
             cols[f"format_{f}"] = (titles["format"] == f).astype(int).values
         cols["log_episodes"] = np.log1p(titles["episodes"].fillna(0).astype(float)).values
         cols["has_streaming"] = titles["has_streaming"].astype(int).values
-        emb = self.svd_.transform(self.tfidf_.transform(titles["synopsis"]))
-        for i in range(emb.shape[1]):
-            cols[f"dna_{i}"] = emb[:, i]
+        dna = self.pca_.transform(self.embed(titles))
+        for i in range(dna.shape[1]):
+            cols[f"dna_{i}"] = dna[:, i]
         return pd.DataFrame(cols)
 
 
 def build_rows(content: pd.DataFrame, labels: pd.DataFrame, states: list[str],
                state_context: pd.DataFrame | None = None,
-               demand: pd.DataFrame | None = None) -> pd.DataFrame:
+               demand: pd.DataFrame | None = None,
+               comparable: pd.DataFrame | None = None) -> pd.DataFrame:
     """One row per (title, state). `labels` has title_id, state, share.
 
     `demand` holds pre-release Trends features per (title_id, state); every column
@@ -75,6 +94,10 @@ def build_rows(content: pd.DataFrame, labels: pd.DataFrame, states: list[str],
         rows = rows.merge(demand, on=["title_id", "state"], how="left")
         rows[[c for c in demand.columns if c.startswith("pre_")]] = rows[
             [c for c in demand.columns if c.startswith("pre_")]].fillna(0)
+    if comparable is not None:  # historical outcomes of older, similar titles (cmp_share)
+        rows = rows.merge(comparable[["title_id", "state", "cmp_share"]], on=["title_id", "state"], how="left")
+        rows["cmp_missing"] = rows["cmp_share"].isna().astype(int)
+        rows["cmp_share"] = rows["cmp_share"].fillna(1 / len(states))
     for s in states:
         rows[f"state_{s}"] = (rows["state"] == s).astype(int)
     if state_context is not None:

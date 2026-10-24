@@ -20,7 +20,11 @@ class StateMeanBaseline:
 
 
 class RidgeModel:
-    """Transparent benchmark on genre/format/state features (no embeddings)."""
+    """Transparent benchmark: state effect plus genre x state interactions.
+
+    Genre alone is constant across a title's states, so it cannot change the state
+    ranking; the interaction terms let each genre lift or lower particular states.
+    """
 
     name = "ridge_genre_state"
 
@@ -28,15 +32,19 @@ class RidgeModel:
         self.alpha = alpha
 
     @staticmethod
-    def _cols(cols):
-        return [c for c in cols if c.startswith(("genre_", "format_", "state_"))]
+    def _design(rows, cols) -> np.ndarray:
+        title_cols = [c for c in cols if c.startswith(("genre_", "format_"))]
+        state_cols = [c for c in cols if c.startswith("state_")]
+        t, s = rows[title_cols].to_numpy(float), rows[state_cols].to_numpy(float)
+        inter = (t[:, :, None] * s[:, None, :]).reshape(len(rows), -1)
+        return np.hstack([s, inter])
 
     def fit(self, rows, cols):
-        self.model_ = Ridge(alpha=self.alpha).fit(rows[self._cols(cols)], rows["share"])
+        self.model_ = Ridge(alpha=self.alpha).fit(self._design(rows, cols), rows["share"])
         return self
 
     def predict(self, rows, cols):
-        return self.model_.predict(rows[self._cols(cols)])
+        return self.model_.predict(self._design(rows, cols))
 
 
 class XGBModel:
@@ -53,3 +61,25 @@ class XGBModel:
 
     def predict(self, rows, cols):
         return self.model_.predict(rows[cols])
+
+
+class EnsembleModel:
+    """Weighted blend of the transparent baseline and XGBoost (architecture: Baseline + XGBoost)."""
+
+    name = "ensemble"
+
+    def __init__(self, members: list, weights: list[float] | None = None):
+        self.members = members
+        self.weights = weights or [1 / len(members)] * len(members)
+
+    def fit_weights(self, rows: pd.DataFrame, cols: list[str]) -> "EnsembleModel":
+        """Pick the blend weight on held-out calibration rows (minimum RMSE)."""
+        a, b = (m.predict(rows, cols) for m in self.members[:2])
+        grid = np.linspace(0, 1, 11)
+        errs = [np.sqrt(np.mean((w * a + (1 - w) * b - rows["share"].to_numpy()) ** 2)) for w in grid]
+        w = float(grid[int(np.argmin(errs))])
+        self.weights = [w, 1 - w]
+        return self
+
+    def predict(self, rows, cols):
+        return sum(w * m.predict(rows, cols) for w, m in zip(self.weights, self.members))

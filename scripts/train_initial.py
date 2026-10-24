@@ -14,6 +14,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from app.ml.embeddings import get_embedder  # noqa: E402
 from app.ml.features import titles_frame  # noqa: E402
 from app.ml.schema import TitleRecord  # noqa: E402
 from app.ml.states import PILOT_STATES  # noqa: E402
@@ -25,6 +26,7 @@ def main() -> int:
     ap.add_argument("--data", type=Path, default=Path("data/processed"))
     ap.add_argument("--n-titles", type=int, default=100)
     ap.add_argument("--out", type=Path, default=Path("models"))
+    ap.add_argument("--embedder", choices=["auto", "tfidf", "sentence-transformers"], default="auto")
     args = ap.parse_args()
 
     labels_path = args.data / "state_labels.csv"
@@ -38,8 +40,10 @@ def main() -> int:
     ids = labels["title_id"].drop_duplicates().head(args.n_titles)
     demand_path = args.data / "trends_demand.csv"
     demand = pd.read_csv(demand_path) if demand_path.exists() else None
-    report, _, _ = run(titles, labels[labels["title_id"].isin(ids)], PILOT_STATES, demand=demand)
-    save(report, args.out)
+    report, objects, _ = run(titles, labels[labels["title_id"].isin(ids)], PILOT_STATES, demand=demand,
+                             embedder=get_embedder(args.embedder))
+    folder = save(report, args.out, objects)
+    print(f"saved model to {folder}")
     print(json.dumps(report, indent=2))
     return 0
 
