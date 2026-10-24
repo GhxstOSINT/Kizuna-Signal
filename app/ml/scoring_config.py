@@ -1,4 +1,5 @@
 """Versioned weights. Configuration, not code, so prior outputs can be reproduced."""
+
 from dataclasses import asdict, dataclass
 
 
@@ -16,6 +17,7 @@ class ConfidenceConfig:
 class MarketPotentialConfig:
     """The architecture's illustrative weights. Engagement quality needs YouTube data, which is
     not collected yet, so its weight is reported as unavailable rather than imputed."""
+
     version: str = "market-potential-v1"
     content_fit: float = 0.25
     demand_momentum: float = 0.25

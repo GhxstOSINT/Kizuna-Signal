@@ -1,4 +1,5 @@
 """Local and global explanations using exact tree SHAP values from XGBoost (pred_contribs)."""
+
 import pandas as pd
 import xgboost as xgb
 
@@ -23,5 +24,7 @@ def global_by_group(contrib: pd.DataFrame) -> dict[str, float]:
     total = float(mean_abs.sum()) or 1.0
     out = {}
     for group, prefixes in GROUP_PREFIXES.items():
-        out[group] = float(mean_abs[[c for c in contrib.columns if c.startswith(prefixes)]].sum() / total)
+        out[group] = float(
+            mean_abs[[c for c in contrib.columns if c.startswith(prefixes)]].sum() / total
+        )
     return out

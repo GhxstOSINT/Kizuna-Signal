@@ -7,6 +7,7 @@
   studio (`studio_`, shrunk towards 0) and similar older titles (`cmp_`).
 * State context: region zone and dominant language one-hots (an approximation, see the dictionary).
 """
+
 import numpy as np
 import pandas as pd
 
@@ -46,52 +47,94 @@ def title_extras(titles: pd.DataFrame) -> pd.DataFrame:
     for s in SEASONS:
         out[f"season_{s}"] = (season == s).astype(int).values
     out["release_year"] = titles["release_date"].dt.year.values
-    out["has_prequel"] = titles["has_prequel"].fillna(False).astype(int).values if "has_prequel" in titles else 0
-    out["minutes"] = titles["minutes"].fillna(0).astype(float).values if "minutes" in titles else 0.0
+    out["has_prequel"] = (
+        titles["has_prequel"].fillna(False).astype(int).values if "has_prequel" in titles else 0
+    )
+    out["minutes"] = (
+        titles["minutes"].fillna(0).astype(float).values if "minutes" in titles else 0.0
+    )
     return out
 
 
 def state_context(reference: pd.DataFrame) -> pd.DataFrame:
     """One row per state: region-zone and dominant-language indicators (all named state_*)."""
     out = reference[["state"]].copy()
-    for col, prefix in (("region_zone", "state_zone_"), ("dominant_language_APPROX", "state_lang_")):
+    for col, prefix in (
+        ("region_zone", "state_zone_"),
+        ("dominant_language_APPROX", "state_lang_"),
+    ):
         dummies = pd.get_dummies(reference[col], prefix=prefix, prefix_sep="").astype(int)
         out = pd.concat([out, dummies], axis=1)
     return out
 
 
-def _earlier_group_mean(targets: pd.DataFrame, pool: pd.DataFrame, dlog: pd.DataFrame, states: list[str],
-                        key: str, shrink: float, prefix: str) -> pd.DataFrame:
+def _earlier_group_mean(
+    targets: pd.DataFrame,
+    pool: pd.DataFrame,
+    dlog: pd.DataFrame,
+    states: list[str],
+    key: str,
+    shrink: float,
+    prefix: str,
+) -> pd.DataFrame:
     """Per (target, state): shrunk mean dlog of pool titles in the same `key` group that finished
     their label window before the target launched."""
-    wide = dlog.pivot_table(index="title_id", columns="state", values="dlog").reindex(columns=states)
+    wide = dlog.pivot_table(index="title_id", columns="state", values="dlog").reindex(
+        columns=states
+    )
     rows = []
     for _, t in targets.iterrows():
-        group = pool[pool[key].notna() & (pool[key] == t[key]) & (pool["title_id"] != t["title_id"])
-                     & (pool["release_date"] + pd.Timedelta(days=LAG_DAYS) <= t["release_date"])] \
-            if pd.notna(t[key]) else pool.iloc[0:0]
+        group = (
+            pool[
+                pool[key].notna()
+                & (pool[key] == t[key])
+                & (pool["title_id"] != t["title_id"])
+                & (pool["release_date"] + pd.Timedelta(days=LAG_DAYS) <= t["release_date"])
+            ]
+            if pd.notna(t[key])
+            else pool.iloc[0:0]
+        )
         block = wide.reindex(group["title_id"])
         n, total = block.notna().sum(), block.sum()
         for s in states:
-            rows.append({"title_id": t["title_id"], "state": s,
-                         f"{prefix}_dlog": float(total[s] / (n[s] + shrink)) if len(group) else 0.0,
-                         f"{prefix}_n": int(n[s]) if len(group) else 0})
+            rows.append(
+                {
+                    "title_id": t["title_id"],
+                    "state": s,
+                    f"{prefix}_dlog": float(total[s] / (n[s] + shrink)) if len(group) else 0.0,
+                    f"{prefix}_n": int(n[s]) if len(group) else 0,
+                }
+            )
     return pd.DataFrame(rows)
 
 
-def history_features(targets: pd.DataFrame, target_emb: np.ndarray, pool: pd.DataFrame, pool_emb: np.ndarray,
-                     labels: pd.DataFrame, states: list[str]) -> tuple[pd.DataFrame, pd.DataFrame]:
+def history_features(
+    targets: pd.DataFrame,
+    target_emb: np.ndarray,
+    pool: pd.DataFrame,
+    pool_emb: np.ndarray,
+    labels: pd.DataFrame,
+    states: list[str],
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """cmp_dlog (similar older titles), parent_dlog (same franchise), studio_dlog (same studio).
 
     `labels` must carry dlog. Returns (features per title x state, comparable stats per title).
     """
-    cmp_rows, cmp_stats = comparable_features(ComparableIndex(pool, pool_emb), targets, target_emb,
-                                              labels, states, value="dlog")
+    cmp_rows, cmp_stats = comparable_features(
+        ComparableIndex(pool, pool_emb), targets, target_emb, labels, states, value="dlog"
+    )
     cmp_rows = cmp_rows.rename(columns={"cmp_share": "cmp_dlog"})
     cmp_rows["cmp_n"] = cmp_rows["title_id"].map(cmp_stats.set_index("title_id")["cmp_count"])
     cmp_rows["cmp_dlog"] = cmp_rows["cmp_dlog"].fillna(0.0)
-    studio = lambda f: f.assign(studio_key=f["studio"].str.strip().str.lower() if "studio" in f else np.nan)  # noqa: E731
-    parent = _earlier_group_mean(targets, pool, labels, states, "franchise_id", PARENT_SHRINK, "parent")
-    studios = _earlier_group_mean(studio(targets), studio(pool), labels, states, "studio_key", STUDIO_SHRINK, "studio")
+
+    def studio(f):
+        return f.assign(studio_key=f["studio"].str.strip().str.lower() if "studio" in f else np.nan)
+
+    parent = _earlier_group_mean(
+        targets, pool, labels, states, "franchise_id", PARENT_SHRINK, "parent"
+    )
+    studios = _earlier_group_mean(
+        studio(targets), studio(pool), labels, states, "studio_key", STUDIO_SHRINK, "studio"
+    )
     out = cmp_rows.merge(parent, on=["title_id", "state"]).merge(studios, on=["title_id", "state"])
     return out, cmp_stats

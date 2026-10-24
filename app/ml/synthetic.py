@@ -16,6 +16,7 @@ titles in the training split, so out-of-fold metrics stay honest.
 This adds no new information: it spreads what the observed cells say into the empty ones. It can reduce
 the pull of sparse-state noise; it cannot fix a state where nobody observed anything.
 """
+
 from dataclasses import asdict, dataclass
 
 import numpy as np
@@ -62,11 +63,18 @@ def _region_weights(state_ctx: pd.DataFrame, states: list[str], cfg: SyntheticCo
 
 
 def _n_eff(w: np.ndarray) -> float:
-    return float(w.sum() ** 2 / (w ** 2).sum()) if len(w) and (w ** 2).sum() > 0 else 0.0
+    return float(w.sum() ** 2 / (w**2).sum()) if len(w) and (w**2).sum() > 0 else 0.0
 
 
-def synthesize(labels: pd.DataFrame, titles: pd.DataFrame, emb: np.ndarray, states: list[str],
-               state_ctx: pd.DataFrame, effect: pd.Series, cfg: SyntheticConfig = SyntheticConfig()) -> pd.DataFrame:
+def synthesize(
+    labels: pd.DataFrame,
+    titles: pd.DataFrame,
+    emb: np.ndarray,
+    states: list[str],
+    state_ctx: pd.DataFrame,
+    effect: pd.Series,
+    cfg: SyntheticConfig = SyntheticConfig(),
+) -> pd.DataFrame:
     """Synthetic rows for the missing cells of `titles`.
 
     `labels` needs title_id, state, log_share, dlog (real rows of the training titles only); `titles` and `emb`
@@ -86,7 +94,9 @@ def synthesize(labels: pd.DataFrame, titles: pd.DataFrame, emb: np.ndarray, stat
     log_mean = labels.groupby("title_id")["log_share"].mean()
 
     tags = [set(g) | set(t) for g, t in zip(titles["genres"], titles["themes"], strict=True)]
-    sim = cfg.cosine_share * np.clip(emb @ emb.T, 0, None) + (1 - cfg.cosine_share) * _jaccard_matrix(tags)
+    sim = cfg.cosine_share * np.clip(emb @ emb.T, 0, None) + (
+        1 - cfg.cosine_share
+    ) * _jaccard_matrix(tags)
     np.fill_diagonal(sim, -1.0)  # a title never informs itself
     region = _region_weights(state_ctx, states, cfg)
 
@@ -97,7 +107,7 @@ def synthesize(labels: pd.DataFrame, titles: pd.DataFrame, emb: np.ndarray, stat
                 continue
             # content neighbours that observed state j
             cand = np.where(seen[:, j] & (sim[i] > 0))[0]
-            cand = cand[np.argsort(-sim[i, cand])[:cfg.neighbours]]
+            cand = cand[np.argsort(-sim[i, cand])[: cfg.neighbours]]
             wc = sim[i, cand] ** cfg.sim_power
             n_c = _n_eff(wc)
             c_est = float((wc * lift[cand, j]).sum() / wc.sum()) if wc.sum() > 0 else 0.0
@@ -107,11 +117,21 @@ def synthesize(labels: pd.DataFrame, titles: pd.DataFrame, emb: np.ndarray, stat
             r_est = float((wr * np.nan_to_num(lift[i])).sum() / n_r) if n_r > 0 else 0.0
             if max(n_c, n_r) < cfg.min_support:
                 continue
-            est = (cfg.content_share * c_est * n_c / (n_c + cfg.content_prior)
-                   + cfg.region_share * r_est * n_r / (n_r + cfg.region_prior))
+            est = cfg.content_share * c_est * n_c / (
+                n_c + cfg.content_prior
+            ) + cfg.region_share * r_est * n_r / (n_r + cfg.region_prior)
             dlog = est + eff[j]
             log_share = dlog + float(log_mean.get(t, 0.0))
-            out.append({"title_id": t, "state": s, "share": float(np.exp(log_share)), "log_share": log_share,
-                        "dlog": dlog, "n_content": round(n_c, 2), "n_region": round(n_r, 2)})
+            out.append(
+                {
+                    "title_id": t,
+                    "state": s,
+                    "share": float(np.exp(log_share)),
+                    "log_share": log_share,
+                    "dlog": dlog,
+                    "n_content": round(n_c, 2),
+                    "n_region": round(n_r, 2),
+                }
+            )
     cols = ["title_id", "state", "share", "log_share", "dlog", "n_content", "n_region"]
     return pd.DataFrame(out, columns=cols)

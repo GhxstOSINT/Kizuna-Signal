@@ -4,6 +4,7 @@ The architecture names Sentence Transformers (384-dim, matching Title.embedding
 Vector(384)). When it is not installed we fall back to TF-IDF + SVD so training
 still runs; the embedder name is recorded in the model report.
 """
+
 import numpy as np
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer

@@ -1,5 +1,6 @@
 """Tests for comparables, intervals, confidence, explanations and the franchise-grouped split.
 Pipeline-level checks use SYNTHETIC labels, so they prove plumbing and invariants, not model quality."""
+
 from datetime import date
 
 import numpy as np
@@ -23,8 +24,16 @@ def frame(rows):
 
 
 def test_franchise_stays_on_one_side_of_the_split():
-    titles = frame([{"title_id": f"t{i}", "franchise_id": f"f{i // 3}",
-                     "release_date": date(2016 + i // 6, 1 + i % 6, 1)} for i in range(30)])
+    titles = frame(
+        [
+            {
+                "title_id": f"t{i}",
+                "franchise_id": f"f{i // 3}",
+                "release_date": date(2016 + i // 6, 1 + i % 6, 1),
+            }
+            for i in range(30)
+        ]
+    )
     train, test = franchise_time_split(titles, 0.2)
     train_f = set(titles[titles.title_id.isin(train)].franchise_id)
     test_f = set(titles[titles.title_id.isin(test)].franchise_id)
@@ -34,12 +43,38 @@ def test_franchise_stays_on_one_side_of_the_split():
 
 
 def test_comparables_are_older_and_from_other_franchises():
-    titles = frame([
-        {"title_id": "old", "franchise_id": "a", "release_date": date(2016, 1, 1), "genres": ["Action"], "format": "TV"},
-        {"title_id": "sib", "franchise_id": "b", "release_date": date(2017, 1, 1), "genres": ["Action"], "format": "TV"},
-        {"title_id": "new", "franchise_id": "b", "release_date": date(2018, 1, 1), "genres": ["Action"], "format": "TV"},
-        {"title_id": "future", "franchise_id": "c", "release_date": date(2020, 1, 1), "genres": ["Action"], "format": "TV"},
-    ])
+    titles = frame(
+        [
+            {
+                "title_id": "old",
+                "franchise_id": "a",
+                "release_date": date(2016, 1, 1),
+                "genres": ["Action"],
+                "format": "TV",
+            },
+            {
+                "title_id": "sib",
+                "franchise_id": "b",
+                "release_date": date(2017, 1, 1),
+                "genres": ["Action"],
+                "format": "TV",
+            },
+            {
+                "title_id": "new",
+                "franchise_id": "b",
+                "release_date": date(2018, 1, 1),
+                "genres": ["Action"],
+                "format": "TV",
+            },
+            {
+                "title_id": "future",
+                "franchise_id": "c",
+                "release_date": date(2020, 1, 1),
+                "genres": ["Action"],
+                "format": "TV",
+            },
+        ]
+    )
     emb = np.tile(np.array([1.0, 0.0]), (4, 1))  # identical embeddings: only the rules can exclude
     index = ComparableIndex(titles, emb)
     found = [titles.title_id[i] for i, _, _ in index.find(titles.iloc[2], emb[2])]
@@ -47,16 +82,40 @@ def test_comparables_are_older_and_from_other_franchises():
 
 
 def test_comparable_feature_uses_neighbour_labels():
-    titles = frame([
-        {"title_id": "a", "franchise_id": "a", "release_date": date(2016, 1, 1), "genres": ["X"], "format": "TV"},
-        {"title_id": "b", "franchise_id": "b", "release_date": date(2018, 1, 1), "genres": ["X"], "format": "TV"},
-    ])
+    titles = frame(
+        [
+            {
+                "title_id": "a",
+                "franchise_id": "a",
+                "release_date": date(2016, 1, 1),
+                "genres": ["X"],
+                "format": "TV",
+            },
+            {
+                "title_id": "b",
+                "franchise_id": "b",
+                "release_date": date(2018, 1, 1),
+                "genres": ["X"],
+                "format": "TV",
+            },
+        ]
+    )
     emb = np.ones((2, 1))
-    labels = pd.DataFrame([{"title_id": "a", "state": "S1", "share": 0.7}, {"title_id": "a", "state": "S2", "share": 0.3},
-                           {"title_id": "b", "state": "S1", "share": 0.1}, {"title_id": "b", "state": "S2", "share": 0.9}])
-    rows, stats = comparable_features(ComparableIndex(titles, emb), titles, emb, labels, ["S1", "S2"])
+    labels = pd.DataFrame(
+        [
+            {"title_id": "a", "state": "S1", "share": 0.7},
+            {"title_id": "a", "state": "S2", "share": 0.3},
+            {"title_id": "b", "state": "S1", "share": 0.1},
+            {"title_id": "b", "state": "S2", "share": 0.9},
+        ]
+    )
+    rows, stats = comparable_features(
+        ComparableIndex(titles, emb), titles, emb, labels, ["S1", "S2"]
+    )
     b = rows[rows.title_id == "b"].set_index("state")["cmp_share"]
-    assert b["S1"] == pytest.approx(0.7) and b["S2"] == pytest.approx(0.3)  # b borrows from a, not itself
+    assert b["S1"] == pytest.approx(0.7) and b["S2"] == pytest.approx(
+        0.3
+    )  # b borrows from a, not itself
     assert np.isnan(rows[rows.title_id == "a"]["cmp_share"]).all()  # nothing older than a
     assert stats.set_index("title_id").loc["a", "cmp_count"] == 0
 
@@ -66,7 +125,9 @@ def test_conformal_interval_reaches_nominal_coverage():
     y = rng.uniform(0.2, 0.8, size=2000)  # shares are non-negative; the lower bound is clipped at 0
     pred = np.full(2000, 0.5)
     c = ConformalInterval(0.2).fit(y[:1000], pred[:1000])
-    assert 0.76 - 0.02 <= c.coverage(y[1000:], pred[1000:]) <= 0.84 + 0.02  # nominal 0.8, ~3 sd of sampling noise
+    assert (
+        0.76 - 0.02 <= c.coverage(y[1000:], pred[1000:]) <= 0.84 + 0.02
+    )  # nominal 0.8, ~3 sd of sampling noise
     lo, hi = c.predict(np.array([0.0]))
     assert lo[0] == 0 and hi[0] == pytest.approx(c.q_)
 
@@ -74,7 +135,12 @@ def test_conformal_interval_reaches_nominal_coverage():
 def test_embedder_fallback_and_unit_norm():
     emb = get_embedder("tfidf")
     assert isinstance(emb, TfidfSvdEmbedder)
-    texts = ["sword battle war hero", "love school heart", "robot pilot giant", "funny gag friends"] * 3
+    texts = [
+        "sword battle war hero",
+        "love school heart",
+        "robot pilot giant",
+        "funny gag friends",
+    ] * 3
     vecs = emb.fit(texts).embed(texts)
     assert np.allclose(np.linalg.norm(vecs, axis=1), 1.0)
 
@@ -100,8 +166,9 @@ def test_shap_contributions_add_up_to_the_prediction():
     xgb, cols = objects["models"]["xgboost"], objects["cols"]
     rows = pd.DataFrame(np.random.default_rng(0).random((5, len(cols))), columns=cols)
     contrib = contributions(xgb, rows, cols)
-    bias = xgb.model_.get_booster().predict(__import__("xgboost").DMatrix(rows, feature_names=cols),
-                                            pred_contribs=True)[:, -1]
+    bias = xgb.model_.get_booster().predict(
+        __import__("xgboost").DMatrix(rows, feature_names=cols), pred_contribs=True
+    )[:, -1]
     assert np.allclose(contrib.sum(axis=1) + bias, xgb.predict(rows, cols), atol=1e-4)
     assert sum(global_by_group(contrib).values()) == pytest.approx(1.0)
 
@@ -112,13 +179,17 @@ def test_comparable_share_feature_never_uses_the_titles_own_label():
     base_rep, base_obj, _ = train_run(titles_frame(recs), lab, PILOT_STATES)
     tid = "t59"
     corrupted = lab.copy()
-    corrupted.loc[corrupted.title_id == tid, "share"] = corrupted.loc[corrupted.title_id == tid, "share"].values[::-1]
+    corrupted.loc[corrupted.title_id == tid, "share"] = corrupted.loc[
+        corrupted.title_id == tid, "share"
+    ].values[::-1]
     from app.ml.features import ContentEncoder
+
     titles = titles_frame(recs)
     enc = ContentEncoder().fit(titles)
     emb = enc.embed(titles)
     idx = ComparableIndex(titles, emb)
     a, _ = comparable_features(idx, titles, emb, lab, PILOT_STATES)
     b, _ = comparable_features(idx, titles, emb, corrupted, PILOT_STATES)
-    pd.testing.assert_frame_equal(a[a.title_id == tid].reset_index(drop=True),
-                                  b[b.title_id == tid].reset_index(drop=True))
+    pd.testing.assert_frame_equal(
+        a[a.title_id == tid].reset_index(drop=True), b[b.title_id == tid].reset_index(drop=True)
+    )

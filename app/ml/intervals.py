@@ -1,4 +1,5 @@
 """Split-conformal prediction intervals: distribution-free, calibrated on held-out titles."""
+
 import math
 
 import numpy as np
@@ -17,7 +18,9 @@ class ConformalInterval:
         return self
 
     def predict(self, y_pred: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-        return (np.clip(y_pred - self.q_, 0, None) if self.floor_at_zero else y_pred - self.q_), y_pred + self.q_
+        return (
+            np.clip(y_pred - self.q_, 0, None) if self.floor_at_zero else y_pred - self.q_
+        ), y_pred + self.q_
 
     def coverage(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
         lo, hi = self.predict(y_pred)

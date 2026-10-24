@@ -9,6 +9,7 @@ weights of the rest are renormalised; `coverage` says how much of the 100% weigh
 Global popularity is the only outcome in csv/ and it is post-release. It is used here the way the
 data dictionary allows: as a label for content-fit and comparables, never as a feature of the title.
 """
+
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -34,15 +35,19 @@ BANDS = ((60.0, "above typical"), (40.0, "typical"), (0.0, "below typical"))
 RATING_BANDS = ((75.0, "top quarter"), (25.0, "middle half"), (0.0, "bottom quarter"))
 REFERENCE_FILE = "score_reference.json"
 LABELS = {
-    "content_fit": "Content fit", "demand_momentum": "Demand momentum",
-    "regional_opportunity": "Regional opportunity", "engagement_quality": "Engagement quality",
+    "content_fit": "Content fit",
+    "demand_momentum": "Demand momentum",
+    "regional_opportunity": "Regional opportunity",
+    "engagement_quality": "Engagement quality",
     "comparable_performance": "Comparable performance",
 }
 UNAVAILABLE = {
     "demand_momentum": "no_pre_release_demand: an unreleased title has no Trends window before launch",
     "engagement_quality": "no_youtube_adapter: trailer engagement is not collected yet",
 }
-UNVALIDATED = "held-out Spearman {rho:.2f} is below {floor}: shown for information, excluded from the score"
+UNVALIDATED = (
+    "held-out Spearman {rho:.2f} is below {floor}: shown for information, excluded from the score"
+)
 
 
 def band(score: float) -> str:
@@ -63,6 +68,7 @@ def _pct_of(value: float, reference: np.ndarray) -> float:
 @dataclass
 class SuccessModel:
     """Content-fit ridge (target: global log popularity, a proxy) plus the pool's popularity percentiles."""
+
     ridge: Ridge
     scaler: StandardScaler
     columns: list[str]
@@ -70,7 +76,9 @@ class SuccessModel:
     pop_pct: pd.Series  # pool title_id -> popularity percentile 0-100
     resid_q80: float  # 80% absolute leave-one-franchise-out residual (log popularity)
     report: dict
-    pool: pd.DataFrame  # titles with a global outcome (all csv/ titles, not only the state-labelled ones)
+    pool: (
+        pd.DataFrame
+    )  # titles with a global outcome (all csv/ titles, not only the state-labelled ones)
     pool_emb: np.ndarray
     reference: np.ndarray | None = None  # raw scores of the reference titles, for the 0-100 rating
     config: MarketPotentialConfig = MarketPotentialConfig()
@@ -87,10 +95,16 @@ class SuccessModel:
         outcomes = pd.read_csv(path, encoding="utf-8-sig")
         titles = csv_data.load(folder).titles
         usable = titles["title_id"].isin(outcomes["title_id"]) & titles["release_date"].notna()
-        return cls.fit(model, outcomes, titles[usable].reset_index(drop=True)) if usable.sum() >= MIN_TITLES else None
+        return (
+            cls.fit(model, outcomes, titles[usable].reset_index(drop=True))
+            if usable.sum() >= MIN_TITLES
+            else None
+        )
 
     @classmethod
-    def fit(cls, model: StateModel, outcomes: pd.DataFrame, titles: pd.DataFrame | None = None) -> "SuccessModel":
+    def fit(
+        cls, model: StateModel, outcomes: pd.DataFrame, titles: pd.DataFrame | None = None
+    ) -> "SuccessModel":
         """`outcomes`: title_id, log_popularity. `titles`: content frame to learn from (default: the state
         model's pool). Uses the state model's encoder, so the content features are the ones the state model sees."""
         pool = (model.pool if titles is None else titles).reset_index(drop=True)
@@ -109,7 +123,11 @@ class SuccessModel:
             pred = np.zeros(len(y))
             for tr, te in LeaveOneGroupOut().split(feats, y, groups):
                 sc = StandardScaler().fit(feats.iloc[tr])
-                pred[te] = Ridge(alpha=alpha).fit(sc.transform(feats.iloc[tr]), y[tr]).predict(sc.transform(feats.iloc[te]))
+                pred[te] = (
+                    Ridge(alpha=alpha)
+                    .fit(sc.transform(feats.iloc[tr]), y[tr])
+                    .predict(sc.transform(feats.iloc[te]))
+                )
             mse = float(np.mean((pred - y) ** 2))
             if best is None or mse < best[0]:
                 best = (mse, alpha, pred)
@@ -124,18 +142,30 @@ class SuccessModel:
         full = pool
         index, found_pred, found_true = ComparableIndex(full, pool_emb), [], []
         for i, t in full.iterrows():
-            rows = [(full.iloc[j]["title_id"], sim) for j, _, sim in index.find(t, pool_emb[i])
-                    if full.iloc[j]["title_id"] in pop_pct.index]
+            rows = [
+                (full.iloc[j]["title_id"], sim)
+                for j, _, sim in index.find(t, pool_emb[i])
+                if full.iloc[j]["title_id"] in pop_pct.index
+            ]
             if len(rows) >= 2:
                 w = np.array([max(sim, 1e-6) for _, sim in rows])
-                found_pred.append(float((w * pop_pct.loc[[a for a, _ in rows]].to_numpy()).sum() / w.sum()))
+                found_pred.append(
+                    float((w * pop_pct.loc[[a for a, _ in rows]].to_numpy()).sum() / w.sum())
+                )
                 found_true.append(float(pop_pct[t["title_id"]]))
-        cmp_rho = spearmanr(found_pred, found_true).statistic if len(found_pred) > 5 else float("nan")
-        report = {"comparables_loo_spearman": 0.0 if np.isnan(cmp_rho) else float(cmp_rho),
-                  "n_titles": len(pool), "alpha": alpha, "loo_r2": float(r2),
-                  "loo_spearman": 0.0 if np.isnan(rho) else float(rho), "resid_q80_log_popularity": q80,
-                  "validation": "leave-one-franchise-out (not time-ordered)",
-                  "target": "global log popularity (post-release proxy; no India outcome exists in the data)"}
+        cmp_rho = (
+            spearmanr(found_pred, found_true).statistic if len(found_pred) > 5 else float("nan")
+        )
+        report = {
+            "comparables_loo_spearman": 0.0 if np.isnan(cmp_rho) else float(cmp_rho),
+            "n_titles": len(pool),
+            "alpha": alpha,
+            "loo_r2": float(r2),
+            "loo_spearman": 0.0 if np.isnan(rho) else float(rho),
+            "resid_q80_log_popularity": q80,
+            "validation": "leave-one-franchise-out (not time-ordered)",
+            "target": "global log popularity (post-release proxy; no India outcome exists in the data)",
+        }
         return cls(ridge, scaler, list(feats.columns), loo, pop_pct, q80, report, pool, pool_emb)
 
     # ----------------------------------------------------------------- scoring
@@ -143,14 +173,23 @@ class SuccessModel:
         x = model.encoder.transform(frame).drop(columns="title_id")[self.columns]
         pred = float(self.ridge.predict(self.scaler.transform(x))[0])
         ref = self.loo_pred
-        return {"value": _pct_of(pred, ref), "low": _pct_of(pred - self.resid_q80, ref),
-                "high": _pct_of(pred + self.resid_q80, ref), "inputs": {"predicted_log_popularity": pred}}
+        return {
+            "value": _pct_of(pred, ref),
+            "low": _pct_of(pred - self.resid_q80, ref),
+            "high": _pct_of(pred + self.resid_q80, ref),
+            "inputs": {"predicted_log_popularity": pred},
+        }
 
     def _comparables(self, model: StateModel, frame: pd.DataFrame) -> dict | None:
         target = frame.iloc[0]
-        found = ComparableIndex(self.pool, self.pool_emb).find(target, model.encoder.embed(frame)[0])
-        rows = [(self.pool.iloc[i]["title_id"], sim) for i, _, sim in found
-                if self.pool.iloc[i]["title_id"] in self.pop_pct.index]
+        found = ComparableIndex(self.pool, self.pool_emb).find(
+            target, model.encoder.embed(frame)[0]
+        )
+        rows = [
+            (self.pool.iloc[i]["title_id"], sim)
+            for i, _, sim in found
+            if self.pool.iloc[i]["title_id"] in self.pop_pct.index
+        ]
         if not rows:
             return None
         w = np.array([max(s, 1e-6) for _, s in rows])
@@ -158,8 +197,12 @@ class SuccessModel:
         mean = float((w * v).sum() / w.sum())
         sd = float(np.sqrt((w * (v - mean) ** 2).sum() / w.sum()))
         half = INTERVAL_Z * sd / np.sqrt(len(rows))
-        return {"value": mean, "low": max(0.0, mean - half), "high": min(100.0, mean + half),
-                "inputs": {"n_comparables": len(rows), "weighted_sd": sd}}
+        return {
+            "value": mean,
+            "low": max(0.0, mean - half),
+            "high": min(100.0, mean + half),
+            "inputs": {"n_comparables": len(rows), "weighted_sd": sd},
+        }
 
     def reference_scores(self, model: StateModel, folder: Path | None = None) -> np.ndarray:
         """Raw scores of every csv/ title (300) run through this same pipeline, cached on disk beside the model.
@@ -178,70 +221,135 @@ class SuccessModel:
             tid = frame["title_id"].iloc[0]
             # content fit from the leave-one-franchise-out prediction: the final ridge has seen this title
             pred = float(loo[tid])
-            fit = {"value": _pct_of(pred, self.loo_pred), "low": _pct_of(pred - self.resid_q80, self.loo_pred),
-                   "high": _pct_of(pred + self.resid_q80, self.loo_pred), "inputs": {"predicted_log_popularity": pred}}
+            fit = {
+                "value": _pct_of(pred, self.loo_pred),
+                "low": _pct_of(pred - self.resid_q80, self.loo_pred),
+                "high": _pct_of(pred + self.resid_q80, self.loo_pred),
+                "inputs": {"predicted_log_popularity": pred},
+            }
             try:
-                scores.append(self._score_raw(model, frame, model.predict(frame)["states"], content_fit=fit)["score"])
+                scores.append(
+                    self._score_raw(model, frame, model.predict(frame)["states"], content_fit=fit)[
+                        "score"
+                    ]
+                )
             except ValueError:
                 continue
         self.reference = np.sort(np.array(scores))
         if path is not None:
-            path.parent.mkdir(parents=True, exist_ok=True)  # an in-memory model has no saved folder yet
-            path.write_text(json.dumps({"model_version": model.version, "scores": self.reference.tolist()}),
-                            encoding="utf-8")
+            path.parent.mkdir(
+                parents=True, exist_ok=True
+            )  # an in-memory model has no saved folder yet
+            path.write_text(
+                json.dumps({"model_version": model.version, "scores": self.reference.tolist()}),
+                encoding="utf-8",
+            )
         return self.reference
 
-    def score(self, model: StateModel, frame: pd.DataFrame, states: list[dict], folder: Path | None = None) -> dict:
+    def score(
+        self, model: StateModel, frame: pd.DataFrame, states: list[dict], folder: Path | None = None
+    ) -> dict:
         """Raw weighted score plus `rating`: the same score as a 0-100 percentile among the reference titles
         (the raw score is squeezed towards 50 because the components are averaged)."""
         out = self._score_raw(model, frame, states)
         ref = self.reference_scores(model, folder)
         out["rating"] = round(_pct_of(out["score"], ref), 1)
-        out["rating_low"], out["rating_high"] = round(_pct_of(out["low"], ref), 1), round(_pct_of(out["high"], ref), 1)
+        out["rating_low"], out["rating_high"] = (
+            round(_pct_of(out["low"], ref), 1),
+            round(_pct_of(out["high"], ref), 1),
+        )
         out["rating_band"] = rating_band(out["rating"])
-        out["rating_reference"] = {"n_titles": int(len(ref)), "min": round(float(ref.min()), 1),
-                                   "median": round(float(np.median(ref)), 1), "max": round(float(ref.max()), 1),
-                                   "meaning": "share of the 300 csv/ titles scoring below this one, x100 "
-                                              "(regional part in-sample for the 62 state-labelled titles)"}
+        out["rating_reference"] = {
+            "n_titles": int(len(ref)),
+            "min": round(float(ref.min()), 1),
+            "median": round(float(np.median(ref)), 1),
+            "max": round(float(ref.max()), 1),
+            "meaning": "share of the 300 csv/ titles scoring below this one, x100 "
+            "(regional part in-sample for the 62 state-labelled titles)",
+        }
         return out
 
-    def _score_raw(self, model: StateModel, frame: pd.DataFrame, states: list[dict],
-                   content_fit: dict | None = None) -> dict:
+    def _score_raw(
+        self,
+        model: StateModel,
+        frame: pd.DataFrame,
+        states: list[dict],
+        content_fit: dict | None = None,
+    ) -> dict:
         cfg = self.config
         share = np.array([s["expected_share"] for s in states])
         sigma = model.y_scale
-        z = {k: float((share * np.array([s[k] for s in states])).sum()) for k in ("lift", "low", "high")}
-        regional = {"value": 100 * norm.cdf(z["lift"] / sigma), "low": 100 * norm.cdf(z["low"] / sigma),
-                    "high": 100 * norm.cdf(z["high"] / sigma),
-                    "inputs": {"share_weighted_lift": z["lift"], "lift_spread_sigma": sigma}}
-        measured = {"content_fit": content_fit or self._content_fit(model, frame), "regional_opportunity": regional,
-                    "comparable_performance": self._comparables(model, frame)}
+        z = {
+            k: float((share * np.array([s[k] for s in states])).sum())
+            for k in ("lift", "low", "high")
+        }
+        regional = {
+            "value": 100 * norm.cdf(z["lift"] / sigma),
+            "low": 100 * norm.cdf(z["low"] / sigma),
+            "high": 100 * norm.cdf(z["high"] / sigma),
+            "inputs": {"share_weighted_lift": z["lift"], "lift_spread_sigma": sigma},
+        }
+        measured = {
+            "content_fit": content_fit or self._content_fit(model, frame),
+            "regional_opportunity": regional,
+            "comparable_performance": self._comparables(model, frame),
+        }
 
-        skill = {"content_fit": self.report["loo_spearman"], "comparable_performance": self.report["comparables_loo_spearman"],
-                 "regional_opportunity": model.report["metrics_oof"]["ensemble"]["spearman"]["mean"]}
+        skill = {
+            "content_fit": self.report["loo_spearman"],
+            "comparable_performance": self.report["comparables_loo_spearman"],
+            "regional_opportunity": model.report["metrics_oof"]["ensemble"]["spearman"]["mean"],
+        }
         components, total = [], 0.0
         for key in LABELS:
             weight = getattr(cfg, key)
             m = measured.get(key)
             if m is None:
-                components.append({"key": key, "label": LABELS[key], "weight": weight, "status": "unavailable",
-                                   "reason": UNAVAILABLE.get(key, "no_comparable_titles"), "value": None,
-                                   "low": None, "high": None, "inputs": {}})
+                components.append(
+                    {
+                        "key": key,
+                        "label": LABELS[key],
+                        "weight": weight,
+                        "status": "unavailable",
+                        "reason": UNAVAILABLE.get(key, "no_comparable_titles"),
+                        "value": None,
+                        "low": None,
+                        "high": None,
+                        "inputs": {},
+                    }
+                )
                 continue
             counted = skill[key] >= MIN_SKILL
             total += weight if counted else 0.0
-            components.append({"key": key, "label": LABELS[key], "weight": weight,
-                               "status": "ok" if counted else "unvalidated",
-                               "reason": None if counted else UNVALIDATED.format(rho=skill[key], floor=MIN_SKILL),
-                               "validation_spearman": round(float(skill[key]), 3),
-                               "value": m["value"], "low": m["low"], "high": m["high"], "inputs": m["inputs"]})
+            components.append(
+                {
+                    "key": key,
+                    "label": LABELS[key],
+                    "weight": weight,
+                    "status": "ok" if counted else "unvalidated",
+                    "reason": None
+                    if counted
+                    else UNVALIDATED.format(rho=skill[key], floor=MIN_SKILL),
+                    "validation_spearman": round(float(skill[key]), 3),
+                    "value": m["value"],
+                    "low": m["low"],
+                    "high": m["high"],
+                    "inputs": m["inputs"],
+                }
+            )
         ok = [c for c in components if c["status"] == "ok"]
         if not ok:
             raise ValueError("no component passed validation; no success score can be computed")
         agg = {k: sum(c["weight"] * c[k] for c in ok) / total for k in ("value", "low", "high")}
-        return {"config_version": cfg.version, "score": round(agg["value"], 1), "low": round(agg["low"], 1),
-                "high": round(agg["high"], 1), "band": band(agg["value"]), "coverage": round(total, 2),
-                "components": components,
-                "meaning": "0-100 relative to the training titles: 50 is a typical anime, not a revenue forecast. "
-                           "Confidence is a separate output.",
-                "model": self.report}
+        return {
+            "config_version": cfg.version,
+            "score": round(agg["value"], 1),
+            "low": round(agg["low"], 1),
+            "high": round(agg["high"], 1),
+            "band": band(agg["value"]),
+            "coverage": round(total, 2),
+            "components": components,
+            "meaning": "0-100 relative to the training titles: 50 is a typical anime, not a revenue forecast. "
+            "Confidence is a separate output.",
+            "model": self.report,
+        }

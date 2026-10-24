@@ -1,4 +1,5 @@
 """Baselines and the primary learner. Constrained on purpose: the first dataset is small."""
+
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import Ridge
@@ -50,8 +51,9 @@ class RidgeModel:
         return np.hstack([s, inter])
 
     def fit(self, rows, cols):
-        self.model_ = Ridge(alpha=self.alpha).fit(self._design(rows, cols), rows[self.target],
-                                          sample_weight=_weights(rows))
+        self.model_ = Ridge(alpha=self.alpha).fit(
+            self._design(rows, cols), rows[self.target], sample_weight=_weights(rows)
+        )
         return self
 
     def predict(self, rows, cols):
@@ -63,12 +65,22 @@ class XGBModel:
 
     def __init__(self, target: str = "share", **params):
         self.target = target
-        self.params = {"n_estimators": 200, "max_depth": 3, "learning_rate": 0.05,
-                       "subsample": 0.8, "colsample_bytree": 0.8, "min_child_weight": 5,
-                       "reg_lambda": 5.0, "random_state": 0, **params}
+        self.params = {
+            "n_estimators": 200,
+            "max_depth": 3,
+            "learning_rate": 0.05,
+            "subsample": 0.8,
+            "colsample_bytree": 0.8,
+            "min_child_weight": 5,
+            "reg_lambda": 5.0,
+            "random_state": 0,
+            **params,
+        }
 
     def fit(self, rows, cols):
-        self.model_ = XGBRegressor(**self.params).fit(rows[cols], rows[self.target], sample_weight=_weights(rows))
+        self.model_ = XGBRegressor(**self.params).fit(
+            rows[cols], rows[self.target], sample_weight=_weights(rows)
+        )
         return self
 
     def predict(self, rows, cols):
@@ -88,10 +100,14 @@ class EnsembleModel:
         """Pick the blend weight on held-out calibration rows (minimum RMSE)."""
         a, b = (m.predict(rows, cols) for m in self.members[:2])
         grid = np.linspace(0, 1, 11)
-        errs = [np.sqrt(np.mean((w * a + (1 - w) * b - rows["share"].to_numpy()) ** 2)) for w in grid]
+        errs = [
+            np.sqrt(np.mean((w * a + (1 - w) * b - rows["share"].to_numpy()) ** 2)) for w in grid
+        ]
         w = float(grid[int(np.argmin(errs))])
         self.weights = [w, 1 - w]
         return self
 
     def predict(self, rows, cols):
-        return sum(w * m.predict(rows, cols) for w, m in zip(self.weights, self.members, strict=True))
+        return sum(
+            w * m.predict(rows, cols) for w, m in zip(self.weights, self.members, strict=True)
+        )

@@ -14,8 +14,12 @@ RELEASE = date(2021, 4, 1)
 
 
 def title(**over):
-    base = dict(title_id="anilist:1", franchise_id="anilist:1", english_title="Demon Slayer Kimetsu",
-                original_release_date=RELEASE)
+    base = dict(
+        title_id="anilist:1",
+        franchise_id="anilist:1",
+        english_title="Demon Slayer Kimetsu",
+        original_release_date=RELEASE,
+    )
     return TitleRecord(**{**base, **over})
 
 
@@ -36,7 +40,9 @@ def fake_fetcher(post_by_geo=None, pre=2, calls=None):
         out, d = [], start
         while d <= end:
             value = pre if d < RELEASE else post_by_geo.get(geo, 30)
-            out.append({"date": d.isoformat(), "values": {terms[0]: value, terms[1]: 50}, "partial": False})
+            out.append(
+                {"date": d.isoformat(), "values": {terms[0]: value, terms[1]: 50}, "partial": False}
+            )
             d += timedelta(weeks=1)
         out[-1]["partial"] = True  # Trends marks the latest period as partial
         return out
@@ -50,8 +56,14 @@ def client(tmp_path, fetcher, **kw):
 
 def test_search_term_adds_anime_for_short_names_and_tracks_variant():
     assert search_term(title(english_title="Monster")) == ("Monster anime", "english")
-    assert search_term(title(english_title="Attack on Titan: The Final Season Part 2"))[0] == "Attack on Titan"
-    assert search_term(title(english_title=None, romanized_title="Tabi no Hanashi Ookii"))[1] == "romanized"
+    assert (
+        search_term(title(english_title="Attack on Titan: The Final Season Part 2"))[0]
+        == "Attack on Titan"
+    )
+    assert (
+        search_term(title(english_title=None, romanized_title="Tabi no Hanashi Ookii"))[1]
+        == "romanized"
+    )
     assert search_term(title(english_title=None)) is None
 
 
@@ -75,7 +87,9 @@ def test_rate_limit_backs_off_then_succeeds(tmp_path):
         return good(terms, geo, start, end)
 
     c = client(tmp_path, flaky)
-    assert c.fetch("x anime", "IN-MH", RELEASE - timedelta(weeks=12), RELEASE + timedelta(weeks=52))["rows"]
+    assert c.fetch(
+        "x anime", "IN-MH", RELEASE - timedelta(weeks=12), RELEASE + timedelta(weeks=52)
+    )["rows"]
     assert attempts["n"] == 3
 
 
@@ -111,8 +125,12 @@ def test_collect_title_labels_sum_to_one_and_demand_is_pre_only(tmp_path):
 
 
 def test_pre_features_do_not_depend_on_post_release_data(tmp_path):
-    a = collect_title(client(tmp_path / "a", fake_fetcher({g: 10 for g in PILOT_STATES})), title(), PILOT_STATES)[0]
-    b = collect_title(client(tmp_path / "b", fake_fetcher({g: 90 for g in PILOT_STATES})), title(), PILOT_STATES)[0]
+    a = collect_title(
+        client(tmp_path / "a", fake_fetcher({g: 10 for g in PILOT_STATES})), title(), PILOT_STATES
+    )[0]
+    b = collect_title(
+        client(tmp_path / "b", fake_fetcher({g: 90 for g in PILOT_STATES})), title(), PILOT_STATES
+    )[0]
     assert pd.DataFrame(a).equals(pd.DataFrame(b))
 
 
@@ -130,8 +148,14 @@ def test_title_survives_when_enough_states_have_signal(tmp_path):
 
 
 def test_partial_period_is_ignored():
-    rows = [{"date": (RELEASE + timedelta(weeks=i)).isoformat(),
-             "values": {"t": 10, "anime": 50}, "partial": i == 3} for i in range(4)]
+    rows = [
+        {
+            "date": (RELEASE + timedelta(weeks=i)).isoformat(),
+            "values": {"t": 10, "anime": 50},
+            "partial": i == 3,
+        }
+        for i in range(4)
+    ]
     s = summarize_state(rows, "t", "anime", RELEASE)
     assert s["post_ratio"] == pytest.approx(30 / 150)
 
@@ -176,15 +200,22 @@ def test_anilist_sort_is_passed_through(tmp_path):
     import httpx
 
     from app.adapters.anilist import AniListClient
+
     seen = {}
 
     def handler(req):
         import json
-        seen.update(json.loads(req.content)["variables"])
-        return httpx.Response(200, json={"data": {"Page": {"pageInfo": {"hasNextPage": False}, "media": []}}})
 
-    c = AniListClient(raw_dir=tmp_path, client=httpx.Client(transport=httpx.MockTransport(handler)),
-                      sleep=lambda s: None)
+        seen.update(json.loads(req.content)["variables"])
+        return httpx.Response(
+            200, json={"data": {"Page": {"pageInfo": {"hasNextPage": False}, "media": []}}}
+        )
+
+    c = AniListClient(
+        raw_dir=tmp_path,
+        client=httpx.Client(transport=httpx.MockTransport(handler)),
+        sleep=lambda s: None,
+    )
     c.fetch_page(1, sort=["POPULARITY_DESC"], status="FINISHED")
     assert seen["sort"] == ["POPULARITY_DESC"] and seen["status"] == "FINISHED"
 
@@ -192,12 +223,16 @@ def test_anilist_sort_is_passed_through(tmp_path):
 def test_sequel_suffix_is_stripped_from_query():
     assert search_term(title(english_title="Attack on Titan Season 2"))[0] == "Attack on Titan"
     assert search_term(title(english_title="My Hero Academia 2nd Season"))[0] == "My Hero Academia"
-    assert search_term(title(english_title="Mushoku Tensei: Jobless Reincarnation Season 2"))[0] == "Mushoku Tensei anime"
+    assert (
+        search_term(title(english_title="Mushoku Tensei: Jobless Reincarnation Season 2"))[0]
+        == "Mushoku Tensei anime"
+    )
     assert search_term(title(english_title="Mob Psycho 100"))[0] == "Mob Psycho 100"
 
 
 def test_unsupported_geo_is_skipped_once_and_title_still_collected(tmp_path):
     from app.adapters.google_trends import GeoUnsupported
+
     calls = []
     good = fake_fetcher(calls=calls)
 
@@ -211,5 +246,7 @@ def test_unsupported_geo_is_skipped_once_and_title_still_collected(tmp_path):
     _, labels, rep = collect_title(c, title(), PILOT_STATES)
     assert rep["error"] is None and rep["unsupported_geos"] == [PILOT_STATES[0]]
     assert len(labels) == len(PILOT_STATES) - 1
-    collect_title(c, title(title_id="anilist:2", english_title="Other Show Name Long"), PILOT_STATES)
+    collect_title(
+        c, title(title_id="anilist:2", english_title="Other Show Name Long"), PILOT_STATES
+    )
     assert calls.count(PILOT_STATES[0]) == 1  # remembered: no second request for the bad geo

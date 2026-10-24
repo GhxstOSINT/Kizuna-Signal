@@ -6,6 +6,7 @@ Windows are anchored on the title's release date:
   sustained  release+8w .. release+52w   -> LABEL
 Post-release data never becomes a feature.
 """
+
 import re
 from datetime import date, timedelta
 
@@ -41,8 +42,17 @@ def is_eligible(title: TitleRecord, today: date) -> bool:
 
 
 def _split(rows: list[dict], term: str, anchor: str, release: date):
-    df = pd.DataFrame([{"date": date.fromisoformat(r["date"]), "t": r["values"][term],
-                        "a": r["values"][anchor], "partial": r["partial"]} for r in rows])
+    df = pd.DataFrame(
+        [
+            {
+                "date": date.fromisoformat(r["date"]),
+                "t": r["values"][term],
+                "a": r["values"][anchor],
+                "partial": r["partial"],
+            }
+            for r in rows
+        ]
+    )
     if df.empty:
         return df, df, df
     df = df[~df["partial"]]
@@ -62,7 +72,9 @@ def summarize_state(rows: list[dict], term: str, anchor: str, release: date) -> 
     if len(post) == 0 or post["t"].sum() < MIN_POST_SUM:
         return None
     pre_vals = pre["t"].to_numpy(dtype=float)
-    slope = float(np.polyfit(np.arange(len(pre_vals)), pre_vals, 1)[0]) if len(pre_vals) >= 3 else 0.0
+    slope = (
+        float(np.polyfit(np.arange(len(pre_vals)), pre_vals, 1)[0]) if len(pre_vals) >= 3 else 0.0
+    )
     mean = float(pre_vals.mean()) if len(pre_vals) else 0.0
     return {
         "pre_has_data": int(pre["t"].sum() > 0),
@@ -78,7 +90,13 @@ def collect_title(client: TrendsClient, title: TitleRecord, states: list[str]):
     """Returns (demand_rows, label_rows, report) for one title; ([], [], report) if unusable."""
     query = search_term(title)
     release = title.anchor_date()
-    report = {"title_id": title.title_id, "query": query, "states_ok": 0, "from_cache": 0, "error": None}
+    report = {
+        "title_id": title.title_id,
+        "query": query,
+        "states_ok": 0,
+        "from_cache": 0,
+        "error": None,
+    }
     if query is None or release is None:
         report["error"] = "no_query_or_release_date"
         return [], [], report
@@ -113,8 +131,16 @@ def collect_title(client: TrendsClient, title: TitleRecord, states: list[str]):
         report["error"] = report["error"] or "too_few_states_with_signal"
         return [], [], report
     total = sum(s["post_ratio"] for s in per_state.values()) or 1.0
-    demand = [{"title_id": title.title_id, "state": g,
-               **{k: v for k, v in s.items() if k.startswith("pre_")}} for g, s in per_state.items()]
-    labels = [{"title_id": title.title_id, "state": g, "share": s["post_ratio"] / total}
-              for g, s in per_state.items()]
+    demand = [
+        {
+            "title_id": title.title_id,
+            "state": g,
+            **{k: v for k, v in s.items() if k.startswith("pre_")},
+        }
+        for g, s in per_state.items()
+    ]
+    labels = [
+        {"title_id": title.title_id, "state": g, "share": s["post_ratio"] / total}
+        for g, s in per_state.items()
+    ]
     return demand, labels, report

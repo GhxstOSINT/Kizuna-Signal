@@ -4,6 +4,7 @@ CONTENT DNA -> COMPARABLES -> FEATURES -> ENSEMBLE (baseline + XGBoost) -> EXPLA
 with conformal intervals and a separate confidence output. Evaluated once on a
 time-based, franchise-grouped held-out set.
 """
+
 import json
 from datetime import UTC, datetime
 from pathlib import Path
@@ -38,19 +39,33 @@ ABLATIONS = {
 }
 
 
-def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
-        state_context: pd.DataFrame | None = None, demand: pd.DataFrame | None = None,
-        test_frac: float = 0.2, calib_frac: float = 0.2, embedder=None) -> tuple[dict, dict, ContentEncoder]:
+def run(
+    titles: pd.DataFrame,
+    labels: pd.DataFrame,
+    states: list[str],
+    state_context: pd.DataFrame | None = None,
+    demand: pd.DataFrame | None = None,
+    test_frac: float = 0.2,
+    calib_frac: float = 0.2,
+    embedder=None,
+) -> tuple[dict, dict, ContentEncoder]:
     """`titles` from features.titles_frame; `labels` has title_id, state, share."""
-    titles = (titles[titles["title_id"].isin(labels["title_id"].unique())]
-              .dropna(subset=["release_date"]).reset_index(drop=True))
+    titles = (
+        titles[titles["title_id"].isin(labels["title_id"].unique())]
+        .dropna(subset=["release_date"])
+        .reset_index(drop=True)
+    )
     train_ids, test_ids = franchise_time_split(titles, test_frac)
-    fit_ids, calib_ids = franchise_time_split(titles[titles["title_id"].isin(train_ids)], calib_frac)
+    fit_ids, calib_ids = franchise_time_split(
+        titles[titles["title_id"].isin(train_ids)], calib_frac
+    )
 
     first = titles.groupby("franchise_id")["release_date"].min()
     by_title = titles.set_index("title_id")
-    assert first[by_title.loc[list(train_ids), "franchise_id"]].max() <= \
-        first[by_title.loc[list(test_ids), "franchise_id"]].min(), "test franchises must be newer"
+    assert (
+        first[by_title.loc[list(train_ids), "franchise_id"]].max()
+        <= first[by_title.loc[list(test_ids), "franchise_id"]].min()
+    ), "test franchises must be newer"
 
     # Content DNA is fitted on the fitting titles only; comparables come from the training side only.
     encoder = ContentEncoder(embedder).fit(titles[titles["title_id"].isin(fit_ids)])
@@ -67,9 +82,14 @@ def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
     models = {}
     for model in (StateMeanBaseline(), RidgeModel(), XGBModel()):
         models[model.name] = model.fit(fit, cols)
-    ensemble = EnsembleModel([models["ridge_genre_state"], models["xgboost"]]).fit_weights(calib, cols)
+    ensemble = EnsembleModel([models["ridge_genre_state"], models["xgboost"]]).fit_weights(
+        calib, cols
+    )
     models[ensemble.name] = ensemble
-    results = {name: summarize(per_title_metrics(test, m.predict(test, cols))) for name, m in models.items()}
+    results = {
+        name: summarize(per_title_metrics(test, m.predict(test, cols)))
+        for name, m in models.items()
+    }
 
     # Intervals: coverage on unseen titles vs the nominal level is the calibration error.
     ens_calib, ens_test = ensemble.predict(calib, cols), ensemble.predict(test, cols)
@@ -83,44 +103,80 @@ def run(titles: pd.DataFrame, labels: pd.DataFrame, states: list[str],
         gcols = group_columns(cols, *groups)
         if any(not c.startswith("state_") for c in gcols):
             m = XGBModel().fit(fit, gcols)
-            ablation[label] = summarize(per_title_metrics(test, m.predict(test, gcols)))["top3_hit"]["mean"]
+            ablation[label] = summarize(per_title_metrics(test, m.predict(test, gcols)))[
+                "top3_hit"
+            ]["mean"]
 
     # Confidence is a separate output, then checked against actual per-title accuracy.
     pool_titles = titles[pool_mask]
-    same_franchise = titles["franchise_id"].to_numpy()[:, None] == pool_titles["franchise_id"].to_numpy()[None, :]
-    max_sim = dict(zip(titles["title_id"], np.where(same_franchise, -np.inf, emb @ emb[pool_mask].T).max(axis=1), strict=True))
+    same_franchise = (
+        titles["franchise_id"].to_numpy()[:, None]
+        == pool_titles["franchise_id"].to_numpy()[None, :]
+    )
+    max_sim = dict(
+        zip(
+            titles["title_id"],
+            np.where(same_franchise, -np.inf, emb @ emb[pool_mask].T).max(axis=1),
+            strict=True,
+        )
+    )
     conf = title_confidence(test, ens_test, hi - lo, len(states), cmp_stats, max_sim)
     per_title = per_title_metrics(test, ens_test).merge(conf, on="title_id")
-    conf_corr = (spearmanr(per_title["confidence"], per_title["top3_hit"]).statistic
-                 if len(per_title) > 2 and per_title["top3_hit"].nunique() > 1 else None)
+    conf_corr = (
+        spearmanr(per_title["confidence"], per_title["top3_hit"]).statistic
+        if len(per_title) > 2 and per_title["top3_hit"].nunique() > 1
+        else None
+    )
 
     contrib = explain.contributions(models["xgboost"], test, cols)
     example = test.index[0]
     report = {
         "feature_version": FEATURE_VERSION,
         "embedder": encoder.embedder.name,
-        "n_train_titles": len(train_ids), "n_test_titles": len(test_ids),
-        "n_fit_titles": len(fit_ids), "n_calibration_titles": len(calib_ids),
-        "n_features": len(cols), "states": states,
+        "n_train_titles": len(train_ids),
+        "n_test_titles": len(test_ids),
+        "n_fit_titles": len(fit_ids),
+        "n_calibration_titles": len(calib_ids),
+        "n_features": len(cols),
+        "states": states,
         "test_release_from": str(by_title.loc[list(test_ids), "release_date"].min().date()),
         "metrics": results,
         "beats_baselines": results["xgboost"]["top3_hit"]["mean"]
-        > max(results["state_mean"]["top3_hit"]["mean"], results["ridge_genre_state"]["top3_hit"]["mean"]),
+        > max(
+            results["state_mean"]["top3_hit"]["mean"],
+            results["ridge_genre_state"]["top3_hit"]["mean"],
+        ),
         "ensemble_weights": {"ridge": ensemble.weights[0], "xgboost": ensemble.weights[1]},
-        "intervals": {"nominal": NOMINAL_COVERAGE, "observed": coverage,
-                      "calibration_error": abs(coverage - NOMINAL_COVERAGE), "half_width": conformal.q_},
+        "intervals": {
+            "nominal": NOMINAL_COVERAGE,
+            "observed": coverage,
+            "calibration_error": abs(coverage - NOMINAL_COVERAGE),
+            "half_width": conformal.q_,
+        },
         "ablation_top3_hit": ablation,
         "component_importance": explain.global_by_group(contrib),
-        "confidence": {"mean": float(conf["confidence"].mean()),
-                       "spearman_with_top3_hit": (None if conf_corr is None or np.isnan(conf_corr)
-                                                  else float(conf_corr))},
-        "example_explanation": {"title_id": test.loc[example, "title_id"], "state": test.loc[example, "state"],
-                                "top_features": explain.local(contrib, example)},
+        "confidence": {
+            "mean": float(conf["confidence"].mean()),
+            "spearman_with_top3_hit": (
+                None if conf_corr is None or np.isnan(conf_corr) else float(conf_corr)
+            ),
+        },
+        "example_explanation": {
+            "title_id": test.loc[example, "title_id"],
+            "state": test.loc[example, "state"],
+            "top_features": explain.local(contrib, example),
+        },
         "scoring_config": as_dict(MarketPotentialConfig()),
         "confidence_config": as_dict(ConfidenceConfig()),
         "engagement_quality": "unavailable: YouTube not collected; weight reported, not imputed",
     }
-    objects = {"encoder": encoder, "models": models, "conformal": conformal, "cols": cols, "states": states}
+    objects = {
+        "encoder": encoder,
+        "models": models,
+        "conformal": conformal,
+        "cols": cols,
+        "states": states,
+    }
     return report, objects, encoder
 
 

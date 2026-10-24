@@ -3,6 +3,7 @@
 AniList supplies synopsis, genres, tags, studio and format (pre-release features)
 and popularity/favourites/score (historical outcomes only, never features).
 """
+
 import hashlib
 import html
 import json
@@ -181,11 +182,17 @@ def normalize(media: dict, collected_at: str, checksum: str) -> dict:
             "synonyms": media.get("synonyms") or [],
             "episodes": media.get("episodes"),
             "duration": media.get("duration"),
-            "streaming": sorted({link["site"] for link in media.get("externalLinks") or []
-                                 if link.get("type") == "STREAMING"}),
+            "streaming": sorted(
+                {
+                    link["site"]
+                    for link in media.get("externalLinks") or []
+                    if link.get("type") == "STREAMING"
+                }
+            ),
             "start": [start.get("year"), start.get("month"), start.get("day")],
-            "related_ids": sorted({e["node"]["id"] for e in edges
-                                   if e["node"].get("type") == "ANIME"}),
+            "related_ids": sorted(
+                {e["node"]["id"] for e in edges if e["node"].get("type") == "ANIME"}
+            ),
         },
         "provenance": {"source": "anilist", "collected_at": collected_at, "raw_checksum": checksum},
     }

@@ -129,8 +129,7 @@ def test_real_backend_result_maps_to_dashboard_contract(client, frontend_payload
     assert regions["regions"]
     assert regions["language_affinity"]
     assert all(
-        {"language", "affinity", "confidence"} <= row.keys()
-        for row in regions["language_affinity"]
+        {"language", "affinity", "confidence"} <= row.keys() for row in regions["language_affinity"]
     )
     assert sources
     assert recommendation["priority_markets"]
