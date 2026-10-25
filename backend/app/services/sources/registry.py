@@ -13,6 +13,7 @@ from app.services.sources.base import SourceAdapter, SourceEvidence
 from app.services.sources.demo import DemoAdapter
 from app.services.sources.google_trends import GoogleTrendsAdapter
 from app.services.sources.regional_context import RegionalContextAdapter
+from app.services.sources.vernacular import vernacular_terms
 from app.services.sources.wikimedia import WikimediaAdapter
 from app.services.sources.youtube import YouTubeAdapter
 from app.services.survey import SurveyData
@@ -38,6 +39,7 @@ LIVE_ADAPTERS: dict[str, LiveFactory] = {
         timeout=settings.source_timeout_seconds,
         cache_ttl_seconds=settings.trends_cache_ttl_seconds,
         cooldown_seconds=settings.trends_cooldown_seconds,
+        term_provider=lambda title: vernacular_terms(client, title),
     ),
     "wikimedia": lambda client, settings: WikimediaAdapter(
         client, lookback_days=settings.wikimedia_lookback_days

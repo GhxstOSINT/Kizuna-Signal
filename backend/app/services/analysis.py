@@ -23,6 +23,12 @@ from app.services.scoring import (
     unmeasured_components,
 )
 from app.services.sources import SourceRegistry
+from app.services.state_signals import (
+    apply_partner_tilt,
+    load_partner_index,
+    replace_source_for_day,
+    trends_rows,
+)
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -44,6 +50,21 @@ def update_job(db: Session, job: Job, progress: int, stage: str, status: str = "
     job.status = status
     job.updated_at = utcnow()
     db.commit()
+
+
+def _record_trends_by_state(db: Session, title_id: str, evidence: list) -> None:
+    """Keep a dated history of live Google Trends state interest in `state_signals`."""
+    trends = next(
+        (e for e in evidence if e.source == "google_trends" and e.status == "available"), None
+    )
+    if trends is not None and trends.regional:
+        replace_source_for_day(
+            db,
+            title_id,
+            "google_trends",
+            trends_rows(trends.regional),
+            {"terms": trends.provenance.get("terms", trends.provenance.get("keyword", ""))},
+        )
 
 
 def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None = None) -> None:
@@ -131,6 +152,9 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
             score_origin = "trained_model"
             analysis.model_version = model_result.model_version
             analysis.scoring_version = "market-potential-trained-1.0.0"
+
+        _record_trends_by_state(db, title.id, evidence)
+        regions = apply_partner_tilt(regions, load_partner_index(db, title.id))
 
         update_job(db, job, 75, "generating explanations and confidence interval")
         warnings = list(dict.fromkeys([*warnings, *model_warnings]))

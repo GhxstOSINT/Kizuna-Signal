@@ -108,6 +108,8 @@ const RULES: Rule[] = [
   ['Google Trends returned no usable data for this title.', 'Googleトレンドから、このタイトルの有効なデータは返されませんでした。'],
   ['Google Trends reports no search interest for this title in India.', 'Googleトレンドでは、このタイトルへのインドでの検索関心は確認されていません。'],
   ['State-level Google Trends interest skipped: rate limit reached.', '州別のGoogleトレンド関心度はスキップしました（レート制限に達したため）。'],
+  ['Native-script Google Trends searches skipped: rate limit reached.', '現地語表記でのGoogleトレンド検索はスキップしました（レート制限に達したため）。'],
+  ['Imported viewing data (per-capita index {i}/100) shifts this market by {v} points.', '取り込んだ視聴データ（人口当たり指数 {i}/100）により、この市場のスコアは {v} ポイント変動します。'],
   ['State-level Google Trends interest unavailable: {reason}', '州別のGoogleトレンド関心度は利用できません: {reason}'],
   ['Google Trends returned no state-level interest for this title.', 'Googleトレンドから、このタイトルの州別の関心度は返されませんでした。'],
   ['Wikimedia request failed: {reason}', 'Wikimediaへのリクエストが失敗しました: {reason}'],

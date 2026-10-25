@@ -48,4 +48,6 @@ def _add_missing_columns() -> None:
             for column in table.columns:
                 if column.name not in existing:
                     ddl = column.type.compile(dialect=engine.dialect)
-                    connection.execute(text(f'ALTER TABLE {table.name} ADD COLUMN {column.name} {ddl}'))
+                    connection.execute(
+                        text(f"ALTER TABLE {table.name} ADD COLUMN {column.name} {ddl}")
+                    )
