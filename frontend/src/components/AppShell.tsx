@@ -29,6 +29,15 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
     window.clearTimeout(closeTimer.current)
     closeTimer.current = window.setTimeout(() => setSettingsOpen(false), 280)
   }
+  // Fold the panel away on a click anywhere outside it (the Settings button keeps its own toggle) or on Esc.
+  useEffect(() => {
+    if (!settingsOpen) return
+    const close = (event: PointerEvent) => { if (!(event.target as Element).closest('.settings-button, .settings-panel')) setSettingsOpen(false) }
+    const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') setSettingsOpen(false) }
+    document.addEventListener('pointerdown', close)
+    document.addEventListener('keydown', escape)
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', escape) }
+  }, [settingsOpen])
   useEffect(() => {
     applyLang(lang)
     document.title = lang === 'ja' ? '絆シグナル｜公開前インテリジェンス' : 'Kizuna Signal'
