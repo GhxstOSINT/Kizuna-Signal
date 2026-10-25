@@ -27,6 +27,7 @@ export const api = {
   sourceHealth: () => request<{ mode: string; sources: { source: string; status: string; required: boolean }[]; policy: string }>('/sources/health'),
   listProjects: () => request<Project[]>('/projects'),
   listTitles: (projectId: string) => request<Title[]>(`/projects/${projectId}/titles`),
+  getTitle: (titleId: string) => request<Title>(`/titles/${titleId}`),
   listAnalyses: (titleId: string) => request<Analysis[]>(`/titles/${titleId}/analyses`),
   getAnalysis: (id: string) => request<Analysis>(`/analyses/${id}`),
   deleteAnalysis: (id: string) => request<void>(`/analyses/${id}`, { method: 'DELETE' }),

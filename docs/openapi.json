@@ -1394,11 +1394,35 @@
       "TitleCreate": {
         "additionalProperties": false,
         "properties": {
+          "age_rating": {
+            "anyOf": [
+              {
+                "pattern": "^(all_ages|7_plus|13_plus|16_plus|18_plus)$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Rating"
+          },
           "content_format": {
             "maxLength": 80,
             "minLength": 2,
             "title": "Content Format",
             "type": "string"
+          },
+          "director": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Director"
           },
           "english_title": {
             "anyOf": [
@@ -1411,6 +1435,19 @@
               }
             ],
             "title": "English Title"
+          },
+          "episode_count": {
+            "anyOf": [
+              {
+                "maximum": 2000.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Episode Count"
           },
           "expected_release_period": {
             "maxLength": 80,
@@ -1485,6 +1522,18 @@
             "title": "Synopsis",
             "type": "string"
           },
+          "target_audience": {
+            "anyOf": [
+              {
+                "maxLength": 80,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Audience"
+          },
           "target_languages": {
             "items": {
               "type": "string"
@@ -1544,6 +1593,18 @@
       "TitleRead": {
         "additionalProperties": false,
         "properties": {
+          "age_rating": {
+            "anyOf": [
+              {
+                "pattern": "^(all_ages|7_plus|13_plus|16_plus|18_plus)$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Rating"
+          },
           "content_format": {
             "maxLength": 80,
             "minLength": 2,
@@ -1553,6 +1614,18 @@
           "created_at": {
             "title": "Created At",
             "type": "string"
+          },
+          "director": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Director"
           },
           "english_title": {
             "anyOf": [
@@ -1565,6 +1638,19 @@
               }
             ],
             "title": "English Title"
+          },
+          "episode_count": {
+            "anyOf": [
+              {
+                "maximum": 2000.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Episode Count"
           },
           "expected_release_period": {
             "maxLength": 80,
@@ -1646,6 +1732,18 @@
             "minLength": 40,
             "title": "Synopsis",
             "type": "string"
+          },
+          "target_audience": {
+            "anyOf": [
+              {
+                "maxLength": 80,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Audience"
           },
           "target_languages": {
             "items": {
@@ -2394,6 +2492,48 @@
         "summary": "Source Health",
         "tags": [
           "sources"
+        ]
+      }
+    },
+    "/api/v1/titles/{title_id}": {
+      "get": {
+        "operationId": "get_title_api_v1_titles__title_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "title_id",
+            "required": true,
+            "schema": {
+              "title": "Title Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TitleRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Title",
+        "tags": [
+          "analysis"
         ]
       }
     },

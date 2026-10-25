@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from datetime import UTC, datetime
 
-from sqlalchemy import JSON, DateTime, ForeignKey, String, Text
+from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -54,6 +54,10 @@ class Title(Base):
     studio: Mapped[str | None] = mapped_column(String(160), nullable=True)
     franchise_status: Mapped[str | None] = mapped_column(String(80), nullable=True)
     trailer_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    director: Mapped[str | None] = mapped_column(String(160), nullable=True)
+    episode_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    age_rating: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    target_audience: Mapped[str | None] = mapped_column(String(80), nullable=True)
     metadata_extra: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 

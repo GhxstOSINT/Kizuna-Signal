@@ -4,7 +4,8 @@ export type Title = {
   content_format: string; primary_genre: string; genres: string[]; themes: string[]
   source_material: string; expected_release_period: string; target_platform: string
   target_languages: string[]; target_states: string[]; marketing_budget: string
-  studio?: string; franchise_status?: string; trailer_url?: string; created_at: string
+  studio?: string; franchise_status?: string; trailer_url?: string; director?: string | null
+  episode_count?: number | null; age_rating?: string | null; target_audience?: string | null; created_at: string
 }
 export type Job = {
   id: string; analysis_id: string; status: AnalysisStatus; progress: number; stage: string

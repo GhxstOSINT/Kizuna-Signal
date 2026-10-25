@@ -1,0 +1,29 @@
+.title-details dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  margin: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--panel);
+  overflow: hidden;
+}
+.title-details dl > div {
+  padding: 14px 16px;
+  box-shadow: inset -1px -1px 0 var(--rule);
+}
+.title-details dt {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.title-details dd {
+  margin: 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.form-section .field-grid + .field-grid,
+.form-section .field-grid + label {
+  margin-top: 14px;
+}

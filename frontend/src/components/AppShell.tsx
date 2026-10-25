@@ -1,6 +1,8 @@
-import { Activity, BarChart3, BookOpen, FlaskConical, Github, LayoutGrid, Plus, ScrollText } from 'lucide-react'
+import { Activity, BarChart3, BookOpen, FlaskConical, Github, LayoutGrid, Moon, Plus, ScrollText, Sun } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
+import { japaneseFor } from '../motion/jp'
+import { useTheme } from '../theme'
 
 const nav = [
   { to: '/', label: 'Portfolio', icon: LayoutGrid },
@@ -9,11 +11,14 @@ const nav = [
 ]
 
 export function AppShell({ children }: { children: ReactNode; connected?: boolean }) {
+  const { theme, toggle } = useTheme()
+  const dark = theme === 'dark'
   return <div className="app-shell">
     <aside className="sidebar">
       <NavLink to="/" className="brand" aria-label="Kizuna Signal home">
         <span className="brand-mark" aria-hidden="true"><span /></span>
         <span>Kizuna Signal</span>
+        <span className="brand-kanji" lang="ja" aria-hidden="true">絆</span>
       </NavLink>
       <nav aria-label="Primary navigation">
         {nav.map(({ to, label, icon: Icon }) => <NavLink key={to} to={to} end={to === '/'} aria-label={label} title={label} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
@@ -21,6 +26,11 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
         </NavLink>)}
       </nav>
       <div className="sidebar-context">
+        <button type="button" className="theme-toggle" role="switch" aria-checked={dark} aria-label="Dark mode" onClick={toggle}>
+          {dark ? <Moon size={17} strokeWidth={1.7} /> : <Sun size={17} strokeWidth={1.7} />}
+          <span>Dark mode</span>
+          <span className="theme-toggle-track" aria-hidden="true" />
+        </button>
         <p>Pre-release intelligence for Japanese media entering India.</p>
         <div className="workspace-profile">
           <span className="workspace-profile-logo"><Github size={19} strokeWidth={1.8} /></span>
@@ -47,8 +57,10 @@ export function SignalRail({ connected, label = 'Evidence system ready' }: { con
 }
 
 export function PageHeader({ title, description, action }: { title: string; description: string; action?: ReactNode }) {
+  const jp = japaneseFor(title)
   return <header className="page-header">
-    <div><h1>{title}</h1><p>{description}</p></div>
+    <span className="kanji-mark" lang="ja" aria-hidden="true">{jp.kanji}</span>
+    <div><span className="jp-eyebrow" lang="ja">{jp.kanji} · {jp.kana}</span><h1>{title}</h1><p>{description}</p></div>
     {action && <div>{action}</div>}
   </header>
 }

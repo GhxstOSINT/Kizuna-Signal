@@ -182,7 +182,7 @@ legend {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .choice-grid label {
   margin: 0;

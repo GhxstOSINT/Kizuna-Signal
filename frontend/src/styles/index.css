@@ -1,4 +1,4 @@
-/* Order matters: later files override earlier ones. responsive.css and mobile-polish.css stay last. */
+/* Order matters: later files override earlier ones. responsive.css and mobile-polish.css come before the theme layers; dark.css and animations.css stay last. */
 @import './base.css';
 @import './shell.css';
 @import './controls.css';
@@ -10,3 +10,6 @@
 @import './methodology.css';
 @import './responsive.css';
 @import './mobile-polish.css';
+@import './title-details.css';
+@import './dark.css';
+@import './animations.css';

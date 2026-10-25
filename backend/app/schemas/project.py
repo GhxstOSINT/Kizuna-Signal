@@ -49,6 +49,10 @@ class TitleCreate(BaseModel):
     studio: str | None = Field(default=None, max_length=160)
     franchise_status: str | None = Field(default=None, max_length=80)
     trailer_url: HttpUrl | None = None
+    director: str | None = Field(default=None, max_length=160)
+    episode_count: int | None = Field(default=None, ge=1, le=2000)
+    age_rating: str | None = Field(default=None, pattern="^(all_ages|7_plus|13_plus|16_plus|18_plus)$")
+    target_audience: str | None = Field(default=None, max_length=80)
     metadata_extra: dict = Field(default_factory=dict)
 
 

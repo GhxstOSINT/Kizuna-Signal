@@ -13,6 +13,7 @@ from app.schemas.analysis import (
     JobRead,
     SourceToggleRequest,
 )
+from app.schemas.project import TitleRead
 from app.schemas.scenario import ScenarioCreate, ScenarioRead
 from app.services.analysis import create_analysis, run_analysis_pipeline
 from app.services.scenarios import run_scenario
@@ -38,6 +39,14 @@ def start_analysis(
     disabled_sources = payload.disabled_sources if payload else []
     background_tasks.add_task(run_analysis_pipeline, analysis.id, disabled_sources)
     return AnalysisCreated(analysis_id=analysis.id, job_id=job.id, status=analysis.status)
+
+
+@router.get("/titles/{title_id}", response_model=TitleRead)
+def get_title(title_id: str, db: Session = Depends(get_db)) -> Title:
+    title = db.get(Title, title_id)
+    if title is None:
+        raise HTTPException(status_code=404, detail="Title not found")
+    return title
 
 
 @router.get("/titles/{title_id}/analyses", response_model=list[AnalysisRead])

@@ -1,0 +1,318 @@
+/* Dark theme. Selector overrides below are generated from styles.css light rules. */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #121312;
+  --panel: #191a19;
+  --ink: #ecedea;
+  --muted: #a0a39f;
+  --rule: #2e302e;
+  --soft: #232523;
+  --green: #3fc59a;
+  --amber: #d9a24c;
+  --red: #e0776a;
+  --accent: #ff8a3d;
+  --accent-strong: #ff9d5c;
+  --accent-ink: #1a0f06;
+  --accent-soft: rgba(255, 138, 61, 0.14);
+}
+html[data-theme="dark"] ::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+html[data-theme="dark"] .button.dark {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(255, 138, 61, 0.22);
+}
+html[data-theme="dark"] .button.dark:hover {
+  background: var(--accent-strong);
+  color: var(--accent-ink);
+  box-shadow: 0 10px 30px rgba(255, 138, 61, 0.35);
+}
+html[data-theme="dark"] .button.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+html[data-theme="dark"] .theme-toggle-track {
+  background: var(--accent);
+}
+html[data-theme="dark"] .theme-toggle-track::after {
+  background: var(--accent-ink);
+}
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px;
+  margin-bottom: 14px;
+  border: 1px solid var(--rule);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  background: var(--soft);
+}
+.theme-toggle-track {
+  margin-left: auto;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--rule);
+  position: relative;
+  flex: none;
+}
+.theme-toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform 0.18s ease;
+}
+html[data-theme="dark"] .theme-toggle-track::after {
+  transform: translateX(14px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-track::after {
+    transition: none;
+  }
+}
+
+html[data-theme="dark"] {
+  color: #dddfdd;
+  background: #1a1a1a;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #181918;
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #0d0d0d;
+  border: 3px solid #424342;
+}
+html[data-theme="dark"] .sidebar {
+  background: #191919;
+}
+html[data-theme="dark"] .nav-link {
+  color: #a3a5a3;
+}
+html[data-theme="dark"] .nav-link:hover {
+  background: #151615;
+}
+html[data-theme="dark"] .nav-link.active {
+  background: #141414;
+}
+html[data-theme="dark"] .sidebar-context {
+  border-top: 1px solid #3b3c3b;
+}
+html[data-theme="dark"] .workspace-profile {
+  border: 1px solid #3b3c3b;
+  background: #1c1c1c;
+}
+html[data-theme="dark"] .sidebar-foot {
+  color: #a3a4a3;
+}
+html[data-theme="dark"] .button.ghost {
+  background: #202020;
+}
+html[data-theme="dark"] .search {
+  background: #202020;
+  color: #929392;
+}
+html[data-theme="dark"] .search:focus-within {
+  border-color: #292a29;
+}
+html[data-theme="dark"] .search input,
+html[data-theme="dark"] .filter-row select {
+  background: #202020;
+}
+html[data-theme="dark"] .filter-row select {
+  background: #202020 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23171817' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center;
+}
+html[data-theme="dark"] .portfolio-hero {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .portfolio-hero p {
+  color: #acaeac;
+}
+html[data-theme="dark"] .stat {
+  background: #1e1e1e;
+}
+html[data-theme="dark"] .stat:hover {
+  border-color: #343534;
+}
+html[data-theme="dark"] .stat small {
+  color: #b0b2b0;
+}
+html[data-theme="dark"] .title-identity span {
+  color: #a3a5a3;
+}
+html[data-theme="dark"] .badge > span {
+  background: #0d0d0d;
+}
+html[data-theme="dark"] .title-evidence dt {
+  color: #a3a4a3;
+}
+html[data-theme="dark"] .state-block {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .state-block.error {
+  background: #1c1c1c;
+}
+html[data-theme="dark"] .delete-confirm {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .delete-confirm > span {
+  color: #a3a5a3;
+}
+html[data-theme="dark"] .form-plane {
+  background: #1d1e1d;
+}
+html[data-theme="dark"] .release-period-trigger {
+  background: #202020;
+}
+html[data-theme="dark"] .release-period-trigger:hover {
+  border-color: #2b2b2b;
+}
+html[data-theme="dark"] .release-dialog-close {
+  background: #202020;
+}
+html[data-theme="dark"] .release-quarter-grid button {
+  background: #202020;
+}
+html[data-theme="dark"] label,
+html[data-theme="dark"] fieldset {
+  color: #a3a5a3;
+}
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+  background: #202020;
+}
+html[data-theme="dark"] .choice-grid label {
+  background: #202020;
+}
+html[data-theme="dark"] .choice-checkbox {
+  border: 1px solid #353535;
+}
+html[data-theme="dark"] .choice-grid label.selected .choice-checkbox {
+  border-color: #494a49;
+  background: #202020;
+}
+html[data-theme="dark"] .seo-sheet dt {
+  color: #7d7e7d;
+}
+html[data-theme="dark"] .form-error {
+  background: #281d1b;
+  color: #dd8c81;
+}
+html[data-theme="dark"] .running-plane {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .job-orbit {
+  border: 1px solid #393a39;
+}
+html[data-theme="dark"] .job-orbit:before {
+  border: 1px dashed #313231;
+}
+html[data-theme="dark"] .progress-track {
+  background: #141414;
+}
+html[data-theme="dark"] .running-plane small {
+  color: #a3a5a3;
+}
+html[data-theme="dark"] .score-field {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .model-proof {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .model-proof-grid article,
+html[data-theme="dark"] .component-detail-list article {
+  background: #202020;
+}
+html[data-theme="dark"] .warning-band {
+  background: #28231b;
+}
+html[data-theme="dark"] .component-track {
+  background: #161616;
+}
+html[data-theme="dark"] .region-rank {
+  color: #a3a5a3;
+}
+html[data-theme="dark"] .region-meter {
+  background: #151515;
+}
+html[data-theme="dark"] .quiet-plane {
+  border: 1px dashed #363736;
+}
+html[data-theme="dark"] .risk-plane {
+  background: #281f1b;
+}
+html[data-theme="dark"] .risk-plane > div:not(.section-heading) {
+  border-top: 1px solid #46362c;
+}
+html[data-theme="dark"] .approval-mark {
+  border: 1px solid #2b2c2b;
+}
+html[data-theme="dark"] .approval-plane.accepted {
+  background: #181818;
+  border-color: #2c463a;
+}
+html[data-theme="dark"] .dataset-grid article {
+  background: #1d1d1d;
+}
+html[data-theme="dark"] .regional-logo {
+  color: #87e8c5;
+}
+html[data-theme="dark"] .regional-logo i {
+  color: #e4ab76;
+}
+
+
+/* Hand-tuned dark overrides */
+html[data-theme="dark"] .choice-grid label.selected {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+html[data-theme="dark"] .choice-grid label.selected .choice-checkbox {
+  border-color: var(--accent-ink);
+  background: var(--accent-ink);
+  color: var(--accent);
+}
+html[data-theme="dark"] .nav-link.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  box-shadow: inset 3px 0 var(--accent);
+}
+html[data-theme="dark"] .nav-link:hover {
+  color: var(--accent-strong);
+}
+html[data-theme="dark"] :focus-visible,
+html[data-theme="dark"] .choice-grid label:has(input:focus-visible) {
+  outline-color: var(--accent);
+}
+html[data-theme="dark"] .search:focus-within,
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+html[data-theme="dark"] .stat:hover,
+html[data-theme="dark"] .region-lane:hover {
+  border-color: var(--accent);
+}
+html[data-theme="dark"] .choice-grid label.selected > span:not(.choice-checkbox) {
+  color: var(--accent-ink);
+  font-weight: 600;
+}

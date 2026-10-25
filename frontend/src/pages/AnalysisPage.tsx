@@ -4,13 +4,37 @@ import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
 import { PageHeader, SignalRail } from '../components/AppShell'
 import { ErrorState, LoadingState, ScoreField, SectionHeading, StatusBadge } from '../components/Primitives'
-import type { Analysis } from '../api/types'
+import type { Analysis, Title } from '../api/types'
 
 const label = (value: string) => value.replaceAll('_',' ').replace(/\b\w/g,(c)=>c.toUpperCase())
+
+const ratings: Record<string, string> = { all_ages: 'All ages', '7_plus': '7+', '13_plus': '13+', '16_plus': '16+', '18_plus': '18+' }
+
+function TitleDetails({ title }: { title: Title }) {
+  const rows: [string, string | null | undefined][] = [
+    ['Title', title.english_title ? `${title.name} / ${title.english_title}` : title.name],
+    ['Format', title.content_format ? label(title.content_format) : null],
+    ['Genre', title.primary_genre],
+    ['Source', title.source_material],
+    ['Studio', title.studio],
+    ['Director', title.director],
+    ['Episodes', title.episode_count ? String(title.episode_count) : null],
+    ['Age rating', title.age_rating ? ratings[title.age_rating] ?? title.age_rating : null],
+    ['Audience', title.target_audience],
+    ['Franchise', title.franchise_status],
+    ['Release', title.expected_release_period],
+    ['Platform', title.target_platform],
+    ['Budget', title.marketing_budget ? label(title.marketing_budget) : null],
+    ['Languages', title.target_languages.join(', ')],
+    ['States', title.target_states.join(', ')],
+  ]
+  return <section className="title-details"><SectionHeading title="Title details" note="The intake record saved by the backend for this analysis."/><dl>{rows.filter(([, value]) => value).map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl></section>
+}
 
 export function AnalysisPage({ connected }: { connected: boolean }) {
   const { analysisId = '' } = useParams()
   const [analysis, setAnalysis] = useState<Analysis | null>(null)
+  const [title, setTitle] = useState<Title | null>(null)
   const [error, setError] = useState('')
   const [refresh, setRefresh] = useState(0)
   useEffect(() => {
@@ -34,6 +58,13 @@ export function AnalysisPage({ connected }: { connected: boolean }) {
     void poll()
     return () => { cancelled = true; if (timeout) window.clearTimeout(timeout) }
   },[analysisId, refresh])
+  const titleId = analysis?.title_id
+  useEffect(() => {
+    if (!titleId) return
+    let cancelled = false
+    api.getTitle(titleId).then((next) => { if (!cancelled) setTitle(next) }).catch(() => { if (!cancelled) setTitle(null) })
+    return () => { cancelled = true }
+  }, [titleId])
   if (error) return <div className="page"><ErrorState message={error} retry={()=>setRefresh(value=>value+1)}/></div>
   if (!analysis) return <div className="page"><LoadingState label="Opening analysis"/></div>
   if (!analysis.result) return <div className="page"><PageHeader title="Analysis in progress" description="The backend has created the snapshot and this page will update automatically."/><SignalRail connected={connected} label={analysis.status.toUpperCase()}/><div className="state-block" aria-live="polite"><StatusBadge status={analysis.status}/><h2>{label(analysis.status)}</h2><p>{analysis.error_message || 'Evidence stages are still running. You can safely reload or return later.'}</p></div></div>
@@ -41,6 +72,7 @@ export function AnalysisPage({ connected }: { connected: boolean }) {
   return <div className="page analysis-page">
     <PageHeader title="Decision intelligence" description="A frozen, versioned result with evidence, regional opportunity and launch guidance." action={<div className="action-pair"><Link className="button ghost" to={`/analysis/${analysisId}/scenarios`}><Beaker size={16}/>Scenario lab</Link><Link className="button dark" to={`/analysis/${analysisId}/playbook`}><FileText size={16}/>Launch playbook</Link></div>} />
     <SignalRail connected={connected} label={`${r.model_version} / ${r.scoring_version}`} />
+    {title&&<TitleDetails title={title}/>}
     <ScoreField score={r.market_potential_score} confidence={r.confidence_score} interval={r.confidence_interval} classification={r.decision_classification} origin={r.score_origin} meaning={r.score_meaning}/>
     {r.data_quality_warnings.length>0&&<section className="warning-band"><strong>Evidence notes</strong><div>{r.data_quality_warnings.map((warning)=><p key={warning}>{warning}</p>)}</div></section>}
     {r.score_origin==='trained_model'&&<section className="model-proof"><SectionHeading title="Model validation" note="Historical holdout results describe ranking performance on past titles. They are not a guarantee for a new release."/><div className="model-proof-grid"><article><strong>{r.model_evaluation.labelled_titles??'—'}</strong><span>Labelled titles used</span></article><article><strong>{r.model_evaluation.oof_titles??'—'}</strong><span>Out-of-fold titles</span></article><article><strong>{typeof r.model_evaluation.spearman==='number'?r.model_evaluation.spearman.toFixed(2):'—'}</strong><span>Mean Spearman ranking</span></article><article><strong>{typeof r.model_evaluation.top3_hit==='number'?`${Math.round(r.model_evaluation.top3_hit*100)}%`:'—'}</strong><span>Top-three hit rate</span></article></div><p className="model-proof-note">Validation: {r.model_evaluation.scheme||'not reported'}. India-specific commercial outcomes are not part of this training target.</p></section>}
