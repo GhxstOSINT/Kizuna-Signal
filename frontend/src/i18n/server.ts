@@ -153,6 +153,8 @@ const compiled = RULES.map(([en, ja]) => {
 
 /** Translate a sentence written by the API; returns null when no rule applies. `word` translates a placeholder value. */
 export function translateServer(text: string, word: (value: string) => string, sentence: (value: string) => string | null): string | null {
+  const quarter = /^Q([1-4]) (\d{4})$/.exec(text)
+  if (quarter) return `${quarter[2]}年第${quarter[1]}四半期`
   const code = /^([a-z_]+)(?::\s.*)?$/.exec(text)
   if (code && CODES[code[1]]) return sentence(CODES[code[1]])
   for (const rule of compiled) {
