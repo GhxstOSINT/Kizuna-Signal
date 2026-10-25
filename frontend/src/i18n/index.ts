@@ -9,9 +9,9 @@ export type Vars = Record<string, string | number>
 
 const KEY = 'kizuna-lang'
 const EVENT = 'kizuna-lang-change'
-let memory: Lang = 'ja'
+let memory: Lang = 'en'
 
-/** The interface opens in Japanese until the viewer switches it in Settings. */
+/** The interface opens in English until the viewer switches it in Settings. */
 export function currentLang(): Lang {
   try {
     const saved = localStorage.getItem(KEY)
@@ -82,7 +82,7 @@ export function applyLang(lang: Lang) {
 }
 
 export function useI18n() {
-  const lang = useSyncExternalStore(subscribe, currentLang, () => 'ja' as Lang)
+  const lang = useSyncExternalStore(subscribe, currentLang, () => 'en' as Lang)
   const t = useCallback((text: string, vars?: Vars) => translate(text, vars, lang), [lang])
   const setLang = useCallback((next: Lang) => {
     memory = next
