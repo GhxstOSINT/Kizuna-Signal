@@ -83,7 +83,11 @@ def test_live_analysis_has_no_demo_evidence_and_uses_real_comparables_and_states
     assert result["score_origin"] == "trained_model"
     assert len(result["regional_scores"]) == 35
     reasons = {r["state"]: r["reasons"] for r in result["regional_scores"]}
-    assert any("predicted relative demand lift" in r for r in reasons["Maharashtra"])
+    assert any(r.startswith("Genre:") for r in reasons["Maharashtra"])
+    assert any(r.startswith("Title name:") for r in reasons["Maharashtra"])
+    assert any(
+        "rule-based estimate from the title's genre and name" in w for w in result["model_warnings"]
+    )
     assert any("Analysis completed without: youtube" in w for w in result["data_quality_warnings"])
     assert result["recommendation"]["priority_markets"]
     engagement = next(

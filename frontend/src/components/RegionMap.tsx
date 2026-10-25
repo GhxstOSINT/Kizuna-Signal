@@ -7,12 +7,21 @@ import type { Region } from '../api/types'
 // Region names the backend can send that differ from the map's.
 const ALIASES: Record<string, string> = { 'Delhi NCR': 'Delhi' }
 const mapName = (state: string) => ALIASES[state] ?? state
+// The census (and so the scoring) counts Ladakh as part of Jammu and Kashmir, so the map shades both alike.
+const SHARED_SHAPES: Record<string, string> = { 'Jammu and Kashmir': 'Ladakh' }
 
 export function RegionMap({ regions }: { regions: Region[] }) {
   const { t } = useI18n()
   const ranked = useMemo(() => [...regions].sort((a, b) => b.score - a.score), [regions])
   const [selected, setSelected] = useState(ranked[0]?.state ?? '')
-  const byMapName = useMemo(() => new Map(ranked.map((region, index) => [mapName(region.state), { region, rank: index + 1 }])), [ranked])
+  const byMapName = useMemo(() => {
+    const entries = new Map(ranked.map((region, index) => [mapName(region.state), { region, rank: index + 1 }]))
+    for (const [state, shape] of Object.entries(SHARED_SHAPES)) {
+      const entry = entries.get(state)
+      if (entry && !entries.has(shape)) entries.set(shape, entry)
+    }
+    return entries
+  }, [ranked])
   if (!ranked.length) return null
 
   const low = ranked[ranked.length - 1].score
@@ -29,7 +38,7 @@ export function RegionMap({ regions }: { regions: Region[] }) {
   const shape = (name: string) => {
     const entry = byMapName.get(name)
     return {
-      className: `map-state${entry ? '' : ' no-data'}${name === activeMapName ? ' selected' : ''}`,
+      className: `map-state${entry ? '' : ' no-data'}${name === activeMapName || name === SHARED_SHAPES[activeMapName] ? ' selected' : ''}`,
       style: entry ? { fill: fill(entry.region.score) } : undefined,
       onMouseEnter: entry ? () => setSelected(entry.region.state) : undefined,
       onClick: entry ? () => setSelected(entry.region.state) : undefined,

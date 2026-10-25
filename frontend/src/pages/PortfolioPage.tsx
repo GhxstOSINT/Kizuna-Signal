@@ -1,4 +1,4 @@
-import { ArrowRight, Plus, Search, Trash2 } from 'lucide-react'
+import { Plus, Search } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { loadPortfolio } from '../api'
@@ -57,10 +57,7 @@ export function PortfolioPage({ connected }: { connected: boolean }) {
             <div className="title-score"><strong>{Math.round(result.market_potential_score)}</strong><span>/100</span><small>{t('Market potential')}</small></div>
             <div className="title-evidence"><dl><div><dt>{t('Confidence')}</dt><dd>{Math.round(result.confidence_score)}%</dd></div><div><dt>{t('Top market')}</dt><dd>{result.regional_scores[0] ? t(result.regional_scores[0].state) : t('Not available')}</dd></div><div><dt>{t('Language')}</dt><dd>{result.regional_scores[0] ? t(result.regional_scores[0].recommended_language) : t('Not available')}</dd></div></dl></div>
           </> : <div className="title-evidence"><p>{t('Analysis has not produced a result yet.')}</p></div>}
-          <div className="row-actions">
-            <Link className="row-action danger" to={`/analysis/${analysis.id}/delete`} aria-label={t('Delete {name} analysis', { name: title.name })}><Trash2 size={18} /></Link>
-            <Link className="row-action" to={`/analysis/${analysis.id}`} aria-label={t('Open {name} analysis', { name: title.name })}><ArrowRight /></Link>
-          </div>
+          <Link className="title-row-link" to={`/analysis/${analysis.id}`} aria-label={t('Open {name} analysis', { name: title.name })} />
         </article>
       })}
     </section>}

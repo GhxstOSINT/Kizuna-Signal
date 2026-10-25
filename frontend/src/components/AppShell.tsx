@@ -1,5 +1,5 @@
 import { Activity, BarChart3, BookOpen, FlaskConical, Github, LayoutGrid, Plus, ScrollText, Settings } from 'lucide-react'
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import { applyLang, useI18n } from '../i18n'
 import { japaneseFor } from '../motion/jp'
@@ -19,6 +19,14 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
   const dark = theme === 'dark'
   const dragon = useDragonCursorSetting()
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const closeTimer = useRef<number>()
+  useEffect(() => () => window.clearTimeout(closeTimer.current), [])
+  // Apply a setting, then fold the panel back to the Settings button after the switch has visibly moved.
+  const change = (apply: () => void) => {
+    apply()
+    window.clearTimeout(closeTimer.current)
+    closeTimer.current = window.setTimeout(() => setSettingsOpen(false), 280)
+  }
   useEffect(() => {
     applyLang(lang)
     document.title = lang === 'ja' ? '絆シグナル｜公開前インテリジェンス' : 'Kizuna Signal'
@@ -45,15 +53,15 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
           <div className="setting-row static">
             <span><strong>{t('Language')}</strong><small>{t('Language of the interface')}</small></span>
             <span className="lang-switch" role="group" aria-label={t('Language')}>
-              <button type="button" lang="ja" aria-pressed={lang === 'ja'} onClick={() => setLang('ja')}>日本語</button>
-              <button type="button" lang="en" aria-pressed={lang === 'en'} onClick={() => setLang('en')}>English</button>
+              <button type="button" lang="ja" aria-pressed={lang === 'ja'} onClick={() => change(() => setLang('ja'))}>日本語</button>
+              <button type="button" lang="en" aria-pressed={lang === 'en'} onClick={() => change(() => setLang('en'))}>English</button>
             </span>
           </div>
-          <button type="button" className="setting-row" role="switch" aria-checked={dark} onClick={toggle}>
+          <button type="button" className="setting-row" role="switch" aria-checked={dark} onClick={() => change(toggle)}>
             <span><strong>{t('Dark mode')}</strong><small>{t('Orange accents on a dark canvas')}</small></span>
             <span className="setting-track" aria-hidden="true" />
           </button>
-          <button type="button" className="setting-row" role="switch" aria-checked={dragon.enabled} onClick={() => dragon.setEnabled(!dragon.enabled)}>
+          <button type="button" className="setting-row" role="switch" aria-checked={dragon.enabled} onClick={() => change(() => dragon.setEnabled(!dragon.enabled))}>
             <span><strong>{t('Dragon cursor')}</strong><small>{t('An ember-trailing serpent that follows your mouse')}</small></span>
             <span className="setting-track" aria-hidden="true" />
           </button>

@@ -1,4 +1,4 @@
-import { ArrowRight, Beaker, FileText } from 'lucide-react'
+import { ArrowRight, Beaker, FileText, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
@@ -72,7 +72,8 @@ export function AnalysisPage({ connected }: { connected: boolean }) {
   }, [titleId])
   if (error) return <div className="page"><ErrorState message={error} retry={()=>setRefresh(value=>value+1)}/></div>
   if (!analysis) return <div className="page"><LoadingState label="Opening analysis"/></div>
-  if (!analysis.result) return <div className="page"><PageHeader title="Analysis in progress" description="The backend has created the snapshot and this page will update automatically."/><SignalRail connected={connected} label={t(analysis.status.replaceAll('_',' '))}/><div className="state-block" aria-live="polite"><StatusBadge status={analysis.status}/><h2>{t(label(analysis.status))}</h2><p>{analysis.error_message || t('Evidence stages are still running. You can safely reload or return later.')}</p></div></div>
+  const deleteZone = (<section className="danger-zone"><div><h3>{t('Delete this analysis')}</h3><p>{t('Permanently removes this snapshot and its scenarios. This cannot be undone.')}</p></div><Link className="button ghost danger-outline" to={`/analysis/${analysisId}/delete`}><Trash2 size={16} /> {t('Delete analysis')}</Link></section>)
+  if (!analysis.result) return <div className="page"><PageHeader title="Analysis in progress" description="The backend has created the snapshot and this page will update automatically."/><SignalRail connected={connected} label={t(analysis.status.replaceAll('_',' '))}/><div className="state-block" aria-live="polite"><StatusBadge status={analysis.status}/><h2>{t(label(analysis.status))}</h2><p>{analysis.error_message || t('Evidence stages are still running. You can safely reload or return later.')}</p></div>{deleteZone}</div>
   const r = analysis.result
   return <div className="page analysis-page">
     <PageHeader title="Decision intelligence" description="A frozen, versioned result with evidence, regional opportunity and launch guidance." action={<div className="action-pair"><Link className="button ghost" to={`/analysis/${analysisId}/scenarios`}><Beaker size={16}/>{t('Scenario lab')}</Link><Link className="button dark" to={`/analysis/${analysisId}/playbook`}><FileText size={16}/>{t('Launch playbook')}</Link></div>} />
@@ -87,5 +88,6 @@ export function AnalysisPage({ connected }: { connected: boolean }) {
     <section><SectionHeading title="Comparable evidence" note="Similarity is contextual evidence, not proof of identical commercial performance."/><div className="comparable-table" role="table">{r.comparable_titles.map((item)=><div className="comparable-row" role="row" key={item.title}><div><strong>{tt(item.title)}</strong><p>{item.reasons.map((reason)=>t(reason)).join(' · ')}</p></div><span>{t('{pct}% similar', { pct: Math.round(item.similarity*100) })}</span><span>{t('{n} signal', { n: Math.round(item.market_signal) })}</span></div>)}</div></section>
     <section><SectionHeading title="Source health" note="Every source carries availability, freshness, quality, provenance and warnings."/><div className="source-table">{r.source_status.map((source)=><article className="source-row" key={source.source}><div><StatusBadge status={source.status}/><strong>{t(label(source.source))}</strong></div><dl><div><dt>{t('Freshness')}</dt><dd>{Math.round(source.freshness_score*100)}%</dd></div><div><dt>{t('Quality')}</dt><dd>{Math.round(source.quality_score*100)}%</dd></div><div><dt>{t('Mode')}</dt><dd>{source.provenance.mode ? t(source.provenance.mode) : t('unspecified')}</dd></div></dl><p>{source.warnings.map((warning)=>t(warning)).join(' ') || t('No source warning.')}</p></article>)}</div></section>
     <section className="next-actions"><div><h2>{t('Turn the result into a decision.')}</h2><p>{t('Compare controlled changes, then review the recommended launch sequence.')}</p></div><Link to={`/analysis/${analysisId}/scenarios`}>{t('Open scenario lab')} <ArrowRight/></Link></section>
+    {deleteZone}
   </div>
 }

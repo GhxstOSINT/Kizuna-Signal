@@ -145,7 +145,8 @@ html[data-theme="dark"] .stat {
   background: #1e1e1e;
 }
 html[data-theme="dark"] .stat:hover {
-  border-color: #343534;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-soft);
 }
 html[data-theme="dark"] .stat small {
   color: #b0b2b0;
@@ -303,7 +304,6 @@ html[data-theme="dark"] .select-trigger:focus-visible {
 html[data-theme="dark"] .search input:focus {
   box-shadow: none;
 }
-html[data-theme="dark"] .stat:hover,
 html[data-theme="dark"] .choice-grid label.selected > span:not(.choice-checkbox) {
   color: var(--accent-ink);
   font-weight: 600;

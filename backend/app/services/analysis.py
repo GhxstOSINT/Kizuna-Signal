@@ -23,6 +23,7 @@ from app.services.scoring import (
     unmeasured_components,
 )
 from app.services.sources import SourceRegistry
+from app.services.title_regional import calculate_title_regional_scores, load_survey
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -131,6 +132,17 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
             score_origin = "trained_model"
             analysis.model_version = model_result.model_version
             analysis.scoring_version = "market-potential-trained-1.0.0"
+
+        genre_name_regions = calculate_title_regional_scores(
+            title, load_survey(settings.survey_dir)
+        )
+        if genre_name_regions:
+            regions = genre_name_regions
+            model_warnings = [
+                *model_warnings,
+                "State scores are a rule-based estimate from the title's genre and name, not "
+                "the trained regional model.",
+            ]
 
         update_job(db, job, 75, "generating explanations and confidence interval")
         warnings = list(dict.fromkeys([*warnings, *model_warnings]))

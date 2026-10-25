@@ -6,7 +6,7 @@ import { prefersReducedMotion } from './ScrollMotion'
 
 const SEGMENTS = 44
 const SPACING = 8
-const INTERACTIVE = 'a, button, select, label, input, textarea, [role="switch"], [role="button"], .row-action'
+const INTERACTIVE = 'a, button, select, label, input, textarea, [role="switch"], [role="button"]'
 
 type Ember = { x: number; y: number; vx: number; vy: number; life: number; max: number; size: number }
 type Palette = { tail: [number, number, number]; head: [number, number, number]; spike: string; eye: string; glow: string }

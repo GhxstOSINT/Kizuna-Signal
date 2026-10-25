@@ -410,6 +410,8 @@ export const ja: Record<string, string> = {
 
   // Delete
   'Delete analysis': '分析を削除',
+  'Delete this analysis': 'この分析を削除',
+  'Permanently removes this snapshot and its scenarios. This cannot be undone.': 'このスナップショットとシナリオを完全に削除します。元に戻せません。',
   'Review what will be removed before you confirm.': '確定する前に、削除される内容を確認してください。',
   'Analysis not found': '分析が見つかりません',
   'this title': 'このタイトル',

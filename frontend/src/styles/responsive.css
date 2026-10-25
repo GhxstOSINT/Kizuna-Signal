@@ -13,7 +13,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .title-row {
-    grid-template-columns: 1fr 100px 1fr auto;
+    grid-template-columns: 1fr 100px 1fr;
     gap: 18px;
   }
   .scenario-history article {
@@ -77,10 +77,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .title-row {
-    grid-template-columns: 1fr 80px auto;
+    grid-template-columns: 1fr 80px;
   }
   .title-evidence {
-    grid-column: 1/4;
+    grid-column: 1/3;
   }
   .intake-layout,
   .scenario-layout,
@@ -188,7 +188,7 @@
     padding: 16px;
   }
   .title-row {
-    grid-template-columns: 1fr 65px auto;
+    grid-template-columns: 1fr 65px;
   }
   .title-score strong {
     font-size: 43px;
