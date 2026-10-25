@@ -148,12 +148,18 @@ html.theme-anim *::after {
   background: linear-gradient(90deg, var(--brand), #ff8a3d);
   pointer-events: none;
 }
+/* The workspace is its own stacking context, so the petals (z-index -1) drift above the page
+   background but behind every card and line of text. */
+.workspace {
+  position: relative;
+  z-index: 1;
+}
 .sakura {
   position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 40;
+  z-index: -1;
 }
 .sakura-petal {
   position: absolute;
