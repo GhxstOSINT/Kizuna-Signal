@@ -16,7 +16,7 @@ const REVEAL = [
   '.page > section',
   '.page > .stats-grid > *',
   '.analysis-list > *',
-  '.region-grid > *',
+  '.region-map-figure, .region-detail',
   '.form-section',
   '.intake-aside',
   '.title-details dl > div',

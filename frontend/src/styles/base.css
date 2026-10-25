@@ -13,6 +13,8 @@
   --green: #168765;
   --amber: #a86a18;
   --red: #b44536;
+  --heat-lo: #ebe8e1;
+  --heat-hi: #c8362b;
   --radius: 14px;
 }
 * {

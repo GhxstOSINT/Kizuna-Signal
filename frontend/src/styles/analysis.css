@@ -153,54 +153,143 @@
   height: 5px;
   background: #dfe1de;
 }
-.component-track i,
-.region-meter i {
+.component-track i {
   display: block;
   height: 100%;
   background: var(--ink);
 }
-.region-grid {
-  border-top: 1px solid var(--rule);
-}
-.region-lane {
+.region-map {
   display: grid;
-  grid-template-columns: 40px 220px 1fr 55px minmax(150px, 0.5fr);
-  gap: 18px;
-  align-items: center;
-  border-bottom: 1px solid var(--rule);
-  padding: 16px 0;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  gap: 40px;
+  align-items: start;
+  border-top: 1px solid var(--rule);
+  padding-top: 28px;
 }
-.region-rank {
-  font: 11px "IBM Plex Mono";
-  color: #5f625f;
-}
-.region-lane h3 {
+.region-map-figure {
   margin: 0;
-  font-size: 14px;
 }
-.region-lane > div:nth-child(2) p {
+.region-map-figure svg {
+  display: block;
+  width: 100%;
+  max-height: 640px;
+}
+.map-state {
+  stroke: var(--paper);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition:
+    fill 0.2s ease,
+    stroke 0.2s ease;
+}
+.map-state.no-data {
+  fill: var(--soft);
+  cursor: default;
+}
+.map-state:hover,
+.map-state.selected {
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+.map-legend {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  color: var(--muted);
-  margin: 6px 0 0;
-}
-.region-meter {
-  height: 3px;
-  background: #dbddda;
-}
-.region-lane > strong {
-  font: 400 27px "Instrument Serif";
-  text-align: right;
-}
-.region-lane details {
-  font-size: 11px;
+  gap: 12px;
+  margin-top: 18px;
+  font: 11px "IBM Plex Mono";
+  text-transform: uppercase;
   color: var(--muted);
 }
-.region-lane summary {
-  cursor: pointer;
+.map-legend i {
+  flex: 1;
+  max-width: 220px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--heat-lo), var(--heat-hi));
+}
+.map-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.region-detail {
+  position: sticky;
+  top: 24px;
+}
+.region-detail-rank {
+  font: 11px "IBM Plex Mono";
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.region-detail h3 {
+  margin: 6px 0 4px;
+  font: 400 40px/1.05 "Instrument Serif";
+}
+.region-detail-score {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.region-detail-score strong {
+  font: 400 64px/1 "Instrument Serif";
+  font-variant-numeric: tabular-nums;
+}
+.region-detail-score span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.region-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.region-detail ul {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.region-ranking {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  border-top: 1px solid var(--rule);
+}
+.region-ranking button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 10px;
+  padding: 9px 8px;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
   color: var(--ink);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.region-ranking button span:first-child {
+  font: 11px "IBM Plex Mono";
+  color: var(--muted);
+}
+.region-ranking button span:last-child {
+  font-variant-numeric: tabular-nums;
+}
+.region-ranking button:hover,
+.region-ranking button.active {
+  background: var(--soft);
+}
+.region-ranking button.active {
+  font-weight: 600;
 }
 .driver-columns {
   display: grid;

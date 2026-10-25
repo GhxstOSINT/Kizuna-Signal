@@ -20,7 +20,6 @@
 .button,
 .nav-link,
 .choice-grid label,
-.region-lane,
 .row-action,
 .theme-toggle {
   transition:
@@ -42,9 +41,6 @@
 }
 .nav-link:hover svg {
   transform: translateX(3px);
-}
-.region-lane:hover {
-  transform: translateY(-2px);
 }
 .is-live .signal-dot {
   animation: pulse-dot 2s ease-out infinite;
@@ -96,9 +92,8 @@ html.theme-anim *::after {
   color: #c8362b;
 }
 .brand-kanji {
-  flex: none;
   margin-left: auto;
-  font: 400 19px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  font: 400 22px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
   color: #c8362b;
 }
 .portfolio-hero::after {
@@ -320,14 +315,17 @@ html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track::after 
 /* Language switch and Japanese typography */
 .setting-row.static {
   cursor: default;
+  /* Label on top, switch below: the English switch is too wide to sit beside the label. */
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
 }
 .setting-row.static:hover {
   background: transparent;
 }
 .lang-switch {
-  margin-left: auto;
-  flex: none;
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 2px;
   border: 1px solid var(--rule);
   border-radius: 999px;
@@ -339,6 +337,7 @@ html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track::after 
   background: transparent;
   color: var(--muted);
   font-size: 12px;
+  text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }

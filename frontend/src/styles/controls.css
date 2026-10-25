@@ -44,7 +44,10 @@
   width: 100%;
 }
 .action-pair {
-  display: flex;
+  /* Equal-width columns: both buttons take the width of the wider one. */
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 8px;
 }
 .filter-row {
