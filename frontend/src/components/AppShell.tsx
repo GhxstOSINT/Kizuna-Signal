@@ -68,7 +68,6 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
 export function SignalRail({ connected, label = 'Evidence system ready' }: { connected: boolean; label?: string }) {
   const { t } = useI18n()
   return <div className={`signal-rail ${connected ? 'is-live' : ''}`} role="status">
-    <div className="spectral-line" aria-hidden="true" />
     <span className="signal-dot" />
     <span>{connected ? t('LIVE API') : t('OFFLINE')}</span>
     <i />

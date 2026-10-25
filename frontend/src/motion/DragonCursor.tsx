@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
 import { useDragonCursorSetting } from '../settings'
 import { prefersReducedMotion } from './ScrollMotion'
@@ -240,5 +241,5 @@ export function DragonCursor() {
       root.classList.remove('dragon-cursor')
     }
   }, [enabled])
-  return enabled ? <canvas className="dragon-canvas" ref={ref} aria-hidden="true" /> : null
+  return enabled ? createPortal(<canvas className="dragon-canvas" ref={ref} aria-hidden="true" />, document.body) : null
 }

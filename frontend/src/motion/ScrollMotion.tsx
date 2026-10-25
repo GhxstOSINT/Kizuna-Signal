@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -155,8 +156,8 @@ export function ScrollMotion() {
     })
     return () => ctx.revert()
   }, [pathname])
-  return <>
+  return createPortal(<>
     <div className="scroll-progress" aria-hidden="true" />
     <div className="page-curtain" aria-hidden="true"><span lang="ja">絆</span></div>
-  </>
+  </>, document.body)
 }
