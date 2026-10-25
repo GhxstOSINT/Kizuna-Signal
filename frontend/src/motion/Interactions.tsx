@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { prefersReducedMotion } from './ScrollMotion'
 
-const MAGNETIC = '.button:not(:disabled), .row-action, .theme-toggle'
 const TILT = '.stat, .region-lane, .seo-sheet, .score-field'
 
 export function Interactions() {
@@ -12,7 +11,6 @@ export function Interactions() {
     const ctx = gsap.context(() => {
       const moveX = gsap.quickTo(spot.current, 'x', { duration: 0.7, ease: 'power3.out' })
       const moveY = gsap.quickTo(spot.current, 'y', { duration: 0.7, ease: 'power3.out' })
-      let magnet: HTMLElement | null = null
       let tilt: HTMLElement | null = null
       const release = (el: HTMLElement | null, props: gsap.TweenVars) => {
         if (el) gsap.to(el, { ...props, duration: 0.9, ease: 'elastic.out(1, 0.45)', overwrite: 'auto' })
@@ -28,12 +26,6 @@ export function Interactions() {
         moveX(event.clientX)
         moveY(event.clientY)
         const target = event.target as HTMLElement
-        const m = target.closest<HTMLElement>(MAGNETIC)
-        if (m !== magnet) { release(magnet, { x: 0, y: 0 }); magnet = m }
-        if (m) {
-          const r = m.getBoundingClientRect()
-          gsap.to(m, { x: (event.clientX - (r.left + r.width / 2)) * 0.28, y: (event.clientY - (r.top + r.height / 2)) * 0.4, duration: 0.35, ease: 'power3.out', overwrite: 'auto' })
-        }
         const t = target.closest<HTMLElement>(TILT)
         if (t !== tilt) { release(tilt, { rotationX: 0, rotationY: 0, scale: 1 }); tilt = t }
         if (t) {
@@ -47,7 +39,6 @@ export function Interactions() {
         }
       }
       const onLeave = () => {
-        release(magnet, { x: 0, y: 0 }); magnet = null
         release(tilt, { rotationX: 0, rotationY: 0, scale: 1 }); tilt = null
         gsap.to(spot.current, { opacity: 0, duration: 0.4 })
       }

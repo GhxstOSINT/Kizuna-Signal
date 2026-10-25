@@ -6,6 +6,12 @@ import { SplitText } from 'gsap/SplitText'
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
+// SplitText masks clip to the tight line-height, which cuts off descenders (g, y, p).
+// Pad the mask downwards and pull the layout back so spacing stays the same.
+function keepDescenders(masks: Element[]) {
+  masks.forEach((mask) => { const { style } = mask as HTMLElement; style.paddingBottom = '0.2em'; style.marginBottom = '-0.2em' })
+}
+
 const REVEAL = [
   '.page > section',
   '.page > .stats-grid > *',
@@ -95,6 +101,7 @@ export function ScrollMotion() {
         if (!h2) return
         h2.dataset.gsh = '1'
         const split = SplitText.create(h2, { type: 'words', mask: 'words' })
+        keepDescenders(split.masks)
         gsap.from(split.words, { yPercent: 105, opacity: 0, duration: 1.1, delay: curtainDelay + 0.2, ease: 'expo.out', stagger: 0.09 })
       }
       const header = () => {
@@ -104,6 +111,7 @@ export function ScrollMotion() {
         const title = head.querySelector<HTMLElement>('h1')
         if (title) {
           const split = SplitText.create(title, { type: 'lines,chars', mask: 'lines' })
+          keepDescenders(split.masks)
           gsap.from(split.chars, { yPercent: 118, rotate: 7, opacity: 0, duration: 1.05, delay: curtainDelay, ease: 'power4.out', stagger: 0.03 })
         }
         gsap.from('.jp-eyebrow', { x: -22, opacity: 0, duration: 0.9, delay: curtainDelay + 0.1, ease: 'power3.out', clearProps: 'all' })

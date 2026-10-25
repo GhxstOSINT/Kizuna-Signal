@@ -37,7 +37,6 @@ export function PortfolioPage({ connected }: { connected: boolean }) {
     <SignalRail connected={connected} label={`${visible.length} TITLES IN VIEW`} />
     <section className="portfolio-hero">
       <div><h2>See the next signal before launch.</h2><p>Compare market potential, evidence confidence and regional opportunity, then turn the strongest signals into a launch plan.</p></div>
-      <div className="hero-signal" aria-hidden="true" />
     </section>
     <div className="stats-grid">
       <Stat value={visible.length} label="Titles in view" />

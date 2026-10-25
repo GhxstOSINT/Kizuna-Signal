@@ -16,9 +16,6 @@
     background 0.2s,
     color 0.2s;
 }
-.button:hover {
-  transform: translateY(-1px);
-}
 .button:disabled {
   opacity: 0.45;
   cursor: not-allowed;

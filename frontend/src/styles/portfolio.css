@@ -30,25 +30,6 @@
   max-width: 760px;
   margin: 0;
 }
-.hero-signal {
-  position: absolute;
-  left: -10%;
-  right: -10%;
-  top: 53%;
-  height: 35px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #ff9b7366 20%,
-    #ffe36b66 33%,
-    #83e5c466 46%,
-    #86b9ff66 60%,
-    #b29bff66 72%,
-    transparent
-  );
-  filter: blur(18px);
-  transform: rotate(-1.2deg);
-}
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -261,7 +242,6 @@
 .row-action:hover {
   background: var(--ink);
   color: #fff;
-  transform: translateX(2px);
 }
 .row-action.danger:hover:not(:disabled) {
   background: var(--red);
