@@ -35,7 +35,7 @@ function upcomingReleaseQuarters() {
 }
 
 export function NewAnalysisPage({ connected }: { connected: boolean }) {
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
   const navigate = useNavigate()
   const mounted = useRef(true)
   const releaseDialog = useRef<HTMLDialogElement>(null)
@@ -82,7 +82,7 @@ export function NewAnalysisPage({ connected }: { connected: boolean }) {
   }
   return <div className="page intake-page">
     <PageHeader title="Analyse a new title" description="Create a frozen pre-release evidence snapshot, then compare launch strategies." action={<Link className="button ghost" to="/"><ArrowLeft size={16}/> {t('Portfolio')}</Link>} />
-    <SignalRail connected={connected} label={status === 'running' ? (stage === 'Ready for intake' ? t(stage) : stage.toUpperCase()) : 'TITLE INTAKE'} />
+    <SignalRail connected={connected} label={status === 'running' ? (lang === 'ja' || stage === 'Ready for intake' ? t(stage) : stage.toUpperCase()) : 'TITLE INTAKE'} />
     {status === 'running' ? <section className="running-plane" aria-live="polite"><div className="job-orbit"><span style={{'--progress': `${progress}%`} as CSSProperties} /><strong>{progress}%</strong></div><div><FoxMark className="fox-mark-pulse run-fox" size={44} /><h2>{t('Building the evidence snapshot')}</h2><p>{t(stage)}</p><div className="progress-track" role="progressbar" aria-label={t('Analysis progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span style={{transform:`scaleX(${progress / 100})`}} /></div><small>{t('Keep this page open. The backend is preserving every completed stage.')}</small></div></section> : <form onSubmit={submit} className="intake-layout">
       <div className="form-plane">
         <div className="form-section"><h2>{t('Title and story')}</h2><div className="field-grid two"><label>{t('Original title')}<input required minLength={1} value={form.name} onChange={(e)=>update('name',e.target.value)} placeholder="Project Hikari" /></label><label>{t('English title')}<input value={form.english_title} onChange={(e)=>update('english_title',e.target.value)} placeholder={t('Optional')} /></label></div><label>{t('Synopsis')}<textarea required minLength={40} value={form.synopsis} onChange={(e)=>update('synopsis',e.target.value)} placeholder={t('Describe the premise, stakes and emotional hook in at least 40 characters.')} /></label><div className="field-grid three"><label>{t('Content format')}<Select ariaLabel="Content format" value={form.content_format} onChange={(v)=>update('content_format',v)} options={contentFormats} /></label><label>{t('Primary genre')}<Select ariaLabel="Primary genre" value={form.primary_genre} onChange={(v)=>update('primary_genre',v)} options={genres} /></label><label>{t('Source material')}<Select ariaLabel="Source material" value={form.source_material} onChange={(v)=>update('source_material',v)} options={sources} /></label></div><label>{t('Themes')}<input value={form.themes} onChange={(e)=>update('themes',e.target.value)} placeholder={t('identity, friendship, belonging')} /></label></div>

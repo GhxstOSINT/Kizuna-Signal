@@ -19,7 +19,11 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
   const dark = theme === 'dark'
   const dragon = useDragonCursorSetting()
   const [settingsOpen, setSettingsOpen] = useState(false)
-  useEffect(() => { applyLang(lang) }, [lang])
+  useEffect(() => {
+    applyLang(lang)
+    document.title = lang === 'ja' ? '絆シグナル｜公開前インテリジェンス' : 'Kizuna Signal'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', t('Pre-release intelligence for Japanese media entering India.'))
+  }, [lang, t])
   return <div className="app-shell">
     <aside className="sidebar">
       <NavLink to="/" className="brand" aria-label={t('Kizuna Signal home')}>

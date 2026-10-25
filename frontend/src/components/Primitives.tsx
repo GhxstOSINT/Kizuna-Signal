@@ -44,7 +44,7 @@ export function ScoreField({ score, confidence, interval, classification, origin
         <div><dt>{t('Evidence confidence')}</dt><dd>{Math.round(confidence)}%</dd></div>
         <div><dt>{t('Expected range')}</dt><dd>{t('{low} to {high}', { low: Math.round(interval[0]), high: Math.round(interval[1]) })}</dd></div>
       </dl>
-      {meaning&&<p className="score-meaning">{meaning}</p>}
+      {meaning&&<p className="score-meaning">{t(meaning)}</p>}
     </div>
   </section>
 }

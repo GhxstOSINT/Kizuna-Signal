@@ -394,3 +394,12 @@ html[lang="ja"] .form-section h2 {
 html[lang="ja"] .button {
   white-space: nowrap;
 }
+html[lang="ja"] .decision-statement h2 {
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1.3;
+}
+html[lang="ja"] .method-hero h2,
+html[lang="ja"] .next-actions h2,
+html[lang="ja"] .governance-plane h2 {
+  line-height: 1.3;
+}

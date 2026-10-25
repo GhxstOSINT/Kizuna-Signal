@@ -1,5 +1,7 @@
 import { useCallback, useSyncExternalStore } from 'react'
 import { ja } from './ja'
+import { names } from './names'
+import { translateServer } from './server'
 
 export type Lang = 'ja' | 'en'
 export type Vars = Record<string, string | number>
@@ -26,9 +28,30 @@ function subscribe(callback: () => void) {
   }
 }
 
+const dictionary: Record<string, string> = { ...ja, ...names }
+const lowerIndex = new Map<string, string>()
+for (const [key, value] of Object.entries(dictionary)) {
+  const lower = key.toLowerCase()
+  if (!lowerIndex.has(lower)) lowerIndex.set(lower, value)
+}
+
+const lookup = (text: string): string | undefined => dictionary[text] ?? lowerIndex.get(text.toLowerCase())
+
+/** Translate one word or a short list ("Hindi, Tamil" or "A · B") such as a state, language or genre. */
+function word(value: string): string {
+  const hit = lookup(value)
+  if (hit) return hit
+  if (/[,·]/.test(value)) return value.split(/\s*[,·]\s*/).map((part) => lookup(part) ?? part).join('、')
+  return value
+}
+
+function japanese(text: string): string {
+  return lookup(text) ?? translateServer(text, word, (sentence) => lookup(sentence) ?? translateServer(sentence, word, () => null)) ?? text
+}
+
 /** English strings are the keys; a missing Japanese entry falls back to the English text. */
 export function translate(text: string, vars?: Vars, lang: Lang = currentLang()): string {
-  const base = lang === 'ja' ? ja[text] ?? text : text
+  const base = lang === 'ja' ? japanese(text) : text
   return vars ? base.replace(/\{(\w+)\}/g, (_, name: string) => String(vars[name] ?? `{${name}}`)) : base
 }
 
