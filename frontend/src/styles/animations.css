@@ -331,3 +331,72 @@ html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track {
 html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track::after {
   background: var(--accent-ink);
 }
+
+/* Language switch and Japanese typography */
+.setting-row.static {
+  cursor: default;
+}
+.setting-row.static:hover {
+  background: transparent;
+}
+.lang-switch {
+  margin-left: auto;
+  flex: none;
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+.lang-switch button {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.lang-switch button[aria-pressed="true"] {
+  background: #c8362b;
+  color: #fff;
+}
+html[data-theme="dark"] .lang-switch button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+html[lang="ja"] body {
+  font-family: "DM Sans", "Yu Gothic UI", "Hiragino Sans", "Noto Sans JP", "Meiryo", sans-serif;
+}
+html[lang="ja"] h1,
+html[lang="ja"] h2,
+html[lang="ja"] h3,
+html[lang="ja"] .title-score strong,
+html[lang="ja"] .sidebar-context > p {
+  font-family: "Instrument Serif", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+html[lang="ja"] .page-header h1 {
+  line-height: 1.1;
+}
+html[lang="ja"] .portfolio-hero h2 {
+  line-height: 1.2;
+}
+html[lang="ja"] .signal-rail,
+html[lang="ja"] .jp-eyebrow {
+  letter-spacing: 0.04em;
+}
+html[lang="ja"] .page-header h1 {
+  font-size: clamp(30px, 3.8vw, 52px);
+}
+html[lang="ja"] .portfolio-hero h2 {
+  font-size: clamp(34px, 4vw, 58px);
+}
+html[lang="ja"] .section-heading h2,
+html[lang="ja"] .form-section h2 {
+  font-size: clamp(22px, 2.2vw, 30px);
+}
+html[lang="ja"] .button {
+  white-space: nowrap;
+}

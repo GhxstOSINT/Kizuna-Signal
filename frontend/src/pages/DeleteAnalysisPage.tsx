@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api } from '../api'
 import { PageHeader, SignalRail } from '../components/AppShell'
+import { useI18n } from '../i18n'
 import { formatLabel } from '../lib/formats'
 import { ErrorState, LoadingState, StatusBadge } from '../components/Primitives'
 import type { Analysis, Title } from '../api/types'
 
 export function DeleteAnalysisPage({ connected }: { connected: boolean }) {
+  const { t } = useI18n()
   const { analysisId = '' } = useParams()
   const navigate = useNavigate()
   const [analysis, setAnalysis] = useState<Analysis | null>(null)
@@ -41,26 +43,26 @@ export function DeleteAnalysisPage({ connected }: { connected: boolean }) {
 
   if (loadError) return <div className="page"><ErrorState title="Analysis not found" message={loadError} /></div>
   if (!analysis) return <div className="page"><LoadingState label="Opening analysis" /></div>
-  const name = title?.name ?? 'this title'
+  const name = title?.name ?? t('this title')
   return <div className="page">
     <PageHeader title="Delete analysis" description="Review what will be removed before you confirm." />
     <SignalRail connected={connected} label="CONFIRM DELETION" />
     <section className="delete-confirm" aria-labelledby="delete-heading">
-      <span>{title ? `${formatLabel(title.content_format)} · ${title.primary_genre}` : 'Analysis'}</span>
-      <h2 id="delete-heading">Delete the analysis for “{name}”?</h2>
+      <span>{title ? `${t(formatLabel(title.content_format))} · ${t(title.primary_genre)}` : t('Analysis')}</span>
+      <h2 id="delete-heading">{t('Delete the analysis for “{name}”?', { name })}</h2>
       <p><StatusBadge status={analysis.result ? analysis.result.decision_classification : analysis.status} /></p>
-      <p>This permanently removes:</p>
+      <p>{t('This permanently removes:')}</p>
       <ul>
-        <li>The analysis snapshot and its evidence sources</li>
-        <li>Every scenario saved against it</li>
-        <li>The title itself, if this is its only analysis</li>
+        <li>{t('The analysis snapshot and its evidence sources')}</li>
+        <li>{t('Every scenario saved against it')}</li>
+        <li>{t('The title itself, if this is its only analysis')}</li>
       </ul>
-      {deleteError && <div className="form-error" role="alert">{deleteError}</div>}
+      {deleteError && <div className="form-error" role="alert">{t(deleteError)}</div>}
       <div className="action-pair">
         <button type="button" className="button danger" onClick={confirm} disabled={deleting || !connected}>
-          {deleting ? <><LoaderCircle className="spin" size={16} />Deleting…</> : <><Trash2 size={16} />Delete analysis</>}
+          {deleting ? <><LoaderCircle className="spin" size={16} />{t('Deleting…')}</> : <><Trash2 size={16} />{t('Delete analysis')}</>}
         </button>
-        <Link className="button ghost" to="/" aria-disabled={deleting}>Cancel</Link>
+        <Link className="button ghost" to="/" aria-disabled={deleting}>{t('Cancel')}</Link>
       </div>
     </section>
   </div>

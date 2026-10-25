@@ -8,9 +8,11 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './styles/index.css'
+import { applyLang, currentLang } from './i18n'
 import { applyTheme, initialTheme } from './theme'
 
 applyTheme(initialTheme())
+applyLang(currentLang())
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
