@@ -1,0 +1,67 @@
+/* The fox mark: minimal, flat and orange. It appears in the logo and in a few quiet places. */
+@keyframes fox-mark-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes fox-mark-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.82;
+  }
+}
+
+.fox-mark {
+  flex: none;
+  overflow: visible;
+}
+.fox-mark-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fox-mark-blink 6s infinite;
+}
+.fox-mark-outline {
+  color: var(--muted);
+}
+.state-block .fox-mark {
+  display: block;
+  margin: 0 auto 16px;
+}
+.state-block.error .fox-mark-outline {
+  color: var(--red);
+}
+.fox-mark-pulse {
+  animation: fox-mark-breathe 1.8s ease-in-out infinite;
+}
+
+/* The logo */
+.brand-fox {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.brand:hover .brand-fox {
+  transform: rotate(-8deg) scale(1.08);
+}
+.approval-fox {
+  flex: none;
+}
+.run-fox {
+  display: block;
+  margin-bottom: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fox-mark,
+  .fox-mark * {
+    animation: none !important;
+  }
+}

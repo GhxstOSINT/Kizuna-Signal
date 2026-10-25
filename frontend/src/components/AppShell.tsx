@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import { applyLang, useI18n } from '../i18n'
 import { japaneseFor } from '../motion/jp'
+import { FoxMark } from './FoxMark'
 import { useDragonCursorSetting } from '../settings'
 import { useTheme } from '../theme'
 
@@ -22,7 +23,7 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
   return <div className="app-shell">
     <aside className="sidebar">
       <NavLink to="/" className="brand" aria-label={t('Kizuna Signal home')}>
-        <span className="brand-mark" aria-hidden="true"><span /></span>
+        <FoxMark className="brand-fox" size={30} />
         <span>Kizuna Signal</span>
         <span className="brand-kanji" lang="ja" aria-hidden="true">絆</span>
       </NavLink>
