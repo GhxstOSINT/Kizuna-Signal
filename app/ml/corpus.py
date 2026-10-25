@@ -3,9 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from app.ml.levenshtein import similarity
+from app.ml.levenshtein import name_similarity, similarity
 
 MOCK_DIR = Path(__file__).resolve().parents[2] / "data" / "mock"
+REAL_COMPARABLES = Path(__file__).resolve().parents[2] / "data" / "real" / "comparables_anilist.json"
 
 GENRES = (
     "action",
@@ -33,8 +34,6 @@ KEYWORDS = {
     "supernatural": ("supernatural", "spirit", "demon", "curse", "ghost", "yokai"),
 }
 DEDUPE_THRESHOLD = 0.82
-# Release years for catalog-only titles (the catalog itself carries no year).
-KNOWN_YEARS = {"Death Note": 2006, "Attack on Titan": 2013, "Haikyu": 2014}
 
 
 def tag_genres(*texts: str) -> list[str]:
@@ -44,6 +43,26 @@ def tag_genres(*texts: str) -> list[str]:
 
 def _read(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_measured_comparables() -> list[dict]:
+    """Measured AniList data written by scripts/fetch_real_comparables.py (empty if not fetched)."""
+    if not REAL_COMPARABLES.exists():
+        return []
+    return json.loads(REAL_COMPARABLES.read_text(encoding="utf-8"))["titles"]
+
+
+def comparable_names() -> list[str]:
+    """Display names of every comparable title (mock comparables plus the in-code catalog)."""
+    names: list[str] = []
+    for path in sorted(MOCK_DIR.glob("*/comparables.json")):
+        names.extend(item["title"] for item in _read(path)["comparables"])
+    names.extend(["Death Note", "Attack on Titan", "Haikyu!!"])
+    unique: list[str] = []
+    for name in names:
+        if not any(similarity(name, seen) >= DEDUPE_THRESHOLD for seen in unique):
+            unique.append(name)
+    return unique
 
 
 def load_existing_titles() -> list[dict]:
@@ -65,36 +84,51 @@ def load_existing_titles() -> list[dict]:
     return records
 
 
+ANILIST_GENRE_MAP = {"sci-fi": "scifi", "psychological": "mystery", "thriller": "mystery", "horror": "supernatural"}
+
+
+def _measured_genres(genres: list[str]) -> set[str]:
+    mapped = {ANILIST_GENRE_MAP.get(g, g) for g in genres}
+    return mapped & set(GENRES)
+
+
 def load_labeled_corpus() -> list[dict]:
-    """Released titles with an India performance label (0-100), de-duplicated by edit distance.
+    """Released titles with a 0-100 performance label, de-duplicated by edit distance.
 
-    Sources: mock comparables (india_performance) and the in-code comparable catalog
-    (market_signal). Titles found in both are merged by Levenshtein name matching.
+    Labels are the measured AniList signal (see scripts/fetch_real_comparables.py) whenever a
+    title was matched there; otherwise the hand-set mock label is kept and tagged as such.
     """
-    from app.services.comparables import CATALOG
-
+    measured = load_measured_comparables()
     rows: list[dict] = []
     for path in sorted(MOCK_DIR.glob("*/comparables.json")):
         for item in _read(path)["comparables"]:
+            hit = next((x for x in measured if name_similarity(x["title"], item["title"]) >= 0.85), None)
+            genres = set(tag_genres(item["title"], item["reason"]))
+            if hit:
+                genres |= _measured_genres(hit["genres"])
             rows.append(
                 {
                     "title": item["title"],
                     "description": item["reason"],
-                    "genres": tag_genres(item["title"], item["reason"]),
+                    "genres": sorted(genres),
                     "year": item["year"],
                     "is_film": item["format"].lower().startswith("animated film"),
-                    "performance": float(item["india_performance"]),
+                    "performance": hit["signal"] if hit else float(item["india_performance"]),
+                    "performance_source": "anilist-measured" if hit else "hand-set",
                 }
             )
-    for item in CATALOG:
+    for hit in measured:  # measured titles that no mock comparable covers
+        if any(name_similarity(hit["title"], r["title"]) >= 0.85 for r in rows):
+            continue
         rows.append(
             {
-                "title": item["title"],
-                "description": " ".join(sorted(item["themes"])),
-                "genres": sorted(g for g in item["genres"] if g in GENRES),
-                "year": None,
-                "is_film": item["title"] == "Your Name",
-                "performance": float(item["signal"]),
+                "title": hit["title"],
+                "description": " ".join(hit["themes"]),
+                "genres": sorted(_measured_genres(hit["genres"])),
+                "year": hit["year"] or 2015,
+                "is_film": (hit["format"] or "").upper() == "MOVIE",
+                "performance": hit["signal"],
+                "performance_source": "anilist-measured",
             }
         )
 
@@ -104,15 +138,7 @@ def load_labeled_corpus() -> list[dict]:
             (m for m in merged if similarity(m["title"], row["title"]) >= DEDUPE_THRESHOLD), None
         )
         if match is None:
-            merged.append({**row, "_perf": [row["performance"]]})
+            merged.append(row)
             continue
-        match["_perf"].append(row["performance"])
         match["genres"] = sorted(set(match["genres"]) | set(row["genres"]))
-        match["year"] = match["year"] or row["year"]
-        if len(row["description"]) > len(match["description"]):
-            match["description"] = row["description"]
-    for m in merged:
-        m["performance"] = round(sum(m["_perf"]) / len(m["_perf"]), 2)
-        m["year"] = m["year"] or KNOWN_YEARS[m["title"]]
-        del m["_perf"]
     return merged

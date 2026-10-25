@@ -31,12 +31,18 @@ def clamp(value: float, low: float = 0, high: float = 100) -> float:
     return round(max(low, min(high, value)), 2)
 
 
-def metric(evidence: list[SourceEvidence], source: str, key: str, default: float = 50) -> float:
+def metric(evidence: list[SourceEvidence], source: str, key: str) -> float | None:
+    """A measured value, or None when the source is unavailable (never a neutral stand-in)."""
     item = next(
         (entry for entry in evidence if entry.source == source and entry.status != "unavailable"),
         None,
     )
-    return float(item.metrics.get(key, default)) if item else default
+    return float(item.metrics[key]) if item and key in item.metrics else None
+
+
+def mean_of(values: list[float | None]) -> float | None:
+    present = [v for v in values if v is not None]
+    return statistics.mean(present) if present else None
 
 
 def calculate_component_scores(
@@ -65,21 +71,21 @@ def calculate_component_scores(
     if title.target_languages:
         content_fit += min(6, len(title.target_languages) * 1.5)
 
-    demand_momentum = statistics.mean(
+    demand_momentum = mean_of(
         [
             metric(evidence, "google_trends", "relative_interest"),
             metric(evidence, "google_trends", "momentum"),
             metric(evidence, "wikimedia", "curiosity"),
         ]
     )
-    engagement_quality = statistics.mean(
+    engagement_quality = mean_of(
         [
             metric(evidence, "youtube", "attention"),
             metric(evidence, "youtube", "engagement_quality"),
             metric(evidence, "youtube", "velocity"),
         ]
     )
-    regional_opportunity = statistics.mean(
+    regional_opportunity = mean_of(
         [
             metric(evidence, "regional_context", "language_fit"),
             metric(evidence, "regional_context", "addressable_market"),
@@ -90,20 +96,27 @@ def calculate_component_scores(
             [item.market_signal * (0.65 + 0.35 * item.similarity) for item in comparables]
         )
         if comparables
-        else 50
+        else None
     )
 
-    return {
-        "content_fit": clamp(content_fit),
-        "demand_momentum": clamp(demand_momentum),
-        "regional_opportunity": clamp(regional_opportunity),
-        "engagement_quality": clamp(engagement_quality),
-        "comparable_performance": clamp(comparable_performance),
+    scored = {
+        "content_fit": content_fit,
+        "demand_momentum": demand_momentum,
+        "regional_opportunity": regional_opportunity,
+        "engagement_quality": engagement_quality,
+        "comparable_performance": comparable_performance,
     }
+    # Factors without measured evidence are omitted, not defaulted.
+    return {key: clamp(value) for key, value in scored.items() if value is not None}
 
 
 def calculate_market_score(components: dict[str, float]) -> float:
-    return clamp(sum(components[key] * weight for key, weight in WEIGHTS.items()))
+    """Weighted average over the factors that have evidence (weights renormalised)."""
+    present = {key: weight for key, weight in WEIGHTS.items() if key in components}
+    total = sum(present.values())
+    if not total:
+        return 0.0
+    return clamp(sum(components[key] * weight for key, weight in present.items()) / total)
 
 
 def decision_classification(score: float, confidence: float) -> str:
@@ -118,10 +131,23 @@ def decision_classification(score: float, confidence: float) -> str:
     return "limited_opportunity"
 
 
+def state_interest_tilt(evidence: list[SourceEvidence]) -> dict[str, float] | None:
+    """Real Google Trends state interest, as points above/below the 8-state mean (capped at +/-5)."""
+    trends = next((e for e in evidence if e.source == "google_trends" and e.status != "unavailable"), None)
+    if trends is None:
+        return None
+    interest = {s: trends.metrics.get(f"state_interest_{s}") for s in STATE_PROFILES}
+    if any(v is None for v in interest.values()):
+        return None
+    mean = statistics.mean(interest.values())
+    return {s: max(-5.0, min(5.0, 0.2 * (v - mean))) for s, v in interest.items()}
+
+
 def calculate_regional_scores(
     title: Title,
     market_score: float,
     confidence: float,
+    evidence: list[SourceEvidence] | None = None,
 ) -> list[RegionalScore]:
     selected_languages = {item.lower() for item in title.target_languages}
     selected_states = set(title.target_states)
@@ -134,8 +160,11 @@ def calculate_regional_scores(
         title.target_languages,
         state_languages={s: p["language"] for s, p in STATE_PROFILES.items()},
     )
+    tilt = state_interest_tilt(evidence or [])
     for state, profile in STATE_PROFILES.items():
         demand = modelled[state]["demand"] if modelled else profile["base"]
+        if tilt:
+            demand = clamp(demand + tilt[state])
         language_match = 5 if profile["language"].lower() in selected_languages else 0
         target_match = 4 if state in selected_states else 0
         platform_match = 2 if title.target_platform.lower() in {"ott", "undecided"} else 0
@@ -161,6 +190,10 @@ def calculate_regional_scores(
                 f"Regional baseline indicates {profile['language']} audience opportunity.",
                 f"Title-level potential contributes {market_score:.1f}/100 to this region.",
             ]
+        if tilt:
+            reasons.append(
+                f"Google Trends state search interest shifts this market by {tilt[state]:+.1f} points."
+            )
         if language_match:
             reasons.append(f"The proposed localization includes {profile['language']}.")
         rows.append(

@@ -8,6 +8,9 @@ import pytest
 TEST_DB = Path(__file__).resolve().parent / "test_kizuna.db"
 os.environ["KIZUNA_DATABASE_URL"] = f"sqlite:///{TEST_DB.as_posix()}"
 os.environ["KIZUNA_DEMO_MODE"] = "true"
+os.environ["KIZUNA_FRONTEND_MODE"] = "mock"  # legacy Streamlit tests must not pick up a locally running API
+os.environ["KIZUNA_SOURCE_CACHE_DIR"] = ""
+os.environ["KIZUNA_LIVE_SOURCES"] = "false"  # tests never touch the network
 
 from fastapi.testclient import TestClient  # noqa: E402
 

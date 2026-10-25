@@ -1,60 +1,28 @@
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
 
 from app.db.models import Title
 from app.schemas.analysis import ComparableTitle
 
-CATALOG = [
-    {
-        "title": "Jujutsu Kaisen",
-        "genres": {"action", "fantasy", "supernatural"},
-        "themes": {"friendship", "school", "spirits"},
-        "signal": 88,
-    },
-    {
-        "title": "Demon Slayer",
-        "genres": {"action", "fantasy", "adventure"},
-        "themes": {"family", "demons", "journey"},
-        "signal": 91,
-    },
-    {
-        "title": "Death Note",
-        "genres": {"thriller", "supernatural", "mystery"},
-        "themes": {"morality", "crime", "strategy"},
-        "signal": 86,
-    },
-    {
-        "title": "Spy x Family",
-        "genres": {"comedy", "action", "family"},
-        "themes": {"found family", "espionage", "school"},
-        "signal": 82,
-    },
-    {
-        "title": "Your Name",
-        "genres": {"romance", "fantasy", "drama"},
-        "themes": {"identity", "memory", "youth"},
-        "signal": 84,
-    },
-    {
-        "title": "Attack on Titan",
-        "genres": {"action", "drama", "fantasy"},
-        "themes": {"survival", "war", "freedom"},
-        "signal": 90,
-    },
-    {
-        "title": "Haikyu",
-        "genres": {"sports", "comedy", "drama"},
-        "themes": {"underdog", "teamwork", "school"},
-        "signal": 79,
-    },
-    {
-        "title": "Naruto",
-        "genres": {"action", "adventure", "fantasy"},
-        "themes": {"underdog", "friendship", "rivalry"},
-        "signal": 89,
-    },
-]
+REAL_COMPARABLES = Path(__file__).resolve().parents[2] / "data" / "real" / "comparables_anilist.json"
+
+def _load_catalog() -> list[dict]:
+    """Comparable titles with measured AniList genres, themes and popularity/quality signal."""
+    if not REAL_COMPARABLES.exists():
+        return []
+    rows = json.loads(REAL_COMPARABLES.read_text(encoding="utf-8"))["titles"]
+    return [
+        {
+            "title": row["title"],
+            "genres": normalize_terms(row["genres"]),
+            "themes": normalize_terms(row["themes"]),
+            "signal": row["signal"],
+        }
+        for row in rows
+    ]
 
 
 def normalize_terms(values: list[str]) -> set[str]:
@@ -64,7 +32,13 @@ def normalize_terms(values: list[str]) -> set[str]:
     return result
 
 
+CATALOG: list[dict] = []
+
+
 def find_comparables(title: Title, limit: int = 5) -> list[ComparableTitle]:
+    global CATALOG
+    if not CATALOG:
+        CATALOG = _load_catalog()
     title_genres = normalize_terms([title.primary_genre, *title.genres])
     title_themes = normalize_terms(title.themes)
     synopsis_terms = normalize_terms([title.synopsis])

@@ -63,6 +63,17 @@ def similarity(a: str, b: str) -> float:
     return 1.0 - levenshtein_distance(a, b) / longest
 
 
+def name_similarity(a: str, b: str) -> float:
+    """Title matching: Levenshtein similarity, with a word-boundary prefix rule so
+    "Demon Slayer" matches "Demon Slayer: Kimetsu no Yaiba" (scored 0.85, never 1.0)."""
+    base = similarity(a, b)
+    na, nb = normalize(a), normalize(b)
+    short, long_ = sorted((na, nb), key=len)
+    if short and len(short) >= 5 and long_.startswith(short + " "):
+        return max(base, 0.85)
+    return base
+
+
 def token_sort_similarity(a: str, b: str) -> float:
     """Order-insensitive variant, used for genre lists and long descriptions."""
     key = lambda s: " ".join(sorted(normalize(s).split()))  # noqa: E731

@@ -1,0 +1,739 @@
+{
+ "source": "AniList GraphQL API (https://graphql.anilist.co)",
+ "fetched_at": "2026-10-25T00:16:48+00:00",
+ "signal_formula": "0.6*averageScore + 0.4*log10(1+popularity)/log10(1+1e6)*100",
+ "unmatched": [],
+ "titles": [
+  {
+   "title": "Your Name",
+   "anilist_id": 21519,
+   "matched_title": "Kimi no Na wa.",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2016,
+   "genres": [
+    "drama",
+    "romance",
+    "supernatural"
+   ],
+   "themes": [
+    "body swapping",
+    "time manipulation",
+    "urban fantasy",
+    "coming of age",
+    "memory manipulation",
+    "environmental",
+    "tragedy",
+    "urban"
+   ],
+   "average_score": 85,
+   "popularity": 724016,
+   "signal": 90.06
+  },
+  {
+   "title": "A Silent Voice",
+   "anilist_id": 20954,
+   "matched_title": "Koe no Katachi",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2016,
+   "genres": [
+    "drama",
+    "romance",
+    "slice of life"
+   ],
+   "themes": [
+    "disability",
+    "bullying",
+    "rehabilitation",
+    "language barrier",
+    "coming of age",
+    "suicide",
+    "male protagonist",
+    "tragedy"
+   ],
+   "average_score": 88,
+   "popularity": 727145,
+   "signal": 91.88
+  },
+  {
+   "title": "Perfect Blue",
+   "anilist_id": 437,
+   "matched_title": "PERFECT BLUE",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 1998,
+   "genres": [
+    "drama",
+    "horror",
+    "psychological",
+    "thriller"
+   ],
+   "themes": [
+    "dissociative identities",
+    "denpa",
+    "acting",
+    "female protagonist",
+    "idol",
+    "primarily adult cast",
+    "work",
+    "meta"
+   ],
+   "average_score": 85,
+   "popularity": 248932,
+   "signal": 86.97
+  },
+  {
+   "title": "Paprika",
+   "anilist_id": 1943,
+   "matched_title": "Paprika",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2006,
+   "genres": [
+    "fantasy",
+    "mystery",
+    "psychological",
+    "sci-fi",
+    "thriller"
+   ],
+   "themes": [
+    "dissociative identities",
+    "female protagonist",
+    "primarily adult cast",
+    "philosophy",
+    "body horror",
+    "denpa",
+    "crime",
+    "conspiracy"
+   ],
+   "average_score": 79,
+   "popularity": 158570,
+   "signal": 82.07
+  },
+  {
+   "title": "Weathering With You",
+   "anilist_id": 106286,
+   "matched_title": "Tenki no Ko",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2019,
+   "genres": [
+    "drama",
+    "romance",
+    "slice of life",
+    "supernatural"
+   ],
+   "themes": [
+    "urban fantasy",
+    "urban",
+    "environmental",
+    "orphan",
+    "female protagonist",
+    "male protagonist",
+    "fugitive",
+    "found family"
+   ],
+   "average_score": 81,
+   "popularity": 360938,
+   "signal": 85.65
+  },
+  {
+   "title": "Suzume",
+   "anilist_id": 142770,
+   "matched_title": "Suzume no Tojimari",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2022,
+   "genres": [
+    "adventure",
+    "fantasy",
+    "mystery",
+    "supernatural"
+   ],
+   "themes": [
+    "urban fantasy",
+    "female protagonist",
+    "travel",
+    "coming of age",
+    "magic",
+    "shapeshifting",
+    "orphan",
+    "natural disaster"
+   ],
+   "average_score": 81,
+   "popularity": 205111,
+   "signal": 84.01
+  },
+  {
+   "title": "The Garden of Words",
+   "anilist_id": 16782,
+   "matched_title": "Kotonoha no Niwa",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2013,
+   "genres": [
+    "drama",
+    "psychological",
+    "romance",
+    "slice of life"
+   ],
+   "themes": [
+    "coming of age",
+    "age gap",
+    "feet",
+    "teacher",
+    "heterosexual",
+    "male protagonist",
+    "urban",
+    "drawing"
+   ],
+   "average_score": 75,
+   "popularity": 250368,
+   "signal": 80.99
+  },
+  {
+   "title": "Spirited Away",
+   "anilist_id": 199,
+   "matched_title": "Sen to Chihiro no Kamikakushi",
+   "match_similarity": 1.0,
+   "format": "MOVIE",
+   "year": 2001,
+   "genres": [
+    "adventure",
+    "drama",
+    "fantasy",
+    "supernatural"
+   ],
+   "themes": [
+    "youkai",
+    "female protagonist",
+    "coming of age",
+    "curses",
+    "magic",
+    "shapeshifting",
+    "mythology",
+    "work"
+   ],
+   "average_score": 86,
+   "popularity": 486689,
+   "signal": 89.52
+  },
+  {
+   "title": "Spy x Family",
+   "anilist_id": 140960,
+   "matched_title": "SPY\u00d7FAMILY",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2022,
+   "genres": [
+    "action",
+    "comedy",
+    "slice of life",
+    "supernatural"
+   ],
+   "themes": [
+    "espionage",
+    "family life",
+    "found family",
+    "fake relationship",
+    "parenthood",
+    "assassins",
+    "adoption",
+    "conspiracy"
+   ],
+   "average_score": 83,
+   "popularity": 579125,
+   "signal": 88.22
+  },
+  {
+   "title": "Dr. Stone",
+   "anilist_id": 105333,
+   "matched_title": "Dr. STONE",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2019,
+   "genres": [
+    "action",
+    "adventure",
+    "comedy",
+    "sci-fi"
+   ],
+   "themes": [
+    "post-apocalyptic",
+    "survival",
+    "lost civilization",
+    "educational",
+    "time skip",
+    "male protagonist",
+    "shounen",
+    "urban fantasy"
+   ],
+   "average_score": 81,
+   "popularity": 562087,
+   "signal": 86.93
+  },
+  {
+   "title": "Kaguya-sama: Love Is War",
+   "anilist_id": 101921,
+   "matched_title": "Kaguya-sama wa Kokurasetai: Tensaitachi no Renai Zunousen",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2019,
+   "genres": [
+    "comedy",
+    "psychological",
+    "romance",
+    "slice of life"
+   ],
+   "themes": [
+    "school",
+    "heterosexual",
+    "tsundere",
+    "primarily teen cast",
+    "school club",
+    "surreal comedy",
+    "kuudere",
+    "ojou-sama"
+   ],
+   "average_score": 83,
+   "popularity": 566537,
+   "signal": 88.16
+  },
+  {
+   "title": "One-Punch Man",
+   "anilist_id": 21087,
+   "matched_title": "One Punch Man",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2015,
+   "genres": [
+    "action",
+    "comedy",
+    "sci-fi",
+    "supernatural"
+   ],
+   "themes": [
+    "superhero",
+    "super power",
+    "parody",
+    "male protagonist",
+    "satire",
+    "surreal comedy",
+    "urban fantasy",
+    "urban"
+   ],
+   "average_score": 82,
+   "popularity": 775985,
+   "signal": 88.46
+  },
+  {
+   "title": "Mob Psycho 100",
+   "anilist_id": 21507,
+   "matched_title": "Mob Psycho 100",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2016,
+   "genres": [
+    "action",
+    "comedy",
+    "drama",
+    "psychological",
+    "slice of life",
+    "supernatural"
+   ],
+   "themes": [
+    "super power",
+    "coming of age",
+    "urban fantasy",
+    "philosophy",
+    "ghost",
+    "surreal comedy",
+    "primarily teen cast",
+    "male protagonist"
+   ],
+   "average_score": 84,
+   "popularity": 634829,
+   "signal": 89.08
+  },
+  {
+   "title": "Dandadan",
+   "anilist_id": 171018,
+   "matched_title": "Dandadan",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2024,
+   "genres": [
+    "action",
+    "comedy",
+    "drama",
+    "romance",
+    "sci-fi",
+    "supernatural"
+   ],
+   "themes": [
+    "urban fantasy",
+    "youkai",
+    "ghost",
+    "aliens",
+    "super power",
+    "primarily teen cast",
+    "surreal comedy",
+    "henshin"
+   ],
+   "average_score": 83,
+   "popularity": 394557,
+   "signal": 87.11
+  },
+  {
+   "title": "KonoSuba",
+   "anilist_id": 21202,
+   "matched_title": "Kono Subarashii Sekai ni Shukufuku wo!",
+   "match_similarity": 0.85,
+   "format": "TV",
+   "year": 2016,
+   "genres": [
+    "adventure",
+    "comedy",
+    "ecchi",
+    "fantasy"
+   ],
+   "themes": [
+    "isekai",
+    "satire",
+    "parody",
+    "primarily female cast",
+    "male protagonist",
+    "ensemble cast",
+    "slapstick",
+    "magic"
+   ],
+   "average_score": 79,
+   "popularity": 525390,
+   "signal": 85.54
+  },
+  {
+   "title": "Gintama",
+   "anilist_id": 918,
+   "matched_title": "Gintama",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2006,
+   "genres": [
+    "action",
+    "comedy",
+    "drama",
+    "sci-fi"
+   ],
+   "themes": [
+    "parody",
+    "samurai",
+    "ensemble cast",
+    "found family",
+    "meta",
+    "slapstick",
+    "male protagonist",
+    "surreal comedy"
+   ],
+   "average_score": 85,
+   "popularity": 299900,
+   "signal": 87.51
+  },
+  {
+   "title": "Jujutsu Kaisen",
+   "anilist_id": 113415,
+   "matched_title": "Jujutsu Kaisen",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2020,
+   "genres": [
+    "action",
+    "drama",
+    "supernatural"
+   ],
+   "themes": [
+    "urban fantasy",
+    "shounen",
+    "curses",
+    "super power",
+    "youkai",
+    "male protagonist",
+    "exorcism",
+    "primarily teen cast"
+   ],
+   "average_score": 84,
+   "popularity": 987994,
+   "signal": 90.36
+  },
+  {
+   "title": "Demon Slayer",
+   "anilist_id": 112151,
+   "matched_title": "Kimetsu no Yaiba: Mugen Ressha-hen",
+   "match_similarity": 0.85,
+   "format": "MOVIE",
+   "year": 2020,
+   "genres": [
+    "action",
+    "adventure",
+    "drama",
+    "fantasy",
+    "mystery",
+    "supernatural"
+   ],
+   "themes": [
+    "demons",
+    "swordplay",
+    "shounen",
+    "tragedy",
+    "trains",
+    "curses",
+    "male protagonist",
+    "body horror"
+   ],
+   "average_score": 84,
+   "popularity": 515098,
+   "signal": 88.48
+  },
+  {
+   "title": "Solo Leveling",
+   "anilist_id": 151807,
+   "matched_title": "Ore dake Level Up na Ken",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2024,
+   "genres": [
+    "action",
+    "adventure",
+    "fantasy"
+   ],
+   "themes": [
+    "dungeon",
+    "male protagonist",
+    "urban fantasy",
+    "super power",
+    "magic",
+    "necromancy",
+    "cultivation",
+    "survival"
+   ],
+   "average_score": 80,
+   "popularity": 457196,
+   "signal": 85.74
+  },
+  {
+   "title": "Frieren: Beyond Journey's End",
+   "anilist_id": 154587,
+   "matched_title": "Sousou no Frieren",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2023,
+   "genres": [
+    "adventure",
+    "drama",
+    "fantasy"
+   ],
+   "themes": [
+    "travel",
+    "magic",
+    "elf",
+    "female protagonist",
+    "medieval",
+    "philosophy",
+    "time skip",
+    "found family"
+   ],
+   "average_score": 91,
+   "popularity": 492741,
+   "signal": 92.55
+  },
+  {
+   "title": "Chainsaw Man",
+   "anilist_id": 127230,
+   "matched_title": "Chainsaw Man",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2022,
+   "genres": [
+    "action",
+    "drama",
+    "horror",
+    "supernatural"
+   ],
+   "themes": [
+    "monster boy",
+    "demons",
+    "urban fantasy",
+    "male protagonist",
+    "gore",
+    "tragedy",
+    "shapeshifting",
+    "body horror"
+   ],
+   "average_score": 83,
+   "popularity": 645770,
+   "signal": 88.53
+  },
+  {
+   "title": "Naruto",
+   "anilist_id": 20,
+   "matched_title": "NARUTO",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2002,
+   "genres": [
+    "action",
+    "adventure",
+    "comedy",
+    "drama",
+    "fantasy",
+    "supernatural"
+   ],
+   "themes": [
+    "ninja",
+    "shounen",
+    "coming of age",
+    "male protagonist",
+    "criminal organization",
+    "orphan",
+    "super power",
+    "revenge"
+   ],
+   "average_score": 80,
+   "popularity": 735840,
+   "signal": 87.11
+  },
+  {
+   "title": "Blue Exorcist",
+   "anilist_id": 9919,
+   "matched_title": "Ao no Exorcist",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2011,
+   "genres": [
+    "action",
+    "fantasy",
+    "supernatural"
+   ],
+   "themes": [
+    "demons",
+    "super power",
+    "shounen",
+    "youkai",
+    "exorcism",
+    "twins",
+    "male protagonist",
+    "religion"
+   ],
+   "average_score": 72,
+   "popularity": 465769,
+   "signal": 80.99
+  },
+  {
+   "title": "Dororo",
+   "anilist_id": 101347,
+   "matched_title": "Dororo",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2019,
+   "genres": [
+    "action",
+    "adventure",
+    "drama",
+    "supernatural"
+   ],
+   "themes": [
+    "demons",
+    "revenge",
+    "curses",
+    "disability",
+    "tragedy",
+    "swordplay",
+    "samurai",
+    "estranged family"
+   ],
+   "average_score": 81,
+   "popularity": 379494,
+   "signal": 85.8
+  },
+  {
+   "title": "Death Note",
+   "anilist_id": 1535,
+   "matched_title": "DEATH NOTE",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2006,
+   "genres": [
+    "mystery",
+    "psychological",
+    "supernatural",
+    "thriller"
+   ],
+   "themes": [
+    "crime",
+    "detective",
+    "anti-hero",
+    "male protagonist",
+    "fugitive",
+    "police",
+    "philosophy",
+    "primarily adult cast"
+   ],
+   "average_score": 84,
+   "popularity": 975365,
+   "signal": 90.33
+  },
+  {
+   "title": "Attack on Titan",
+   "anilist_id": 16498,
+   "matched_title": "Shingeki no Kyojin",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2013,
+   "genres": [
+    "action",
+    "drama",
+    "fantasy",
+    "mystery"
+   ],
+   "themes": [
+    "kaiju",
+    "revenge",
+    "tragedy",
+    "military",
+    "henshin",
+    "primarily teen cast",
+    "male protagonist",
+    "post-apocalyptic"
+   ],
+   "average_score": 85,
+   "popularity": 1070101,
+   "signal": 91.0
+  },
+  {
+   "title": "Haikyu!!",
+   "anilist_id": 20464,
+   "matched_title": "Haikyuu!!",
+   "match_similarity": 1.0,
+   "format": "TV",
+   "year": 2014,
+   "genres": [
+    "comedy",
+    "drama",
+    "sports"
+   ],
+   "themes": [
+    "volleyball",
+    "school club",
+    "male protagonist",
+    "primarily male cast",
+    "shounen",
+    "ensemble cast",
+    "primarily teen cast",
+    "school"
+   ],
+   "average_score": 83,
+   "popularity": 590134,
+   "signal": 88.27
+  }
+ ]
+}

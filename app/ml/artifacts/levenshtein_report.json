@@ -29,11 +29,11 @@
         "fields": {
           "title": 27.27,
           "description": 27.54,
-          "genre": 37.93,
+          "genre": 50.0,
           "platform": null,
           "budget": null
         },
-        "composite": 30.93,
+        "composite": 34.95,
         "fields_used": [
           "description",
           "genre",
@@ -65,15 +65,15 @@
         ]
       },
       "nearest_released_title": {
-        "against": "Haikyu",
+        "against": "Haikyu!!",
         "fields": {
           "title": 13.33,
-          "description": 11.32,
+          "description": 25.16,
           "genre": 70.0,
           "platform": null,
           "budget": null
         },
-        "composite": 31.42,
+        "composite": 36.95,
         "fields_used": [
           "description",
           "genre",
@@ -105,15 +105,15 @@
         ]
       },
       "nearest_released_title": {
-        "against": "Naruto",
+        "against": "Solo Leveling",
         "fields": {
-          "title": 16.67,
-          "description": 25.5,
+          "title": 15.38,
+          "description": 27.52,
           "genre": 57.14,
           "platform": null,
           "budget": null
         },
-        "composite": 33.69,
+        "composite": 34.16,
         "fields_used": [
           "description",
           "genre",

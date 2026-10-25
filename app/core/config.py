@@ -23,7 +23,11 @@ class Settings(BaseSettings):
         "http://localhost:4173",
         "http://127.0.0.1:4173",
     ]
-    demo_mode: bool = True
+    demo_mode: bool = False
+    live_sources: bool = True  # KIZUNA_LIVE_SOURCES=false falls back to offline test signals
+    youtube_api_key: str | None = None
+    source_cache_dir: str | None = ".cache/sources"  # 24h evidence cache; empty disables
+    source_contact_url: str = "https://github.com/GhxstOSINT/TSLAS-Japan-Day-Hackathon"
     log_level: str = "INFO"
     model_version: str = "kizuna-census-ridge-1.0.0"
     feature_version: str = "public-signals-0.1.0"

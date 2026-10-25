@@ -1,0 +1,39 @@
+{
+ "datasets": {
+  "mock_titles": {
+   "rows": 3,
+   "kind": "real/mock"
+  },
+  "labelled_released_titles": {
+   "rows": 27,
+   "kind": "real (hand-set labels)"
+  },
+  "synthetic_market": {
+   "rows": 1500000,
+   "kind": "synthetic, census-weighted"
+  },
+  "synthetic_factor_scores": {
+   "rows": 1500000,
+   "kind": "derived from synthetic_market"
+  }
+ },
+ "models": {
+  "title_performance": {
+   "loo_r2": -0.1,
+   "usable": false
+  },
+  "regional_demand": {
+   "version": "kizuna-census-ridge-1.0.0",
+   "holdout_r2": 0.6746,
+   "real_data_spearman": -0.035
+  }
+ },
+ "weighted_average_pct_overall": 73.2,
+ "consistency_checks": {
+  "weights_sum_to_1": true,
+  "all_factors_within_0_1": true,
+  "no_nan_or_inf": true,
+  "weighted_average_within_factor_range": true,
+  "max_abs_recompute_error_pct": 2.507283539898708e-06
+ }
+}

@@ -13,13 +13,14 @@ from app.services.comparables import find_comparables
 from app.services.confidence import calculate_confidence, confidence_interval
 from app.services.recommendations import build_recommendation
 from app.services.scoring import (
+    WEIGHTS,
     build_drivers,
     calculate_component_scores,
     calculate_market_score,
     calculate_regional_scores,
     decision_classification,
 )
-from app.services.sources import DemoSourceRegistry
+from app.services.sources import build_registry
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -52,7 +53,7 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
         analysis.status = "running"
         update_job(db, job, 10, "collecting public evidence")
 
-        evidence = DemoSourceRegistry().collect(title, set(disabled_sources or []))
+        evidence = build_registry(settings).collect(title, set(disabled_sources or []))
         analysis.source_snapshot = {
             item.source: {
                 "status": item.status,
@@ -73,7 +74,13 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
         component_scores = calculate_component_scores(title, evidence, comparables)
         market_score = calculate_market_score(component_scores)
         confidence, confidence_level, warnings = calculate_confidence(title, evidence, comparables)
-        regions = calculate_regional_scores(title, market_score, confidence)
+        missing = [name for name in WEIGHTS if name not in component_scores]
+        if missing:
+            warnings.append(
+                f"Market potential uses {len(component_scores)} of {len(WEIGHTS)} factors "
+                f"(no evidence for: {', '.join(missing)}); weights were renormalised."
+            )
+        regions = calculate_regional_scores(title, market_score, confidence, evidence)
 
         update_job(db, job, 75, "generating explanations and confidence interval")
         positive, negative = build_drivers(component_scores, title, evidence)

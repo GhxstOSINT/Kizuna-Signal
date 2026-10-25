@@ -5,6 +5,7 @@ import math
 
 from app.db.models import Title
 from app.services.sources.base import SourceAdapter, SourceEvidence
+from app.services.sources.live import RegionalContextCensus
 
 
 def stable_number(seed: str, low: float, high: float) -> float:
@@ -111,8 +112,10 @@ class DemoSourceRegistry:
     ) -> list[SourceEvidence]:
         disabled_sources = disabled_sources or set()
         return [
-            DemoAdapter(name, "unavailable" if name in disabled_sources else "available").collect(
-                title
-            )
+            DemoAdapter(name, "unavailable").collect(title)
+            if name in disabled_sources
+            else RegionalContextCensus().collect(title)  # real census-derived, even offline
+            if name == "regional_context"
+            else DemoAdapter(name).collect(title)
             for name in self.SOURCE_NAMES
         ]

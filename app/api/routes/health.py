@@ -36,7 +36,7 @@ def readiness(db: Session = Depends(get_db)):
     return {
         "status": "ready",
         "database": "available",
-        "demo_mode": settings.demo_mode,
+        "demo_mode": settings.demo_mode and not settings.live_sources,
         "model_version": settings.model_version,
         "feature_version": settings.feature_version,
         "scoring_version": settings.scoring_version,

@@ -126,3 +126,28 @@ python scripts/train_model.py      # title-performance model + Levenshtein repor
   not used in scoring.
 - **Levenshtein** (`app/ml/levenshtein.py`): title, description, genre, platform and budget
   similarity for existing titles, written to `app/ml/artifacts/levenshtein_report.json`.
+
+## Live evidence sources
+
+Analyses use live public data by default (`KIZUNA_LIVE_SOURCES=false` is for offline tests only):
+
+| Source | Data | Needs |
+|---|---|---|
+| Wikimedia | 90-day pageviews of the matched English Wikipedia article | nothing |
+| AniList | score, popularity and metadata completeness of the matched anime | nothing |
+| Google Trends | India search interest and momentum, last 3 months | `pip install -e ".[live]"` (unofficial `pytrends`, may be rate-limited) |
+| YouTube | trailer views, engagement and velocity | `KIZUNA_YOUTUBE_API_KEY` |
+| Regional context | language coverage and digital-reach index | Census 2011 figures (bundled) |
+
+Titles are matched by Levenshtein similarity (>= 0.75); a failed or ambiguous match makes the source
+`unavailable` and lowers confidence rather than inventing numbers. Brand-new or fictional titles have
+little public footprint, so live scores for them will be low and are flagged as such.
+
+Missing evidence is never replaced by a neutral number: a factor without data is dropped, the other
+weights are renormalised, and the analysis says so in its evidence notes. Evidence is cached on disk
+for 24h (`.cache/sources`, git-ignored) so reruns are stable and Google Trends is not hammered.
+
+Comparable titles use measured AniList data (`data/real/comparables_anilist.json`, refresh with
+`python scripts/fetch_real_comparables.py`). Scenarios recompute the score from the stored evidence
+with the changed platform, budget, languages and states instead of applying fixed bonuses.
+`python scripts/reanalyse_titles.py` re-runs every stored title on live data.

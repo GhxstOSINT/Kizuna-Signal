@@ -714,6 +714,10 @@
             "title": "Analysis Id",
             "type": "string"
           },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
           "id": {
             "title": "Id",
             "type": "string"
@@ -736,7 +740,8 @@
           "analysis_id",
           "name",
           "overrides",
-          "result"
+          "result",
+          "created_at"
         ],
         "title": "ScenarioRead",
         "type": "object"
