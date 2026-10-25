@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { api } from './api'
 import { AppShell } from './components/AppShell'
 import { LoadingState } from './components/Primitives'
+import { ScrollToTop } from './components/ScrollToTop'
 import { useAuth } from './auth'
 import { LoginPage } from './pages/LoginPage'
 import { DeleteAnalysisPage } from './pages/DeleteAnalysisPage'
@@ -39,6 +40,7 @@ export default function App() {
     }
   }, [])
   const effects = <>
+    <ScrollToTop />
     <ScrollMotion />
     <Sakura />
     <Interactions />
