@@ -1,0 +1,25 @@
+{
+  "source": "Census of India 2011",
+  "status": "secondary-verified",
+  "retrieved": "2026-10-25",
+  "note": "Official Excel tables could not be fetched: censusindia.gov.in presents a revoked TLS certificate and its NADA host does not resolve. Values below were cross-checked from Wikipedia pages over verified HTTPS that cite the Census of India 2011 (secondary sources). Replace with the official tables via scripts/import_census.py when the raw files are available.",
+  "fields": {
+    "population_m": "Wikipedia 'List of states and union territories of India by population' (cites census2011.co.in, Jagranjosh); Telangana separated from Andhra Pradesh figures",
+    "urban_pct": "same page as population_m",
+    "literacy_pct": "Wikipedia 'List of Indian states and union territories by literacy rate' (Table 6, Registrar General of India, 2011)",
+    "tv_household_pct": "Wikipedia 'List of states and union territories of India by television ownership' (Houselisting and Housing Census 2011, MHA release 13 Mar 2012)"
+  },
+  "unverified": ["Telangana.literacy_pct"],
+  "proxies": ["Telangana.tv_household_pct uses the undivided Andhra Pradesh figure (58.8)"],
+  "gaps": ["mother tongue shares (C-16): only UP, Karnataka, Telangana, Kerala were found, so none are used", "household internet and computer shares (HL-14)"],
+  "states": {
+    "Maharashtra":   {"population_m": 112.374, "urban_pct": 45.22, "literacy_pct": 82.34, "tv_household_pct": 56.6},
+    "Karnataka":     {"population_m": 61.095,  "urban_pct": 38.67, "literacy_pct": 75.36, "tv_household_pct": 60.0},
+    "Delhi NCR":     {"population_m": 16.788,  "urban_pct": 97.5,  "literacy_pct": 86.21, "tv_household_pct": 88.0},
+    "Tamil Nadu":    {"population_m": 72.147,  "urban_pct": 48.4,  "literacy_pct": 80.33, "tv_household_pct": 87.0},
+    "Telangana":     {"population_m": 35.004,  "urban_pct": 38.88, "literacy_pct": 66.5,  "tv_household_pct": 58.8},
+    "West Bengal":   {"population_m": 91.276,  "urban_pct": 31.87, "literacy_pct": 76.26, "tv_household_pct": 35.3},
+    "Kerala":        {"population_m": 33.406,  "urban_pct": 47.7,  "literacy_pct": 94.0,  "tv_household_pct": 76.8},
+    "Uttar Pradesh": {"population_m": 199.812, "urban_pct": 22.27, "literacy_pct": 67.68, "tv_household_pct": 33.2}
+  }
+}

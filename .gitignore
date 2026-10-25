@@ -27,3 +27,4 @@ build/
 
 # generated synthetic dataset (regenerate with scripts/train_regional.py)
 data/synthetic/*.npz
+data/real/census_raw/*.xls*

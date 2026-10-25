@@ -46,3 +46,15 @@ def test_language_match_and_budget_raise_demand():
 def test_model_card_endpoint():
     body = TestClient(app).get("/api/v1/model/card").json()
     assert body["active"] is True and body["dataset"]["rows"] >= 1_000_000
+
+
+def test_census_data_file_is_complete_and_flags_its_gaps():
+    from app.ml.census import CENSUS, CENSUS_META, reach_index
+
+    assert set(CENSUS) == set(STATES)
+    for row in CENSUS.values():
+        assert {"population_m", "urban_pct", "literacy_pct", "tv_household_pct"} <= set(row)
+    assert CENSUS["Telangana"]["population_m"] == 35.004 and CENSUS["Tamil Nadu"]["literacy_pct"] == 80.33
+    assert CENSUS_META["status"] == "secondary-verified" and CENSUS_META["unverified"]
+    assert all(0 < reach_index(s) <= 1 for s in STATES)
+    assert reach_index("Delhi NCR") > reach_index("Uttar Pradesh")

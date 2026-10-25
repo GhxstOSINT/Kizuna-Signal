@@ -7,6 +7,9 @@ documented modelling assumptions (editable priors), not census measurements.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 STATES = (
     "Maharashtra",
     "Karnataka",
@@ -34,17 +37,26 @@ FORMATS = ("film", "series", "soap_opera")
 PLATFORMS = ("ott", "theatrical", "broadcast_tv")
 BUDGETS = ("low", "medium", "high")
 
-# Census of India 2011 (approximate): population in millions, urban % and literacy %.
-CENSUS = {
-    "Maharashtra": {"population_m": 112.4, "urban_pct": 45.2, "literacy_pct": 82.3},
-    "Karnataka": {"population_m": 61.1, "urban_pct": 38.7, "literacy_pct": 75.4},
-    "Delhi NCR": {"population_m": 16.8, "urban_pct": 97.5, "literacy_pct": 86.2},
-    "Tamil Nadu": {"population_m": 72.1, "urban_pct": 48.4, "literacy_pct": 80.1},
-    "Telangana": {"population_m": 35.2, "urban_pct": 38.9, "literacy_pct": 66.5},
-    "West Bengal": {"population_m": 91.3, "urban_pct": 31.9, "literacy_pct": 76.3},
-    "Kerala": {"population_m": 33.4, "urban_pct": 47.7, "literacy_pct": 94.0},
-    "Uttar Pradesh": {"population_m": 199.8, "urban_pct": 22.3, "literacy_pct": 67.7},
-}
+CENSUS_FILE = Path(__file__).resolve().parents[2] / "data" / "real" / "census_2011_states.json"
+
+
+def _load_census() -> tuple[dict[str, dict[str, float]], dict]:
+    """State figures from data/real/census_2011_states.json (population in millions, urban %,
+    literacy %, plus optional household TV/internet shares once imported from the official tables)."""
+    raw = json.loads(CENSUS_FILE.read_text(encoding="utf-8"))
+    return raw["states"], {k: v for k, v in raw.items() if k != "states"}
+
+
+CENSUS, CENSUS_META = _load_census()
+CENSUS_VERIFIED = CENSUS_META.get("status") in {"verified", "secondary-verified"}
+
+
+def reach_index(state: str) -> float:
+    """Reach of a state relative to the best state (0-1): the average of urban x literacy and the
+    share of households owning a TV, each scaled by the top state (Census 2011)."""
+    urban_literacy = {s: CENSUS[s]["urban_pct"] * CENSUS[s]["literacy_pct"] for s in CENSUS}
+    tv = {s: CENSUS[s]["tv_household_pct"] for s in CENSUS}
+    return 0.5 * urban_literacy[state] / max(urban_literacy.values()) + 0.5 * tv[state] / max(tv.values())
 TOP_STATE_COUNT = 4  # largest by population: Uttar Pradesh, Maharashtra, West Bengal, Tamil Nadu
 TOP_STATE_INFLATION = 1.25  # multiplier on genre/format affinity in the top states
 

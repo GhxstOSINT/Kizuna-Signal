@@ -16,6 +16,7 @@ from app.ml.census import (
     BUDGET_EFFECT,
     BUDGETS,
     CENSUS,
+    CENSUS_META,
     FORMAT_AFFINITY,
     FORMATS,
     GENRE_AFFINITY,
@@ -28,6 +29,7 @@ from app.ml.census import (
     TOP_STATE_INFLATION,
     inflation,
     population_weights,
+    reach_index,
     top_states,
 )
 from app.ml.regional import (
@@ -105,7 +107,7 @@ def generate(n: int, seed: int = 11) -> dict[str, np.ndarray]:
     age = np.clip(rng.normal(age_stats["age_mean"], age_stats["age_sd"], n), 0, 30)
 
     pop = np.array([CENSUS[s]["population_m"] for s in STATES])
-    reach = np.array([CENSUS[s]["urban_pct"] * CENSUS[s]["literacy_pct"] for s in STATES])
+    reach = np.array([reach_index(s) for s in STATES])
     pop_n, reach_n = pop / pop.max(), reach / reach.max()
     aff_g = np.array([[GENRE_AFFINITY[s].get(g, 0.0) for g in GENRES] for s in STATES])
     aff_f = np.array([[FORMAT_AFFINITY[s].get(f, 0.0) for f in FORMATS] for s in STATES])
@@ -222,7 +224,10 @@ def train(n_rows: int = 1_500_000, seed: int = 11, ridge: float = 1.0) -> dict:
             "state_sampling": "proportional to Census 2011 population",
             "top_states": sorted(top_states()),
             "top_state_affinity_inflation": TOP_STATE_INFLATION,
-            "census_note": "Census 2011 gives population/urban/literacy only; genre affinities are assumptions.",
+            "census_note": (
+                f"Census 2011 figures ({CENSUS_META.get('status')}) give population, urbanisation, literacy and TV "
+                "households only; genre affinities are assumptions."
+            ),
             "state_genre_profile": profile,
         },
         "metrics": {

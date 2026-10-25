@@ -13,260 +13,260 @@
    "content_fit": 0.8216,
    "demand_momentum": 0.6853,
    "regional_opportunity": 0.72,
-   "engagement_quality": 0.6557,
+   "engagement_quality": 0.6558,
    "comparable_performance": 0.7529
   },
   "weighted_average_pct": 73.2,
   "weighted_average_pct_sd": 3.19,
-  "weighted_average_pct_min": 60.75,
-  "weighted_average_pct_max": 84.27
+  "weighted_average_pct_min": 60.24,
+  "weighted_average_pct_max": 84.22
  },
  "by_state": {
   "Maharashtra": {
-   "rows": 270945,
+   "rows": 270970,
    "factors": {
     "content_fit": 0.8235,
     "demand_momentum": 0.6704,
-    "regional_opportunity": 0.7264,
-    "engagement_quality": 0.661,
+    "regional_opportunity": 0.7239,
+    "engagement_quality": 0.6609,
     "comparable_performance": 0.7527
    },
-   "weighted_average_pct": 73.08
+   "weighted_average_pct": 73.03
   },
   "Karnataka": {
-   "rows": 147148,
+   "rows": 147188,
    "factors": {
     "content_fit": 0.8208,
     "demand_momentum": 0.658,
-    "regional_opportunity": 0.6629,
+    "regional_opportunity": 0.667,
     "engagement_quality": 0.6273,
     "comparable_performance": 0.7523
    },
-   "weighted_average_pct": 70.92
+   "weighted_average_pct": 71.0
   },
   "Delhi NCR": {
-   "rows": 40246,
+   "rows": 40222,
    "factors": {
-    "content_fit": 0.8219,
-    "demand_momentum": 0.6765,
-    "regional_opportunity": 0.6805,
-    "engagement_quality": 0.5988,
+    "content_fit": 0.8218,
+    "demand_momentum": 0.6763,
+    "regional_opportunity": 0.667,
+    "engagement_quality": 0.5985,
     "comparable_performance": 0.7523
    },
-   "weighted_average_pct": 71.34
+   "weighted_average_pct": 71.06
   },
   "Tamil Nadu": {
-   "rows": 173904,
+   "rows": 174087,
    "factors": {
     "content_fit": 0.8254,
-    "demand_momentum": 0.6897,
-    "regional_opportunity": 0.697,
-    "engagement_quality": 0.626,
+    "demand_momentum": 0.69,
+    "regional_opportunity": 0.7116,
+    "engagement_quality": 0.6261,
     "comparable_performance": 0.7525
    },
-   "weighted_average_pct": 72.5
+   "weighted_average_pct": 72.8
   },
   "Telangana": {
-   "rows": 84658,
+   "rows": 84186,
    "factors": {
     "content_fit": 0.8246,
     "demand_momentum": 0.7232,
-    "regional_opportunity": 0.6457,
-    "engagement_quality": 0.6779,
+    "regional_opportunity": 0.6509,
+    "engagement_quality": 0.6781,
     "comparable_performance": 0.7525
    },
-   "weighted_average_pct": 73.06
+   "weighted_average_pct": 73.17
   },
   "West Bengal": {
-   "rows": 220675,
+   "rows": 220688,
    "factors": {
     "content_fit": 0.8168,
-    "demand_momentum": 0.683,
-    "regional_opportunity": 0.6831,
+    "demand_momentum": 0.6831,
+    "regional_opportunity": 0.6755,
     "engagement_quality": 0.6404,
     "comparable_performance": 0.753
    },
-   "weighted_average_pct": 72.06
+   "weighted_average_pct": 71.91
   },
   "Kerala": {
-   "rows": 80679,
+   "rows": 80734,
    "factors": {
     "content_fit": 0.8169,
-    "demand_momentum": 0.7127,
-    "regional_opportunity": 0.6456,
-    "engagement_quality": 0.6458,
+    "demand_momentum": 0.7126,
+    "regional_opportunity": 0.6498,
+    "engagement_quality": 0.6457,
     "comparable_performance": 0.753
    },
-   "weighted_average_pct": 72.13
+   "weighted_average_pct": 72.21
   },
   "Uttar Pradesh": {
-   "rows": 481745,
+   "rows": 481925,
    "factors": {
     "content_fit": 0.8219,
     "demand_momentum": 0.6909,
-    "regional_opportunity": 0.7878,
-    "engagement_quality": 0.6817,
+    "regional_opportunity": 0.7856,
+    "engagement_quality": 0.682,
     "comparable_performance": 0.7533
    },
-   "weighted_average_pct": 75.1
+   "weighted_average_pct": 75.06
   }
  },
  "by_format": {
   "film": {
-   "rows": 526894,
+   "rows": 526893,
    "factors": {
     "content_fit": 0.8215,
-    "demand_momentum": 0.6936,
-    "regional_opportunity": 0.7377,
-    "engagement_quality": 0.6585,
+    "demand_momentum": 0.6935,
+    "regional_opportunity": 0.737,
+    "engagement_quality": 0.6588,
     "comparable_performance": 0.7529
    },
-   "weighted_average_pct": 73.8
+   "weighted_average_pct": 73.79
   },
   "series": {
-   "rows": 810695,
+   "rows": 810691,
    "factors": {
     "content_fit": 0.8224,
     "demand_momentum": 0.6767,
-    "regional_opportunity": 0.7056,
-    "engagement_quality": 0.6555,
+    "regional_opportunity": 0.7062,
+    "engagement_quality": 0.6554,
     "comparable_performance": 0.7529
    },
-   "weighted_average_pct": 72.71
+   "weighted_average_pct": 72.73
   },
   "soap_opera": {
-   "rows": 162411,
+   "rows": 162416,
    "factors": {
     "content_fit": 0.8183,
-    "demand_momentum": 0.7013,
-    "regional_opportunity": 0.7344,
-    "engagement_quality": 0.6479,
+    "demand_momentum": 0.7014,
+    "regional_opportunity": 0.7336,
+    "engagement_quality": 0.6481,
     "comparable_performance": 0.7528
    },
-   "weighted_average_pct": 73.69
+   "weighted_average_pct": 73.67
   }
  },
  "by_genre": {
   "action": {
-   "rows": 422265,
+   "rows": 422231,
    "factors": {
     "content_fit": 0.8475,
     "demand_momentum": 0.6997,
-    "regional_opportunity": 0.7496,
+    "regional_opportunity": 0.7506,
     "engagement_quality": 0.6687,
     "comparable_performance": 0.7534
    },
-   "weighted_average_pct": 75.0
+   "weighted_average_pct": 75.02
   },
   "fantasy": {
-   "rows": 143889,
+   "rows": 143876,
    "factors": {
     "content_fit": 0.8475,
-    "demand_momentum": 0.698,
-    "regional_opportunity": 0.6869,
+    "demand_momentum": 0.6978,
+    "regional_opportunity": 0.6877,
     "engagement_quality": 0.6188,
     "comparable_performance": 0.7476
    },
-   "weighted_average_pct": 72.87
+   "weighted_average_pct": 72.88
   },
   "supernatural": {
-   "rows": 188229,
+   "rows": 188251,
    "factors": {
     "content_fit": 0.7775,
     "demand_momentum": 0.6662,
-    "regional_opportunity": 0.6932,
-    "engagement_quality": 0.6623,
+    "regional_opportunity": 0.693,
+    "engagement_quality": 0.6625,
     "comparable_performance": 0.7529
    },
    "weighted_average_pct": 71.18
   },
   "romance": {
-   "rows": 87741,
+   "rows": 87739,
    "factors": {
     "content_fit": 0.8475,
-    "demand_momentum": 0.7147,
-    "regional_opportunity": 0.7067,
-    "engagement_quality": 0.6843,
+    "demand_momentum": 0.7151,
+    "regional_opportunity": 0.7065,
+    "engagement_quality": 0.6848,
     "comparable_performance": 0.7509
    },
-   "weighted_average_pct": 74.72
+   "weighted_average_pct": 74.73
   },
   "comedy": {
-   "rows": 149910,
+   "rows": 149916,
    "factors": {
     "content_fit": 0.8475,
-    "demand_momentum": 0.6675,
-    "regional_opportunity": 0.7266,
-    "engagement_quality": 0.6605,
+    "demand_momentum": 0.6677,
+    "regional_opportunity": 0.7261,
+    "engagement_quality": 0.6604,
     "comparable_performance": 0.7537
    },
-   "weighted_average_pct": 73.62
+   "weighted_average_pct": 73.61
   },
   "drama": {
-   "rows": 241364,
+   "rows": 241375,
    "factors": {
     "content_fit": 0.7775,
-    "demand_momentum": 0.6765,
-    "regional_opportunity": 0.7186,
-    "engagement_quality": 0.6544,
+    "demand_momentum": 0.6766,
+    "regional_opportunity": 0.7177,
+    "engagement_quality": 0.6545,
     "comparable_performance": 0.7593
    },
-   "weighted_average_pct": 71.93
+   "weighted_average_pct": 71.91
   },
   "mystery_thriller": {
-   "rows": 141416,
+   "rows": 141422,
    "factors": {
     "content_fit": 0.8475,
-    "demand_momentum": 0.6821,
-    "regional_opportunity": 0.7071,
-    "engagement_quality": 0.6361,
+    "demand_momentum": 0.6819,
+    "regional_opportunity": 0.7059,
+    "engagement_quality": 0.6363,
     "comparable_performance": 0.7492
    },
-   "weighted_average_pct": 73.16
+   "weighted_average_pct": 73.14
   },
   "scifi": {
-   "rows": 60195,
+   "rows": 60191,
    "factors": {
     "content_fit": 0.7775,
-    "demand_momentum": 0.6657,
+    "demand_momentum": 0.6659,
     "regional_opportunity": 0.6734,
-    "engagement_quality": 0.637,
+    "engagement_quality": 0.6371,
     "comparable_performance": 0.7432
    },
-   "weighted_average_pct": 70.25
+   "weighted_average_pct": 70.26
   },
   "sports": {
-   "rows": 23090,
+   "rows": 23089,
    "factors": {
     "content_fit": 0.7775,
     "demand_momentum": 0.6552,
-    "regional_opportunity": 0.7002,
-    "engagement_quality": 0.6694,
+    "regional_opportunity": 0.6996,
+    "engagement_quality": 0.669,
     "comparable_performance": 0.7591
    },
-   "weighted_average_pct": 71.25
+   "weighted_average_pct": 71.23
   },
   "family_drama": {
-   "rows": 21387,
+   "rows": 21395,
    "factors": {
     "content_fit": 0.7775,
-    "demand_momentum": 0.6737,
-    "regional_opportunity": 0.7805,
-    "engagement_quality": 0.6501,
+    "demand_momentum": 0.6732,
+    "regional_opportunity": 0.7804,
+    "engagement_quality": 0.6497,
     "comparable_performance": 0.7521
    },
-   "weighted_average_pct": 72.93
+   "weighted_average_pct": 72.9
   },
   "musical_romance": {
-   "rows": 20514,
+   "rows": 20515,
    "factors": {
     "content_fit": 0.7775,
-    "demand_momentum": 0.7073,
-    "regional_opportunity": 0.799,
-    "engagement_quality": 0.6254,
+    "demand_momentum": 0.7067,
+    "regional_opportunity": 0.798,
+    "engagement_quality": 0.6253,
     "comparable_performance": 0.7521
    },
-   "weighted_average_pct": 73.76
+   "weighted_average_pct": 73.73
   }
  },
  "consistency_checks": {

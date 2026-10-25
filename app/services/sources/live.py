@@ -21,7 +21,7 @@ import httpx
 
 from app.core.config import Settings
 from app.db.models import Title
-from app.ml.census import CENSUS, STATES
+from app.ml.census import CENSUS, STATES, reach_index
 from app.ml.levenshtein import name_similarity, normalize
 from app.services.sources.base import SourceAdapter, SourceEvidence
 
@@ -474,11 +474,11 @@ class RegionalContextCensus(SourceAdapter):
         covered = sum(population[s] for s in STATES if STATE_LANGUAGE[s] in wanted)
         language_fit = 100 * covered / total
         focus = [s for s in title.target_states if s in population] or list(STATES)
-        reach = {s: CENSUS[s]["urban_pct"] * CENSUS[s]["literacy_pct"] for s in STATES}
+        reach = {s: reach_index(s) for s in STATES}
         top = max(reach.values())
         weight = sum(population[s] for s in focus)
         market = 100 * sum(population[s] * reach[s] / top for s in focus) / weight
-        warnings = ["Census 2011 figures are approximate and predate current streaming reach."]
+        warnings = ["Census 2011 figures (secondary-verified) predate current streaming reach."]
         if not wanted:
             warnings.append("No target language supplied; language fit is 0.")
         return SourceEvidence(
