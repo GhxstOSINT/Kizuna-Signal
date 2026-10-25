@@ -96,8 +96,9 @@ html.theme-anim *::after {
   color: #c8362b;
 }
 .brand-kanji {
+  flex: none;
   margin-left: auto;
-  font: 400 22px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  font: 400 19px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
   color: #c8362b;
 }
 .portfolio-hero::after {

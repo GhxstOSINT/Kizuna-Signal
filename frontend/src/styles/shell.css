@@ -2,7 +2,7 @@
 .app-shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 248px minmax(0, 1fr);
+  grid-template-columns: 198px minmax(0, 1fr);
 }
 .sidebar {
   position: sticky;
@@ -10,7 +10,7 @@
   height: 100vh;
   border-right: 1px solid var(--rule);
   background: #e8e9e7;
-  padding: 28px 20px;
+  padding: 28px 16px;
   display: flex;
   flex-direction: column;
   z-index: 20;
@@ -18,15 +18,17 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 9px;
+  white-space: nowrap;
   font:
-    400 26px/1 "Instrument Serif",
+    400 21px/1 "Instrument Serif",
     serif;
-  margin-bottom: 50px;
+  margin-bottom: 44px;
 }
 .brand-mark {
-  width: 27px;
-  height: 27px;
+  flex: none;
+  width: 23px;
+  height: 23px;
   border: 2px solid var(--ink);
   border-radius: 50%;
   display: grid;
