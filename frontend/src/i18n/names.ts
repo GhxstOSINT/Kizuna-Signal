@@ -100,4 +100,9 @@ export const names: Record<string, string> = {
   'Journey': '旅', 'Morality': '道徳', 'Strategy': '戦略', 'Memory': '記憶', 'Youth': '青春', 'Freedom': '自由',
   'Underdog': '挑戦者', 'Teamwork': 'チームワーク', 'Rivalry': 'ライバル関係',
   'Q{q}': '第{q}四半期',
+  'Project Hikari': 'プロジェクト・ヒカリ',
+  'title-slug': 'タイトルのスラッグ',
+  'Regional-first multilingual launch': '地域優先の多言語ローンチ',
+  'Kizuna Launch Portfolio': '絆 ローンチポートフォリオ',
+  'Titles assessed through the dedicated Kizuna Signal website.': '絆シグナル専用サイトで評価したタイトル。',
 }

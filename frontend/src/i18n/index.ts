@@ -63,6 +63,20 @@ export function translateTitle(name: string, lang: Lang = currentLang()): string
   return lang === 'ja' ? titleNames[slug(name)] ?? name : name
 }
 
+let reverse: Map<string, string> | null = null
+
+/** The English key behind a Japanese word (a state, language or theme), so typed Japanese can be sent to the API. */
+export function fromJapanese(token: string): string | undefined {
+  if (!reverse) {
+    reverse = new Map()
+    for (const [key, value] of Object.entries(dictionary)) if (!key.includes('{') && !reverse.has(value)) reverse.set(value, key)
+  }
+  return reverse.get(token.trim())
+}
+
+/** Split a typed list on English or Japanese commas. */
+export const splitList = (text: string) => text.split(/[,、，]\s*/).map((item) => item.trim()).filter(Boolean)
+
 export function applyLang(lang: Lang) {
   document.documentElement.lang = lang
 }
