@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { prefersReducedMotion } from './ScrollMotion'
 
-const JELLY = '.score-field, .model-proof-grid article, .source-row, .title-details dl > div'
+const JELLY = '.model-proof-grid article, .source-row, .title-details dl > div'
 const clamp = (value: number, limit: number) => Math.max(-limit, Math.min(limit, value))
 
 export function Interactions() {

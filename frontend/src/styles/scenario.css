@@ -8,6 +8,17 @@
 .scenario-layout .section-heading {
   margin-top: 0;
 }
+/* The column is narrow, so the score and its figures stack instead of squeezing "0 to 100" onto two lines. */
+.scenario-layout .score-field {
+  grid-template-columns: 1fr;
+}
+.scenario-layout .score-main {
+  border-right: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.scenario-layout .score-support dd {
+  white-space: nowrap;
+}
 .scenario-form {
   background: #181918;
   color: #f6f7f4;
@@ -44,11 +55,11 @@
   padding: 19px 0;
 }
 .scenario-history article > div:first-child span {
-  font: 9px "IBM Plex Mono";
+  font: 12px "IBM Plex Mono";
   color: var(--muted);
 }
 .scenario-history h3 {
-  font: 400 23px "Instrument Serif";
+  font: 400 25px "Instrument Serif";
   margin: 5px 0 0;
 }
 .scenario-delta strong {
@@ -56,7 +67,7 @@
   font: 400 40px "Instrument Serif";
 }
 .scenario-delta span {
-  font: 10px "IBM Plex Mono";
+  font: 13px "IBM Plex Mono";
   color: var(--green);
 }
 .scenario-history dl {
@@ -65,16 +76,16 @@
   margin: 0;
 }
 .scenario-history dt {
-  font: 8px "IBM Plex Mono";
+  font: 11px "IBM Plex Mono";
   text-transform: uppercase;
   color: var(--muted);
 }
 .scenario-history dd {
-  font-size: 11px;
+  font-size: 14px;
   margin: 5px 0 0;
 }
 .scenario-history article > p {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--muted);
 }
 .quiet-plane {

@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from typing import Literal
+
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Response, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.api.deps import current_user, owned_analysis, owned_job, owned_title
 from app.db.models import Analysis, Job, Scenario, Title, User
 from app.db.session import get_db
+from app.reports import analysis_export
 from app.schemas.analysis import (
     AnalysisCreated,
     AnalysisRead,
@@ -95,6 +98,27 @@ def get_analysis_result(
     if analysis.result is None:
         raise HTTPException(status_code=409, detail=f"Analysis is {analysis.status}")
     return AnalysisResult.model_validate(analysis.result)
+
+
+@router.get("/analyses/{analysis_id}/export")
+def export_analysis(
+    analysis_id: str,
+    format: Literal["pdf", "json", "csv", "xml"] = "pdf",
+    db: Session = Depends(get_db),
+    user: User = Depends(current_user),
+) -> Response:
+    """Download the finished analysis as PDF (laid out like the Decision page), JSON, CSV or XML."""
+    analysis = owned_analysis(db, user, analysis_id)
+    if analysis.result is None:
+        raise HTTPException(status_code=409, detail=f"Analysis is {analysis.status}")
+    report = analysis_export.build_export(analysis.title, analysis)
+    return Response(
+        content=analysis_export.RENDER[format](report),
+        media_type=analysis_export.MEDIA[format],
+        headers={
+            "Content-Disposition": f'attachment; filename="{analysis_export.filename(report, format)}"'
+        },
+    )
 
 
 @router.get("/jobs/{job_id}", response_model=JobRead)

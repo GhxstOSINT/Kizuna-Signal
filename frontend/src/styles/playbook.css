@@ -14,7 +14,7 @@
   margin: 0;
 }
 .decision-statement p {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.55;
   max-width: 720px;
   color: var(--muted);
@@ -57,7 +57,7 @@
   font: 400 25px "Instrument Serif";
 }
 .campaign-sequence li span {
-  font: 10px "IBM Plex Mono";
+  font: 13px "IBM Plex Mono";
   color: var(--muted);
 }
 .campaign-sequence p {
@@ -80,7 +80,7 @@
 }
 .risk-plane p {
   margin: 0;
-  font-size: 13px;
+  font-size: 16px;
 }
 .approval-plane {
   margin-top: 28px;
@@ -103,7 +103,7 @@
 }
 .approval-plane p {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 15px;
   margin: 6px 0 0;
 }
 .approval-mark {
@@ -123,7 +123,7 @@
   margin-top: 25px;
   padding-top: 15px;
   border-top: 1px solid var(--rule);
-  font: 9px "IBM Plex Mono";
+  font: 12px "IBM Plex Mono";
   color: var(--muted);
   text-transform: uppercase;
 }

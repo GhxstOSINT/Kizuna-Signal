@@ -68,7 +68,6 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
             <span className="setting-track" aria-hidden="true" />
           </button>
         </div>}
-        <p>{t('Pre-release intelligence for Japanese media entering India.')}</p>
         {user && <div className="workspace-profile">
           <span className="workspace-profile-logo">{user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : user.name.slice(0, 1).toUpperCase()}</span>
           <span><strong>{user.name}</strong><small>{user.email || t('Your portfolio')}</small></span>

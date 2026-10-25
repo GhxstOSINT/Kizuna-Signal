@@ -90,13 +90,13 @@ html.theme-anim *::after {
 .jp-eyebrow {
   display: block;
   margin-bottom: 14px;
-  font: 500 13px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  font: 500 16px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
   letter-spacing: 0.32em;
   color: var(--brand);
 }
 .brand-kanji {
   margin-left: auto;
-  font: 400 22px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  font: 400 24px/1 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
   color: var(--brand);
 }
 .portfolio-hero::after {
@@ -241,7 +241,7 @@ html.dragon-cursor textarea {
   border-radius: 9px;
   background: transparent;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 17px;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
@@ -278,12 +278,12 @@ html.dragon-cursor textarea {
   gap: 3px;
 }
 .setting-row strong {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
 }
 .setting-row small {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 14px;
   line-height: 1.35;
 }
 .setting-track {
@@ -345,7 +345,7 @@ html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track::after 
   border-radius: 999px;
   background: transparent;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 15px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -364,8 +364,7 @@ html[lang="ja"] body {
 html[lang="ja"] h1,
 html[lang="ja"] h2,
 html[lang="ja"] h3,
-html[lang="ja"] .title-score strong,
-html[lang="ja"] .sidebar-context > p {
+html[lang="ja"] .title-score strong {
   font-family: "Instrument Serif", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
   letter-spacing: 0;
   line-height: 1.25;

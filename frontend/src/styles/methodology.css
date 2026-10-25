@@ -17,7 +17,7 @@
   margin: 0;
 }
 .method-hero p {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.55;
   color: var(--muted);
 }
@@ -52,7 +52,7 @@
   font: 400 48px/1 "Instrument Serif";
 }
 .formula p {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--muted);
   margin: 10px 0 0;
@@ -72,10 +72,10 @@
   border-bottom: 1px solid var(--rule);
 }
 .capability strong {
-  font-size: 14px;
+  font-size: 17px;
 }
 .capability p {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--muted);
   line-height: 1.45;
   margin: 4px 0 0;
@@ -168,7 +168,7 @@
   position: absolute;
   top: 16px;
   color: #d78132;
-  font: 700 8px "IBM Plex Mono", monospace;
+  font: 700 11px "IBM Plex Mono", monospace;
 }
 .dataset-grid article > div {
   display: grid;
@@ -178,7 +178,7 @@
   text-transform: capitalize;
 }
 .dataset-grid span {
-  font: 9px "IBM Plex Mono";
+  font: 12px "IBM Plex Mono";
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -187,7 +187,7 @@
   align-items: center;
   gap: 6px;
   color: var(--muted);
-  font: 9px "IBM Plex Mono", monospace;
+  font: 12px "IBM Plex Mono", monospace;
   text-transform: uppercase;
 }
 .source-status i {
@@ -201,7 +201,7 @@
 }
 .dataset-grid p {
   max-width: 220px;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.45;
 }

@@ -24,7 +24,7 @@
   margin: 0 0 24px;
 }
 .portfolio-hero p {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.5;
   color: #545754;
   max-width: 760px;
@@ -69,13 +69,13 @@
   font-variant-numeric: tabular-nums;
 }
 .stat div span {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--muted);
 }
 .stat small {
   font:
-    700 10px "DM Sans",
+    700 13px "DM Sans",
     sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -101,7 +101,7 @@
   color: var(--muted);
   margin: 0;
   text-align: right;
-  font-size: 13px;
+  font-size: 17px;
 }
 .analysis-list > .section-heading {
   align-items: center;
@@ -124,7 +124,7 @@
   border-bottom: 1px solid var(--rule);
 }
 .title-identity span {
-  font: 10px "IBM Plex Mono";
+  font: 13px "IBM Plex Mono";
   text-transform: uppercase;
   color: #5f625f;
 }
@@ -144,7 +144,7 @@
 }
 .title-identity p {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.5;
   margin: 0;
   max-width: 58ch;
@@ -165,28 +165,28 @@
   font-variant-numeric: tabular-nums;
 }
 .title-score > span {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1;
 }
 .title-score small {
   grid-column: 1/3;
   margin-top: 4px;
-  font: 9px "IBM Plex Mono";
+  font: 13px "IBM Plex Mono";
   text-transform: uppercase;
   color: var(--muted);
 }
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font: 10px "IBM Plex Mono";
+  gap: 8px;
+  font: 14px "IBM Plex Mono";
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 .badge > span {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #9a9d99;
 }
@@ -213,12 +213,12 @@
   margin: 0;
 }
 .title-evidence dt {
-  font: 11px "IBM Plex Mono";
+  font: 14px "IBM Plex Mono";
   text-transform: uppercase;
   color: #606360;
 }
 .title-evidence dd {
-  font-size: 12px;
+  font-size: 15px;
   margin: 5px 0 0;
 }
 /* The whole row is one link: a transparent anchor stretched over it. */
@@ -278,7 +278,7 @@
   background: #f7f7f5;
 }
 .delete-confirm > span {
-  font: 10px "IBM Plex Mono";
+  font: 13px "IBM Plex Mono";
   text-transform: uppercase;
   color: #5f625f;
 }
@@ -288,13 +288,13 @@
 }
 .delete-confirm p {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.55;
   margin: 0 0 12px;
 }
 .delete-confirm ul {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.7;
   margin: 0 0 24px;
   padding-left: 18px;

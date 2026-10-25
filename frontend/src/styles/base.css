@@ -30,6 +30,7 @@ html::-webkit-scrollbar {
 }
 body {
   margin: 0;
+  font-size: 17px;
   min-width: 360px;
   min-height: 100vh;
   background: var(--paper);

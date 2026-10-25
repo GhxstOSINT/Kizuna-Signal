@@ -1,4 +1,4 @@
-import { ArrowRight, Beaker, FileText, Trash2 } from 'lucide-react'
+import { ArrowRight, Beaker, Download, FileText, LoaderCircle, Trash2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { api } from '../api'
@@ -7,7 +7,11 @@ import { ErrorState, LoadingState, ScoreField, SectionHeading, StatusBadge } fro
 import { RegionMap } from '../components/RegionMap'
 import { useI18n } from '../i18n'
 import { formatLabel } from '../lib/formats'
+import type { ExportFormat } from '../api'
 import type { Analysis, Title } from '../api/types'
+
+/** Evidence notes shown before the rest fold into "Show more". */
+const NOTES_SHOWN = 4
 
 const label = (value: string) => value.replaceAll('_',' ').replace(/\b\w/g,(c)=>c.toUpperCase())
 
@@ -33,6 +37,28 @@ function TitleDetails({ title }: { title: Title }) {
     ['States', title.target_states.map((item) => t(item)).join(', ')],
   ]
   return <section className="title-details"><SectionHeading title="Title details" note="The intake record saved by the backend for this analysis."/><dl>{rows.filter(([, value]) => value).map(([name, value]) => <div key={name}><dt>{t(name)}</dt><dd>{value}</dd></div>)}</dl></section>
+}
+
+/** PDF is the main download; the other three hold the same data for spreadsheets and other tools. */
+function ExportZone({ analysisId }: { analysisId: string }) {
+  const { t } = useI18n()
+  const [busy, setBusy] = useState<ExportFormat | null>(null)
+  const [error, setError] = useState('')
+  const download = async (format: ExportFormat) => {
+    setBusy(format); setError('')
+    try { await api.downloadAnalysis(analysisId, format) }
+    catch (e) { setError(e instanceof Error ? e.message : 'The file could not be downloaded.') }
+    finally { setBusy(null) }
+  }
+  const spinner = <LoaderCircle className="spin" size={16} />
+  return <section className="export-zone" aria-labelledby="export-heading">
+    <div><h3 id="export-heading">{t('Download this analysis')}</h3><p>{t('The PDF follows this page. JSON, CSV and XML hold the same data for other tools.')}</p></div>
+    <div className="export-actions">
+      <button type="button" className="button dark" disabled={busy !== null} onClick={() => void download('pdf')}>{busy === 'pdf' ? <>{spinner}{t('Preparing PDF…')}</> : <><Download size={16} />{t('Download PDF')}</>}</button>
+      {(['json', 'csv', 'xml'] as const).map((format) => <button type="button" key={format} className="button ghost" disabled={busy !== null} onClick={() => void download(format)}>{busy === format ? spinner : <Download size={16} />}{format.toUpperCase()}</button>)}
+    </div>
+    {error && <div className="form-error" role="alert">{t(error)}</div>}
+  </section>
 }
 
 export function AnalysisPage({ connected }: { connected: boolean }) {
@@ -80,7 +106,7 @@ export function AnalysisPage({ connected }: { connected: boolean }) {
     <SignalRail connected={connected} label={`${r.model_version} / ${r.scoring_version}`} />
     {title&&<TitleDetails title={title}/>}
     <ScoreField score={r.market_potential_score} confidence={r.confidence_score} interval={r.confidence_interval} classification={r.decision_classification} origin={r.score_origin} meaning={r.score_meaning}/>
-    {r.data_quality_warnings.length>0&&<section className="warning-band"><strong>{t('Evidence notes')}</strong><div>{r.data_quality_warnings.map((warning)=><p key={warning}>{t(warning)}</p>)}</div></section>}
+    {r.data_quality_warnings.length>0&&<section className="warning-band"><strong>{t('Evidence notes')}</strong><div>{r.data_quality_warnings.slice(0,NOTES_SHOWN).map((warning)=><p key={warning}>{t(warning)}</p>)}{r.data_quality_warnings.length>NOTES_SHOWN&&<details><summary>{t('Show {count} more',{count:r.data_quality_warnings.length-NOTES_SHOWN})}</summary>{r.data_quality_warnings.slice(NOTES_SHOWN).map((warning)=><p key={warning}>{t(warning)}</p>)}</details>}</div></section>}
     {r.score_origin==='trained_model'&&<section className="model-proof"><SectionHeading title="Model validation" note="Historical holdout results describe ranking performance on past titles. They are not a guarantee for a new release."/><div className="model-proof-grid"><article><strong>{r.model_evaluation.labelled_titles??'—'}</strong><span>{t('Labelled titles used')}</span></article><article><strong>{r.model_evaluation.oof_titles??'—'}</strong><span>{t('Out-of-fold titles')}</span></article><article><strong>{typeof r.model_evaluation.spearman==='number'?r.model_evaluation.spearman.toFixed(2):'—'}</strong><span>{t('Mean Spearman ranking')}</span></article><article><strong>{typeof r.model_evaluation.top3_hit==='number'?`${Math.round(r.model_evaluation.top3_hit*100)}%`:'—'}</strong><span>{t('Top-three hit rate')}</span></article></div><p className="model-proof-note">{t('Validation: {scheme}. India-specific commercial outcomes are not part of this training target.', { scheme: r.model_evaluation.scheme ? t(String(r.model_evaluation.scheme)) : t('not reported') })}</p></section>}
     <section className="component-plane"><SectionHeading title="What shaped the score" note={r.score_origin==='trained_model'?'Only measured components that passed held-out validation contribute to this score. Unavailable and unvalidated components are excluded.':'The fallback components combine into this market-potential result.'}/><div className="component-list">{Object.entries(r.component_scores).sort((a,b)=>b[1]-a[1]).map(([key,value])=><div className="component-row" key={key}><span>{t(label(key))}</span><div className="component-track"><i style={{width:`${value}%`}}/></div><strong>{Math.round(value)}</strong></div>)}</div>{r.component_details.length>0&&<div className="component-detail-list">{r.component_details.map((item)=>{const key=String(item.key);const status=String(item.status);return <article key={key}><strong>{t(label(key))}</strong><span>{t(status.replaceAll('_',' '))}</span><p>{typeof item.reason==='string'?t(item.reason):t('{weight}% configured weight; {rho} held-out Spearman.', { weight: Number(item.weight)*100, rho: String(item.validation_spearman ?? t('not reported')) })}</p></article>})}</div>}</section>
     <section><SectionHeading title="Regional opportunity" note="The strongest current state-language-platform combinations."/><RegionMap regions={r.regional_scores} /></section>
@@ -88,6 +114,7 @@ export function AnalysisPage({ connected }: { connected: boolean }) {
     <section><SectionHeading title="Comparable evidence" note="Similarity is contextual evidence, not proof of identical commercial performance."/><div className="comparable-table" role="table">{r.comparable_titles.map((item)=><div className="comparable-row" role="row" key={item.title}><div><strong>{tt(item.title)}</strong><p>{item.reasons.map((reason)=>t(reason)).join(' · ')}</p></div><span>{t('{pct}% similar', { pct: Math.round(item.similarity*100) })}</span><span>{t('{n} signal', { n: Math.round(item.market_signal) })}</span></div>)}</div></section>
     <section><SectionHeading title="Source health" note="Every source carries availability, freshness, quality, provenance and warnings."/><div className="source-table">{r.source_status.map((source)=><article className="source-row" key={source.source}><div><StatusBadge status={source.status}/><strong>{t(label(source.source))}</strong></div><dl><div><dt>{t('Freshness')}</dt><dd>{Math.round(source.freshness_score*100)}%</dd></div><div><dt>{t('Quality')}</dt><dd>{Math.round(source.quality_score*100)}%</dd></div><div><dt>{t('Mode')}</dt><dd>{source.provenance.mode ? t(source.provenance.mode) : t('unspecified')}</dd></div></dl><p>{source.warnings.map((warning)=>t(warning)).join(' ') || t('No source warning.')}</p></article>)}</div></section>
     <section className="next-actions"><div><h2>{t('Turn the result into a decision.')}</h2><p>{t('Compare controlled changes, then review the recommended launch sequence.')}</p></div><Link to={`/analysis/${analysisId}/scenarios`}>{t('Open scenario lab')} <ArrowRight/></Link></section>
+    <ExportZone analysisId={analysisId} />
     {deleteZone}
   </div>
 }

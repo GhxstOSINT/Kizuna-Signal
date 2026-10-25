@@ -257,6 +257,7 @@ export const ja: Record<string, string> = {
   'Languages': '言語',
   'States': '州',
   'Evidence notes': 'エビデンスの注記',
+  'Show {count} more': 'さらに{count}件を表示',
   'Model validation': 'モデル検証',
   'Historical holdout results describe ranking performance on past titles. They are not a guarantee for a new release.': '過去の検証データの結果は、過去タイトルに対するランキング性能を示すものです。新作の成果を保証するものではありません。',
   'Labelled titles used': '使用したラベル付きタイトル',
@@ -425,6 +426,13 @@ export const ja: Record<string, string> = {
   'Regional signals for launch planning.': 'ローンチ計画のための地域シグナル。',
   'Production data requirements': '本番データの要件',
   'Store raw responses, collection times, geography, licensing, retries and provenance before using live evidence to validate model claims.': 'ライブのエビデンスでモデルの主張を検証する前に、生のレスポンス、収集時刻、地域、ライセンス、リトライ、出典を保存してください。',
+
+  // Download
+  'Download this analysis': 'この分析をダウンロード',
+  'The PDF follows this page. JSON, CSV and XML hold the same data for other tools.': 'PDFはこのページと同じ構成です。JSON・CSV・XMLは同じデータを他のツール向けに収めています。',
+  'Download PDF': 'PDFをダウンロード',
+  'Preparing PDF…': 'PDFを作成中…',
+  'The file could not be downloaded.': 'ファイルをダウンロードできませんでした。',
 
   // Delete
   'Delete analysis': '分析を削除',

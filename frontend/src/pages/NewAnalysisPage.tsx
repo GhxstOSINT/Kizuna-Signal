@@ -9,6 +9,7 @@ import { fromJapanese, splitList, useI18n } from '../i18n'
 import { useFormValidity } from '../i18n/forms'
 import { contentFormats } from '../lib/formats'
 import { buildSeoSuggestion } from '../lib/seo'
+import { useSmoothProgress } from '../lib/useSmoothProgress'
 
 const genres = ['Action','Adventure','Comedy','Drama','Fantasy','Horror','Mystery','Psychological','Romance','Sci-Fi','Slice of Life','Sports','Supernatural']
 const states = ['Maharashtra','Karnataka','Delhi NCR','Tamil Nadu','Telangana','West Bengal','Kerala','Uttar Pradesh']
@@ -48,6 +49,7 @@ export function NewAnalysisPage({ connected }: { connected: boolean }) {
   const [form, setForm] = useState({ name:'', english_title:'', synopsis:'', content_format:'anime_series', primary_genre:'Fantasy', source_material:'Original', expected_release_period:releasePeriods[0]?.value ?? '', target_platform:'OTT', marketing_budget:'medium', studio:'', director:'', episode_count:'', age_rating:'', target_audience:'', franchise_status:'New IP', trailer_url:'', themes:'identity, friendship', target_languages:['Hindi'], target_states:['Maharashtra'] })
   const [status, setStatus] = useState<'idle'|'submitting'|'running'|'failed'>('idle')
   const [progress, setProgress] = useState(0)
+  const shown = useSmoothProgress(progress)
   const [stage, setStage] = useState('Ready for intake')
   const [error, setError] = useState('')
   const [themesEdited, setThemesEdited] = useState<string | null>(null)
@@ -77,7 +79,12 @@ export function NewAnalysisPage({ connected }: { connected: boolean }) {
           const job = await api.getJob(started.job_id)
           if (!mounted.current) return
           setProgress(job.progress); setStage(job.stage)
-          if (job.status === 'completed' || job.status === 'partially_completed') { navigate(`/analysis/${started.analysis_id}`); return }
+          if (job.status === 'completed' || job.status === 'partially_completed') {
+            setProgress(100); setStage('Analysis complete')
+            await new Promise((resolve) => window.setTimeout(resolve, 1100))
+            if (mounted.current) navigate(`/analysis/${started.analysis_id}`)
+            return
+          }
           if (job.status === 'failed') throw new Error(job.error_message || 'The analysis failed.')
           await new Promise((resolve) => window.setTimeout(resolve, delay))
           delay = Math.min(Math.round(delay * 1.35), 3_000)
@@ -89,7 +96,16 @@ export function NewAnalysisPage({ connected }: { connected: boolean }) {
   return <div className="page intake-page">
     <PageHeader title="Analyse a new title" description="Create a frozen pre-release evidence snapshot, then compare launch strategies." action={<Link className="button ghost" to="/"><ArrowLeft size={16}/> {t('Portfolio')}</Link>} />
     <SignalRail connected={connected} label={status === 'running' ? (lang === 'ja' || stage === 'Ready for intake' ? t(stage) : stage.toUpperCase()) : 'TITLE INTAKE'} />
-    {status === 'running' ? <section className="running-plane" aria-live="polite"><div className="job-orbit"><span style={{'--progress': `${progress}%`} as CSSProperties} /><strong>{progress}%</strong></div><div><FoxMark className="fox-mark-pulse run-fox" size={44} /><h2>{t('Building the evidence snapshot')}</h2><p>{t(stage)}</p><div className="progress-track" role="progressbar" aria-label={t('Analysis progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span style={{transform:`scaleX(${progress / 100})`}} /></div><small>{t('Keep this page open. The backend is preserving every completed stage.')}</small></div></section> : <form onSubmit={submit} className="intake-layout" {...validity}>
+    {status === 'running' ? <section className="running-plane" aria-live="polite"><div className="job-orbit">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs><linearGradient id="orbit-gradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffb36b" /><stop offset="1" stopColor="#e0601a" /></linearGradient></defs>
+          <circle className="orbit-spin" cx="100" cy="100" r="88" />
+          <circle className="orbit-track" cx="100" cy="100" r="94" />
+          <circle className="orbit-arc" cx="100" cy="100" r="94" pathLength={100} strokeDasharray={`${shown} 100`} stroke="url(#orbit-gradient)" />
+        </svg>
+        <i className="orbit-head" style={{ transform: `rotate(${shown * 3.6}deg)` }} />
+        <strong>{Math.round(shown)}%</strong>
+      </div><div><FoxMark className="fox-mark-pulse run-fox" size={44} /><h2>{t('Building the evidence snapshot')}</h2><p>{t(stage)}</p><div className="progress-track" role="progressbar" aria-label={t('Analysis progress')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(shown)}><span style={{transform:`scaleX(${shown / 100})`}} /></div><small>{t('Keep this page open. The backend is preserving every completed stage.')}</small></div></section> : <form onSubmit={submit} className="intake-layout" {...validity}>
       <div className="form-plane">
         <div className="form-section"><h2>{t('Title and story')}</h2><div className="field-grid two"><label>{t('Original title')}<input required minLength={1} value={form.name} onChange={(e)=>update('name',e.target.value)} placeholder={t('Project Hikari')} /></label><label>{t('English title')}<input value={form.english_title} onChange={(e)=>update('english_title',e.target.value)} placeholder={t('Optional')} /></label></div><label>{t('Synopsis')}<textarea required minLength={40} value={form.synopsis} onChange={(e)=>update('synopsis',e.target.value)} placeholder={t('Describe the premise, stakes and emotional hook in at least 40 characters.')} /></label><div className="field-grid three"><label>{t('Content format')}<Select ariaLabel="Content format" value={form.content_format} onChange={(v)=>update('content_format',v)} options={contentFormats} /></label><label>{t('Primary genre')}<Select ariaLabel="Primary genre" value={form.primary_genre} onChange={(v)=>update('primary_genre',v)} options={genres} /></label><label>{t('Source material')}<Select ariaLabel="Source material" value={form.source_material} onChange={(v)=>update('source_material',v)} options={sources} /></label></div><label>{t('Themes')}<input value={themesText} onChange={(e)=>setThemesEdited(e.target.value)} placeholder={t('identity, friendship, belonging')} /></label></div>
         <div className="form-section"><h2>{t('India launch assumptions')}</h2><div className="field-grid three"><label>{t('Release period')}<button className="select-trigger" type="button" aria-haspopup="dialog" onClick={()=>releaseDialog.current?.showModal()}>{t(form.expected_release_period)}</button></label><label>{t('Platform')}<Select ariaLabel="Platform" value={form.target_platform} onChange={(v)=>update('target_platform',v)} options={platforms} /></label><label>{t('Marketing budget')}<Select ariaLabel="Marketing budget" value={form.marketing_budget} onChange={(v)=>update('marketing_budget',v)} options={budgets} /></label></div><fieldset><legend>{t('Target languages')}</legend><div className="choice-grid">{languages.map((item)=><label className={form.target_languages.includes(item)?'selected':''} key={item}><input type="checkbox" checked={form.target_languages.includes(item)} onChange={()=>toggle('target_languages',item)}/><span className="choice-checkbox" aria-hidden="true"><Check size={11}/></span><span>{t(item)}</span></label>)}</div></fieldset><fieldset><legend>{t('Priority states')}</legend><div className="choice-grid">{states.map((item)=><label className={form.target_states.includes(item)?'selected':''} key={item}><input type="checkbox" checked={form.target_states.includes(item)} onChange={()=>toggle('target_states',item)}/><span className="choice-checkbox" aria-hidden="true"><Check size={11}/></span><span>{t(item)}</span></label>)}</div></fieldset>

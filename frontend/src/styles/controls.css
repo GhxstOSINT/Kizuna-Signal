@@ -9,7 +9,7 @@
   padding: 12px 17px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
   min-height: 44px;
   transition:
     transform 0.2s,
@@ -91,7 +91,7 @@
   align-items: center;
   gap: 13px;
   font:
-    10px/1 "IBM Plex Mono",
+    13px/1 "IBM Plex Mono",
     monospace;
   letter-spacing: 0.05em;
   white-space: nowrap;

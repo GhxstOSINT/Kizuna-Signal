@@ -73,7 +73,7 @@
 }
 .release-dialog-head .eyebrow {
   color: var(--muted);
-  font: 10px/1.4 "IBM Plex Mono", monospace;
+  font: 13px/1.4 "IBM Plex Mono", monospace;
   letter-spacing: 0.1em;
 }
 .release-dialog-head h3 {
@@ -83,7 +83,7 @@
 .release-dialog-head p {
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 16px;
 }
 .release-dialog-close {
   flex: 0 0 auto;
@@ -93,7 +93,7 @@
   border-radius: 50%;
   background: #fff;
   color: var(--ink);
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1;
   cursor: pointer;
 }
@@ -115,7 +115,7 @@
 }
 .release-year h4 {
   margin: 0;
-  font: 400 21px "Instrument Serif", serif;
+  font: 400 23px "Instrument Serif", serif;
 }
 .release-quarter-grid {
   display: grid;
@@ -140,7 +140,7 @@
 }
 label,
 fieldset {
-  font-size: 12px;
+  font-size: 15px;
   color: #5f625f;
 }
 input,
@@ -259,7 +259,7 @@ legend {
 }
 .seo-sheet > p {
   color: #aeb2ae;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.55;
 }
 .seo-sheet dl {
@@ -270,13 +270,13 @@ legend {
   padding: 13px 0;
 }
 .seo-sheet dt {
-  font: 9px "IBM Plex Mono";
+  font: 12px "IBM Plex Mono";
   text-transform: uppercase;
   color: #8f948f;
 }
 .seo-sheet dd {
   margin: 6px 0 0;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
@@ -284,7 +284,7 @@ legend {
   margin-top: 14px;
 }
 .submission-note {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.5;
   padding: 0 5px;
@@ -294,7 +294,7 @@ legend {
   border-radius: 8px;
   background: #f3deda;
   color: #842f24;
-  font-size: 12px;
+  font-size: 15px;
   margin-top: 12px;
 }
 .running-plane {
@@ -310,30 +310,106 @@ legend {
   background: #f7f7f5;
 }
 .job-orbit {
+  --ring: var(--accent, var(--brand));
   position: relative;
   width: 200px;
   height: 200px;
-  border: 1px solid #c9cbc8;
-  border-radius: 50%;
   display: grid;
   place-items: center;
 }
-.job-orbit:before {
+.job-orbit:after {
   content: "";
   position: absolute;
-  inset: 14px;
+  inset: 12px;
   border-radius: 50%;
-  border: 1px dashed #aeb1ad;
+  background: radial-gradient(circle, rgb(var(--brand-rgb) / 0.16), transparent 68%);
+  animation: orbit-glow 2.6s ease-in-out infinite;
 }
-.job-orbit span {
+.job-orbit svg {
   position: absolute;
-  inset: -1px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.job-orbit circle {
+  fill: none;
+}
+.orbit-track {
+  stroke: #c9cbc8;
+  stroke-width: 1;
+}
+.orbit-spin {
+  stroke: #aeb1ad;
+  stroke-width: 1;
+  stroke-dasharray: 3 7;
+  transform-origin: 100px 100px;
+  animation: orbit-spin 28s linear infinite;
+}
+.orbit-arc {
+  stroke-width: 4;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 100px 100px;
+  filter: drop-shadow(0 0 5px rgb(var(--brand-rgb) / 0.55));
+}
+.orbit-head {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.orbit-head:before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: conic-gradient(#52d0a7 var(--progress), transparent 0);
-  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 0);
+  background: #ffd3a8;
+  box-shadow:
+    0 0 10px 3px rgb(var(--brand-rgb) / 0.8),
+    0 0 22px 6px rgb(var(--brand-rgb) / 0.35);
+  animation: orbit-ember 1.1s ease-in-out infinite;
 }
 .job-orbit strong {
+  position: relative;
+  z-index: 1;
   font: 400 53px "Instrument Serif";
+  font-variant-numeric: tabular-nums;
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+@keyframes orbit-ember {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+}
+@keyframes track-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(260%);
+  }
 }
 .running-plane h2 {
   font: 400 47px/1 "Instrument Serif";
@@ -343,16 +419,29 @@ legend {
   color: var(--muted);
 }
 .progress-track {
-  height: 3px;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
   background: #d8dad7;
   margin: 30px 0 14px;
 }
 .progress-track span {
   height: 100%;
   display: block;
-  background: #191a19;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #ffb36b, var(--accent, var(--brand)));
+  box-shadow: 0 0 12px rgb(var(--brand-rgb) / 0.6);
   transform-origin: left center;
-  transition: transform 0.4s;
+}
+.progress-track span:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: track-shimmer 1.6s ease-in-out infinite;
 }
 .running-plane small {
   color: #5f625f;

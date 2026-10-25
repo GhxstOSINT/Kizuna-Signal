@@ -42,7 +42,7 @@
   }
   .brand {
     margin: 0;
-    font-size: 21px;
+    font-size: 23px;
   }
   .brand-mark {
     width: 22px;
@@ -178,7 +178,7 @@
     font-size: 48px;
   }
   .portfolio-hero p {
-    font-size: 15px;
+    font-size: 17px;
   }
   .stats-grid {
     gap: 8px;
@@ -222,6 +222,14 @@
   }
   .warning-band {
     grid-template-columns: 1fr;
+    padding: 24px 20px;
+    gap: 18px;
+  }
+  .score-support dl {
+    grid-template-columns: 1fr;
+  }
+  .score-support dd {
+    font-size: 40px;
   }
   .component-row {
     grid-template-columns: 130px 1fr 35px;
@@ -252,7 +260,7 @@
     font-size: 52px;
   }
   .campaign-sequence li {
-    font-size: 21px;
+    font-size: 23px;
   }
   .section-heading {
     display: block;

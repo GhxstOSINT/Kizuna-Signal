@@ -54,7 +54,7 @@ html[data-theme="dark"] .theme-toggle-track::after {
   border-radius: 9px;
   background: transparent;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 17px;
   cursor: pointer;
 }
 .theme-toggle:hover {
@@ -216,11 +216,11 @@ html[data-theme="dark"] .form-error {
 html[data-theme="dark"] .running-plane {
   background: #1d1d1d;
 }
-html[data-theme="dark"] .job-orbit {
-  border: 1px solid #393a39;
+html[data-theme="dark"] .orbit-track {
+  stroke: #393a39;
 }
-html[data-theme="dark"] .job-orbit:before {
-  border: 1px dashed #313231;
+html[data-theme="dark"] .orbit-spin {
+  stroke: #4a4b4a;
 }
 html[data-theme="dark"] .progress-track {
   background: #141414;
@@ -239,7 +239,7 @@ html[data-theme="dark"] .component-detail-list article {
   background: #202020;
 }
 html[data-theme="dark"] .warning-band {
-  background: #28231b;
+  background: #1d1d1d;
 }
 html[data-theme="dark"] .component-track {
   background: #161616;

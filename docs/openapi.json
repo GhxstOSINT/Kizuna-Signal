@@ -2041,6 +2041,79 @@
         ]
       }
     },
+    "/api/v1/analyses/{analysis_id}/export": {
+      "get": {
+        "description": "Download the finished analysis as PDF (laid out like the Decision page), JSON, CSV or XML.",
+        "operationId": "export_analysis_api_v1_analyses__analysis_id__export_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysis_id",
+            "required": true,
+            "schema": {
+              "title": "Analysis Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "format",
+            "required": false,
+            "schema": {
+              "default": "pdf",
+              "enum": [
+                "pdf",
+                "json",
+                "csv",
+                "xml"
+              ],
+              "title": "Format",
+              "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Export Analysis",
+        "tags": [
+          "analysis"
+        ]
+      }
+    },
     "/api/v1/analyses/{analysis_id}/result": {
       "get": {
         "operationId": "get_analysis_result_api_v1_analyses__analysis_id__result_get",

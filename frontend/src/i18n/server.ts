@@ -15,6 +15,7 @@ const RULES: Rule[] = [
   ['Analysis failed unexpectedly. Please retry; if it persists, contact support.', '分析が予期せず失敗しました。再試行してください。改善しない場合はサポートへご連絡ください。'],
   ['Title no longer exists', 'タイトルはすでに存在しません'],
   ['collecting public evidence', '公開エビデンスを収集中'],
+  ['Analysis complete', '分析が完了しました'],
   ['building content profile and comparable titles', 'コンテンツプロファイルと類似タイトルを作成中'],
   ['running trained market and regional model', '学習済みの市場・地域モデルを実行中'],
   ['generating explanations and confidence interval', '説明と信頼区間を生成中'],

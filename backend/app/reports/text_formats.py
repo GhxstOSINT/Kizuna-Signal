@@ -39,6 +39,23 @@ SINGULAR = {
     "top_states": "state",
     "bottom_states": "state",
     "candidates": "candidate",
+    # analysis export (analysis_export.py)
+    "themes": "theme",
+    "target_languages": "language",
+    "target_states": "state",
+    "regional_scores": "region",
+    "comparable_titles": "comparable",
+    "positive_drivers": "driver",
+    "negative_drivers": "driver",
+    "source_status": "source",
+    "data_quality_warnings": "warning",
+    "model_warnings": "warning",
+    "component_details": "component",
+    "reasons": "reason",
+    "priority_markets": "market",
+    "campaign_actions": "action",
+    "risks": "risk",
+    "confidence_interval": "bound",
 }
 
 
