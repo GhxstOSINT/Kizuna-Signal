@@ -1,58 +1,57 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { prefersReducedMotion } from './ScrollMotion'
 
-const TILT = '.stat, .region-lane, .seo-sheet, .score-field'
+const JELLY = '.stat, .region-lane, .seo-sheet, .score-field, .model-proof-grid article, .source-row, .title-details dl > div'
+const clamp = (value: number, limit: number) => Math.max(-limit, Math.min(limit, value))
 
 export function Interactions() {
-  const spot = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (prefersReducedMotion() || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     const ctx = gsap.context(() => {
-      const moveX = gsap.quickTo(spot.current, 'x', { duration: 0.7, ease: 'power3.out' })
-      const moveY = gsap.quickTo(spot.current, 'y', { duration: 0.7, ease: 'power3.out' })
-      let tilt: HTMLElement | null = null
-      const release = (el: HTMLElement | null, props: gsap.TweenVars) => {
-        if (el) gsap.to(el, { ...props, duration: 0.9, ease: 'elastic.out(1, 0.45)', overwrite: 'auto' })
+      let jelly: HTMLElement | null = null
+      let lastKick = 0
+      const settle = (el: HTMLElement | null) => {
+        if (!el) return
+        gsap.killTweensOf(el)
+        gsap.to(el, { x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1, skewX: 0, skewY: 0, duration: 1.4, ease: 'elastic.out(1.1, 0.2)' })
       }
-      const ensureGlare = (el: HTMLElement) => {
-        if (el.dataset.tilt) return
-        el.dataset.tilt = '1'
-        const glare = document.createElement('span')
-        glare.className = 'glare'
-        el.appendChild(glare)
+      // Push the card with the pointer's velocity, then let a spring pull it back so it wobbles.
+      const kick = (el: HTMLElement, vx: number, vy: number) => {
+        const speed = Math.min(Math.hypot(vx, vy), 40)
+        gsap.killTweensOf(el)
+        gsap.timeline()
+          .to(el, {
+            x: clamp(vx * 0.7, 14), y: clamp(vy * 0.7, 14), rotation: clamp(vx * 0.1, 2.5),
+            scaleX: 1 + speed * 0.0015 + Math.abs(vx) * 0.0012, scaleY: 1 + speed * 0.0015 + Math.abs(vy) * 0.0012,
+            skewX: clamp(vx * 0.08, 2), duration: 0.12, ease: 'power2.out',
+          })
+          .to(el, { x: 0, y: 0, rotation: 0, scaleX: 1.012, scaleY: 1.012, skewX: 0, duration: 1.3, ease: 'elastic.out(1.15, 0.18)' })
       }
       const onMove = (event: PointerEvent) => {
-        moveX(event.clientX)
-        moveY(event.clientY)
         const target = event.target as HTMLElement
-        const t = target.closest<HTMLElement>(TILT)
-        if (t !== tilt) { release(tilt, { rotationX: 0, rotationY: 0, scale: 1 }); tilt = t }
-        if (t) {
-          ensureGlare(t)
-          const r = t.getBoundingClientRect()
-          const px = (event.clientX - r.left) / r.width
-          const py = (event.clientY - r.top) / r.height
-          t.style.setProperty('--gx', `${px * 100}%`)
-          t.style.setProperty('--gy', `${py * 100}%`)
-          gsap.to(t, { rotationY: (px - 0.5) * 9, rotationX: (0.5 - py) * 7, scale: 1.015, transformPerspective: 900, duration: 0.45, ease: 'power2.out', overwrite: 'auto' })
+        const t = target.closest('.analysis-page') ? null : target.closest<HTMLElement>(JELLY)
+        if (t !== jelly) {
+          settle(jelly)
+          jelly = t
+          if (t) kick(t, event.movementX, event.movementY)
+        } else if (t && (Math.abs(event.movementX) > 3 || Math.abs(event.movementY) > 3) && event.timeStamp - lastKick > 90) {
+          lastKick = event.timeStamp
+          kick(t, event.movementX, event.movementY)
         }
       }
       const onLeave = () => {
-        release(tilt, { rotationX: 0, rotationY: 0, scale: 1 }); tilt = null
-        gsap.to(spot.current, { opacity: 0, duration: 0.4 })
+        settle(jelly)
+        jelly = null
       }
-      const onEnter = () => gsap.to(spot.current, { opacity: 1, duration: 0.5 })
       document.addEventListener('pointermove', onMove, { passive: true })
       document.documentElement.addEventListener('pointerleave', onLeave)
-      document.documentElement.addEventListener('pointerenter', onEnter)
       return () => {
         document.removeEventListener('pointermove', onMove)
         document.documentElement.removeEventListener('pointerleave', onLeave)
-        document.documentElement.removeEventListener('pointerenter', onEnter)
       }
     })
     return () => ctx.revert()
   }, [])
-  return <div className="spotlight" ref={spot} aria-hidden="true" />
+  return null
 }

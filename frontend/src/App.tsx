@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { api } from './api'
 import { AppShell } from './components/AppShell'
 import { DeleteAnalysisPage } from './pages/DeleteAnalysisPage'
+import { DragonCursor } from './motion/DragonCursor'
 import { Interactions } from './motion/Interactions'
 import { Sakura } from './motion/Sakura'
 import { ScrollMotion } from './motion/ScrollMotion'
@@ -37,6 +38,7 @@ export default function App() {
     <ScrollMotion />
     <Sakura />
     <Interactions />
+    <DragonCursor />
     <Routes>
       <Route path="/" element={<PortfolioPage connected={connected} />} />
       <Route path="/new" element={<NewAnalysisPage connected={connected} />} />

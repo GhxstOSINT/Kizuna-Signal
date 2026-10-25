@@ -203,7 +203,7 @@ html[data-theme="dark"] .kanji-mark {
   }
 }
 
-/* Page curtain, spotlight, tilt glare */
+/* Page curtain */
 .page-curtain {
   position: fixed;
   inset: 0;
@@ -223,38 +223,111 @@ html[data-theme="dark"] .page-curtain {
 html[data-theme="dark"] .page-curtain span {
   color: #1a0f06;
 }
-.spotlight {
+/* Dragon cursor */
+.dragon-canvas {
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 640px;
-  height: 640px;
-  margin: -320px 0 0 -320px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 39;
-  opacity: 0;
-  background: radial-gradient(circle, rgba(200, 54, 43, 0.1), transparent 62%);
-}
-html[data-theme="dark"] .spotlight {
-  background: radial-gradient(circle, rgba(255, 138, 61, 0.13), transparent 62%);
-}
-[data-tilt] {
-  position: relative;
-  transform-style: preserve-3d;
-}
-.glare {
-  position: absolute;
   inset: 0;
-  border-radius: inherit;
+  z-index: 70;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(200, 54, 43, 0.1), transparent 55%);
 }
-html[data-theme="dark"] .glare {
-  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 138, 61, 0.2), transparent 55%);
+html.dragon-cursor,
+html.dragon-cursor * {
+  cursor: none !important;
 }
-[data-tilt]:hover .glare {
-  opacity: 1;
+html.dragon-cursor input:not([type="checkbox"]):not([type="radio"]),
+html.dragon-cursor textarea {
+  cursor: text !important;
+}
+
+/* Settings */
+.settings-button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.settings-button:hover,
+.settings-button[aria-expanded="true"] {
+  background: var(--soft);
+  color: var(--ink);
+}
+.settings-panel {
+  margin-bottom: 8px;
+  padding: 6px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--panel);
+}
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.setting-row:hover {
+  background: var(--soft);
+}
+.setting-row > span:first-child {
+  display: grid;
+  gap: 3px;
+}
+.setting-row strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.setting-row small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.setting-track {
+  margin-left: auto;
+  flex: none;
+  position: relative;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--rule);
+  transition: background-color 0.2s ease;
+}
+.setting-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform 0.18s ease;
+}
+.setting-row[aria-checked="true"] .setting-track {
+  background: #c8362b;
+}
+html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track {
+  background: var(--accent);
+}
+.setting-row[aria-checked="true"] .setting-track::after {
+  transform: translateX(14px);
+  background: #fff;
+}
+html[data-theme="dark"] .setting-row[aria-checked="true"] .setting-track::after {
+  background: var(--accent-ink);
 }

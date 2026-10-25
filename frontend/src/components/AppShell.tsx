@@ -1,7 +1,8 @@
-import { Activity, BarChart3, BookOpen, FlaskConical, Github, LayoutGrid, Moon, Plus, ScrollText, Sun } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { Activity, BarChart3, BookOpen, FlaskConical, Github, LayoutGrid, Plus, ScrollText, Settings } from 'lucide-react'
+import { useState, type ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import { japaneseFor } from '../motion/jp'
+import { useDragonCursorSetting } from '../settings'
 import { useTheme } from '../theme'
 
 const nav = [
@@ -13,6 +14,8 @@ const nav = [
 export function AppShell({ children }: { children: ReactNode; connected?: boolean }) {
   const { theme, toggle } = useTheme()
   const dark = theme === 'dark'
+  const dragon = useDragonCursorSetting()
+  const [settingsOpen, setSettingsOpen] = useState(false)
   return <div className="app-shell">
     <aside className="sidebar">
       <NavLink to="/" className="brand" aria-label="Kizuna Signal home">
@@ -26,11 +29,20 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
         </NavLink>)}
       </nav>
       <div className="sidebar-context">
-        <button type="button" className="theme-toggle" role="switch" aria-checked={dark} aria-label="Dark mode" onClick={toggle}>
-          {dark ? <Moon size={17} strokeWidth={1.7} /> : <Sun size={17} strokeWidth={1.7} />}
-          <span>Dark mode</span>
-          <span className="theme-toggle-track" aria-hidden="true" />
+        <button type="button" className="settings-button" aria-expanded={settingsOpen} aria-controls="settings-panel" onClick={() => setSettingsOpen((open) => !open)}>
+          <Settings size={17} strokeWidth={1.7} />
+          <span>Settings</span>
         </button>
+        {settingsOpen && <div className="settings-panel" id="settings-panel">
+          <button type="button" className="setting-row" role="switch" aria-checked={dark} onClick={toggle}>
+            <span><strong>Dark mode</strong><small>Orange accents on a dark canvas</small></span>
+            <span className="setting-track" aria-hidden="true" />
+          </button>
+          <button type="button" className="setting-row" role="switch" aria-checked={dragon.enabled} onClick={() => dragon.setEnabled(!dragon.enabled)}>
+            <span><strong>Dragon cursor</strong><small>An ember-trailing serpent that follows your mouse</small></span>
+            <span className="setting-track" aria-hidden="true" />
+          </button>
+        </div>}
         <p>Pre-release intelligence for Japanese media entering India.</p>
         <div className="workspace-profile">
           <span className="workspace-profile-logo"><Github size={19} strokeWidth={1.8} /></span>

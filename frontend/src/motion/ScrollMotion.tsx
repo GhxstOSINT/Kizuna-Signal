@@ -102,7 +102,7 @@ export function ScrollMotion() {
         h2.dataset.gsh = '1'
         const split = SplitText.create(h2, { type: 'words', mask: 'words' })
         keepDescenders(split.masks)
-        gsap.from(split.words, { yPercent: 105, opacity: 0, duration: 1.1, delay: curtainDelay + 0.2, ease: 'expo.out', stagger: 0.09 })
+        gsap.from(split.words, { yPercent: 105, opacity: 0, duration: 1.1, delay: curtainDelay() + 0.2, ease: 'expo.out', stagger: 0.09 })
       }
       const header = () => {
         const head = document.querySelector<HTMLElement>('.page-header:not([data-gsh])')
@@ -112,17 +112,19 @@ export function ScrollMotion() {
         if (title) {
           const split = SplitText.create(title, { type: 'lines,chars', mask: 'lines' })
           keepDescenders(split.masks)
-          gsap.from(split.chars, { yPercent: 118, rotate: 7, opacity: 0, duration: 1.05, delay: curtainDelay, ease: 'power4.out', stagger: 0.03 })
+          gsap.from(split.chars, { yPercent: 118, rotate: 7, opacity: 0, duration: 1.05, delay: curtainDelay(), ease: 'power4.out', stagger: 0.03 })
         }
-        gsap.from('.jp-eyebrow', { x: -22, opacity: 0, duration: 0.9, delay: curtainDelay + 0.1, ease: 'power3.out', clearProps: 'all' })
-        gsap.from('.page-header p', { y: 14, opacity: 0, duration: 0.9, delay: curtainDelay + 0.35, ease: 'power3.out', clearProps: 'all' })
-        gsap.from('.kanji-mark', { scale: 0.7, rotate: -8, opacity: 0, delay: curtainDelay, duration: 1.4, ease: 'expo.out', clearProps: 'opacity,scale,rotate' })
+        gsap.from('.jp-eyebrow', { x: -22, opacity: 0, duration: 0.9, delay: curtainDelay() + 0.1, ease: 'power3.out', clearProps: 'all' })
+        gsap.from('.page-header p', { y: 14, opacity: 0, duration: 0.9, delay: curtainDelay() + 0.35, ease: 'power3.out', clearProps: 'all' })
+        gsap.from('.kanji-mark', { scale: 0.7, rotate: -8, opacity: 0, delay: curtainDelay(), duration: 1.4, ease: 'expo.out', clearProps: 'opacity,scale,rotate' })
         gsap.to('.kanji-mark', { yPercent: -45, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.6 } })
         gsap.to('.page-header', { opacity: 0.35, ease: 'none', scrollTrigger: { trigger: '.page-header', start: 'bottom 30%', end: 'bottom -20%', scrub: true } })
       }
       gsap.fromTo('.scroll-progress', { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } })
       const curtain = document.querySelector('.page-curtain')
-      const curtainDelay = curtain ? 0.55 : 0
+      const mountedAt = performance.now()
+      const baseDelay = curtain ? 0.55 : 0
+      const curtainDelay = () => Math.max(0, baseDelay - (performance.now() - mountedAt) / 1000)
       if (curtain) {
         gsap.timeline()
           .set(curtain, { display: 'grid', yPercent: 0 })
@@ -132,11 +134,20 @@ export function ScrollMotion() {
       }
       requestAnimationFrame(() => { header(); hero(); scan() })
       let frame = 0
+      const own = (node: Node) => {
+        const el = node instanceof Element ? node : node.parentElement
+        return Boolean(el?.closest('[data-gsa="1"]'))
+      }
       const observer = new MutationObserver((records) => {
-        if (records.every((m) => (m.target.parentElement ?? (m.target as HTMLElement)).closest?.('[data-gsa="1"]'))) return
+        // count-up text updates fire every frame; they must neither trigger nor starve a scan
+        if (records.every((m) => own(m.target))) return
         countVisible()
-        cancelAnimationFrame(frame)
-        frame = requestAnimationFrame(() => { ctx.add(() => { header(); hero(); scan() }); ScrollTrigger.refresh() })
+        if (frame) return
+        frame = requestAnimationFrame(() => {
+          frame = 0
+          ctx.add(() => { header(); hero(); scan() })
+          ScrollTrigger.refresh()
+        })
       })
       const root = document.querySelector('.workspace')
       if (root) observer.observe(root, { childList: true, subtree: true, characterData: true })
