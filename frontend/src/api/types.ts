@@ -1,3 +1,5 @@
+export type User = { id: string; name: string; email?: string | null; avatar_url?: string | null }
+export type AuthProvider = { id: 'google' | 'github'; label: string; enabled: boolean }
 export type Project = { id: string; name: string; organization_name?: string; description?: string; created_at: string }
 export type Title = {
   id: string; project_id: string; name: string; english_title?: string; synopsis: string

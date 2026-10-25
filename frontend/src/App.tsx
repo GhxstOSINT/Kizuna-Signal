@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { api } from './api'
 import { AppShell } from './components/AppShell'
+import { LoadingState } from './components/Primitives'
+import { useAuth } from './auth'
+import { LoginPage } from './pages/LoginPage'
 import { DeleteAnalysisPage } from './pages/DeleteAnalysisPage'
 import { DragonCursor } from './motion/DragonCursor'
 import { Interactions } from './motion/Interactions'
@@ -15,6 +18,7 @@ import { PortfolioPage } from './pages/PortfolioPage'
 import { ScenarioPage } from './pages/ScenarioPage'
 
 export default function App() {
+  const { user } = useAuth()
   const [connected, setConnected] = useState(false)
   useEffect(() => {
     let active = true
@@ -34,12 +38,24 @@ export default function App() {
       document.removeEventListener('visibilitychange', handleVisibility)
     }
   }, [])
-  return <AppShell connected={connected}>
+  const effects = <>
     <ScrollMotion />
     <Sakura />
     <Interactions />
     <DragonCursor />
+  </>
+  if (user === undefined) return <>{effects}<div className="login-page"><LoadingState label="Checking your session" /></div></>
+  if (user === null) return <>
+    {effects}
     <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
+  </>
+  return <AppShell connected={connected}>
+    {effects}
+    <Routes>
+      <Route path="/login" element={<Navigate to="/" replace />} />
       <Route path="/" element={<PortfolioPage connected={connected} />} />
       <Route path="/new" element={<NewAnalysisPage connected={connected} />} />
       <Route path="/analysis/:analysisId" element={<AnalysisPage connected={connected} />} />

@@ -11,8 +11,22 @@ os.environ["KIZUNA_DEMO_MODE"] = "true"
 
 from fastapi.testclient import TestClient  # noqa: E402
 
-from app.db.session import Base, engine  # noqa: E402
+from app.core.config import get_settings  # noqa: E402
+from app.db.models import User  # noqa: E402
+from app.db.session import Base, SessionLocal, engine  # noqa: E402
 from app.main import app  # noqa: E402
+from app.services.auth.sessions import COOKIE, create_session  # noqa: E402
+
+
+def sign_in(test_client: TestClient, name: str = "Test User") -> User:
+    """Create a user and give the client their session cookie."""
+    with SessionLocal() as db:
+        user = User(name=name, email=f"{name.lower().replace(' ', '.')}@example.com")
+        db.add(user)
+        db.commit()
+        token = create_session(db, user, get_settings().session_ttl_days)
+    test_client.cookies.set(COOKIE, token)
+    return user
 
 
 @pytest.fixture(autouse=True)
@@ -25,7 +39,23 @@ def clean_database():
 
 @pytest.fixture
 def client():
+    """A signed-in browser: every project route needs a user."""
     with TestClient(app) as test_client:
+        sign_in(test_client)
+        yield test_client
+
+
+@pytest.fixture
+def anonymous_client():
+    with TestClient(app) as test_client:
+        yield test_client
+
+
+@pytest.fixture
+def other_client():
+    """A second signed-in person, for checking that portfolios stay separate."""
+    with TestClient(app) as test_client:
+        sign_in(test_client, "Other Person")
         yield test_client
 
 

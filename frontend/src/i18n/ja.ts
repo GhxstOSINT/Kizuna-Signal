@@ -17,6 +17,24 @@ export const ja: Record<string, string> = {
   'Pre-release intelligence for Japanese media entering India.': '日本のメディアがインドへ進出するための、公開前インテリジェンス。',
   'Project team': 'プロジェクトチーム',
 
+  // Sign-in
+  'Sign in to Kizuna Signal': '絆シグナルにサインイン',
+  'New here? Pick a provider and your own private portfolio is created the first time you sign in.': 'はじめての方も、プロバイダーを選ぶだけ。初回サインイン時に、あなた専用のポートフォリオが作成されます。',
+  'Continue with Google': 'Googleで続ける',
+  'Continue with GitHub': 'GitHubで続ける',
+  'Not configured on this server': 'このサーバーでは未設定です',
+  'The sign-in service could not be reached.': 'サインインサービスに接続できません。',
+  'No sign-in provider is configured on this server yet.': 'このサーバーにはまだサインインプロバイダーが設定されていません。',
+  'We only read your name, email address and profile picture.': '読み取るのは、お名前・メールアドレス・プロフィール画像のみです。',
+  'That sign-in method is not set up on this server yet.': 'このサインイン方法は、サーバーでまだ設定されていません。',
+  'Sign-in was cancelled. Nothing was changed.': 'サインインはキャンセルされました。変更はありません。',
+  'The sign-in link expired or came from another browser. Please try again.': 'サインインのリンクの有効期限が切れたか、別のブラウザーから開かれました。もう一度お試しください。',
+  'The provider could not complete the sign-in. Please try again.': 'プロバイダー側でサインインを完了できませんでした。もう一度お試しください。',
+  'Checking your session': 'セッションを確認しています',
+  'Sign out': 'サインアウト',
+  'Your portfolio': 'あなたのポートフォリオ',
+  'Sign in to continue': 'サインインしてください',
+
   // Signal rail
   'LIVE API': 'ライブAPI',
   'OFFLINE': 'オフライン',

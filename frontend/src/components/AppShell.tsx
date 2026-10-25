@@ -1,6 +1,7 @@
-import { Activity, BarChart3, BookOpen, FlaskConical, Github, LayoutGrid, Plus, ScrollText, Settings } from 'lucide-react'
+import { Activity, BarChart3, BookOpen, FlaskConical, LayoutGrid, LogOut, Plus, ScrollText, Settings } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../auth'
 import { applyLang, useI18n } from '../i18n'
 import { japaneseFor } from '../motion/jp'
 import { FoxMark } from './FoxMark'
@@ -18,6 +19,7 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
   const { lang, t, setLang } = useI18n()
   const dark = theme === 'dark'
   const dragon = useDragonCursorSetting()
+  const { user, signOut } = useAuth()
   const [settingsOpen, setSettingsOpen] = useState(false)
   const closeTimer = useRef<number>()
   useEffect(() => () => window.clearTimeout(closeTimer.current), [])
@@ -67,10 +69,11 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
           </button>
         </div>}
         <p>{t('Pre-release intelligence for Japanese media entering India.')}</p>
-        <div className="workspace-profile">
-          <span className="workspace-profile-logo"><Github size={19} strokeWidth={1.8} /></span>
-          <span><strong>@GhxstOSINT</strong><small>{t('Project team')}</small></span>
-        </div>
+        {user && <div className="workspace-profile">
+          <span className="workspace-profile-logo">{user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : user.name.slice(0, 1).toUpperCase()}</span>
+          <span><strong>{user.name}</strong><small>{user.email || t('Your portfolio')}</small></span>
+          <button type="button" className="sign-out" onClick={() => void signOut()} aria-label={t('Sign out')} title={t('Sign out')}><LogOut size={16} strokeWidth={1.8} /></button>
+        </div>}
       </div>
     </aside>
     <main className="workspace">{children}</main>

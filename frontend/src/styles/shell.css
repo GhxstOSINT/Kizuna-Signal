@@ -87,15 +87,47 @@
 .workspace-profile-logo {
   width: 34px;
   height: 34px;
+  flex: none;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border-radius: 50%;
   background: #1f211f;
   color: #fff;
+  font-weight: 600;
 }
-.workspace-profile > span:last-child {
+.workspace-profile-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.workspace-profile > span:nth-child(2) {
   display: grid;
   gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.workspace-profile strong,
+.workspace-profile small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sign-out {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.sign-out:hover {
+  background: var(--soft);
+  color: var(--ink);
 }
 .workspace-profile strong {
   color: var(--ink);

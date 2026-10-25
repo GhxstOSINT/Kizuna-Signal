@@ -7,6 +7,7 @@ Explainable pre-release market intelligence for Japanese media entering India. R
 
 | Task | Go to |
 |---|---|
+| Sign-in (Google/GitHub), sessions, who owns what | `backend/app/api/routes/auth.py`, `api/deps.py` (`current_user`, `owned_*`), `services/auth/`; frontend `src/auth.tsx`, `pages/LoginPage.tsx` |
 | Add or change an API route | `backend/app/api/routes/`, schemas in `backend/app/schemas/` |
 | Scoring, confidence, scenarios, playbook (rule-based analysis) | `backend/app/services/` |
 | An evidence source (AniList, Trends, Wikimedia, YouTube, survey) | `backend/app/services/sources/` (provider plug-ins) and `backend/app/adapters/` (raw collectors that cache to `data/raw/`) |
@@ -51,6 +52,8 @@ docker compose up --build                            # API + dashboard + Postgre
   `data/synthetic/`, rows labelled `PROXY synthetic`. Never copy synthetic rows into `data/survey/`.
 - **`data/training/` models are experiments**, not the production models, and are not wired into
   `backend/app/`. The real models live in `models/state/`.
+- **Every project/title/analysis route must depend on `current_user` and fetch through `owned_*` in
+  `app/api/deps.py`**, never `db.get(...)`, or one person's portfolio leaks into another's.
 - **Post-release outcomes are never features.** Keep leakage guards in `app/ml` intact.
 - In `frontend/src/styles/`, file order in `index.css` is the CSS cascade; `responsive.css` and
   `mobile-polish.css` must stay last.

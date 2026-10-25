@@ -28,6 +28,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(StarletteHTTPException)
     async def http_error_handler(_: Request, exc: StarletteHTTPException) -> JSONResponse:
         code_by_status = {
+            401: "unauthorized",
             404: "not_found",
             405: "method_not_allowed",
             409: "conflict",

@@ -70,6 +70,26 @@ Open the integrated dashboard at `http://localhost:3000` and the API documentati
 
 The website does not fabricate an offline result when the API is unavailable. It shows an explicit recovery state. The backend itself can still operate with its deterministic offline-safe adapters until authenticated live providers and the trained model runtime are supplied.
 
+## Sign-in and personal portfolios
+
+People sign in with Google or GitHub (the first sign-in creates the account) and every project,
+title, analysis, scenario and job belongs to the person who created it. Someone else's record
+answers 404, exactly like a missing one. The shared, stateless routes (`/predict`, `/model`,
+`/sources`, `/health`) stay public.
+
+1. Register an OAuth app with each provider you want. The callback URL is
+   `<KIZUNA_PUBLIC_URL>/api/v1/auth/google/callback` (or `.../github/callback`); locally that is
+   `http://localhost:4173/api/v1/auth/google/callback`, because the dashboard proxies `/api`.
+   - Google: Cloud Console → APIs & Services → Credentials → OAuth client ID (Web application).
+   - GitHub: Settings → Developer settings → OAuth Apps → New OAuth App.
+2. Put the ids and secrets in `.env` (`KIZUNA_GOOGLE_CLIENT_ID`, `KIZUNA_GOOGLE_CLIENT_SECRET`,
+   `KIZUNA_GITHUB_CLIENT_ID`, `KIZUNA_GITHUB_CLIENT_SECRET`) and set `KIZUNA_PUBLIC_URL` to the
+   address people open in the browser. A provider without both values shows as disabled.
+
+The session is an HttpOnly, SameSite=Lax cookie holding a random token (only its SHA-256 is
+stored). Signing in with Google and GitHub using the same *verified* email reaches the same
+portfolio. Projects created before sign-in existed have no owner and are not shown to anyone.
+
 ## Run tests
 
 ```powershell

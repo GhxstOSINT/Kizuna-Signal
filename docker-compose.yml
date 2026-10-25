@@ -16,6 +16,11 @@ services:
     environment:
       KIZUNA_DATABASE_URL: postgresql+psycopg://kizuna:kizuna@postgres:5432/kizuna
       KIZUNA_DEMO_MODE: "true"
+      KIZUNA_PUBLIC_URL: ${KIZUNA_PUBLIC_URL:-http://localhost:3000}
+      KIZUNA_GOOGLE_CLIENT_ID: ${KIZUNA_GOOGLE_CLIENT_ID:-}
+      KIZUNA_GOOGLE_CLIENT_SECRET: ${KIZUNA_GOOGLE_CLIENT_SECRET:-}
+      KIZUNA_GITHUB_CLIENT_ID: ${KIZUNA_GITHUB_CLIENT_ID:-}
+      KIZUNA_GITHUB_CLIENT_SECRET: ${KIZUNA_GITHUB_CLIENT_SECRET:-}
       KIZUNA_CORS_ORIGINS: '["http://localhost:3000","http://localhost:3002","http://localhost:4173","http://127.0.0.1:4173"]'
     ports:
       - "${KIZUNA_API_PORT:-8000}:8000"

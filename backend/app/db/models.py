@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from datetime import UTC, datetime
 
-from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -17,15 +17,65 @@ def utcnow() -> datetime:
     return datetime.now(UTC)
 
 
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    # Only a provider-verified address is stored, so it is safe to match accounts on it.
+    email: Mapped[str | None] = mapped_column(String(320), unique=True, nullable=True)
+    name: Mapped[str] = mapped_column(String(160))
+    avatar_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    last_login_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    accounts: Mapped[list[OAuthAccount]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+    projects: Mapped[list[Project]] = relationship(
+        back_populates="owner", cascade="all, delete-orphan"
+    )
+
+
+class OAuthAccount(Base):
+    """One sign-in identity (a Google or GitHub account) belonging to a user."""
+
+    __tablename__ = "oauth_accounts"
+    __table_args__ = (UniqueConstraint("provider", "provider_user_id"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    provider: Mapped[str] = mapped_column(String(20))
+    provider_user_id: Mapped[str] = mapped_column(String(120))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    user: Mapped[User] = relationship(back_populates="accounts")
+
+
+class AuthSession(Base):
+    """A signed-in browser. Only the SHA-256 of the cookie token is stored."""
+
+    __tablename__ = "auth_sessions"
+
+    token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class Project(Base):
     __tablename__ = "projects"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    # Null only for rows created before sign-in existed; nobody can see those.
+    owner_id: Mapped[str | None] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=True
+    )
     name: Mapped[str] = mapped_column(String(160), index=True)
     organization_name: Mapped[str | None] = mapped_column(String(160), nullable=True)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
+    owner: Mapped[User | None] = relationship(back_populates="projects")
     titles: Mapped[list[Title]] = relationship(
         back_populates="project", cascade="all, delete-orphan"
     )

@@ -976,6 +976,45 @@
         "title": "ProjectRead",
         "type": "object"
       },
+      "ProviderRead": {
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "enabled"
+        ],
+        "title": "ProviderRead",
+        "type": "object"
+      },
+      "ProvidersRead": {
+        "properties": {
+          "providers": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderRead"
+            },
+            "title": "Providers",
+            "type": "array"
+          }
+        },
+        "required": [
+          "providers"
+        ],
+        "title": "ProvidersRead",
+        "type": "object"
+      },
       "RegionalScore": {
         "properties": {
           "confidence": {
@@ -1805,6 +1844,46 @@
         "title": "TitleRead",
         "type": "object"
       },
+      "UserRead": {
+        "properties": {
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "UserRead",
+        "type": "object"
+      },
       "ValidationError": {
         "properties": {
           "ctx": {
@@ -1867,6 +1946,22 @@
               "title": "Analysis Id",
               "type": "string"
             }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
           }
         ],
         "responses": {
@@ -1899,6 +1994,22 @@
             "schema": {
               "title": "Analysis Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],
@@ -1942,6 +2053,22 @@
               "title": "Analysis Id",
               "type": "string"
             }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
           }
         ],
         "responses": {
@@ -1983,6 +2110,22 @@
             "schema": {
               "title": "Analysis Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],
@@ -2028,6 +2171,22 @@
               "title": "Analysis Id",
               "type": "string"
             }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
           }
         ],
         "requestBody": {
@@ -2065,6 +2224,118 @@
         "summary": "Create Scenario",
         "tags": [
           "analysis"
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "logout_api_v1_auth_logout_post",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Logout",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "operationId": "me_api_v1_auth_me_get",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Me",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/providers": {
+      "get": {
+        "operationId": "list_providers_api_v1_auth_providers_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvidersRead"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Providers",
+        "tags": [
+          "auth"
         ]
       }
     },
@@ -2121,6 +2392,22 @@
             "schema": {
               "title": "Job Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],
@@ -2277,6 +2564,24 @@
     "/api/v1/projects": {
       "get": {
         "operationId": "list_projects_api_v1_projects_get",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -2291,6 +2596,16 @@
               }
             },
             "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
           }
         },
         "summary": "List Projects",
@@ -2300,6 +2615,24 @@
       },
       "post": {
         "operationId": "create_project_api_v1_projects_post",
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2350,6 +2683,22 @@
               "title": "Project Id",
               "type": "string"
             }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
           }
         ],
         "responses": {
@@ -2391,6 +2740,22 @@
             "schema": {
               "title": "Project Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],
@@ -2435,6 +2800,22 @@
             "schema": {
               "title": "Project Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],
@@ -2511,6 +2892,22 @@
               "title": "Title Id",
               "type": "string"
             }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
+            }
           }
         ],
         "responses": {
@@ -2552,6 +2949,22 @@
             "schema": {
               "title": "Title Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],
@@ -2596,6 +3009,22 @@
             "schema": {
               "title": "Title Id",
               "type": "string"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "kizuna_session",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kizuna Session"
             }
           }
         ],

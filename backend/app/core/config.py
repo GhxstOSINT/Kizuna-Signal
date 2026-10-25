@@ -36,6 +36,15 @@ class Settings(BaseSettings):
         "http://127.0.0.1:4173",
     ]
     demo_mode: bool = True
+    # Sign-in. public_url is the address the browser uses (the dashboard, which proxies /api), so
+    # OAuth callbacks are `<public_url>/api/v1/auth/<provider>/callback`. A provider with no
+    # client id/secret is reported as not configured.
+    public_url: str = "http://localhost:4173"
+    google_client_id: str = ""
+    google_client_secret: str = ""
+    github_client_id: str = ""
+    github_client_secret: str = ""
+    session_ttl_days: int = 30
     source_timeout_seconds: float = 10.0
     source_user_agent: str = (
         "KizunaSignal/0.1 (https://github.com/hexbyte-work; hackathon prototype)"

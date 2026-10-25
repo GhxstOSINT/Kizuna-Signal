@@ -4,7 +4,8 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.db.models import Analysis, Job, Scenario, Title
+from app.api.deps import current_user, owned_analysis, owned_job, owned_title
+from app.db.models import Analysis, Job, Scenario, Title, User
 from app.db.session import get_db
 from app.schemas.analysis import (
     AnalysisCreated,
@@ -31,10 +32,9 @@ def start_analysis(
     background_tasks: BackgroundTasks,
     payload: SourceToggleRequest | None = None,
     db: Session = Depends(get_db),
+    user: User = Depends(current_user),
 ) -> AnalysisCreated:
-    title = db.get(Title, title_id)
-    if title is None:
-        raise HTTPException(status_code=404, detail="Title not found")
+    title = owned_title(db, user, title_id)
     analysis, job = create_analysis(db, title)
     disabled_sources = payload.disabled_sources if payload else []
     background_tasks.add_task(run_analysis_pipeline, analysis.id, disabled_sources)
@@ -42,17 +42,17 @@ def start_analysis(
 
 
 @router.get("/titles/{title_id}", response_model=TitleRead)
-def get_title(title_id: str, db: Session = Depends(get_db)) -> Title:
-    title = db.get(Title, title_id)
-    if title is None:
-        raise HTTPException(status_code=404, detail="Title not found")
-    return title
+def get_title(
+    title_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)
+) -> Title:
+    return owned_title(db, user, title_id)
 
 
 @router.get("/titles/{title_id}/analyses", response_model=list[AnalysisRead])
-def list_analyses(title_id: str, db: Session = Depends(get_db)) -> list[Analysis]:
-    if db.get(Title, title_id) is None:
-        raise HTTPException(status_code=404, detail="Title not found")
+def list_analyses(
+    title_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)
+) -> list[Analysis]:
+    owned_title(db, user, title_id)
     return list(
         db.scalars(
             select(Analysis)
@@ -63,22 +63,21 @@ def list_analyses(title_id: str, db: Session = Depends(get_db)) -> list[Analysis
 
 
 @router.get("/analyses/{analysis_id}", response_model=AnalysisRead)
-def get_analysis(analysis_id: str, db: Session = Depends(get_db)) -> Analysis:
-    analysis = db.get(Analysis, analysis_id)
-    if analysis is None:
-        raise HTTPException(status_code=404, detail="Analysis not found")
-    return analysis
+def get_analysis(
+    analysis_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)
+) -> Analysis:
+    return owned_analysis(db, user, analysis_id)
 
 
 @router.delete("/analyses/{analysis_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_analysis(analysis_id: str, db: Session = Depends(get_db)) -> None:
+def delete_analysis(
+    analysis_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)
+) -> None:
     """Delete an analysis with its job and scenarios.
 
     A title with no analyses left would be invisible in the portfolio, so it is removed too.
     """
-    analysis = db.get(Analysis, analysis_id)
-    if analysis is None:
-        raise HTTPException(status_code=404, detail="Analysis not found")
+    analysis = owned_analysis(db, user, analysis_id)
     title = analysis.title
     db.delete(analysis)
     db.flush()
@@ -89,21 +88,18 @@ def delete_analysis(analysis_id: str, db: Session = Depends(get_db)) -> None:
 
 
 @router.get("/analyses/{analysis_id}/result", response_model=AnalysisResult)
-def get_analysis_result(analysis_id: str, db: Session = Depends(get_db)) -> AnalysisResult:
-    analysis = db.get(Analysis, analysis_id)
-    if analysis is None:
-        raise HTTPException(status_code=404, detail="Analysis not found")
+def get_analysis_result(
+    analysis_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)
+) -> AnalysisResult:
+    analysis = owned_analysis(db, user, analysis_id)
     if analysis.result is None:
         raise HTTPException(status_code=409, detail=f"Analysis is {analysis.status}")
     return AnalysisResult.model_validate(analysis.result)
 
 
 @router.get("/jobs/{job_id}", response_model=JobRead)
-def get_job(job_id: str, db: Session = Depends(get_db)) -> Job:
-    job = db.get(Job, job_id)
-    if job is None:
-        raise HTTPException(status_code=404, detail="Job not found")
-    return job
+def get_job(job_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)) -> Job:
+    return owned_job(db, user, job_id)
 
 
 @router.post(
@@ -115,15 +111,12 @@ def create_scenario(
     analysis_id: str,
     payload: ScenarioCreate,
     db: Session = Depends(get_db),
+    user: User = Depends(current_user),
 ) -> Scenario:
-    analysis = db.get(Analysis, analysis_id)
-    if analysis is None:
-        raise HTTPException(status_code=404, detail="Analysis not found")
+    analysis = owned_analysis(db, user, analysis_id)
     if analysis.result is None:
         raise HTTPException(status_code=409, detail="Analysis has not completed")
-    title = db.get(Title, analysis.title_id)
-    if title is None:
-        raise HTTPException(status_code=404, detail="Title not found")
+    title = analysis.title
     base = AnalysisResult.model_validate(analysis.result)
     result = run_scenario(title, base, payload)
     scenario = Scenario(
@@ -139,9 +132,10 @@ def create_scenario(
 
 
 @router.get("/analyses/{analysis_id}/scenarios", response_model=list[ScenarioRead])
-def list_scenarios(analysis_id: str, db: Session = Depends(get_db)) -> list[Scenario]:
-    if db.get(Analysis, analysis_id) is None:
-        raise HTTPException(status_code=404, detail="Analysis not found")
+def list_scenarios(
+    analysis_id: str, db: Session = Depends(get_db), user: User = Depends(current_user)
+) -> list[Scenario]:
+    owned_analysis(db, user, analysis_id)
     return list(
         db.scalars(
             select(Scenario)
