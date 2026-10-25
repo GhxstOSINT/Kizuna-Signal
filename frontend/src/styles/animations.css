@@ -250,6 +250,34 @@ html.dragon-cursor textarea {
   background: var(--soft);
   color: var(--ink);
 }
+/* Opening and closing fold the panel's height and fade it, so the Settings button glides up and down with it. */
+.settings-collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: settings-open 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.settings-collapse[data-open="false"] {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+  animation: settings-close 0.26s cubic-bezier(0.4, 0, 0.6, 1);
+}
+.settings-collapse-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+@keyframes settings-open {
+  from { grid-template-rows: 0fr; opacity: 0; }
+  to { grid-template-rows: 1fr; opacity: 1; }
+}
+@keyframes settings-close {
+  from { grid-template-rows: 1fr; opacity: 1; }
+  to { grid-template-rows: 0fr; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .settings-collapse,
+  .settings-collapse[data-open="false"] { animation: none; }
+}
 .settings-panel {
   margin-bottom: 8px;
   padding: 6px;

@@ -21,6 +21,13 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
   const dragon = useDragonCursorSetting()
   const { user, signOut } = useAuth()
   const [settingsOpen, setSettingsOpen] = useState(false)
+  // The panel stays mounted while it plays its closing animation, then unmounts.
+  const [panelMounted, setPanelMounted] = useState(false)
+  useEffect(() => {
+    if (settingsOpen) { setPanelMounted(true); return }
+    const timer = window.setTimeout(() => setPanelMounted(false), 260)
+    return () => window.clearTimeout(timer)
+  }, [settingsOpen])
   const closeTimer = useRef<number>()
   useEffect(() => () => window.clearTimeout(closeTimer.current), [])
   // Apply a setting, then fold the panel back to the Settings button after the switch has visibly moved.
@@ -60,7 +67,7 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
           <Settings size={17} strokeWidth={1.7} />
           <span>{t('Settings')}</span>
         </button>
-        {settingsOpen && <div className="settings-panel" id="settings-panel">
+        {panelMounted && <div className="settings-collapse" id="settings-panel" data-open={settingsOpen}><div className="settings-collapse-inner"><div className="settings-panel">
           <div className="setting-row static">
             <span><strong>{t('Language')}</strong><small>{t('Language of the interface')}</small></span>
             <span className="lang-switch" role="group" aria-label={t('Language')}>
@@ -76,7 +83,7 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
             <span><strong>{t('Dragon cursor')}</strong><small>{t('An ember-trailing serpent that follows your mouse')}</small></span>
             <span className="setting-track" aria-hidden="true" />
           </button>
-        </div>}
+        </div></div></div>}
         {user && <div className="workspace-profile">
           <span className="workspace-profile-logo">{user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : user.name.slice(0, 1).toUpperCase()}</span>
           <span><strong>{user.name}</strong><small>{user.email || t('Your portfolio')}</small></span>
