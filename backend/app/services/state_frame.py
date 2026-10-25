@@ -7,7 +7,14 @@ import pandas as pd
 from app.ml.features import titles_frame
 from app.ml.schema import TitleRecord
 
-FORMATS = {"anime_series": "TV", "anime_film": "MOVIE"}
+FORMATS = {
+    "anime_series": "TV",
+    "anime_film": "MOVIE",
+    "anime_short": "TV_SHORT",
+    "anime_ova": "OVA",
+    "anime_ona": "ONA",
+    "anime_special": "SPECIAL",
+}
 
 
 def make_frame(

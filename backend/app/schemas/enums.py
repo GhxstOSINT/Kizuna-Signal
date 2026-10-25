@@ -4,6 +4,10 @@ from enum import StrEnum
 class ContentFormat(StrEnum):
     ANIME_SERIES = "anime_series"
     ANIME_FILM = "anime_film"
+    ANIME_SHORT = "anime_short"
+    ANIME_OVA = "anime_ova"
+    ANIME_ONA = "anime_ona"
+    ANIME_SPECIAL = "anime_special"
     LIVE_ACTION_SERIES = "live_action_series"
     LIVE_ACTION_FILM = "live_action_film"
     GAME = "game"

@@ -33,15 +33,14 @@
 }
 .release-period-trigger {
   width: 100%;
-  min-height: 52px;
+  min-height: 44px;
   margin-top: 7px;
-  padding: 12px 13px;
+  padding: 12px 40px 12px 13px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   border: 1px solid var(--rule);
   border-radius: 8px;
-  background: #fff;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23171817' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -161,6 +160,13 @@ select:focus,
 textarea:focus {
   border-color: #6f7370;
   box-shadow: 0 0 0 3px rgba(40, 50, 45, 0.07);
+}
+select {
+  min-height: 44px;
+  padding-right: 40px;
+  appearance: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23171817' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;
+  cursor: pointer;
 }
 textarea {
   min-height: 126px;

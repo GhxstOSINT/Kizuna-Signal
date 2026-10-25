@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api } from '../api'
 import { PageHeader, SignalRail } from '../components/AppShell'
+import { formatLabel } from '../lib/formats'
 import { ErrorState, LoadingState, StatusBadge } from '../components/Primitives'
 import type { Analysis, Title } from '../api/types'
 
@@ -45,7 +46,7 @@ export function DeleteAnalysisPage({ connected }: { connected: boolean }) {
     <PageHeader title="Delete analysis" description="Review what will be removed before you confirm." />
     <SignalRail connected={connected} label="CONFIRM DELETION" />
     <section className="delete-confirm" aria-labelledby="delete-heading">
-      <span>{title ? `${title.content_format} · ${title.primary_genre}` : 'Analysis'}</span>
+      <span>{title ? `${formatLabel(title.content_format)} · ${title.primary_genre}` : 'Analysis'}</span>
       <h2 id="delete-heading">Delete the analysis for “{name}”?</h2>
       <p><StatusBadge status={analysis.result ? analysis.result.decision_classification : analysis.status} /></p>
       <p>This permanently removes:</p>

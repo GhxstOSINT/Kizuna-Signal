@@ -348,6 +348,10 @@
         "enum": [
           "anime_series",
           "anime_film",
+          "anime_short",
+          "anime_ova",
+          "anime_ona",
+          "anime_special",
           "live_action_series",
           "live_action_film",
           "game",
