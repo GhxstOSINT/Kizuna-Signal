@@ -1,8 +1,11 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, ConfigDict, Field
+from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
 
 from app.schemas.analysis import LaunchRecommendation
+from app.schemas.project import utc_iso
 
 
 class ScenarioCreate(BaseModel):
@@ -39,3 +42,8 @@ class ScenarioRead(BaseModel):
     name: str
     overrides: dict
     result: ScenarioResult
+    created_at: datetime
+
+    @field_serializer("created_at")
+    def serialize_created_at(self, value: datetime) -> str:
+        return utc_iso(value)

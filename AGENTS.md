@@ -10,6 +10,9 @@ Explainable pre-release market intelligence for Japanese media entering India. R
 | Add or change an API route | `backend/app/api/routes/`, schemas in `backend/app/schemas/` |
 | Scoring, confidence, scenarios, playbook (rule-based analysis) | `backend/app/services/` |
 | An evidence source (AniList, Trends, Wikimedia, YouTube, survey) | `backend/app/services/sources/` (provider plug-ins) and `backend/app/adapters/` (raw collectors that cache to `data/raw/`) |
+| State-level signals: CSV import, per-capita index, partner tilt, Trends history | `backend/app/services/state_signals.py`, route `backend/app/api/routes/state_signals.py`, table `state_signals` (CSV template in `data/templates/`) |
+| Native-script Trends terms (Wikipedia language links) | `backend/app/services/sources/vernacular.py` |
+| Levenshtein title/description/genre/platform/budget scoring | `backend/app/services/levenshtein.py`, report: `backend/scripts/dev/levenshtein_report.py` |
 | Database models and session | `backend/app/db/` |
 | Settings, errors, logging, **filesystem paths** | `backend/app/core/` |
 | State model, `/predict`, success score | `backend/app/ml/` (map in its `__init__.py`), served by `backend/app/api/routes/predict.py` |

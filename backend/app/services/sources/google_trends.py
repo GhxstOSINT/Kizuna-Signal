@@ -10,6 +10,7 @@ from typing import Any
 from app.db.models import Title
 from app.services.census import resolve_state
 from app.services.sources.base import MALFORMED_RESPONSE_ERRORS, SourceAdapter, SourceEvidence
+from app.services.sources.vernacular import combine_state_interest
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +61,9 @@ class GoogleTrendsAdapter(SourceAdapter):
         cooldown_seconds: int = 15 * 60,
         trends_factory: Callable[[], Any] | None = None,
         clock: Callable[[], float] = time.monotonic,
+        term_provider: Callable[[Title], list[tuple[str, str]]] | None = None,
+        max_terms: int = 4,
+        pause_seconds: float = 1.5,
     ):
         self.geo = geo
         self.benchmark = benchmark
@@ -67,6 +71,10 @@ class GoogleTrendsAdapter(SourceAdapter):
         self.cooldown_seconds = cooldown_seconds
         self.trends_factory = trends_factory or (lambda: default_trends_factory(timeout))
         self.clock = clock
+        # (language code, native-script name) pairs searched in addition to the main keyword.
+        self.term_provider = term_provider
+        self.max_terms = max(1, max_terms)
+        self.pause_seconds = pause_seconds
 
     def collect(self, title: Title) -> SourceEvidence:
         keyword = (title.english_title or title.name).strip()
@@ -143,6 +151,10 @@ class GoogleTrendsAdapter(SourceAdapter):
         else:
             if not regional:
                 warnings.append("Google Trends returned no state-level interest for this title.")
+        terms_used = [f"en:{keyword}"]
+        if regional:
+            regional, extra_terms = self._add_native_terms(title, regional, warnings)
+            terms_used.extend(extra_terms)
 
         return SourceEvidence(
             source=self.name,
@@ -164,9 +176,43 @@ class GoogleTrendsAdapter(SourceAdapter):
                 "geo": self.geo,
                 "timeframe": TIMEFRAME,
                 "keyword": keyword,
+                "terms": " | ".join(terms_used),
                 "benchmark": self.benchmark if use_benchmark else "none",
             },
         )
+
+    def _add_native_terms(
+        self, title: Title, regional: dict[str, dict[str, float]], warnings: list[str]
+    ) -> tuple[dict[str, dict[str, float]], list[str]]:
+        """Fold native-script searches into the state split (best effort; never fails the source)."""
+        if self.term_provider is None:
+            return regional, []
+        try:
+            terms = self.term_provider(title)[: self.max_terms - 1]
+        except Exception as exc:  # noqa: BLE001 - native names are an enrichment only
+            logger.warning("trends_native_terms_failed", extra={"error": str(exc)})
+            return regional, []
+        vectors = [("en", {state: v["interest"] for state, v in regional.items()})]
+        used: list[str] = []
+        for lang, term in terms:
+            if self.pause_seconds:
+                time.sleep(self.pause_seconds)
+            try:
+                extra = self._fetch_regions(term)
+            except TrendsRateLimited:
+                GoogleTrendsAdapter._blocked_until = self.clock() + self.cooldown_seconds
+                warnings.append("Native-script Google Trends searches skipped: rate limit reached.")
+                break
+            except Exception as exc:  # noqa: BLE001 - skip a term that cannot be queried
+                logger.warning("trends_native_term_failed", extra={"term": term, "error": str(exc)})
+                continue
+            if extra:
+                vectors.append((lang, {state: v["interest"] for state, v in extra.items()}))
+                used.append(f"{lang}:{term}")
+        if not used:
+            return regional, []
+        combined = combine_state_interest(vectors)
+        return {state: {"interest": value} for state, value in combined.items()}, used
 
     def _fetch_regions(self, keyword: str) -> dict[str, dict[str, float]]:
         """Per-state interest (0-100, top state = 100) keyed by canonical Census state name."""

@@ -1,4 +1,4 @@
-import type { Analysis, Job, ModelCard, PortfolioItem, Project, Scenario, Title } from './types'
+import type { Analysis, Job, ModelCard, PortfolioItem, Project, Scenario, StateSignal, StateSignalImportResult, Title } from './types'
 
 const API = import.meta.env.VITE_API_URL || '/api/v1'
 
@@ -21,6 +21,20 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json()
 }
 
+async function uploadCsv<T>(path: string, file: File, source: string): Promise<T> {
+  const form = new FormData()
+  form.append('file', file)
+  form.append('source', source)
+  const response = await fetch(`${API}${path}`, { method: 'POST', body: form })
+  if (!response.ok) {
+    const body = await response.json().catch(() => null)
+    const detail = body?.detail
+    const message = typeof detail === 'string' ? detail : detail?.message || (Array.isArray(detail) ? detail.map((item) => item.msg).join(', ') : '')
+    throw new ApiError(message || `Request failed with status ${response.status}.`, response.status)
+  }
+  return response.json()
+}
+
 export const api = {
   readiness: () => request<{ status: string; database: string; demo_mode: boolean; model_status: 'ready' | 'fallback'; model_version: string; feature_version: string; scoring_version: string }>('/health/ready'),
   modelCard: () => request<ModelCard>('/model'),
@@ -36,6 +50,8 @@ export const api = {
   createTitle: (projectId: string, body: Record<string, unknown>) => request<Title>(`/projects/${projectId}/titles`, { method: 'POST', body: JSON.stringify(body) }),
   startAnalysis: (titleId: string) => request<{ analysis_id: string; job_id: string; status: string }>(`/titles/${titleId}/analyses`, { method: 'POST', body: '{}' }),
   listScenarios: (analysisId: string) => request<Scenario[]>(`/analyses/${analysisId}/scenarios`),
+  listStateSignals: (titleId: string) => request<StateSignal[]>(`/titles/${titleId}/state-signals`),
+  importStateSignals: (titleId: string, file: File, source: string) => uploadCsv<StateSignalImportResult>(`/titles/${titleId}/state-signals/import`, file, source),
   createScenario: (analysisId: string, body: Record<string, unknown>) => request<Scenario>(`/analyses/${analysisId}/scenarios`, { method: 'POST', body: JSON.stringify(body) }),
 }
 

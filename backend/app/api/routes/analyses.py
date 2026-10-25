@@ -125,7 +125,7 @@ def create_scenario(
     if title is None:
         raise HTTPException(status_code=404, detail="Title not found")
     base = AnalysisResult.model_validate(analysis.result)
-    result = run_scenario(title, base, payload)
+    result = run_scenario(title, base, payload, analysis.source_snapshot)
     scenario = Scenario(
         analysis_id=analysis.id,
         name=payload.name,

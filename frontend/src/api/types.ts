@@ -56,3 +56,11 @@ export type Scenario = {
   created_at: string
 }
 export type PortfolioItem = { project: Project; title: Title; analysis: Analysis }
+export type StateSignal = {
+  id: string; title_id: string; state: string; source: string; metric: string; value: number
+  as_of: string; detail: Record<string, unknown>
+}
+export type StateSignalImportResult = {
+  imported: number; rejected: { row: number; reason: string }[]; rejected_count: number
+  import_batch: string; state_index: Record<string, number> | null
+}

@@ -28,7 +28,9 @@ Everything below is run from the repository root.
 - State-level opportunity ranking
 - Explainable positive and negative drivers
 - Comparable-title evidence
-- Scenario comparison for platform, localization, budget and target regions
+- Scenario comparison for platform, localization, budget and target regions; the score change comes from re-running the evidence formulas (Census language coverage, disabled sources), and platform, budget and localization mode change only cost, reach and the plan
+- State-level signals: import partner, platform or Ormax viewing by state as CSV (`POST /api/v1/titles/{id}/state-signals/import`, template in `data/templates/`); volume metrics are normalised per capita and tilt state scores by up to +/-8 points. Live Google Trends state interest is stored as a dated history and now averages native-script searches (Hindi, Tamil, Bengali...) found through Wikipedia language links
+- Levenshtein similarity scoring of titles, descriptions, genres, platforms and budgets (`backend/scripts/dev/levenshtein_report.py`)
 - Rule-based launch playbook grounded in model outputs
 - PostgreSQL-ready SQLAlchemy models, with SQLite as the zero-setup default
 - Docker Compose with PostgreSQL and pgvector
