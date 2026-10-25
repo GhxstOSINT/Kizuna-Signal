@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { api } from './api'
 import { AppShell } from './components/AppShell'
+import { DeleteAnalysisPage } from './pages/DeleteAnalysisPage'
 import { AnalysisPage } from './pages/AnalysisPage'
 import { MethodologyPage } from './pages/MethodologyPage'
 import { NewAnalysisPage } from './pages/NewAnalysisPage'
@@ -34,6 +35,7 @@ export default function App() {
       <Route path="/" element={<PortfolioPage connected={connected} />} />
       <Route path="/new" element={<NewAnalysisPage connected={connected} />} />
       <Route path="/analysis/:analysisId" element={<AnalysisPage connected={connected} />} />
+      <Route path="/analysis/:analysisId/delete" element={<DeleteAnalysisPage connected={connected} />} />
       <Route path="/analysis/:analysisId/scenarios" element={<ScenarioPage connected={connected} />} />
       <Route path="/analysis/:analysisId/playbook" element={<PlaybookPage connected={connected} />} />
       <Route path="/methodology" element={<MethodologyPage connected={connected} />} />

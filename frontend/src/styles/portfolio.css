@@ -133,7 +133,7 @@
 }
 .title-row {
   display: grid;
-  grid-template-columns: minmax(260px, 1.35fr) 135px minmax(260px, 1fr) 46px;
+  grid-template-columns: minmax(260px, 1.35fr) 135px minmax(260px, 1fr) auto;
   gap: 28px;
   align-items: center;
   padding: 27px 0;
@@ -240,7 +240,16 @@
   font-size: 12px;
   margin: 5px 0 0;
 }
+.row-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
 .row-action {
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
   width: 44px;
   height: 44px;
   border: 1px solid var(--rule);
@@ -253,6 +262,11 @@
   background: var(--ink);
   color: #fff;
   transform: translateX(2px);
+}
+.row-action.danger:hover:not(:disabled) {
+  background: var(--red);
+  border-color: var(--red);
+  transform: none;
 }
 .state-block {
   min-height: 320px;
@@ -288,4 +302,37 @@
   to {
     transform: rotate(360deg);
   }
+}
+.delete-confirm {
+  max-width: 640px;
+  margin-top: 22px;
+  padding: 34px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: #f7f7f5;
+}
+.delete-confirm > span {
+  font: 10px "IBM Plex Mono";
+  text-transform: uppercase;
+  color: #5f625f;
+}
+.delete-confirm h2 {
+  font: 400 35px/1.1 "Instrument Serif";
+  margin: 8px 0 14px;
+}
+.delete-confirm p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+.delete-confirm ul {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0 0 24px;
+  padding-left: 18px;
+}
+.delete-confirm .action-pair {
+  gap: 12px;
 }

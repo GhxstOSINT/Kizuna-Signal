@@ -13,7 +13,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .title-row {
-    grid-template-columns: 1fr 100px 1fr 42px;
+    grid-template-columns: 1fr 100px 1fr auto;
     gap: 18px;
   }
   .region-lane {
@@ -83,7 +83,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .title-row {
-    grid-template-columns: 1fr 80px 42px;
+    grid-template-columns: 1fr 80px auto;
   }
   .title-evidence {
     grid-column: 1/4;
@@ -193,7 +193,7 @@
     padding: 16px;
   }
   .title-row {
-    grid-template-columns: 1fr 65px 38px;
+    grid-template-columns: 1fr 65px auto;
   }
   .title-score strong {
     font-size: 43px;

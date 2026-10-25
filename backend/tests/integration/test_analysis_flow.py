@@ -97,3 +97,31 @@ def test_failed_analysis_does_not_leak_exception_details(client, created_title, 
         assert payload["error_message"]
         assert "s3cr3t" not in str(payload)
         assert "internal_table" not in str(payload)
+
+
+def test_delete_analysis_removes_it_and_keeps_title_with_other_analyses(client, created_title):
+    first = start_and_read_analysis(client, created_title["id"])
+    second = start_and_read_analysis(client, created_title["id"])
+    client.post(
+        f"/api/v1/analyses/{first['id']}/scenarios",
+        json={"name": "Bigger budget", "marketing_budget": "high"},
+    )
+
+    deleted = client.delete(f"/api/v1/analyses/{first['id']}")
+    assert deleted.status_code == 204
+    assert client.get(f"/api/v1/analyses/{first['id']}").status_code == 404
+    remaining = client.get(f"/api/v1/titles/{created_title['id']}/analyses").json()
+    assert [item["id"] for item in remaining] == [second["id"]]
+
+
+def test_delete_last_analysis_also_removes_its_title(client, created_title):
+    analysis = start_and_read_analysis(client, created_title["id"])
+    project_id = created_title["project_id"]
+
+    assert client.delete(f"/api/v1/analyses/{analysis['id']}").status_code == 204
+    titles = client.get(f"/api/v1/projects/{project_id}/titles").json()
+    assert titles == []
+
+
+def test_delete_unknown_analysis_is_404(client):
+    assert client.delete("/api/v1/analyses/does-not-exist").status_code == 404

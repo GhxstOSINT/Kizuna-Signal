@@ -61,6 +61,24 @@ def get_analysis(analysis_id: str, db: Session = Depends(get_db)) -> Analysis:
     return analysis
 
 
+@router.delete("/analyses/{analysis_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_analysis(analysis_id: str, db: Session = Depends(get_db)) -> None:
+    """Delete an analysis with its job and scenarios.
+
+    A title with no analyses left would be invisible in the portfolio, so it is removed too.
+    """
+    analysis = db.get(Analysis, analysis_id)
+    if analysis is None:
+        raise HTTPException(status_code=404, detail="Analysis not found")
+    title = analysis.title
+    db.delete(analysis)
+    db.flush()
+    db.refresh(title)
+    if not title.analyses:
+        db.delete(title)
+    db.commit()
+
+
 @router.get("/analyses/{analysis_id}/result", response_model=AnalysisResult)
 def get_analysis_result(analysis_id: str, db: Session = Depends(get_db)) -> AnalysisResult:
     analysis = db.get(Analysis, analysis_id)

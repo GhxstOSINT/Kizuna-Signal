@@ -17,6 +17,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     const message = Array.isArray(detail) ? detail.map((item) => item.msg).join(', ') : detail
     throw new ApiError(message || `Request failed with status ${response.status}.`, response.status)
   }
+  if (response.status === 204) return undefined as T
   return response.json()
 }
 
@@ -28,6 +29,7 @@ export const api = {
   listTitles: (projectId: string) => request<Title[]>(`/projects/${projectId}/titles`),
   listAnalyses: (titleId: string) => request<Analysis[]>(`/titles/${titleId}/analyses`),
   getAnalysis: (id: string) => request<Analysis>(`/analyses/${id}`),
+  deleteAnalysis: (id: string) => request<void>(`/analyses/${id}`, { method: 'DELETE' }),
   getJob: (id: string) => request<Job>(`/jobs/${id}`),
   createProject: (body: { name: string; description?: string }) => request<Project>('/projects', { method: 'POST', body: JSON.stringify(body) }),
   createTitle: (projectId: string, body: Record<string, unknown>) => request<Title>(`/projects/${projectId}/titles`, { method: 'POST', body: JSON.stringify(body) }),

@@ -1753,6 +1753,40 @@
   "openapi": "3.1.0",
   "paths": {
     "/api/v1/analyses/{analysis_id}": {
+      "delete": {
+        "description": "Delete an analysis with its job and scenarios.\n\nA title with no analyses left would be invisible in the portfolio, so it is removed too.",
+        "operationId": "delete_analysis_api_v1_analyses__analysis_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysis_id",
+            "required": true,
+            "schema": {
+              "title": "Analysis Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Analysis",
+        "tags": [
+          "analysis"
+        ]
+      },
       "get": {
         "operationId": "get_analysis_api_v1_analyses__analysis_id__get",
         "parameters": [

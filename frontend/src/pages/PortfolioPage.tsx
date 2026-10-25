@@ -1,4 +1,4 @@
-import { ArrowRight, Plus, Search } from 'lucide-react'
+import { ArrowRight, Plus, Search, Trash2 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { loadPortfolio } from '../api'
@@ -54,7 +54,10 @@ export function PortfolioPage({ connected }: { connected: boolean }) {
             <div className="title-score"><strong>{Math.round(result.market_potential_score)}</strong><span>/100</span><small>Market potential</small></div>
             <div className="title-evidence"><dl><div><dt>Confidence</dt><dd>{Math.round(result.confidence_score)}%</dd></div><div><dt>Top market</dt><dd>{result.regional_scores[0]?.state || 'Not available'}</dd></div><div><dt>Language</dt><dd>{result.regional_scores[0]?.recommended_language || 'Not available'}</dd></div></dl></div>
           </> : <div className="title-evidence"><p>Analysis has not produced a result yet.</p></div>}
-          <Link className="row-action" to={`/analysis/${analysis.id}`} aria-label={`Open ${title.name} analysis`}><ArrowRight /></Link>
+          <div className="row-actions">
+            <Link className="row-action danger" to={`/analysis/${analysis.id}/delete`} aria-label={`Delete ${title.name} analysis`}><Trash2 size={18} /></Link>
+            <Link className="row-action" to={`/analysis/${analysis.id}`} aria-label={`Open ${title.name} analysis`}><ArrowRight /></Link>
+          </div>
         </article>
       })}
     </section>}
