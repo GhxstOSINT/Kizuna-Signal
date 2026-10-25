@@ -143,6 +143,12 @@ fieldset {
   font-size: 15px;
   color: #5f625f;
 }
+.req {
+  margin-left: 3px;
+  color: #e0601a;
+  font-size: 0.85em;
+  vertical-align: top;
+}
 input,
 textarea {
   width: 100%;
