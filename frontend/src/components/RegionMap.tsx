@@ -59,7 +59,7 @@ export function RegionMap({ regions }: { regions: Region[] }) {
       <h3>{t(active.state)}</h3>
       <div className="region-detail-score"><strong>{Math.round(active.score)}</strong><span>/100 · {t('Confidence')} {Math.round(active.confidence)}%</span></div>
       <p className="region-detail-meta"><MapPin size={13} />{t(active.recommended_language)} · {t(active.preferred_platform)}</p>
-      {active.reasons.length > 0 && <ul>{active.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>}
+      {active.reasons.length > 0 && <ul>{active.reasons.map((reason) => <li key={reason}>{t(reason)}</li>)}</ul>}
       <ol className="region-ranking" aria-label={t('All regions by score')}>
         {ranked.map((region, index) => <li key={region.state}>
           <button type="button" className={region.state === active.state ? 'active' : ''} aria-pressed={region.state === active.state} onClick={() => setSelected(region.state)}>

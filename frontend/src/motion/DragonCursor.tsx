@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
 import { useDragonCursorSetting } from '../settings'
 import { prefersReducedMotion } from './ScrollMotion'
@@ -11,7 +12,7 @@ type Ember = { x: number; y: number; vx: number; vy: number; life: number; max: 
 type Palette = { tail: [number, number, number]; head: [number, number, number]; spike: string; eye: string; glow: string }
 
 const PALETTES: Record<'light' | 'dark', Palette> = {
-  light: { tail: [88, 18, 14], head: [214, 62, 44], spike: '#e8a93a', eye: '#ffe08a', glow: '255, 120, 60' },
+  light: { tail: [104, 44, 12], head: [238, 112, 36], spike: '#f2b33d', eye: '#ffe08a', glow: '238, 112, 36' },
   dark: { tail: [128, 34, 14], head: [255, 150, 70], spike: '#ffd08a', eye: '#fff3c4', glow: '255, 138, 61' },
 }
 
@@ -240,5 +241,5 @@ export function DragonCursor() {
       root.classList.remove('dragon-cursor')
     }
   }, [enabled])
-  return enabled ? <canvas className="dragon-canvas" ref={ref} aria-hidden="true" /> : null
+  return enabled ? createPortal(<canvas className="dragon-canvas" ref={ref} aria-hidden="true" />, document.body) : null
 }

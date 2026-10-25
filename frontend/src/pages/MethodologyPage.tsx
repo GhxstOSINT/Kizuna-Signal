@@ -19,14 +19,14 @@ function SourceLogo({source}:{source:string}){
 }
 
 export function MethodologyPage({connected}:{connected:boolean}){
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
   const[health,setHealth]=useState<{mode:string;sources:{source:string;status:string}[];policy:string}|null>(null)
   const[model,setModel]=useState<ModelCard|null>(null)
   useEffect(()=>{api.sourceHealth().then(setHealth).catch(()=>setHealth(null));api.modelCard().then(setModel).catch(()=>setModel(null))},[])
   const sources=health?.sources||[{source:'anilist',status:'unconfigured'},{source:'google_trends',status:'unconfigured'},{source:'youtube',status:'unconfigured'},{source:'wikimedia',status:'unconfigured'},{source:'regional_context',status:'unconfigured'}]
   return <div className="page methodology-page">
     <PageHeader title="Methodology and system truth" description="How Kizuna turns inputs into a decision, and what the current build can honestly claim."/>
-    <SignalRail connected={connected} label={health?.mode ? health.mode.toUpperCase() : 'SOURCE HEALTH UNAVAILABLE'}/>
+    <SignalRail connected={connected} label={health?.mode ? (lang === 'ja' ? t(health.mode) : health.mode.toUpperCase()) : 'SOURCE HEALTH UNAVAILABLE'}/>
     <section className="method-hero"><div><Sigma/><h2>{t('Opportunity and confidence are separate.')}</h2></div><p>{t('The market-potential score compares launch opportunity. Confidence describes evidence coverage, freshness, quality and comparable strength. Neither guarantees revenue, viewership or prediction accuracy.')}</p></section>
     <section><SectionHeading title="Current scoring contract" note={model?t('Trained model {version}. Displayed weights are nominal; only components with evidence that pass held-out validation contribute to a title score.',{version:model.model_version}):'The trained model is unavailable. New analyses will disclose use of the deterministic fallback.'}/><div className="formula"><span>{t('Market potential')}</span>{components.map(([name,weight])=><div key={name}><strong>{weight}</strong><p>{t(name)}</p></div>)}</div><div className="method-rows">{components.map(([name,weight,detail])=><article key={name}><strong>{t(name)}</strong><span>{weight}</span><p>{t(detail)}</p></article>)}</div></section>
     <section><SectionHeading title="Capability status" note="A quick view of what is connected and what remains unavailable."/><div className="capability-list"><Capability good={connected} title={t('Analysis service')} detail={connected?t('Serves and persists the complete dashboard analysis flow.'):t('Not reachable from this browser.')}/><Capability good={Boolean(model)} title={t('Trained model')} detail={model?t('{titles} labelled titles across {states} states. Loaded as {version}.',{titles:model.n_labelled_titles,states:model.n_states,version:model.model_version}):t('No deployable model artifact is currently loaded.')}/><Capability good={Boolean(model?.success_model)} title={t('Outcome calibration')} detail={model?.success_model?t('The success score uses held-out content and comparable validation, then ranks against the reference title set.'):t('The outcome-calibration model is unavailable.')}/><Capability good={Boolean(health)} title={t('Source adapter')} detail={t('Unavailable sources lower confidence and never create evidence.')}/></div></section>

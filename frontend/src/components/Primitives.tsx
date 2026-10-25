@@ -1,20 +1,21 @@
-import { AlertTriangle, ArrowUpRight, Check, Database, LoaderCircle, ShieldCheck } from 'lucide-react'
+import { AlertTriangle, ArrowUpRight, Check, ShieldCheck } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useI18n } from '../i18n'
+import { FoxMark } from './FoxMark'
 
 export function LoadingState({ label = 'Loading intelligence' }: { label?: string }) {
   const { t } = useI18n()
-  return <div className="state-block"><LoaderCircle className="spin" /><h2>{t(label)}</h2><p>{t('The evidence plane will resolve when the backend responds.')}</p></div>
+  return <div className="state-block"><FoxMark className="fox-mark-pulse" size={52} /><h2>{t(label)}</h2><p>{t('The evidence plane will resolve when the backend responds.')}</p></div>
 }
 
 export function ErrorState({ title = 'The backend could not be reached', message, retry }: { title?: string; message: string; retry?: () => void }) {
   const { t } = useI18n()
-  return <div className="state-block error"><AlertTriangle /><h2>{t(title)}</h2><p>{t(message)}</p>{retry && <button className="button dark" onClick={retry}>{t('Try again')}</button>}</div>
+  return <div className="state-block error"><FoxMark variant="outline" size={52} /><h2>{t(title)}</h2><p>{t(message)}</p>{retry && <button className="button dark" onClick={retry}>{t('Try again')}</button>}</div>
 }
 
 export function EmptyState({ action }: { action: ReactNode }) {
   const { t } = useI18n()
-  return <div className="state-block empty"><Database /><h2>{t('No analysed titles yet')}</h2><p>{t('Add a Japanese title and Kizuna will create the first evidence snapshot for India.')}</p>{action}</div>
+  return <div className="state-block empty"><FoxMark variant="outline" size={52} /><h2>{t('No analysed titles yet')}</h2><p>{t('Add a Japanese title and Kizuna will create the first evidence snapshot for India.')}</p>{action}</div>
 }
 
 export function Stat({ value, label, suffix }: { value: string | number; label: string; suffix?: string }) {
@@ -43,7 +44,7 @@ export function ScoreField({ score, confidence, interval, classification, origin
         <div><dt>{t('Evidence confidence')}</dt><dd>{Math.round(confidence)}%</dd></div>
         <div><dt>{t('Expected range')}</dt><dd>{t('{low} to {high}', { low: Math.round(interval[0]), high: Math.round(interval[1]) })}</dd></div>
       </dl>
-      {meaning&&<p className="score-meaning">{meaning}</p>}
+      {meaning&&<p className="score-meaning">{t(meaning)}</p>}
     </div>
   </section>
 }

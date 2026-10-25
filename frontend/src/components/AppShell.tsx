@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import { applyLang, useI18n } from '../i18n'
 import { japaneseFor } from '../motion/jp'
+import { FoxMark } from './FoxMark'
 import { useDragonCursorSetting } from '../settings'
 import { useTheme } from '../theme'
 
@@ -18,11 +19,15 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
   const dark = theme === 'dark'
   const dragon = useDragonCursorSetting()
   const [settingsOpen, setSettingsOpen] = useState(false)
-  useEffect(() => { applyLang(lang) }, [lang])
+  useEffect(() => {
+    applyLang(lang)
+    document.title = lang === 'ja' ? '絆シグナル｜公開前インテリジェンス' : 'Kizuna Signal'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', t('Pre-release intelligence for Japanese media entering India.'))
+  }, [lang, t])
   return <div className="app-shell">
     <aside className="sidebar">
       <NavLink to="/" className="brand" aria-label={t('Kizuna Signal home')}>
-        <span className="brand-mark" aria-hidden="true"><span /></span>
+        <FoxMark className="brand-fox" size={30} />
         <span>Kizuna Signal</span>
         <span className="brand-kanji" lang="ja" aria-hidden="true">絆</span>
       </NavLink>
@@ -67,7 +72,6 @@ export function AppShell({ children }: { children: ReactNode; connected?: boolea
 export function SignalRail({ connected, label = 'Evidence system ready' }: { connected: boolean; label?: string }) {
   const { t } = useI18n()
   return <div className={`signal-rail ${connected ? 'is-live' : ''}`} role="status">
-    <div className="spectral-line" aria-hidden="true" />
     <span className="signal-dot" />
     <span>{connected ? t('LIVE API') : t('OFFLINE')}</span>
     <i />
