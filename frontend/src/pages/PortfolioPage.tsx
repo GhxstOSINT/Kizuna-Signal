@@ -5,8 +5,11 @@ import { loadPortfolio } from '../api'
 import { canonicalFormat, contentFormats, formatLabel } from '../lib/formats'
 import { PageHeader, SignalRail } from '../components/AppShell'
 import { EmptyState, ErrorState, LoadingState, Stat, StatusBadge } from '../components/Primitives'
+import { Select } from '../components/Select'
 import { useI18n } from '../i18n'
 import type { PortfolioItem } from '../api/types'
+
+const formatOptions = [{ value: 'all', label: 'All formats' }, ...contentFormats]
 
 export function PortfolioPage({ connected }: { connected: boolean }) {
   const { t } = useI18n()
@@ -32,9 +35,7 @@ export function PortfolioPage({ connected }: { connected: boolean }) {
     <PageHeader title="Portfolio" description="Pre-release intelligence for Japanese media entering India." action={<Link className="button dark" to="/new"><Plus size={16} /> {t('Analyse new title')}</Link>} />
     <div className="filter-row">
       <label className="search"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('Search by title')} aria-label={t('Search titles')} /></label>
-      <select value={format} onChange={(e) => setFormat(e.target.value)} aria-label={t('Filter by content format')}>
-        <option value="all">{t('All formats')}</option>{contentFormats.map((f) => <option key={f.value} value={f.value}>{t(f.label)}</option>)}
-      </select>
+      <Select ariaLabel="Filter by content format" value={format} onChange={setFormat} options={formatOptions} />
     </div>
     <SignalRail connected={connected} label={t('{count} TITLES IN VIEW', { count: visible.length })} />
     <section className="portfolio-hero">

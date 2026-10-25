@@ -20,6 +20,11 @@
 }
 html {
   scroll-behavior: smooth;
+  /* Page still scrolls (wheel, trackpad, keys); only the bar is hidden. */
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
 }
 body {
   margin: 0;

@@ -24,6 +24,7 @@
   overflow-wrap: anywhere;
 }
 .form-section .field-grid + .field-grid,
-.form-section .field-grid + label {
+.form-section .field-grid + label,
+.form-section > label + .field-grid {
   margin-top: 14px;
 }
