@@ -275,6 +275,26 @@
         "title": "AnalysisResult",
         "type": "object"
       },
+      "Body_import_state_signals_api_v1_titles__title_id__state_signals_import_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          },
+          "source": {
+            "default": "partner_import",
+            "maxLength": 80,
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_state_signals_api_v1_titles__title_id__state_signals_import_post",
+        "type": "object"
+      },
       "ComparableTitle": {
         "properties": {
           "market_signal": {
@@ -873,6 +893,103 @@
           }
         },
         "title": "SourceToggleRequest",
+        "type": "object"
+      },
+      "StateSignalImportResult": {
+        "properties": {
+          "import_batch": {
+            "title": "Import Batch",
+            "type": "string"
+          },
+          "imported": {
+            "title": "Imported",
+            "type": "integer"
+          },
+          "rejected": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Rejected",
+            "type": "array"
+          },
+          "rejected_count": {
+            "title": "Rejected Count",
+            "type": "integer"
+          },
+          "state_index": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State Index"
+          }
+        },
+        "required": [
+          "imported",
+          "rejected",
+          "rejected_count",
+          "import_batch",
+          "state_index"
+        ],
+        "title": "StateSignalImportResult",
+        "type": "object"
+      },
+      "StateSignalRead": {
+        "properties": {
+          "as_of": {
+            "format": "date",
+            "title": "As Of",
+            "type": "string"
+          },
+          "detail": {
+            "additionalProperties": true,
+            "title": "Detail",
+            "type": "object"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "metric": {
+            "title": "Metric",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          },
+          "title_id": {
+            "title": "Title Id",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "title_id",
+          "state",
+          "source",
+          "metric",
+          "value",
+          "as_of",
+          "detail"
+        ],
+        "title": "StateSignalRead",
         "type": "object"
       },
       "TitleCreate": {
@@ -1849,6 +1966,105 @@
         "summary": "Start Analysis",
         "tags": [
           "analysis"
+        ]
+      }
+    },
+    "/api/v1/titles/{title_id}/state-signals": {
+      "get": {
+        "operationId": "list_state_signals_api_v1_titles__title_id__state_signals_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "title_id",
+            "required": true,
+            "schema": {
+              "title": "Title Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StateSignalRead"
+                  },
+                  "title": "Response List State Signals Api V1 Titles  Title Id  State Signals Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List State Signals",
+        "tags": [
+          "state-signals"
+        ]
+      }
+    },
+    "/api/v1/titles/{title_id}/state-signals/import": {
+      "post": {
+        "description": "Import partner, Ormax or platform analytics. CSV columns: state, metric, value, [as_of], [source].",
+        "operationId": "import_state_signals_api_v1_titles__title_id__state_signals_import_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "title_id",
+            "required": true,
+            "schema": {
+              "title": "Title Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_state_signals_api_v1_titles__title_id__state_signals_import_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StateSignalImportResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Import State Signals",
+        "tags": [
+          "state-signals"
         ]
       }
     }

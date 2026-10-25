@@ -151,3 +151,22 @@ Comparable titles use measured AniList data (`data/real/comparables_anilist.json
 `python scripts/fetch_real_comparables.py`). Scenarios recompute the score from the stored evidence
 with the changed platform, budget, languages and states instead of applying fixed bonuses.
 `python scripts/reanalyse_titles.py` re-runs every stored title on live data.
+
+## State-level signals
+
+Every state-level measurement is stored in `state_signals` (title, state, source, metric, value,
+`as_of` date, detail). Two kinds feed the regional scores:
+
+- **Google Trends (automatic):** state interest is averaged over up to five search terms: the
+  English name, the original name and native-script names from Wikipedia language links
+  (Hindi, Bengali, Tamil, Marathi, Telugu, Kannada, Malayalam). A term in a state's own language
+  counts double there. One dated snapshot per title and day is kept as history. Shifts a state by up
+  to +/-5 points.
+- **Partner / Ormax / platform data (import):** `POST /api/v1/titles/{id}/state-signals/import`
+  with a CSV (`data/templates/state_signals_template.csv`): columns `state, metric, value, as_of,
+  source`. Volume metrics (`views`, `watch_hours`, `streams`, `viewers`, `subscribers`) are divided
+  by Census 2011 population so big states do not win by size; rate metrics (`index`,
+  `share_of_state_pct`, `penetration_pct`, `completion_rate_pct`) are used as given. Invalid rows are
+  reported, not stored. Needs at least 3 states. Shifts a state by up to +/-8 points.
+
+`GET /api/v1/titles/{id}/state-signals` lists what is stored.

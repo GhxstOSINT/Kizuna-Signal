@@ -35,3 +35,8 @@ Demand/engagement come from offline demo adapters until live sources are connect
 Live adapters (Wikimedia, AniList, Google Trends incl. state interest, YouTube) are the default.
 Comparable signals are measured from AniList. Scenarios recompute from stored evidence. The
 synthetic factor table (`score_synthetic.py`) still uses simulated demand/engagement columns.
+
+## Update: state-level data
+`state_signals` table holds dated state measurements. Trends state interest (multi-term, vernacular)
+is recorded automatically; partner CSVs are imported via the API and tilt regional scores by up to
++/-8 points after per-capita normalisation.

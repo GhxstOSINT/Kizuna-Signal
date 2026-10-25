@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import logging
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db.models import Analysis, Job, Title
 from app.db.session import SessionLocal
+from app.ml.census import STATES
 from app.schemas.analysis import AnalysisResult, SourceStatus
 from app.services.comparables import find_comparables
 from app.services.confidence import calculate_confidence, confidence_interval
@@ -21,6 +22,7 @@ from app.services.scoring import (
     decision_classification,
 )
 from app.services.sources import build_registry
+from app.services.state_signals import ParsedRow, load_partner_index, replace_source_for_day
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -36,6 +38,22 @@ def update_job(db: Session, job: Job, progress: int, stage: str, status: str = "
     job.status = status
     job.updated_at = utcnow()
     db.commit()
+
+
+def _record_trends_by_state(db: Session, title_id: str, evidence: list) -> None:
+    """Keep a dated history of the live Google Trends state interest in `state_signals`."""
+    trends = next((e for e in evidence if e.source == "google_trends" and e.status == "available"), None)
+    if trends is None:
+        return
+    rows = [
+        ParsedRow(state, "index", float(trends.metrics[f"state_interest_{state}"]), date.today(), "google_trends")
+        for state in STATES
+        if f"state_interest_{state}" in trends.metrics
+    ]
+    if rows:
+        replace_source_for_day(
+            db, title_id, "google_trends", rows, {"terms": trends.provenance.get("terms", "")}
+        )
 
 
 def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None = None) -> None:
@@ -80,7 +98,9 @@ def run_analysis_pipeline(analysis_id: str, disabled_sources: list[str] | None =
                 f"Market potential uses {len(component_scores)} of {len(WEIGHTS)} factors "
                 f"(no evidence for: {', '.join(missing)}); weights were renormalised."
             )
-        regions = calculate_regional_scores(title, market_score, confidence, evidence)
+        _record_trends_by_state(db, title.id, evidence)
+        partner_index = load_partner_index(db, title.id)
+        regions = calculate_regional_scores(title, market_score, confidence, evidence, partner_index)
 
         update_job(db, job, 75, "generating explanations and confidence interval")
         positive, negative = build_drivers(component_scores, title, evidence)

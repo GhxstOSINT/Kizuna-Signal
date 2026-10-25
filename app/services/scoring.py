@@ -143,11 +143,21 @@ def state_interest_tilt(evidence: list[SourceEvidence]) -> dict[str, float] | No
     return {s: max(-5.0, min(5.0, 0.2 * (v - mean))) for s, v in interest.items()}
 
 
+def partner_tilt(index: dict[str, float] | None) -> dict[str, float] | None:
+    """Imported state data (per-capita index, top state = 100) as points above/below the mean of
+    the states that have data (capped at +/-8; stronger than Trends because it is measured viewing)."""
+    if not index or len(index) < 3:
+        return None
+    mean = statistics.mean(index.values())
+    return {s: max(-8.0, min(8.0, 0.3 * (v - mean))) for s, v in index.items()}
+
+
 def calculate_regional_scores(
     title: Title,
     market_score: float,
     confidence: float,
     evidence: list[SourceEvidence] | None = None,
+    partner_index: dict[str, float] | None = None,
 ) -> list[RegionalScore]:
     selected_languages = {item.lower() for item in title.target_languages}
     selected_states = set(title.target_states)
@@ -161,10 +171,13 @@ def calculate_regional_scores(
         state_languages={s: p["language"] for s, p in STATE_PROFILES.items()},
     )
     tilt = state_interest_tilt(evidence or [])
+    partner = partner_tilt(partner_index)
     for state, profile in STATE_PROFILES.items():
         demand = modelled[state]["demand"] if modelled else profile["base"]
         if tilt:
             demand = clamp(demand + tilt[state])
+        if partner and state in partner:
+            demand = clamp(demand + partner[state])
         language_match = 5 if profile["language"].lower() in selected_languages else 0
         target_match = 4 if state in selected_states else 0
         platform_match = 2 if title.target_platform.lower() in {"ott", "undecided"} else 0
@@ -193,6 +206,11 @@ def calculate_regional_scores(
         if tilt:
             reasons.append(
                 f"Google Trends state search interest shifts this market by {tilt[state]:+.1f} points."
+            )
+        if partner and state in partner:
+            reasons.append(
+                f"Imported viewing data (per-capita index {partner_index[state]:.0f}/100) shifts "
+                f"this market by {partner[state]:+.1f} points."
             )
         if language_match:
             reasons.append(f"The proposed localization includes {profile['language']}.")

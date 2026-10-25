@@ -106,22 +106,49 @@ class _HttpAdapter(SourceAdapter):
         raise NotImplementedError
 
 
+def resolve_article(client: httpx.Client, headers: dict[str, str], title: Title) -> tuple[str, float] | None:
+    """The English Wikipedia article for a title (Levenshtein-matched), or None."""
+    for query in _candidates(title):
+        r = client.get(
+            "https://en.wikipedia.org/w/api.php",
+            params={"action": "opensearch", "search": query, "limit": 6, "format": "json"},
+            headers=headers,
+        )
+        r.raise_for_status()
+        found = best_match(title, r.json()[1])
+        if found:
+            return found
+    return None
+
+
+# Wikipedia editions for the state languages, in descending order of covered population.
+VERNACULAR_LANGS = ("hi", "bn", "ta", "mr", "te", "kn", "ml")
+LOCAL_LANG = {
+    "Uttar Pradesh": "hi", "Delhi NCR": "hi", "West Bengal": "bn", "Tamil Nadu": "ta",
+    "Maharashtra": "mr", "Telangana": "te", "Karnataka": "kn", "Kerala": "ml",
+}
+
+
+def vernacular_terms(client: httpx.Client, headers: dict[str, str], article: str) -> dict[str, str]:
+    """Native-script names of the work from Wikipedia language links (language code -> title)."""
+    r = client.get(
+        "https://en.wikipedia.org/w/api.php",
+        params={"action": "query", "titles": article, "prop": "langlinks", "lllimit": 500,
+                "format": "json"},
+        headers=headers,
+    )
+    r.raise_for_status()
+    pages = r.json().get("query", {}).get("pages", {})
+    links = next(iter(pages.values()), {}).get("langlinks", [])
+    found = {link["lang"]: link["*"] for link in links if link["lang"] in VERNACULAR_LANGS}
+    return {lang: found[lang] for lang in VERNACULAR_LANGS if lang in found}
+
+
 class WikimediaLive(_HttpAdapter):
     name = "wikimedia"
 
     def _collect(self, title: Title) -> SourceEvidence:
-        found: tuple[str, float] | None = None
-        for query in _candidates(title):
-            r = self.client.get(
-                "https://en.wikipedia.org/w/api.php",
-                params={"action": "opensearch", "search": query, "limit": 6, "format": "json"},
-                headers=self.headers,
-            )
-            r.raise_for_status()
-            options = r.json()[1]
-            found = best_match(title, options)
-            if found:
-                break
+        found = resolve_article(self.client, self.headers, title)
         if not found:
             return _unavailable(self.name, "no Wikipedia article matched this title")
         article = found[0].replace(" ", "_")
@@ -287,27 +314,84 @@ class YouTubeLive(_HttpAdapter):
         )
 
 
+def combine_state_interest(vectors: list[tuple[str, dict[str, float]]]) -> dict[str, float]:
+    """Average several search terms' state vectors (each 0-100, top state = 100).
+
+    `vectors` holds (language, {state: interest}). A term in a state's own language counts double
+    there, because that is how people in that state actually search. All-zero vectors are skipped.
+    """
+    usable = [(lang, vec) for lang, vec in vectors if vec and max(vec.values()) > 0]
+    if not usable:
+        return {}
+    out: dict[str, float] = {}
+    for state in STATES:
+        total = weight_sum = 0.0
+        for lang, vec in usable:
+            if state in vec:
+                weight = 2.0 if lang == LOCAL_LANG.get(state) else 1.0
+                total += weight * vec[state]
+                weight_sum += weight
+        if weight_sum:
+            out[state] = round(total / weight_sum, 2)
+    return out if len(out) == len(STATES) else {}
+
+
 class TrendsLive(SourceAdapter):
-    """Google Trends via the optional, unofficial `pytrends` client (India, last 3 months)."""
+    """Google Trends via the optional, unofficial `pytrends` client (India, last 3 months).
+
+    National interest comes from the primary name. State interest averages the primary name, the
+    original-script name and native-script names from Wikipedia language links (Hindi, Bengali,
+    Tamil, Marathi, Telugu, Kannada, Malayalam), at most MAX_TERMS searches per title.
+    """
 
     name = "google_trends"
+    MAX_TERMS = 5
+    PAUSE_SECONDS = 1.5
 
-    @staticmethod
-    def _state_interest(client) -> dict[str, float]:
-        return _TrendsStates.fetch(client)
+    def __init__(self, client: httpx.Client | None = None, settings: Settings | None = None, factory=None):
+        self.client = client
+        self.settings = settings
+        self.factory = factory  # injectable pytrends-compatible class, for tests
+
+    def _terms(self, title: Title) -> list[tuple[str, str]]:
+        """(language, term) pairs, most important first, without duplicates."""
+        primary = title.english_title or title.name
+        terms = [("en", primary)]
+        if title.name.strip().lower() != primary.strip().lower():
+            terms.append(("ja", title.name))
+        if self.client and self.settings:
+            headers = {"User-Agent": f"KizunaSignal/0.2 (+{self.settings.source_contact_url})"}
+            try:
+                found = resolve_article(self.client, headers, title)
+                if found:
+                    for lang, term in vernacular_terms(self.client, headers, found[0]).items():
+                        terms.append((lang, term))
+            except (httpx.HTTPError, ValueError, KeyError):
+                pass  # vernacular names are an enhancement; English/original terms still work
+        seen: set[str] = set()
+        unique = []
+        for lang, term in terms:
+            if term.lower() not in seen:
+                seen.add(term.lower())
+                unique.append((lang, term))
+        return unique[: self.MAX_TERMS]
 
     def collect(self, title: Title) -> SourceEvidence:
-        try:
-            from pytrends.request import TrendReq
-        except ImportError:
-            return _unavailable(self.name, "optional package 'pytrends' is not installed")
+        if self.factory is None:
+            try:
+                from pytrends.request import TrendReq
+            except ImportError:
+                return _unavailable(self.name, "optional package 'pytrends' is not installed")
+        else:
+            TrendReq = self.factory  # noqa: N806
         global _trends_blocked_until
         if time.time() < _trends_blocked_until:
             return _unavailable(self.name, "Google Trends is rate-limiting requests; retrying later")
+        terms = self._terms(title)
         client, frame, error = TrendReq(hl="en-IN", tz=330, timeout=(5, 15)), None, None
         for attempt in range(2):  # one retry: the unofficial endpoint intermittently answers 429
             try:
-                client.build_payload([title.english_title or title.name], geo="IN", timeframe="today 3-m")
+                client.build_payload([terms[0][1]], geo="IN", timeframe="today 3-m")
                 frame = client.interest_over_time()
                 break
             except Exception as exc:  # noqa: BLE001 - unofficial client raises assorted errors
@@ -323,7 +407,20 @@ class TrendsLive(SourceAdapter):
         if mean == 0:
             return _unavailable(self.name, "search interest too low to measure")
         recent, prior = statistics.mean(series[-4:]), statistics.mean(series[:-4]) or 1.0
-        by_state = self._state_interest(client)
+        vectors: list[tuple[str, dict[str, float]]] = []
+        used_terms = []
+        for index, (lang, term) in enumerate(terms):
+            if index:
+                time.sleep(self.PAUSE_SECONDS)
+                try:
+                    client.build_payload([term], geo="IN", timeframe="today 3-m")
+                except Exception:  # noqa: BLE001 - skip a term that cannot be queried
+                    continue
+            vector = _TrendsStates.fetch(client)
+            if vector:
+                vectors.append((lang, vector))
+                used_terms.append(f"{lang}:{term}")
+        by_state = combine_state_interest(vectors)
         return SourceEvidence(
             source=self.name,
             status="available",
@@ -334,6 +431,7 @@ class TrendsLive(SourceAdapter):
                 "momentum": clamp(50 + 50 * (recent - prior) / prior),
                 "stability": clamp(100 * (1 - min(1.0, statistics.pstdev(series) / mean))),
                 **{f"state_interest_{state}": value for state, value in by_state.items()},
+                "state_terms_used": float(len(used_terms)),
             },
             warnings=[
                 "Google Trends values are normalized relative interest, not absolute volume.",
@@ -341,6 +439,7 @@ class TrendsLive(SourceAdapter):
             ],
             provenance={"mode": "live", "geo": "IN", "timeframe": "today 3-m",
                         "client": "pytrends (unofficial)",
+                        "terms": " | ".join(used_terms),
                         "fetched_at": datetime.now(UTC).isoformat(timespec="seconds")},
         )
 
@@ -431,7 +530,7 @@ class LiveSourceRegistry:
         self.client = client or httpx.Client(timeout=httpx.Timeout(10.0), follow_redirects=True)
         self.disk = _DiskCache(settings.source_cache_dir)
         self.adapters: dict[str, SourceAdapter] = {
-            "google_trends": TrendsLive(),
+            "google_trends": TrendsLive(self.client, settings),
             "youtube": YouTubeLive(self.client, settings),
             "wikimedia": WikimediaLive(self.client, settings),
             "anilist": AniListLive(self.client, settings),

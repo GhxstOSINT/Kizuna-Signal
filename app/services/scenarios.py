@@ -58,7 +58,12 @@ def _evidence(base: AnalysisResult, scenario_title: Title, disabled: set[str]) -
     return evidence
 
 
-def run_scenario(title: Title, base: AnalysisResult, request: ScenarioCreate) -> ScenarioResult:
+def run_scenario(
+    title: Title,
+    base: AnalysisResult,
+    request: ScenarioCreate,
+    partner_index: dict[str, float] | None = None,
+) -> ScenarioResult:
     """Recompute the full score for the scenario from the stored evidence and the changed inputs.
 
     Platform, budget, languages and states flow through the real scoring and regional model.
@@ -71,7 +76,9 @@ def run_scenario(title: Title, base: AnalysisResult, request: ScenarioCreate) ->
     components = calculate_component_scores(scenario_title, evidence, comparables)
     scenario_score = calculate_market_score(components)
     scenario_confidence, _, _ = calculate_confidence(scenario_title, evidence, comparables)
-    regions = calculate_regional_scores(scenario_title, scenario_score, scenario_confidence, evidence)
+    regions = calculate_regional_scores(
+        scenario_title, scenario_score, scenario_confidence, evidence, partner_index
+    )
     recommendation = build_recommendation(
         scenario_title, scenario_score, scenario_confidence, regions, request.localization_mode
     )

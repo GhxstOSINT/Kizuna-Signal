@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 
-from sqlalchemy import JSON, DateTime, ForeignKey, String, Text
+from sqlalchemy import JSON, Date, DateTime, Float, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -120,3 +120,20 @@ class Job(Base):
     )
 
     analysis: Mapped[Analysis] = relationship(back_populates="job")
+
+
+class StateSignal(Base):
+    """One state-level measurement for a title, with its source and the date it describes."""
+
+    __tablename__ = "state_signals"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    title_id: Mapped[str] = mapped_column(ForeignKey("titles.id", ondelete="CASCADE"), index=True)
+    state: Mapped[str] = mapped_column(String(60), index=True)
+    source: Mapped[str] = mapped_column(String(80), index=True)
+    metric: Mapped[str] = mapped_column(String(60))
+    value: Mapped[float] = mapped_column(Float)
+    as_of: Mapped[date] = mapped_column(Date)
+    detail: Mapped[dict] = mapped_column(JSON, default=dict)
+    import_batch: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)

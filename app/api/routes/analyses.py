@@ -16,6 +16,7 @@ from app.schemas.analysis import (
 from app.schemas.scenario import ScenarioCreate, ScenarioRead
 from app.services.analysis import create_analysis, run_analysis_pipeline
 from app.services.scenarios import run_scenario
+from app.services.state_signals import load_partner_index
 
 router = APIRouter()
 
@@ -98,7 +99,7 @@ def create_scenario(
     if title is None:
         raise HTTPException(status_code=404, detail="Title not found")
     base = AnalysisResult.model_validate(analysis.result)
-    result = run_scenario(title, base, payload)
+    result = run_scenario(title, base, payload, load_partner_index(db, title.id))
     scenario = Scenario(
         analysis_id=analysis.id,
         name=payload.name,
